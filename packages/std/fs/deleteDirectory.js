@@ -34,7 +34,10 @@ function _deleteDirectory(path) {
 	return new Promise((resolve, reject) => {
 		rmdir(path, error => {
 			if (error) {
-				if (error.code === "ENOTEMPTY") {
+				// if `path` doesn't exist, the desired action is fulfilled
+				if (error.code === "ENOENT") {
+					resolve(path);
+				} else if (error.code === "ENOTEMPTY") {
 					resolve(
 						deleteDirectoryContent(path).then(() => _deleteDirectory(path))
 					);

@@ -56,3 +56,19 @@ test("deleteDirectory", async ({ end, ok, equal }) => {
 
 	end();
 });
+
+test("deleteDirectory - non existing path", async ({ end, ok, equal }) => {
+	const path = genPath();
+
+	await deleteDirectory(path);
+
+	try {
+		const status = fs.statSync(path);
+		console.log("Directory was not deleted:", path);
+		throw false;
+	} catch (error) {
+		equal(error.code, "ENOENT");
+	}
+
+	end();
+});
