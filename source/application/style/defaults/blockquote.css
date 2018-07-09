@@ -1,0 +1,19 @@
+blockquote {
+	position: relative;
+	margin: 1em 2.5em;
+}
+blockquote:before {
+	content: "\201C";
+	position: absolute;
+	top: -0.2em;
+	left: -0.6em;
+	font-size: 3em;
+	color: #e7edf0;
+}
+blockquote:after {
+	content: "\201D";
+	position: absolute;
+	right: -0.6em;
+	font-size: 3em;
+	color: #e7edf0;
+}

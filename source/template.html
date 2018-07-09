@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no viewport-fit=cover">
+
+		<title>${title}</title>
+
+		<style>
+	 		#application.is_loading {
+	 			position: relative;
+	 			width: 100vw;
+	 			height: 100vh;
+	 		}
+	 		#application.is_loading::after {
+				content: "Loading ...";
+				position: absolute;
+				padding: 1rem;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				font-weight: 100;
+				font-size: .875rem;
+				font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Verdana, sans-serif;
+				color: #8481a5;
+				animation: blinker 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+	 		}
+			@keyframes blinker {
+				50% { opacity: .1; }
+			}
+		</style>
+
+		${styles}
+	</head>
+	<body>
+		<div id="application" class="${state}"><!-- content --></div>
+
+		${scripts}
+	</body>
+</html>

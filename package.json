@@ -1,0 +1,25 @@
+{
+	"name": "navaru.com",
+	"version": "0.0.0-alpha",
+	"description": "navaru.com source code",
+	"repository": "https://github.com/ugin/navaru.com",
+	"author": "Eugen Tudorancea <eugen.tudorancea@gmail.com>",
+	"license": "MIT",
+	"private": true,
+	"workspaces": ["packages/*"],
+	"scripts": {
+		"nore:dev": "es packages/nore/source --mode development",
+		"nore:build": "es packages/nore/source --mode production"
+	},
+	"dependencies": {
+		"react": "^16.4.0",
+		"react-dom": "^16.4.0",
+		"loadable-components": "^2.2.2",
+		"query-string": "^6.1.0",
+		"cuid": "^2.1.1"
+	},
+	"devDependencies": {
+		"@nore/esm": "^1.2.0",
+		"nodemon": "^1.17.0"
+	}
+}

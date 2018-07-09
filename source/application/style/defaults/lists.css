@@ -1,0 +1,14 @@
+ul,
+ol,
+dd {
+	padding-left: 1.5em;
+	margin: 0;
+}
+
+ol ol {
+	list-style: lower-latin;
+}
+
+dl {
+	margin: 0;
+}

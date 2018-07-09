@@ -1,0 +1,13 @@
+{
+	"name": "@nore/nore-html",
+	"version": "1.0.0",
+	"description": "Handle .html files",
+	"main": "index.js",
+	"repository": "https://github.com/nore/nore-html",
+	"author": "Navaru",
+	"license": "MIT",
+	"dependencies": {
+		"html-webpack-plugin": "^4.0.0-alpha",
+		"html-loader": "^1.0.0-alpha.0"
+	}
+}

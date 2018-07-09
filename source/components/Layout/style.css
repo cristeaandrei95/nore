@@ -1,0 +1,11 @@
+.layout {
+	background: red;
+	height: 400px;
+}
+.menu {
+	padding: 1rem;
+}
+.menu_item {
+	padding: 1rem;
+	cursor: pointer;
+}

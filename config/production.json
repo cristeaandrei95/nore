@@ -1,0 +1,5 @@
+{
+	"title": "Production mode",
+	"browsers": "last 2 version",
+	"url": "https://navaru.test"
+}

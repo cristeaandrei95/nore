@@ -1,0 +1,60 @@
+# TODOs:
+# neutrals (gray) -- light / dark
+# hierarchy (tints)
+
+[application]
+# default layout background color
+background = "#fff679"
+
+
+[text]
+color = "#1a212c"
+size = "1rem"
+highlight = "#fff679" # select
+font = '''
+	-apple-system,
+	BlinkMacSystemFont,
+	"Segoe UI",
+	"Roboto",
+	"Oxygen",
+	"Ubuntu",
+	"Cantarell",
+	"Fira Sans",
+	"Droid Sans",
+	"Helvetica Neue",
+	sans-serif
+'''
+
+[action]
+text = ""
+background = ""
+
+[feedback.success]
+background = ""
+text = ""
+
+[feedback.error]
+background = ""
+text = ""
+
+[feedback.warning]
+background = ""
+text = ""
+
+[feedback.informational]
+background = ""
+text = ""
+
+
+# 1-3 brand colors - primary palette
+[brand.color]
+primary = ""
+secondary = ""
+tertiary = ""
+
+
+[space]
+horizontal = ".5em" # 8px
+# careful with text's line-height
+vertical = ".25em" # 4px
+# box model (border, margins, paddings)

@@ -1,0 +1,18 @@
+/*
+    !!! IMPORTANT: Non-standard use of <b> and <i> !!!
+
+    <b> is used as a block, replacement for <div>
+    <i> is used as an inline block, replacement for <span>
+*/
+b {
+	display: block;
+	font-weight: inherit;
+	background: transparent;
+}
+
+i {
+	display: inline-block;
+	vertical-align: baseline;
+	font-style: inherit;
+	background: transparent;
+}

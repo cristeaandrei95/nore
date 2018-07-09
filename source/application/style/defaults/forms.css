@@ -1,0 +1,94 @@
+form {
+	/* Prevent form element from influencing the layout */
+	display: block;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+	/* Change the font styles in all browsers */
+	font-family: inherit;
+	font-size: 100%;
+	line-height: inherit;
+	/* Remove the margin in Firefox and Safari */
+	margin: 0;
+}
+
+button,
+input {
+	/* Show the overflow in: IE, Edge */
+	overflow: visible;
+}
+
+button,
+select {
+	/* Remove the inheritance of text transform in Edge, Firefox, and IE */
+	text-transform: none;
+}
+
+textarea {
+	/* Remove the default vertical scrollbar in IE 10+ */
+	overflow: auto;
+	/* Allow only vertical resizing of textareas */
+	resize: vertical;
+}
+
+/* Correct the inability to style clickable types in iOS and Safari */
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+	-webkit-appearance: button;
+}
+
+/* Remove the inner border and padding in Firefox */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+	border-style: none;
+	padding: 0;
+}
+
+/* Restore the focus styles unset by the previous rule */
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+	outline: 1px dotted ButtonText;
+}
+
+[type="checkbox"],
+[type="radio"] {
+	/* Add the correct box sizing in IE 10 */
+	box-sizing: border-box;
+	/* Remove the padding in IE 10 */
+	padding: 0;
+}
+
+/* Correct the cursor style of increment and decrement buttons in Safari */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+	height: auto;
+}
+
+[type="search"] {
+	/* Correct the odd appearance in Chrome and Safari */
+	-webkit-appearance: textfield;
+	/* Correct the outline style in Safari */
+	outline-offset: -2px;
+}
+
+/* Remove the inner padding in Chrome and Safari on macOS */
+[type="search"]::-webkit-search-decoration {
+	-webkit-appearance: none;
+}
+
+::-webkit-file-upload-button {
+	/* Correct the inability to style clickable types in iOS and Safari */
+	-webkit-appearance: button;
+	/* Change font properties to `inherit` in Safari */
+	font: inherit;
+}

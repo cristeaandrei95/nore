@@ -1,0 +1,13 @@
+{
+	"name": "@nore/css",
+	"version": "1.0.0",
+	"description": "CSS Modules",
+	"main": "source/index.js",
+	"repository": "https://github.com/nore/css",
+	"author": "Navaru",
+	"license": "MIT",
+	"dependencies": {
+		"postcss": "^6.0.21",
+		"autoprefixer": "^8.3.0"
+	}
+}

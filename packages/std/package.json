@@ -1,0 +1,12 @@
+{
+	"name": "@nore/std",
+	"version": "1.0.0",
+	"description": "Nore standard library",
+	"author": "Navaru",
+	"license": "MIT",
+	"homepage": "https://github.com/nore/std#readme",
+	"repository": "https://github.com/nore/std",
+	"devDependencies": {
+		"tap": "^12.0.0"
+	}
+}

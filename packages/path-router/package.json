@@ -1,0 +1,17 @@
+{
+	"name": "@nore/path-router",
+	"version": "1.0.0",
+	"description": "URL path router",
+	"main": "dist/cjs.js",
+	"module": "source/index.js",
+	"repository": "https://github.com/nore/path-router",
+	"author": "Navaru",
+	"license": "MIT",
+	"scripts": {
+		"build": "rollup -c"
+	},
+	"devDependencies": {
+		"tap": "^12.0.0",
+		"rollup": "^0.62.0"
+	}
+}

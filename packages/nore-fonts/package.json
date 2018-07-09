@@ -1,0 +1,13 @@
+{
+	"name": "@nore/nore-fonts",
+	"version": "1.0.0",
+	"description": "Handle fonts",
+	"main": "index.js",
+	"repository": "https://github.com/nore/nore-fonts",
+	"author": "Navaru",
+	"license": "MIT",
+	"dependencies": {
+		"file-loader": "^1.1.0",
+		"url-loader": "^1.0.0"
+	}
+}

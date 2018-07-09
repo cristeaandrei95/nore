@@ -1,0 +1,175 @@
+body {
+	letter-spacing: 0;
+	font-weight: 400;
+	font-style: normal;
+
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-moz-font-feature-settings: "liga" on;
+
+	/* Text adjust is set to 100% to avoid iOS Safari bugs where the font-size is
+     sometimes not restored during orientation */
+	text-size-adjust: 100%;
+	-ms-overflow-style: scrollbar;
+	-webkit-tap-highlight-color: transparent;
+}
+
+/* TODO: review the block below, how's the default <hr> style? */
+hr {
+	/* A better looking default horizontal rule */
+	display: block;
+	margin: 1em 0;
+	height: 1px;
+	border: 0;
+	background-color: #edf2f7;
+	/* Add the correct box sizing in Firefox */
+	box-sizing: content-box;
+	/* Show the overflow in Edge and IE */
+	overflow: visible;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+h1 {
+	font-size: 2.4em;
+	margin: 0.5em 0;
+}
+h2 {
+	font-size: 2em;
+	margin: 0.5em 0;
+}
+h3 {
+	font-size: 1.6em;
+	margin: 0.5em 0;
+}
+h4 {
+	font-size: 1.4em;
+	margin: 0.5em 0;
+}
+h5 {
+	font-size: 1.2em;
+	margin: 0.5em 0;
+}
+h6 {
+	font-size: 1em;
+	margin: 0.5em 0;
+	text-transform: uppercase;
+}
+
+strong {
+	/* Add the correct font weight in: Chrome, Edge, Safari */
+	font-weight: bolder;
+}
+
+small {
+	/* Add the correct font size in all browsers */
+	font-size: 80%;
+}
+
+sub,
+sup {
+	/* Prevent `sub`, `sup` from affecting the line height */
+	line-height: 0;
+	font-size: 75%;
+	position: relative;
+	vertical-align: baseline;
+}
+sub {
+	bottom: -0.25em;
+}
+sup {
+	top: -0.5em;
+}
+
+abbr[title] {
+	/* Remove the bottom border in Chrome 57 */
+	border-bottom: none; /* 1 */
+	/* Add the correct text decoration in: Chrome, Edge, IE, Opera, Safari */
+	text-decoration: underline;
+	text-decoration: underline dotted;
+}
+
+ins,
+mark {
+	/* Address styling not present in IE 8/9 */
+	background-color: #ff0;
+	color: #000;
+}
+
+p {
+	padding: 0.25em 0;
+	margin: 0;
+}
+
+pre {
+	/* Hide longs strings of text and enable scrolling */
+	overflow: auto;
+}
+
+q {
+	/* Set consistent quote types */
+	quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+small {
+	/* Address inconsistent and variable font size in all browsers */
+	font-size: 80%;
+}
+
+strong {
+	/* Address style set to `bolder` in Firefox 4+, Safari 5, and Chrome */
+	font-weight: bold;
+}
+
+sub,
+sup {
+	font-size: 75%;
+	position: relative;
+	vertical-align: baseline;
+	/* Prevent `sub` and `sup` affecting `line-height` in all browsers. */
+	line-height: 0;
+}
+sup {
+	top: -0.5em;
+}
+sub {
+	bottom: -0.25em;
+}
+
+code,
+kbd,
+pre,
+var,
+samp {
+	/* Correct font family set oddly in Safari 5 and Chrome */
+	font-family: monospace, serif;
+	font-size: 1em;
+}
+
+code,
+pre {
+	padding: 0 0.25em;
+	background-color: #f6f9fc;
+}
+
+kbd {
+	padding: 0 0.25em;
+	background-color: #f6f9fc;
+	border-style: solid;
+	border-width: 1px 2px 2px 1px;
+}
+
+var {
+	padding: 0 0.25em;
+	font-weight: bold;
+	background-color: #f6f9fc;
+}

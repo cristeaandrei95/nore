@@ -1,0 +1,13 @@
+{
+	"name": "@nore/nore-md",
+	"version": "1.0.0",
+	"description": "Handle .md files",
+	"main": "index.js",
+	"repository": "https://github.com/nore/nore-md",
+	"author": "Navaru",
+	"license": "MIT",
+	"dependencies": {
+		"@nore/nore-js": "^1.0.0",
+		"@mdx-js/loader": "^0.13.0-0"
+	}
+}

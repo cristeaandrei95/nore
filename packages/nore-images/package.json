@@ -1,0 +1,21 @@
+{
+	"name": "@nore/nore-images",
+	"version": "1.0.0",
+	"description": "Handle images",
+	"main": "index.js",
+	"repository": "https://github.com/nore/nore-images",
+	"author": "Navaru",
+	"license": "MIT",
+	"dependencies": {
+		"file-loader": "^1.1.11",
+		"url-loader": "^1.0.1",
+		"imagemin": "^5.3.1",
+		"imagemin-webpack": "^3.0.0",
+		"imagemin-gifsicle": "^5.2.0",
+		"imagemin-mozjpeg": "^7.0.0",
+		"imagemin-jpegtran": "^5.0.2",
+		"imagemin-optipng": "^5.2.1",
+		"imagemin-pngquant": "^5.1.0",
+		"imagemin-svgo": "^6.0.0"
+	}
+}

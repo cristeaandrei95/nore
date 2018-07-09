@@ -1,0 +1,76 @@
+*,
+*::after,
+*::before {
+	box-sizing: inherit;
+}
+
+html {
+	box-sizing: border-box;
+	/* Correct the line height in all browsers */
+	line-height: 1.25;
+	/* Prevent adjustments of font size after orientation changes in iOS */
+	-webkit-text-size-adjust: 100%;
+	/* Ignore non-responsive design overflows */
+	overflow-x: hidden !important;
+}
+
+body {
+	position: relative;
+	/* Remove the margin in all browsers */
+	margin: 0;
+	/* Set the minimum body height as the viewport's height */
+	min-height: 100vh;
+}
+
+pre {
+	/* Correct the inheritance and scaling of font size in all browsers */
+	font-family: monospace, monospace;
+	/* Correct the odd `em` font sizing in all browsers */
+	font-size: 1em;
+}
+
+img {
+	/* Remove the border on images inside links in IE 10 */
+	border-style: none;
+}
+
+details {
+	/* Add the correct display in Edge, IE 10+, and Firefox */
+	display: block;
+}
+summary {
+	/* Add the correct display in all browsers */
+	display: list-item;
+}
+
+template {
+	/* Add the correct display in IE 10+ */
+	display: none;
+}
+
+audio,
+canvas,
+progress,
+svg,
+video {
+	/* Remove the gap between elements and the bottom of their containers */
+	vertical-align: middle;
+}
+
+/*
+  Suppress the focus outline on elements that cannot be accessed via keyboard.
+  This prevents an unwanted focus outline from appearing around elements that
+  might still respond to pointer events.
+*/
+[tabindex="-1"]:focus {
+	outline: none !important;
+}
+
+/* Add the correct display in IE 10 */
+[hidden] {
+	display: none !important;
+}
+
+@-ms-viewport {
+	width: device-width;
+}

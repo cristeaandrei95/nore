@@ -1,0 +1,18 @@
+# https://git.io/vDrWi
+*.DS_Store
+*Thumbs.db
+*.idea/*
+*.log
+*.vscode
+
+# project related
+node_modules
+.cache
+logs
+ssl
+backups
+
+# nore specific
+config/nginx.conf
+.builds
+public/build

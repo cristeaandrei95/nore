@@ -1,0 +1,16 @@
+::-webkit-input-placeholder {
+	color: #c2d1da;
+	font-weight: 300;
+}
+
+/* Mozilla Firefox 19+ */
+::-moz-placeholder {
+	color: #c2d1da;
+	font-weight: 300;
+}
+
+/* Internet Explorer 10+ */
+[placeholder]:-ms-input-placeholder {
+	color: #c2d1da;
+	font-weight: 300;
+}
