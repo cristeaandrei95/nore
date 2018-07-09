@@ -47,7 +47,9 @@ test("deleteDirectory", async ({ end, ok, equal }) => {
 	await deleteDirectory(path);
 
 	try {
-		fs.statSync(path);
+		const status = fs.statSync(path);
+		console.log("Directory was not deleted:", path);
+		throw false;
 	} catch (error) {
 		equal(error.code, "ENOENT", "Directory was deleted");
 	}

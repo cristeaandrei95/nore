@@ -18,7 +18,7 @@ export default function readDirectory(path, options = {}) {
 					})
 				);
 			} else {
-				resolve(files.map(name => `${path}/${name}`));
+				resolve(files.map(fileName => `${path}/${fileName}`));
 			}
 		});
 	});
