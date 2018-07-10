@@ -69,6 +69,7 @@ export default class Link extends Component {
 		return prevent(event);
 	}
 
+	// TODO: add prefetch like in next.js?
 	render({ className, to, target, children, label }) {
 		return (
 			<Scope.Consumer>
