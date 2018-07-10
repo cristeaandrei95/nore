@@ -15,4 +15,3 @@ backups
 # nore specific
 config/nginx.conf
 .builds
-public/build
