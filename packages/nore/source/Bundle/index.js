@@ -41,15 +41,19 @@ export default class Bundle {
 		this.isForWeb = this.target === "web";
 
 		this.$webpackConfig = new Map();
-		// TODO: set any hooks?
-		this.hooks = {};
+		this.compiler = null;
+
+		// set up bundle hooks
+		this.hooks = {
+			compiler: new HookSync("compiler"),
+		};
 	}
 
 	register(type, config) {
 		this.$webpackConfig.set(type, config);
 	}
 
-	async compiler() {
+	async makeCompiler() {
 		// base webpack config
 		const configs = [getWebpackConfig(this)];
 
@@ -63,11 +67,12 @@ export default class Bundle {
 			configs.push(require(this.webpack));
 		}
 
-		return (this.compiler = webpack(merge(...configs)));
+		this.compiler = webpack(merge(...configs));
+		this.hooks.compiler.call(this.compiler);
 	}
 
 	async compile() {
-		this.compiler = await this.compiler();
+		await this.makeCompiler();
 
 		return new Promise((resolve, reject) => {
 			this.compiler.run((error, stats) => {

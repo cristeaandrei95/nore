@@ -15,16 +15,15 @@ export default class Platform {
 			this[key] = options[key] || defaults[key];
 		}
 
-		// set up platform hooks
-		this.hooks = {
-			bundle: new HookSync(["bundle"]),
-			start: new HookSync(["nore"]),
-			variables: new HookSync(["variables"]),
-		};
-
 		// set up bundles
 		this.bundles = new Map();
 		this.plugins = [];
+
+		// set up platform hooks
+		this.hooks = {
+			bundle: new HookSync("bundle"),
+			variables: new HookSync("variables"),
+		};
 	}
 
 	async loadBundle(bundle, defaults) {

@@ -35,7 +35,7 @@ export default async cli => {
 
 	// compile bundles and watch for changes
 	for (const [_, bundle] of nore.bundles) {
-		await bundle.compiler();
+		await bundle.makeCompiler();
 
 		if (bundle.isForWeb) {
 			webServer(bundle, { port: webServerPort++ });
