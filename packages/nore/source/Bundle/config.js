@@ -26,7 +26,7 @@ export default bundle => {
 
 	return {
 		context: bundle.source,
-		entry: [bundle.entry || bundle.handle],
+		entry: bundle.entry || bundle.handle,
 		output: {
 			path: bundle.output,
 			filename: isForNode ? "index.js" : "[name].[hash].js",
