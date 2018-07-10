@@ -1,4 +1,4 @@
-import { Link } from "~/application";
+import { Link } from "nore";
 import React, { Component } from "react";
 import $ from "./style.css";
 

@@ -6,7 +6,7 @@ import { getLoadableState } from "loadable-components/server";
 import { readFile, writeFile, isFile } from "@nore/std/fs";
 import { parse } from "@nore/std/url";
 import { join } from "@nore/std/path";
-import { Application } from "~/application";
+import { Application } from "nore";
 import Pages from "~/pages";
 
 const cwd = process.cwd();

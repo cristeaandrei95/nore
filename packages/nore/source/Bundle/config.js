@@ -39,7 +39,10 @@ export default bundle => {
 			mainFields: ["browser", "module", "main", "style"],
 			mainFiles: ["index", "style"],
 			modules: [bundle.source, `${bundle.path}/node_modules`],
-			alias: { "~": bundle.source },
+			alias: {
+				"~": bundle.source,
+				nore: `~/application`,
+			},
 		},
 		// the environment in which the bundle will run
 		// changes chunk loading behavior and available modules
