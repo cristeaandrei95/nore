@@ -1,17 +1,10 @@
 import os from "os";
-import { DefinePlugin } from "webpack";
 
 export default bundle => {
 	const { isDevelopment, isForNode, isForWeb } = bundle;
 	const optimization = {};
 
-	const plugins = [
-		new DefinePlugin({
-			"process.env.NODE_ENV": JSON.stringify(
-				isDevelopment ? "development" : "production"
-			),
-		}),
-	];
+	const plugins = [];
 
 	if (isForWeb) {
 		optimization.runtimeChunk = {
