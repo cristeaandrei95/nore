@@ -2,9 +2,8 @@ import os from "os";
 
 export default bundle => {
 	const { isDevelopment, isForNode, isForWeb } = bundle;
-	const optimization = {};
-
 	const plugins = [];
+	const optimization = {};
 
 	if (isForWeb) {
 		optimization.runtimeChunk = {

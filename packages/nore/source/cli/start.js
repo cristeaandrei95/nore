@@ -1,3 +1,4 @@
+import { deleteDirectory } from "@nore/std/fs";
 import { join } from "@nore/std/path";
 import canLoadRequest from "../util/canLoadRequest";
 import Platform from "../Platform";
@@ -36,6 +37,9 @@ export default async cli => {
 	// compile bundles and watch for changes
 	for (const [_, bundle] of nore.bundles) {
 		await bundle.makeCompiler();
+
+		// delete the brevious build
+		await deleteDirectory(bundle.output);
 
 		if (bundle.isForWeb) {
 			webServer(bundle, { port: webServerPort++ });
