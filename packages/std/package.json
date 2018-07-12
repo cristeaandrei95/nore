@@ -7,6 +7,6 @@
 	"homepage": "https://github.com/nore/std#readme",
 	"repository": "https://github.com/nore/std",
 	"devDependencies": {
-		"tap": "^12.0.0"
+		"tap": "^12.0.1"
 	}
 }

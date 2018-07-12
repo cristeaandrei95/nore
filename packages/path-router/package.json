@@ -11,7 +11,7 @@
 		"build": "rollup -c"
 	},
 	"devDependencies": {
-		"tap": "^12.0.0",
+		"tap": "^12.0.1",
 		"rollup": "^0.62.0"
 	}
 }

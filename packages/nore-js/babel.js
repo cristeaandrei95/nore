@@ -36,8 +36,6 @@ export default bundle => {
 
 	// like: @babel/preset-react
 	const react = [
-		// add react loadable imports
-		"loadable-components/babel",
 		// allow parsing of JSX
 		"@babel/plugin-syntax-jsx",
 		// hoist JSX elements to the highest	 scope to reduce garbage collection
@@ -56,6 +54,8 @@ export default bundle => {
 				throwIfNamespace: true,
 			},
 		],
+		// add react loadable imports
+		"loadable-components/babel",
 	];
 
 	if (bundle.isForWeb) {
