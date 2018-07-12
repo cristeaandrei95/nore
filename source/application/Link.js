@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import window from "@nore/std/global";
 import { isFunction } from "@nore/std/assert";
+import { isAbsolute } from "@nore/std/path";
 import join from "./util/join";
 import Scope from "./Scope";
 import navigate from "./navigate";
@@ -34,7 +35,7 @@ function prevent(event) {
 	- label: ""
 */
 export default class Link extends Component {
-	onClick(event, scope) {
+	onClick(event, context) {
 		const { target, onClick, to } = this.props;
 
 		if (isFunction(onClick)) {
@@ -57,14 +58,8 @@ export default class Link extends Component {
 		if (event.altKey || event.metaKey || event.ctrlKey || event.shiftKey)
 			return;
 
-		// is absolute path?
-		if (to.charAt(0) === "/") {
-			navigate(to);
-		}
-		// path is relative to scope
-		else {
-			navigate(join(scope.path, to));
-		}
+		// join relative paths to context path
+		navigate(isAbsolute(to) ? to : join(context.path, to));
 
 		return prevent(event);
 	}
@@ -73,13 +68,13 @@ export default class Link extends Component {
 	render({ className, to, target, children, label }) {
 		return (
 			<Scope.Consumer>
-				{scope => (
+				{context => (
 					<a
 						href={to}
 						target={target}
 						class={className || ""}
 						onClick={event => {
-							this.onClick(event, scope);
+							this.onClick(event, context);
 						}}
 						children={children || label}
 					/>

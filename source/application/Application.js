@@ -40,14 +40,11 @@ export default class Application extends Component {
 	};
 
 	render({ children }, state) {
-		const scope = Object.create(store);
-
-		scope.route = "/";
-		scope.matched = [];
-
 		return (
 			<b class={$.application}>
-				<Scope.Provider value={scope}>{children}</Scope.Provider>
+				<Scope.Root context={store} route={state.path}>
+					{children}
+				</Scope.Root>
 			</b>
 		);
 	}
