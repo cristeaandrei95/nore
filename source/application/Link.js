@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import window from "@nore/std/global";
 import { isFunction } from "@nore/std/assert";
+import join from "./util/join";
 import Scope from "./Scope";
 import navigate from "./navigate";
-import join from "~/util/join";
 
 function getOrigin({ protocol, hostname, port }) {
 	return protocol + "//" + hostname + (port ? ":" + port : "");

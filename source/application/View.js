@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { isFunction } from "@nore/std/assert";
-import join from "~/util/join";
+import join from "./util/join";
 import Scope from "./Scope";
 
 function itMatches(parent, scope, exact) {
