@@ -1,3 +1,7 @@
+function getChunkByName(chunks, name) {
+	return chunks.filter(chunk => chunk.name && chunk.name === name)[0];
+}
+
 export default class InlineManifest {
 	constructor({ name }) {
 		this.name = name || "manifest";
@@ -40,8 +44,4 @@ export default class InlineManifest {
 			});
 		});
 	}
-}
-
-function getChunkByName(chunks, name) {
-	return chunks.filter(chunk => chunk.name && chunk.name === name)[0];
 }

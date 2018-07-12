@@ -12,6 +12,10 @@ export default bundle => {
 		TODO: add transform async/await to Promise
 		"transform-async-to-promises" it after the v7 update
 		or use https://github.com/MatAtBread/nodent-compiler?
+
+		TODO: the plugin below is buggy in beta.53
+		hoist JSX elements to the highest scope to reduce garbage collection
+		"@babel/plugin-transform-react-constant-elements",
 	*/
 
 	const javascript = [
@@ -38,8 +42,6 @@ export default bundle => {
 	const react = [
 		// allow parsing of JSX
 		"@babel/plugin-syntax-jsx",
-		// hoist JSX elements to the highest	 scope to reduce garbage collection
-		"@babel/plugin-transform-react-constant-elements",
 		// transforms `render(props, state, context)` to react format
 		"transform-react-render-parameters",
 		// Transforms JSX class attributes into className
