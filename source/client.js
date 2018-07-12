@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import qs from "query-string";
 import window from "@nore/std/global";
-import { Application } from "~/application";
+import { Application } from "nore";
 import Pages from "~/pages";
 
 const container = document.getElementById("application");
@@ -21,3 +21,8 @@ const application = (
 );
 
 ReactDOM.render(application, container);
+
+// enable HMR (Hot Module Replacement)
+if (module.hot) {
+	module.hot.accept();
+}
