@@ -12,7 +12,9 @@ const config = {
 		interlaced: true,
 	},
 	svgo: {
-		removeViewBox: true,
+		removeTitle: true,
+		removeDimensions: true,
+		removeViewBox: false,
 	},
 	// lossless
 	jpegtran: {
