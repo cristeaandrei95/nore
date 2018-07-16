@@ -65,11 +65,12 @@ export default class Link extends Component {
 	}
 
 	// TODO: add prefetch like in next.js?
-	render({ className, to, target, children, label }) {
+	render({ className, to, target, children, label, style }) {
 		return (
 			<Scope.Consumer>
 				{context => (
 					<a
+						style={style}
 						href={to}
 						target={target}
 						class={className || ""}
