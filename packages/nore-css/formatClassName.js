@@ -15,24 +15,27 @@ function hash(count) {
 	return text;
 }
 
-function getParentFolder(file) {
-	return dirname(file)
-		.split(sep)
-		.pop();
-}
-
 function isMain(fileName) {
 	return ["index", "style"].includes(fileName);
 }
 
-export default isDevelopment => (context, identity, name, options) => {
+function getAncestor(file, n) {
+	const segments = dirname(file).split(sep);
+	const match = segments.splice(segments.length - n, 1);
+
+	return match.pop();
+}
+
+export default isDevelopment => (context, identity, className, options) => {
 	const file = context.resourcePath;
 
 	if (isDevelopment) {
 		const fileName = basename(file, ".css");
-		const prefix = isMain(fileName) ? getParentFolder(file) : fileName;
+		const folder = getAncestor(file, 2);
+		const component = isMain(fileName) ? getAncestor(file, 1) : fileName;
+		const id = `${folder}_${component}_${className}`.toLowerCase();
 
-		return `${prefix}_${name}_${hash(5)}`.toLowerCase();
+		return id;
 	} else {
 		return "c" + hash(5);
 	}

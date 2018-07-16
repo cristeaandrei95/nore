@@ -23,7 +23,6 @@ const getLoaders = ({ useCSSModules, bundle }) => {
 				sourceMap: bundle.isDevelopment,
 				plugins: postcss({
 					config: bundle.config,
-					variables: bundle.variables,
 				}),
 			},
 		},
