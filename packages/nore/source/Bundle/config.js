@@ -24,6 +24,7 @@ export default bundle => {
 	}
 
 	return {
+		name: bundle.handle,
 		context: bundle.source,
 		entry: [bundle.entry || bundle.handle],
 		output: {

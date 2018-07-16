@@ -45,6 +45,7 @@ export default class Platform {
 	async loadVariables() {
 		// load variables `source/variables.toml`
 		this.variables = await loadVariables(this.path);
+
 		this.hooks.variables.call(this.variables);
 	}
 

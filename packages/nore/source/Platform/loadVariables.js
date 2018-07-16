@@ -14,7 +14,7 @@ function format(data, prefix) {
 
 	for (const key in data) {
 		const value = data[key];
-		const namespace = prefix ? `${prefix}-${key}` : key;
+		const namespace = prefix ? `${prefix}_${key}` : key;
 
 		if (isString(value)) {
 			variables[namespace] = value;

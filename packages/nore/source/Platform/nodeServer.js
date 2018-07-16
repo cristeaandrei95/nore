@@ -1,7 +1,7 @@
 import Monitor from "../util/Monitor.js";
 import log from "../util/log.js";
 
-export default async (bundle, { port }) => {
+export default async ({ nore, bundle, port }) => {
 	const webpackConfig = bundle.compiler.options;
 
 	log(`server:node started - http://localhost:${port}`);

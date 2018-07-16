@@ -1,14 +1,14 @@
 import { watch } from "chokidar";
 
-export default (nore, handler) => {
-	const watcher = watch("source/variables.+(toml|js|json)", {
+export default (path, handler) => {
+	const watcher = watch("variables.+(toml|js|json)", {
 		ignoreInitial: true,
-		cwd: nore.path,
+		cwd: path,
 	});
 
 	["change", "add"].forEach(event => {
-		watcher.on(event, path => {
-			handler(event, path);
+		watcher.on(event, async path => {
+			await handler(event, path);
 		});
 	});
 };
