@@ -1,0 +1,479 @@
+/*
+	Keep in sync with:
+
+	v8.0.0 - https://github.com/necolas/normalize.css
+	v6.1.0 - https://github.com/h5bp/main.css
+	v4.1.1 - https://github.com/twbs/bootstrap (bootstrap-reboot.css)
+*/
+
+*,
+*::after,
+*::before {
+	box-sizing: inherit;
+}
+
+html {
+	box-sizing: border-box;
+	/* Correct the line height in all browsers */
+	line-height: 1.25;
+	/* Prevent adjustments of font size after orientation changes in iOS */
+	-webkit-text-size-adjust: 100%;
+	/* Ignore non-responsive design overflows */
+	overflow-x: hidden;
+	/* Always show the vertical scrollbar so that content doesn't jump */
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+
+body {
+	position: relative;
+	/* Remove the margin in all browsers */
+	margin: 0;
+	/* Set the minimum body height as the viewport's height */
+	min-height: 100vh;
+
+	letter-spacing: 0;
+	font-weight: 400;
+	font-style: normal;
+
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-moz-font-feature-settings: "liga" on;
+
+	/* Text adjust is set to 100% to avoid iOS Safari bugs where the font-size is
+     sometimes not restored during orientation */
+	-ms-overflow-style: scrollbar;
+	-webkit-tap-highlight-color: transparent;
+}
+
+body[no-scroll] {
+	height: 100vh;
+	overflow: hidden;
+}
+
+/******************************************************************************
+		TYPOGRAPHY
+******************************************************************************/
+
+p {
+	padding: 0.25em 0;
+	margin: 0;
+}
+
+ins,
+mark {
+	/* Address styling not present in IE 8/9 */
+	background-color: #ff0;
+	color: #000;
+}
+
+q {
+	/* Set consistent quote types */
+	quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+strong {
+	/* Add the correct font weight in: Chrome, Edge, Safari */
+	font-weight: bolder;
+}
+
+small {
+	/* Address inconsistent and variable font size in all browsers */
+	font-size: 80%;
+}
+
+sub,
+sup {
+	font-size: 75%;
+	position: relative;
+	vertical-align: baseline;
+	/* Prevent `sub`, `sup` from affecting the line height */
+	line-height: 0;
+}
+sub {
+	bottom: -0.25em;
+}
+sup {
+	top: -0.5em;
+}
+
+abbr[title] {
+	/* Remove the bottom border in Chrome 57 */
+	border-bottom: none; /* 1 */
+	/* Add the correct text decoration in: Chrome, Edge, IE, Opera, Safari */
+	text-decoration: underline;
+	text-decoration: underline dotted;
+}
+
+/******************************************************************************
+		BLOCKQUOTE
+******************************************************************************/
+
+blockquote {
+	position: relative;
+	margin: 1em 2.5em;
+}
+blockquote:before {
+	content: "\201C";
+	position: absolute;
+	top: -0.2em;
+	left: -0.6em;
+	font-size: 3em;
+	color: #e7edf0;
+}
+blockquote:after {
+	content: "\201D";
+	position: absolute;
+	right: -0.6em;
+	font-size: 3em;
+	color: #e7edf0;
+}
+
+/******************************************************************************
+		CODE
+******************************************************************************/
+
+pre,
+code,
+kbd,
+var,
+samp {
+	/* Correct the inheritance and scaling of font size in all browsers */
+	font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+		"Courier New", monospace;
+	/* Correct the odd font sizing in all browsers */
+	font-size: 1em;
+}
+
+code,
+pre {
+	padding: 0 0.25em;
+	background-color: #f6f9fc;
+}
+
+pre {
+	margin-top: 0;
+	margin-bottom: 1rem;
+	-ms-overflow-style: scrollbar;
+	/* Hide longs strings of text and enable scrolling */
+	overflow: auto;
+}
+
+kbd {
+	padding: 0 0.25em;
+	background-color: #f6f9fc;
+	border-style: solid;
+	border-width: 1px 2px 2px 1px;
+}
+
+var {
+	padding: 0 0.25em;
+	font-weight: bold;
+	background-color: #f6f9fc;
+}
+
+/******************************************************************************
+		LINKS
+******************************************************************************/
+
+a {
+	color: #007bff;
+	/* Remove the gray background on active links in IE 10 */
+	background-color: transparent;
+	text-decoration: none;
+	-webkit-text-decoration-skip: objects;
+}
+a:hover {
+	color: #0056b3;
+	text-decoration: underline;
+}
+a:not([href]):not([tabindex]) {
+	color: inherit;
+	text-decoration: none;
+}
+a:not([href]):not([tabindex]):hover,
+a:not([href]):not([tabindex]):focus {
+	color: inherit;
+	text-decoration: none;
+}
+a:not([href]):not([tabindex]):focus {
+	outline: 0;
+}
+
+/******************************************************************************
+		LISTS
+******************************************************************************/
+
+ul,
+ol,
+dd {
+	padding-left: 1.5em;
+	margin: 0;
+}
+
+ol ol {
+	list-style: lower-latin;
+}
+
+dl {
+	margin: 0;
+}
+
+details {
+	/* Add the correct display in Edge, IE 10+, and Firefox */
+	display: block;
+}
+summary {
+	/* Add the correct display in all browsers */
+	display: list-item;
+}
+
+/******************************************************************************
+		TABLE
+******************************************************************************/
+
+table {
+	width: 100%;
+	background-color: transparent;
+	/* Remove most spacing between table cells */
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+th {
+	font-weight: bold;
+	border-bottom: 2px solid #e7edf0;
+}
+th,
+td {
+	line-height: 2em;
+	text-align: left;
+	vertical-align: top;
+}
+td {
+	border-top: 1px solid #e7edf0;
+}
+th,
+td {
+	padding: 0;
+}
+
+/******************************************************************************
+		FORM
+******************************************************************************/
+
+form {
+	/* Prevent form element from influencing the layout */
+	display: block;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+	/* Change the font styles in all browsers */
+	font-family: inherit;
+	font-size: 100%;
+	line-height: inherit;
+	/* Remove the margin in Firefox and Safari */
+	margin: 0;
+}
+
+button,
+input {
+	/* Show the overflow in: IE, Edge */
+	overflow: visible;
+}
+
+button,
+select {
+	/* Remove the inheritance of text transform in Edge, Firefox, and IE */
+	text-transform: none;
+}
+
+textarea {
+	/* Remove the default vertical scrollbar in IE 10+ */
+	overflow: auto;
+	/* Allow only vertical resizing of textareas */
+	resize: vertical;
+}
+
+/* Correct the inability to style clickable types in iOS and Safari */
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+	-webkit-appearance: button;
+}
+
+/* Remove the inner border and padding in Firefox */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+	border-style: none;
+	padding: 0;
+}
+
+/* Restore the focus styles unset by the previous rule */
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+	outline: 1px dotted ButtonText;
+}
+
+[type="checkbox"],
+[type="radio"] {
+	/* Add the correct box sizing in IE 10 */
+	box-sizing: border-box;
+	/* Remove the padding in IE 10 */
+	padding: 0;
+}
+
+/* Correct the cursor style of increment and decrement buttons in Safari */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+	height: auto;
+}
+
+[type="search"] {
+	/* Correct the odd appearance in Chrome and Safari */
+	-webkit-appearance: textfield;
+	/* Correct the outline style in Safari */
+	outline-offset: -2px;
+}
+
+/* Remove the inner padding in Chrome and Safari on macOS */
+[type="search"]::-webkit-search-decoration {
+	-webkit-appearance: none;
+}
+
+::-webkit-file-upload-button {
+	/* Correct the inability to style clickable types in iOS and Safari */
+	-webkit-appearance: button;
+	/* Change font properties to `inherit` in Safari */
+	font: inherit;
+}
+
+/******************************************************************************
+		PLACEHOLDER
+******************************************************************************/
+
+::-webkit-input-placeholder {
+	color: #c2d1da;
+}
+
+/* Mozilla Firefox 19+ */
+::-moz-placeholder {
+	color: #c2d1da;
+	opacity: 1;
+}
+
+/* Internet Explorer 10+ */
+[placeholder]:-ms-input-placeholder {
+	color: #c2d1da;
+}
+
+/******************************************************************************
+		SELECTION
+******************************************************************************/
+
+/*
+	Text selection color
+*/
+::selection {
+	background-color: #feecb0;
+	text-shadow: none;
+}
+::-moz-selection {
+	background-color: #feecb0;
+	text-shadow: none;
+}
+
+/******************************************************************************
+		HAIRLINE <hr/>
+******************************************************************************/
+
+/* TODO: review the block below, how's the default <hr> style? */
+hr {
+	/* A better looking default horizontal rule */
+	display: block;
+	margin: 1em 0;
+	height: 1px;
+	border: 0;
+	background-color: #edf2f7;
+	/* Add the correct box sizing in Firefox */
+	box-sizing: content-box;
+	/* Show the overflow in Edge and IE */
+	overflow: visible;
+}
+
+/******************************************************************************
+		FIXES
+******************************************************************************/
+
+img {
+	/* Remove the border on images inside links in IE 10 */
+	border-style: none;
+	/* Change default image behaviour */
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+template {
+	/* Add the correct display in IE 10+ */
+	display: none;
+}
+
+audio,
+canvas,
+progress,
+svg,
+video {
+	/* Remove the gap between elements and the bottom of their containers */
+	vertical-align: middle;
+}
+
+/*
+  Suppress the focus outline on elements that cannot be accessed via keyboard.
+  This prevents an unwanted focus outline from appearing around elements that
+  might still respond to pointer events.
+*/
+[tabindex="-1"]:focus {
+	outline: none !important;
+}
+
+/* Add the correct display in IE 10 */
+[hidden] {
+	display: none !important;
+}
+
+@-ms-viewport {
+	width: device-width;
+}
+
+/******************************************************************************
+		OPINIONATED
+******************************************************************************/
+
+/*
+    !!! IMPORTANT: Non-standard use of <b> and <i> !!!
+
+    <b> is used as a block element, replacement for <div>
+    <i> is used as an inline block element, replacement for <span>
+*/
+b {
+	display: block;
+	font-weight: inherit;
+	background: transparent;
+}
+
+i {
+	display: inline-block;
+	vertical-align: baseline;
+	font-style: inherit;
+	background: transparent;
+}
