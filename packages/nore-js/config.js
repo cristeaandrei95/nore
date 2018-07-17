@@ -22,6 +22,8 @@ export default bundle => {
 			new Uglify({
 				sourceMap: true,
 				parallel: os.cpus().length - 1,
+				// TODO: add uglify options
+				uglifyOptions: {},
 			})
 		);
 	}
