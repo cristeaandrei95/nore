@@ -1,7 +1,6 @@
 import { merge } from "@nore/std";
 import CSSExtract from "mini-css-extract-plugin";
 import OptimizeCSS from "optimize-css-assets-webpack-plugin";
-import formatClassName from "./formatClassName.js";
 import postcss from "./postcss.js";
 
 const getLoaders = ({ useCSSModules, bundle }) => {
@@ -13,7 +12,11 @@ const getLoaders = ({ useCSSModules, bundle }) => {
 				sourceMap: bundle.isDevelopment,
 				minimize: !bundle.isDevelopment,
 				modules: useCSSModules,
-				getLocalIdent: useCSSModules && formatClassName(bundle.isDevelopment),
+				localIdentName:
+					useCSSModules &&
+					(bundle.isDevelopment
+						? "[local]_[hash:base64:5]"
+						: "c[hash:base64:5]"),
 			},
 		},
 		{
