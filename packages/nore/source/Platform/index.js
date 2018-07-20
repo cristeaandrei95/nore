@@ -4,20 +4,16 @@ import Bundle from "../Bundle";
 import loadBundleConfig from "./loadBundleConfig.js";
 import loadVariables from "./loadVariables.js";
 
-const defaults = {
-	path: process.cwd(),
-	mode: "development",
-};
-
 export default class Platform {
 	constructor(options = {}) {
-		for (const key in defaults) {
-			this[key] = options[key] || defaults[key];
-		}
+		// set default settings
+		this.path = options.path || process.cwd();
+		this.mode = options.mode || "development";
+		this.isDebug = options.debug || false;
 
 		// set up bundles
 		this.bundles = new Map();
-		this.plugins = [];
+		this.plugins = new Set(options.plugins);
 
 		// set up platform hooks
 		this.hooks = {
@@ -51,12 +47,17 @@ export default class Platform {
 
 	async loadPlugins(plugins) {
 		if (isArray(plugins)) {
-			this.plugins = this.plugins.concat(plugins);
+			for (const plugin of plugins) {
+				this.plugins.add(plugin);
+			}
 		}
 
 		// initialize plugins
 		for (const plugin of this.plugins) {
-			plugin(this);
+			if (!plugin.isLoaded) {
+				plugin(this);
+				plugin.isLoaded = true;
+			}
 		}
 	}
 }
