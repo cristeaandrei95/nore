@@ -29,7 +29,7 @@ export default ({ nore, bundle, port }) => {
 
 	const hmr = WebpackHMR(bundle.compiler, {
 		server,
-		reload: false,
+		reload: nore.isDebug ? false : true,
 		stats: { context: webpackConfig.context },
 		logLevel: "warn",
 		logTime: true,
@@ -59,7 +59,9 @@ export default ({ nore, bundle, port }) => {
 	}
 
 	// watch variables for changes
-	watchVariables(bundle.source, async event => {
+	watchVariables(bundle.source, async (event, path) => {
+		log(`watch:variables ${event} "${path}"`);
+
 		await nore.loadVariables();
 
 		// rebundle the code

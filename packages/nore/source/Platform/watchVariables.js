@@ -1,7 +1,10 @@
 import { watch } from "chokidar";
+import { extensions, fileNames } from "./loadVariables.js";
 
 export default (path, handler) => {
-	const watcher = watch("variables.+(toml|js|json)", {
+	const toWatch = fileNames.map(name => `${name}+(${extensions.join("|")})`);
+
+	const watcher = watch(toWatch, {
 		ignoreInitial: true,
 		cwd: path,
 	});

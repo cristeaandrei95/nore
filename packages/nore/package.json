@@ -11,6 +11,8 @@
 	"license": "MIT",
 	"dependencies": {
 		"@nore/esm": "^2.0.0",
+		"toml": "^2.3.3",
+		"js-yaml": "^3.12.0",
 		"respawn": "^2.5.0",
 		"chokidar": "^2.0.4",
 		"yargs-parser": "^10.1.0",
