@@ -20,9 +20,14 @@ export default class Application extends Component {
 
 		// set loaded class, removing loading
 		container.className = "is_loaded";
+
 		// add current app state to browser history
 		history.set(store.path, store.data);
 
+		// set title on initial load
+		this.setTitle(this.state);
+
+		// hook into store updates
 		store.on("update", this.onUpdate);
 		store.on("title", this.setTitle);
 	}
