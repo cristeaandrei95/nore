@@ -6,10 +6,10 @@ function definition(variables, node) {
 	node.remove();
 }
 
-function variable(variables, node, str, name, opts, result) {
-	if (opts.only) {
-		if (typeof opts.only[name] !== "undefined") {
-			return opts.only[name];
+function variable(variables, node, str, name, options, result) {
+	if (options.only) {
+		if (typeof options.only[name] !== "undefined") {
+			return options.only[name];
 		}
 
 		return str;
@@ -19,11 +19,11 @@ function variable(variables, node, str, name, opts, result) {
 		return variables[name];
 	}
 
-	if (opts.silent) {
+	if (options.silent) {
 		return str;
 	}
 
-	var fix = opts.unknown(node, name, result);
+	var fix = options.unknown(node, name, result);
 
 	if (fix) {
 		return fix;
@@ -32,21 +32,21 @@ function variable(variables, node, str, name, opts, result) {
 	return str;
 }
 
-function simpleSyntax(variables, node, str, opts, result) {
-	return str.replace(/(^|[^\w])\$([\w\d-_]+)/g, function(_, bef, name) {
-		return bef + variable(variables, node, "$" + name, name, opts, result);
+function simpleSyntax(variables, node, str, options, result) {
+	return str.replace(/(^|[^\w])\$([\w\d-_.]+)/g, function(_, bef, name) {
+		return bef + variable(variables, node, "$" + name, name, options, result);
 	});
 }
 
-function inStringSyntax(variables, node, str, opts, result) {
-	return str.replace(/\$\(\s*([\w\d-_]+)\s*\)/g, function(all, name) {
-		return variable(variables, node, all, name, opts, result);
+function inStringSyntax(variables, node, str, options, result) {
+	return str.replace(/\$\(\s*([\w\d-_.]+)\s*\)/g, function(all, name) {
+		return variable(variables, node, all, name, options, result);
 	});
 }
 
-function bothSyntaxes(variables, node, str, opts, result) {
-	str = simpleSyntax(variables, node, str, opts, result);
-	str = inStringSyntax(variables, node, str, opts, result);
+function bothSyntaxes(variables, node, str, options, result) {
+	str = simpleSyntax(variables, node, str, options, result);
+	str = inStringSyntax(variables, node, str, options, result);
 	return str;
 }
 
@@ -60,44 +60,42 @@ function repeat(value, callback) {
 	return newValue;
 }
 
-function declValue(variables, node, opts, result) {
+function declValue(variables, node, options, result) {
 	node.value = repeat(node.value, function(value) {
-		return bothSyntaxes(variables, node, value, opts, result);
+		return bothSyntaxes(variables, node, value, options, result);
 	});
 }
 
-function declProp(variables, node, opts, result) {
+function declProp(variables, node, options, result) {
 	node.prop = repeat(node.prop, function(value) {
-		return inStringSyntax(variables, node, value, opts, result);
+		return inStringSyntax(variables, node, value, options, result);
 	});
 }
 
-function ruleSelector(variables, node, opts, result) {
+function ruleSelector(variables, node, options, result) {
 	node.selector = repeat(node.selector, function(value) {
-		return bothSyntaxes(variables, node, value, opts, result);
+		return bothSyntaxes(variables, node, value, options, result);
 	});
 }
 
-function atruleParams(variables, node, opts, result) {
+function atruleParams(variables, node, options, result) {
 	node.params = repeat(node.params, function(value) {
-		return bothSyntaxes(variables, node, value, opts, result);
+		return bothSyntaxes(variables, node, value, options, result);
 	});
 }
 
-function comment(variables, node, opts, result) {
+function comment(variables, node, options, result) {
 	node.text = node.text.replace(/<<\$\(\s*([\w\d-_]+)\s*\)>>/g, function(
 		all,
 		name
 	) {
-		return variable(variables, node, all, name, opts, result);
+		return variable(variables, node, all, name, options, result);
 	});
 }
 
-module.exports = postcss.plugin("postcss-scss-variables", function(opts) {
-	if (typeof opts === "undefined") opts = {};
-
-	if (!opts.unknown) {
-		opts.unknown = function(node, name) {
+export default postcss.plugin("scss-variables", (options = {}) => {
+	if (!options.unknown) {
+		options.unknown = function(node, name) {
 			throw node.error("Undefined variable $" + name);
 		};
 	}
@@ -105,41 +103,27 @@ module.exports = postcss.plugin("postcss-scss-variables", function(opts) {
 	let variables = {};
 
 	const plugin = function(css, result) {
-		if (typeof opts.variables === "function") {
-			variables = opts.variables();
-		} else if (typeof opts.variables === "object") {
-			variables = Object.assign({}, opts.variables);
-		}
-
-		for (var name in variables) {
-			if (name[0] === "$") {
-				var fixed = name.slice(1);
-				variables[fixed] = variables[name];
-				delete variables[name];
-			}
-		}
-
 		css.walk(function(node) {
 			if (node.type === "decl") {
 				if (node.value.toString().indexOf("$") !== -1) {
-					declValue(variables, node, opts, result);
+					declValue(variables, node, options, result);
 				}
 				if (node.prop.indexOf("$(") !== -1) {
-					declProp(variables, node, opts, result);
+					declProp(variables, node, options, result);
 				} else if (node.prop[0] === "$") {
-					if (!opts.only) definition(variables, node);
+					if (!options.only) definition(variables, node);
 				}
 			} else if (node.type === "rule") {
 				if (node.selector.indexOf("$") !== -1) {
-					ruleSelector(variables, node, opts, result);
+					ruleSelector(variables, node, options, result);
 				}
 			} else if (node.type === "atrule") {
 				if (node.params && node.params.indexOf("$") !== -1) {
-					atruleParams(variables, node, opts, result);
+					atruleParams(variables, node, options, result);
 				}
 			} else if (node.type === "comment") {
 				if (node.text.indexOf("$") !== -1) {
-					comment(variables, node, opts, result);
+					comment(variables, node, options, result);
 				}
 			}
 		});
@@ -152,10 +136,6 @@ module.exports = postcss.plugin("postcss-scss-variables", function(opts) {
 				value: variables[key],
 			});
 		});
-
-		if (opts.onVariables) {
-			opts.onVariables(variables);
-		}
 	};
 
 	plugin.setVariables = data => {

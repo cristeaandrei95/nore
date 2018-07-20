@@ -9,7 +9,7 @@ import SCSSVariables from "./SCSSVariables.js";
 
 export const scssVariables = SCSSVariables({
 	unknown: function(node, name, result) {
-		node.warn(result, "Unknown variable " + name);
+		node.warn(result, `\n\nUnknown variable ${name}\n`);
 	},
 });
 
