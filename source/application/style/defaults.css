@@ -380,20 +380,14 @@ button:-moz-focusring,
 		SELECTION
 ******************************************************************************/
 
-/*
-	Text selection color
-*/
+/* Text selection color */
 ::selection {
-	background-color: #feecb0;
-	text-shadow: none;
-}
-::-moz-selection {
 	background-color: #feecb0;
 	text-shadow: none;
 }
 
 /******************************************************************************
-		HAIRLINE <hr/>
+		HORIZONTAL LINE <hr/>
 ******************************************************************************/
 
 /* TODO: review the block below, how's the default <hr> style? */
