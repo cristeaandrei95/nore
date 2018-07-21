@@ -1,0 +1,12 @@
+{
+	"name": "@nore/nore-yaml",
+	"version": "1.0.0",
+	"description": "Handle .yaml files",
+	"main": "index.js",
+	"repository": "https://github.com/nore/nore-yaml",
+	"author": "Navaru",
+	"license": "MIT",
+	"dependencies": {
+		"js-yaml": "^3.12.0"
+	}
+}
