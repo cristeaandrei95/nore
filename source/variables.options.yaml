@@ -31,7 +31,7 @@ font:
 
   weight:
     thin:    100  # (hairline)
-    ligher:  200  # (extra light)
+    lighter: 200  # (extra light)
     light:   300  #
     normal:  400  #
     medium:  500  #
@@ -44,6 +44,7 @@ font:
     sans: IBM Plex Sans
     serif: $font.family.default
     alternative: $font.family.default
+    code: $font.family.monospace
     monospace: >
       Fira Mono,
       DejaVu Sans Mono,
@@ -58,7 +59,6 @@ font:
       BlinkMacSystemFont,
       Segoe UI,
       Roboto,
-      Oxygen,
       Ubuntu,
       Cantarell,
       Fira Sans,
@@ -70,14 +70,15 @@ font:
 # COLORS
 
 color:
-  white: '#ffffff'
+  white: '#FFFEFC'
   black: '#193652'
 
   neutral:
-    light:   '#f4f7fb'
-    base:    '#dfe3e6'
-    dark:    '#8897a2'
-    darker:  '#5a6872'
+    lighter:  '#FBFBFB'
+    light:    '#F4F7FB'
+    base:     '#dfe3e6'
+    dark:     '#8897a2'
+    darker:   '#5a6872'
 
   blue:
     lighter: '#45a1ff'
