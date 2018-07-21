@@ -1,15 +1,16 @@
 import { scssVariables } from "./postcss.js";
 import config from "./config.js";
 
-const PLUGIN = ".css";
-
-export default options => ({ hooks, settings }) => {
-	hooks.bundle.add(PLUGIN, bundle => {
-		scssVariables.setVariables(bundle.variables);
+export default options => nore => {
+	nore.on("bundles:add", bundle => {
 		bundle.register(".css", config(bundle));
 	});
 
-	hooks.variables.add(PLUGIN, variables => {
+	nore.on("variables:load", variables => {
+		scssVariables.setVariables(variables);
+	});
+
+	nore.on("variables:change", variables => {
 		scssVariables.setVariables(variables);
 	});
 };
