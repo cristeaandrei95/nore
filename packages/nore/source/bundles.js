@@ -4,12 +4,9 @@ const client = {
 		browserslist: ">0.25%, IE >= 10, Safari >= 10, not op_mini all",
 	},
 
-	options: {
+	bundle: {
 		handle: "client",
 		target: "web",
-		source: "source",
-		output: ".builds/client",
-		webpack: "webpack.client.js",
 	},
 };
 
@@ -22,13 +19,10 @@ const server = {
 		},
 	},
 
-	options: {
+	bundle: {
 		handle: "server",
 		target: "node",
-		source: "source",
-		output: ".builds/server",
-		webpack: "webpack.server.js",
 	},
 };
 
-export default [client, server];
+export default [client];

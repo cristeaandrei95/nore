@@ -5,11 +5,10 @@ import { Server } from "http";
 import { isFile } from "@nore/std/fs";
 import { parse } from "@nore/std/url";
 import { join } from "@nore/std/path";
-import watchVariables from "./watchVariables";
-import log from "../util/log.js";
 
-export default ({ nore, bundle, port }) => {
-	const webpackConfig = bundle.compiler.options;
+export default async ({ nore, bundle, port }) => {
+	const compiler = await bundle.compiler();
+	const webpackConfig = compiler.options;
 	const server = new Server();
 
 	server.on("request", async (request, response) => {
@@ -25,9 +24,9 @@ export default ({ nore, bundle, port }) => {
 
 	server.listen(port);
 
-	log(`server:web [started] http://localhost:${port}`);
+	nore.log(`server:web [started] http://localhost:${port}`);
 
-	const hmr = WebpackHMR(bundle.compiler, {
+	const hmr = WebpackHMR(compiler, {
 		server,
 		reload: nore.isDebug ? false : true,
 		stats: { context: webpackConfig.context },
@@ -36,10 +35,10 @@ export default ({ nore, bundle, port }) => {
 	});
 
 	hmr.server.on("listening", () => {
-		log(`server:web [HMR] listening...`);
+		nore.log(`server:web [HMR] listening...`);
 	});
 
-	const devMiddleware = WebpackDevMiddleware(bundle.compiler, {
+	const devMiddleware = WebpackDevMiddleware(compiler, {
 		publicPath: webpackConfig.output.publicPath,
 		stats: { context: webpackConfig.context },
 		logLevel: "warn",
@@ -59,12 +58,12 @@ export default ({ nore, bundle, port }) => {
 	}
 
 	// watch variables for changes
-	watchVariables(bundle.source, async (event, path) => {
-		log(`watch:variables ${event} "${path}"`);
-
-		await nore.loadVariables();
+	nore.on("variables:change", async (variables, event) => {
+		nore.log(`watch:variables [change] "${event.path}"`);
 
 		// rebundle the code
-		devMiddleware.invalidate();
+		setTimeout(() => {
+			devMiddleware.invalidate();
+		}, 100);
 	});
 };

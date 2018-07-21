@@ -1,44 +1,42 @@
 import { deleteDirectory } from "@nore/std/fs";
-import { join } from "@nore/std/path";
 import canLoadRequest from "../util/canLoadRequest";
-import Platform from "../Platform";
-import webServer from "../Platform/webServer";
-import nodeServer from "../Platform/nodeServer";
+import webServer from "../servers/web";
+import nodeServer from "../servers/node";
 import plugins from "../plugins";
 import bundles from "../bundles";
+import Nore from "../Nore";
 
 export default async cli => {
-	const nore = new Platform(cli);
+	const options = Object.assign({ plugins }, cli);
+	const nore = new Nore(options);
 
-	await nore.loadVariables();
-	await nore.loadPlugins(plugins);
+	await nore.initialize();
 
-	// try to load default bundles
-	for (const { options, config } of bundles) {
-		const file = join(nore.path, options.source, options.handle);
-
+	// add default bundles
+	for (const { bundle, config } of bundles) {
 		// ignore missing bundles
-		if (!canLoadRequest(file)) continue;
-
-		await nore.loadBundle(options, config);
+		if (canLoadRequest(`${nore.path}/source/${bundle.handle}`)) {
+			await nore.bundles.add(bundle, config);
+		}
 	}
+
+	// watch variables for changes
+	await nore.variables.watch();
 
 	let webServerPort = 7000;
 	let nodeServerPort = 5000;
 
 	// compile bundles and watch for changes
-	for (const [_, bundle] of nore.bundles) {
-		await bundle.makeCompiler();
-
+	for (const bundle of nore.bundles.cache) {
 		// delete the brevious build
 		await deleteDirectory(bundle.output);
 
 		if (bundle.isForWeb) {
-			webServer({ nore, bundle, port: webServerPort++ });
+			await webServer({ nore, bundle, port: webServerPort++ });
 		}
 
 		if (bundle.isForNode) {
-			nodeServer({ nore, bundle, port: nodeServerPort++ });
+			await nodeServer({ nore, bundle, port: nodeServerPort++ });
 		}
 	}
 };

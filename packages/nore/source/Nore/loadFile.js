@@ -1,6 +1,9 @@
 import toml from "toml";
 import yaml from "js-yaml";
 import { itExists, readFile } from "@nore/std/fs";
+import { isAbsolute, join } from "@nore/std/path";
+
+const extensions = [".yaml", ".toml", ".json", ".js"];
 
 export async function loadFile(file) {
 	if (file.includes(".toml")) {
@@ -19,7 +22,7 @@ export async function loadFile(file) {
 		}
 	}
 
-	return require(source);
+	return require(file);
 }
 
 export async function tryFiles(files) {
@@ -29,3 +32,10 @@ export async function tryFiles(files) {
 		}
 	}
 }
+
+export default async (request, path) => {
+	const file = isAbsolute(request) ? request : join(path, request);
+	const files = extensions.map(ext => file + ext);
+
+	return tryFiles([file, ...files]);
+};
