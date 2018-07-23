@@ -35,6 +35,9 @@ const getLoaders = ({ useCSSModules, bundle }) => {
 		loaders.unshift(bundle.isDevelopment ? "style-loader" : CSSExtract.loader);
 	}
 
+	// add loader for `classes` utility
+	loaders.unshift(`${__dirname}/classesLoader.js`);
+
 	return loaders;
 };
 
