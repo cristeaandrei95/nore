@@ -51,6 +51,9 @@ export default class Link extends Component {
 		// URL is not internal
 		if (isExternal(event.currentTarget)) return;
 
+		// ignore hashtags
+		if (to.charAt(0) === "#") return;
+
 		// not clicked with main mouse button
 		if (event.button !== 0) return;
 

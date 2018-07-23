@@ -13,9 +13,9 @@ function pathToState(path) {
 	const query = qs.parse(url.query);
 
 	return {
-		path: url.path,
+		path: url.pathname,
+		hash: url.hash || "",
 		query,
-		hash: url.hash,
 	};
 }
 
@@ -26,6 +26,6 @@ export default function navigate(path) {
 		state.title = store.data.title;
 	}
 
-	history.add(state.path, state);
+	history.add(path, state);
 	store.update(state);
 }
