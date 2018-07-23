@@ -1,18 +1,56 @@
-.colors {
+.section:not(:first-child) {
+	margin-top: 2rem;
+}
+
+.palette {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: space-between;
 }
+.palette > .color {
+	flex-basis: calc(20% - (5rem / 6));
+}
+
 .color {
 	position: relative;
-	flex-basis: calc(20% - (4rem / 5));
 	margin-top: 1rem;
-	padding-top: 8rem;
-	padding-bottom: 1rem;
-	font-family: monospace;
+	height: 10rem;
+	flex-basis: calc(20% - (4rem / 5));
+	font-family: $font.family.code;
 	text-align: center;
-	text-transform: uppercase;
 	background: #fff;
 	border-radius: 0.25rem;
+	cursor: pointer;
+	box-shadow: 0 5px 20px -5px rgba(50, 50, 93, 0.12),
+		0 3px 4px -2px rgba(0, 0, 0, 0.08);
+}
+.color_label {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0rem;
+	padding: 0.5rem 0;
+	background: $color.neutral.lightest;
+}
+.color_value {
+	composes: color_label;
+	font-size: $font.size.small;
+	text-transform: uppercase;
+	color: $color.neutral.darker;
+}
+.color_name {
+	composes: color_label;
+	font-size: $font.size.small;
+	display: none;
+}
+.color:hover .color_name {
+	display: block;
+}
+
+.neutral {
+	composes: palette;
+}
+.neutral > .color {
+	flex-basis: 12.5%;
 }

@@ -1,0 +1,75 @@
+/*
+	Notes:
+	 - size comes from: text, padding, icons
+ */
+.button {
+	display: inline-block;
+	padding: 0;
+
+	line-height: inherit;
+	font: inherit;
+	text-align: center;
+	text-decoration: none;
+	white-space: nowrap;
+	color: inherit;
+
+	background-color: transparent;
+	border: solid 1px transparent;
+	transition: all 0.2s;
+
+	/* reset some default styles */
+	border: none;
+	outline: none;
+	appearance: none;
+	user-select: none;
+	cursor: pointer;
+}
+
+/* TYPES */
+
+.default {
+	composes: button;
+	padding: $size.small $size.medium;
+
+	background-color: $color.white;
+
+	border-radius: 3px;
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03), 0 1px 0 rgba(0, 0, 0, 0.05),
+		0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.ghost {
+	composes: button;
+	padding: $size.small $size.medium;
+	border-radius: 3px;
+	background-color: transparent;
+	border: 0;
+}
+.ghost:hover {
+	box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* MODIFIERS */
+
+.small {
+	padding: $size.micro $size.small;
+	font-size: 0.875rem;
+}
+.round {
+	border-radius: 1em;
+}
+
+/* STATES */
+
+.focus,
+.button:hover,
+.button:focus {
+	box-shadow: rgba(1, 108, 209, 0.145) 0px 0px 0px 3px,
+		rgba(67, 90, 111, 0.38) 0px 0px 0px 1px inset,
+		rgba(67, 90, 111, 0.08) 0px -1px 1px 0px inset;
+}
+
+.active,
+.button:active {
+	box-shadow: 0 0 1px rgba(67, 90, 111, 0.38) !important;
+}

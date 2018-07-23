@@ -1,14 +1,15 @@
 import React, { Component } from "react";
-import loadable from "loadable-components";
-import { View } from "~/application";
-import backgroundImage from "~/images/screenshot.png";
+import { Scope, Link } from "nore";
+import Styleguide from "./Styleguide";
 
-const Home = loadable(() => import("./Home"));
-const Styleguide = loadable(() => import("./Styleguide"));
+export default context => (
+	<b>
+		<Scope exact match="/">
+			<b style={{ padding: "4rem" }}>
+				<Link to="/styleguide" label="Styleguide" />
+			</b>
+		</Scope>
 
-export default scope => (
-	<b style={{ backgroundImage }}>
-		<View exact path="/" Component={Home} />
-		<View path="/styleguide" Component={Styleguide} />
+		<Scope match="/styleguide" render={Styleguide} />
 	</b>
 );

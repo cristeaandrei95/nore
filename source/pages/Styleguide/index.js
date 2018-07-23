@@ -9,8 +9,8 @@ import $ from "./style.css";
 
 export default scope => (
 	<b class={$.styleguide}>
-		<Colors />
 		<Buttons />
+		<Colors />
 		<Lists />
 		<Cards />
 		<Devices />

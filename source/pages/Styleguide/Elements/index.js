@@ -9,19 +9,6 @@ export default () => (
 			<Sample details>
 				<code>&lt;abbr&gt;</code> – abbreviation or acronym
 			</Sample>
-
-			<Sample example>
-				The{" "}
-				<abbr title="Web Hypertext Application Technology Working Group">
-					WHATWG
-				</abbr>{" "}
-				started working on HTML5 in 2004.
-			</Sample>
-		</Sample>
-		<Sample>
-			<Sample details>
-				<code>&lt;abbr&gt;</code> – abbreviation or acronym
-			</Sample>
 			<Sample example>
 				The{" "}
 				<abbr title="Web Hypertext Application Technology Working Group">
