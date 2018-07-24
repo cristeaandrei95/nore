@@ -25,6 +25,26 @@
 	box-shadow: 0 5px 20px -5px rgba(50, 50, 93, 0.12),
 		0 3px 4px -2px rgba(0, 0, 0, 0.08);
 }
+.color:after {
+	content: "copied";
+	position: absolute;
+	top: 42.5%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 0.75rem;
+	line-height: 1.5em;
+	background: #fff;
+	padding: 0.25rem;
+	border-radius: 2px;
+	box-shadow: 0 0 0.5rem #9cb1c3;
+}
+.color:not(:active):after {
+	opacity: 0;
+	transition: opacity 1s step-end;
+}
+.color:active:after {
+	opacity: 1;
+}
 .color_label {
 	position: absolute;
 	left: 0;
@@ -33,18 +53,18 @@
 	padding: 0.5rem 0;
 	background: $color.neutral.lightest;
 }
+.color_name {
+	composes: color_label;
+	font-size: $font.size.small;
+}
 .color_value {
 	composes: color_label;
 	font-size: $font.size.small;
 	text-transform: uppercase;
 	color: $color.neutral.darker;
-}
-.color_name {
-	composes: color_label;
-	font-size: $font.size.small;
 	display: none;
 }
-.color:hover .color_name {
+.color_name:hover .color_value {
 	display: block;
 }
 
@@ -53,4 +73,19 @@
 }
 .neutral > .color {
 	flex-basis: 12.5%;
+}
+
+@keyframes show_and_hide {
+	0% {
+		opacity: 0;
+	}
+	30% {
+		opacity: 1;
+	}
+	60% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
 }

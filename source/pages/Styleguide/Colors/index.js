@@ -17,13 +17,22 @@ const getByType = type =>
 		.map(key => ["$" + key, $variables[key]]);
 
 const Color = ({ name, value }) => {
-	const onClick = e => toClipboard(name);
 	const style = { background: value };
+	const copyName = e => toClipboard(name);
+	const copyValue = e => {
+		toClipboard(value);
+		e.stopPropagation();
+	};
 
 	return (
-		<b class={$.color} style={style} onClick={onClick}>
-			<b class={$.color_value}>{value}</b>
-			<b class={$.color_name}>{name}</b>
+		<b class={$.color} style={style} onClick={copyName}>
+			<b class={$.color_name}>
+				{name.split(".").pop()}
+
+				<b class={$.color_value} onClick={copyValue}>
+					{value}
+				</b>
+			</b>
 		</b>
 	);
 };
@@ -36,7 +45,7 @@ export default () => (
 
 				<b class={$[palette] || $.palette}>
 					{getByType(palette).map(([name, value]) => (
-						<Color key={name} name={name.split(".").pop()} value={value} />
+						<Color key={name} name={name} value={value} />
 					))}
 				</b>
 			</b>
