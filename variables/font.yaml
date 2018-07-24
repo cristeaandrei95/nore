@@ -1,0 +1,48 @@
+font:
+  size:
+    micro:   .625rem  # 10px
+    tiny:    .75rem   # 12px
+    small:   .875rem  # 14px
+    normal:  1rem     # 16px
+    medium:  1.25rem  # 20px
+    semi:    1.5rem   # 24px
+    large:   2rem     # 32px
+    big:     3rem     # 48px
+    huge:    4rem     # 64px
+
+  weight:
+    thin:    100  # (hairline)
+    lighter: 200  # (extra light)
+    light:   300  #
+    normal:  400  #
+    medium:  500  #
+    semi:    600  # (demi bold)
+    bold:    700  #
+    bolder:  800  # (extra bold)
+    heavy:   900  # (black)
+
+  family:
+    sans: IBM Plex Sans
+    serif: $font.family.default
+    alternative: $font.family.default
+    code: $font.family.monospace
+    monospace: >
+      Fira Mono,
+      DejaVu Sans Mono,
+      Menlo,
+      Consolas,
+      Liberation Mono,
+      Monaco,
+      Lucida Console,
+      monospace
+    default: >
+      -apple-system,
+      BlinkMacSystemFont,
+      Segoe UI,
+      Roboto,
+      Ubuntu,
+      Cantarell,
+      Fira Sans,
+      Droid Sans,
+      Helvetica Neue,
+      sans-serif

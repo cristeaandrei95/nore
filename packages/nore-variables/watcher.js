@@ -1,11 +1,9 @@
 import { watch } from "chokidar";
 
-export default ({ files, extensions, path, onChange }) => {
-	const target = files.map(name => `${name}+(${extensions.join("|")})`);
-
-	const watcher = watch(target, {
+export default ({ path, onChange }) => {
+	const watcher = watch("*", {
 		ignoreInitial: true,
-		cwd: path,
+		cwd: `${path}/variables`,
 	});
 
 	["change", "add"].forEach(event => {

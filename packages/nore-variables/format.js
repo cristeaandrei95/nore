@@ -1,4 +1,5 @@
 import { isString } from "@nore/std/assert";
+import { getFileName } from "@nore/std/path";
 import { assign } from "@nore/std/object";
 
 function combine(datasets, fileNames) {
@@ -9,10 +10,11 @@ function combine(datasets, fileNames) {
 
 		for (const key in dataset) {
 			if (variables[key]) {
+				const current = getFileName(fileNames[i]);
+				const previous = getFileName(fileNames[i - 1]);
+
 				throw Error(
-					`The namespace "${key}" from "${
-						fileNames[i]
-					}.yaml" was already declared in "${fileNames[i - 1]}.yaml".`
+					`The namespace "${key}" from "${current}" was already declared in "${previous}".`
 				);
 			}
 

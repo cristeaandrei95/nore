@@ -1,17 +1,14 @@
+import { readDirectory } from "@nore/std/fs";
 import watcher from "./watcher.js";
 import format from "./format.js";
 import plugin from "./plugin.js";
 
-const fileNames = ["variables", "variables.options", "variables.decisions"];
-const extensions = [".yaml", ".toml", ".json", ".js"];
-
 export default options => async nore => {
 	nore.plug("variables", {
 		async load() {
-			// default path: source/variables.[yaml|toml|js|json]
-			const files = fileNames.map(name => `${nore.path}/source/${name}`);
+			const files = await readDirectory(`${nore.path}/variables`);
 			const datasets = await Promise.all(files.map(file => nore.load(file)));
-			const variables = format(datasets, fileNames);
+			const variables = format(datasets, files);
 
 			await nore.emit("variables:load", variables);
 
@@ -20,9 +17,7 @@ export default options => async nore => {
 
 		watch(onChange) {
 			watcher({
-				extensions,
-				files: fileNames,
-				path: `${nore.path}/source`,
+				path: nore.path,
 				onChange: async event => {
 					const variables = await this.load();
 
