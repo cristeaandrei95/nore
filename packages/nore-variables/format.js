@@ -2,7 +2,15 @@ import { isString } from "@nore/std/assert";
 import { getFileName } from "@nore/std/path";
 import { assign } from "@nore/std/object";
 
-function combine(datasets, fileNames) {
+function findNamespace(namespace, datasets, files) {
+	for (let i = 0; i < files.length; ++i) {
+		if (datasets[i][namespace]) {
+			return files[i];
+		}
+	}
+}
+
+function combine(datasets, files) {
 	const variables = {};
 
 	for (let i = 0; i < datasets.length; ++i) {
@@ -10,8 +18,8 @@ function combine(datasets, fileNames) {
 
 		for (const key in dataset) {
 			if (variables[key]) {
-				const current = getFileName(fileNames[i]);
-				const previous = getFileName(fileNames[i - 1]);
+				const current = getFileName(files[i]);
+				const previous = getFileName(findNamespace(key, datasets, files));
 
 				throw Error(
 					`The namespace "${key}" from "${current}" was already declared in "${previous}".`
@@ -72,8 +80,8 @@ function normalize(variables) {
 	return variables;
 }
 
-export default (datasets, fileNames) => {
-	const dataset = combine(datasets, fileNames);
+export default (datasets, files) => {
+	const dataset = combine(datasets, files);
 	const variables = flatten(dataset);
 
 	return normalize(variables);
