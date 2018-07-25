@@ -1,33 +1,53 @@
 import React, { Component } from "react";
 import $ from "./style.css";
 
-const types = ["default", "ghost"];
-const sizes = ["small", "large"];
-const states = ["active", "focus", "disabled"];
-const modifiers = ["round"];
+const apply = (source, target, list) => {
+	for (const key of list) {
+		target[key] = source[key] || null;
+	}
+};
 
 const isLink = el =>
 	el && el.type && (el.type === "a" || el.type.name === "Link");
+
+const fields = ["id", "className", "style"];
+const variants = ["default", "plain", "flat", "outlined", "raised"];
+const sizes = ["small", "large"];
+const states = ["active", "focus"];
+const modifiers = ["round", "disabled", "flexible"];
+const styles = ["primary", "secondary", "accent", "positive", "negative"];
+const events = ["onClick", "onBlur", "onFocus"];
 
 export default class Button extends Component {
 	isSet = key => this.props[key];
 
 	classes() {
-		const type = types.filter(this.isSet);
-		const size = sizes.filter(this.isSet);
-		const state = states.filter(this.isSet);
-		const modifier = modifiers.filter(this.isSet);
+		const $variants = variants.filter(this.isSet);
 
-		if (!type.length) type.push("default");
+		if (!$variants.length) $variants.push("default");
 
-		return $(type, size, state, modifier);
+		return $(
+			$variants,
+			sizes.filter(this.isSet),
+			states.filter(this.isSet),
+			styles.filter(this.isSet),
+			modifiers.filter(this.isSet)
+		);
 	}
 
-	render({ onClick, label, children }, state) {
-		const attrs = {
-			className: this.classes(),
-			onClick: onClick,
-		};
+	render({ children, label, disabled }, state) {
+		const attrs = {};
+
+		// add basic attributes
+		apply(this.props, attrs, fields);
+
+		// add events
+		if (!disabled) {
+			apply(this.props, attrs, events);
+		}
+
+		// join CSS classes
+		attrs.className += this.classes();
 
 		if (isLink(children)) {
 			return React.cloneElement(children, attrs);

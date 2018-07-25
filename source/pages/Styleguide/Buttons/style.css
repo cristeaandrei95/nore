@@ -1,5 +1,5 @@
 .group:not(:first-child) {
-	margin-top: 1rem;
+	margin-top: 2rem;
 }
 .group > *:not(:first-child) {
 	margin-left: 1rem;
