@@ -27,5 +27,7 @@ export default function(classes) {
 		}
 	}
 
-	return result.join(" ");
+	// leave a space so it won't mess with other
+	// classes defined during concatenation
+	return " " + result.join(" ");
 }
