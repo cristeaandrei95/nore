@@ -1,10 +1,20 @@
 .section {
+	padding-top: 2rem;
+	padding-bottom: 2rem;
 	position: relative;
 	background-color: $color.neutral.lightest;
 	box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.05) !important;
 }
-.content {
-	padding: 3rem;
+.centered {
 	margin: 0 auto;
 	max-width: 48rem;
+	padding: 0 2rem;
+}
+.title {
+	composes: centered;
+	font-size: $font.size.large;
+}
+.content {
+	composes: centered;
+	margin-top: 2rem;
 }

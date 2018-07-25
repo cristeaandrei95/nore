@@ -3,9 +3,7 @@ import $ from "./style.css";
 
 export default ({ children, title, className = "", style }) => (
 	<b class={$.section} style={style}>
-		<b class={`${$.content} ${className}`}>
-			{title ? <h3>{title}</h3> : null}
-			{children}
-		</b>
+		{title ? <b class={$.title}>{title}</b> : null}
+		<b class={`${$.content} ${className}`}>{children}</b>
 	</b>
 );
