@@ -1,0 +1,69 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+	text-decoration: inherit;
+	text-transform: inherit;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+}
+
+h1 {
+	font-family: $text.h1.font;
+	font-weight: $text.h1.weight;
+	font-size: $text.h1.size;
+	line-height: $text.h1.line_height;
+	letter-spacing: $text.h1.letter_spacing;
+}
+
+h2 {
+	font-family: $text.h2.font;
+	font-weight: $text.h2.weight;
+	font-size: $text.h2.size;
+	line-height: $text.h2.line_height;
+	letter-spacing: $text.h2.letter_spacing;
+}
+
+h3 {
+	font-family: $text.h3.font;
+	font-weight: $text.h3.weight;
+	font-size: $text.h3.size;
+	line-height: $text.h3.line_height;
+	letter-spacing: $text.h3.letter_spacing;
+}
+
+h4 {
+	font-family: $text.h4.font;
+	font-weight: $text.h4.weight;
+	font-size: $text.h4.size;
+	line-height: $text.h4.line_height;
+	letter-spacing: $text.h4.letter_spacing;
+}
+
+h5 {
+	font-family: $text.h5.font;
+	font-weight: $text.h5.weight;
+	font-size: $text.h5.size;
+	line-height: $text.h5.line_height;
+	letter-spacing: $text.h5.letter_spacing;
+}
+
+h6 {
+	font-family: $text.h6.font;
+	font-weight: $text.h6.weight;
+	font-size: $text.h6.size;
+	line-height: $text.h6.line_height;
+	letter-spacing: $text.h6.letter_spacing;
+}
+
+p:not(:first-child) {
+	margin-top: 1rem;
+}
+
+::selection {
+	color: $global.text_select_color;
+	background-color: $global.text_select_background;
+}

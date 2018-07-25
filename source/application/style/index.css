@@ -1,5 +1,6 @@
-/* @import url("https://fonts.googleapis.com/css?family=IBM+Plex+Sans"); */
+@import url("https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,500,700&subset=latin-ext");
 @import "./defaults.css";
+@import "./typography.css";
 
 .application {
 	position: absolute;
@@ -13,9 +14,4 @@
 	font-weight: $global.font_weight;
 	line-height: $global.line_height;
 	color: $global.text_color;
-}
-
-::selection {
-	color: $global.text_select_color;
-	background-color: $global.text_select_background;
 }
