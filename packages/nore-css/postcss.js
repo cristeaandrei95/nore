@@ -31,6 +31,8 @@ export default ({ config, bundle }) => [
 	// add vendor prefixes to rules
 	Autoprefixer({
 		browsers: config.browserslist,
+		// fix flexbox and grid issues on IE11
 		flexbox: "no-2009",
+		grid: true,
 	}),
 ];
