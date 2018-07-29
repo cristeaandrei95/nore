@@ -1,11 +1,11 @@
 color:
   white: '#FFFEFC'
-  black: '#193652'
+  black: '#191E24'
 
   neutral:
     lightest: '#FAFBFC'
-    lighter:  '#eff2f5'
-    light:    '#C1CED9'
+    lighter:  '#EFF2F5'
+    light:    '#D5DEE6'
     base:     '#9CB1C3'
     dark:     '#6E8CA8'
     darker:   '#496279'
