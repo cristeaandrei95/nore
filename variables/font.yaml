@@ -1,20 +1,20 @@
 font:
   size:
-    micro:   .625rem  # 10px
-    tiny:    .75rem   # 12px
+    xxsmall: .625rem  # 10px
+    xsmall:  .75rem   # 12px
     small:   .875rem  # 14px
-    normal:  1rem     # 16px
+    base:    1rem     # 16px
     medium:  1.25rem  # 20px
-    semi:    1.5rem   # 24px
-    large:   2rem     # 32px
-    big:     3rem     # 48px
+    large:   1.5rem   # 24px
+    xlarge:  2rem     # 32px
+    xxlarge: 3rem     # 48px
     huge:    4rem     # 64px
 
   weight:
     thin:    100  # (hairline)
     lighter: 200  # (extra light)
     light:   300  #
-    normal:  400  #
+    regular: 400  #
     medium:  500  #
     semi:    600  # (demi bold)
     bold:    700  #
@@ -23,7 +23,7 @@ font:
 
   family:
     sans: IBM Plex Sans
-    serif: $font.family.default
+    serif: IBM Plex Serif
     alternative: $font.family.default
     code: $font.family.monospace
     monospace: >
