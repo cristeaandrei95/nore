@@ -1,7 +1,5 @@
+@import url("/fonts/styleguide/icons.css");
+
 .styleguide {
 	position: relative;
 }
-
-/* responsive font size: font-size: calc(.0097*100vw + 1rem); */
-
-

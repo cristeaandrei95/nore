@@ -4,7 +4,6 @@ import Typography from "./Typography";
 import Colors from "./Colors";
 import Lists from "./Lists";
 import Cards from "./Cards";
-import Devices from "./Devices";
 import Elements from "./Elements";
 import $ from "./style.css";
 
@@ -15,7 +14,6 @@ export default scope => (
 		<Colors />
 		<Lists />
 		<Cards />
-		<Devices />
 		<Elements />
 	</b>
 );

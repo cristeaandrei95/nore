@@ -1,0 +1,14 @@
+.paper {
+	padding: 1rem;
+	background-color: $color.white;
+}
+.article {
+	margin: 0 auto;
+	max-width: 40rem;
+}
+
+$screen_720px {
+	.paper {
+		padding: 2rem 0;
+	}
+}
