@@ -4,12 +4,20 @@
 	v8.0.0 - https://github.com/necolas/normalize.css
 	v6.1.0 - https://github.com/h5bp/main.css
 	v4.1.1 - https://github.com/twbs/bootstrap (bootstrap-reboot.css)
+	v6.0.0 - https://github.com/csstools/sanitize.css
 */
 
 *,
 *::after,
 *::before {
 	box-sizing: inherit;
+}
+
+::before,
+::after {
+	/* Opinionated before / after defaults */
+	text-decoration: inherit;
+	vertical-align: inherit;
 }
 
 html {
@@ -23,6 +31,9 @@ html {
 	/* Always show the vertical scrollbar so that content doesn't jump */
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
+
+	/* Breaks words in all browsers to prevent overflow */
+	word-break: break-word;
 }
 
 body {
@@ -56,9 +67,33 @@ body[no-scroll] {
 		TYPOGRAPHY
 ******************************************************************************/
 
+body,
+caption,
+th,
+td,
+input,
+textarea,
+select,
+option,
+legend,
+fieldset,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	/* choose the size of the font so that its lowercase letters */
+	font-size-adjust: 0.5;
+}
+
 p {
-	padding: 0.25em 0;
+	padding: 0;
 	margin: 0;
+	line-height: 1.58;
+}
+p:not(:first-child) {
+	margin-top: 1.35em;
 }
 
 ins,
@@ -128,6 +163,10 @@ blockquote:after {
 	right: -0.6em;
 	font-size: 3em;
 	color: #e7edf0;
+}
+
+blockquote > p:not(:first-child) {
+	margin-top: 0.25rem;
 }
 
 /******************************************************************************
@@ -259,6 +298,20 @@ td {
 }
 
 /******************************************************************************
+		SVG
+******************************************************************************/
+
+/* Change the fill color to match the text color */
+svg {
+	fill: currentColor;
+}
+
+/* Hide the overflow in IE */
+svg:not(:root) {
+	overflow: hidden;
+}
+
+/******************************************************************************
 		FORM
 ******************************************************************************/
 
@@ -383,6 +436,7 @@ button:-moz-focusring,
 /* Text selection color */
 ::selection {
 	background-color: #feecb0;
+	color: #141414;
 	text-shadow: none;
 }
 
@@ -417,6 +471,16 @@ img {
 	height: auto;
 }
 
+figure {
+	/* Remove default margins */
+	margin: 0;
+}
+figcaption {
+	text-align: center;
+	font-size: 0.875rem;
+	color: #6e8ca8;
+}
+
 template {
 	/* Add the correct display in IE 10+ */
 	display: none;
@@ -425,7 +489,6 @@ template {
 audio,
 canvas,
 progress,
-svg,
 video {
 	/* Remove the gap between elements and the bottom of their containers */
 	vertical-align: middle;
@@ -443,6 +506,12 @@ video {
 /* Add the correct display in IE 10 */
 [hidden] {
 	display: none !important;
+}
+
+/* Change the cursor on disabled, not-editable */
+[aria-disabled],
+[disabled] {
+	cursor: disabled;
 }
 
 @-ms-viewport {
