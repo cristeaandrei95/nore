@@ -1,3 +1,11 @@
+.container {
+	overflow: auto;
+}
+.content {
+	position: relative;
+	padding-bottom: 1rem;
+}
+
 .device {
 	margin: 0 auto;
 }

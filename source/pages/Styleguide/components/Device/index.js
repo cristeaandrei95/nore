@@ -1,5 +1,6 @@
 import Frame from "~/components/Frame";
 import React, { Component } from "react";
+import $application from "nore/style";
 import $ from "./style.css";
 
 function copyCSSToFrame(parent, iframe) {
@@ -25,7 +26,7 @@ function onUpdate({ iframe, document }) {
 	iframe.height = document.body.children[0].scrollHeight + "px";
 }
 
-export default ({ children, className, frameClass, width, height }) => {
+export default ({ children, className, width, height }) => {
 	const style = {
 		width: width.includes("%") ? width : parseInt(width) + 16 + "px",
 		height: height.includes("%") ? height : parseInt(height) + 40 + "px",
@@ -38,7 +39,7 @@ export default ({ children, className, frameClass, width, height }) => {
 					onReady={onReady}
 					onMount={onUpdate}
 					onUpdate={onUpdate}
-					class={frameClass}
+					class={$application}
 				>
 					{children}
 				</Frame>

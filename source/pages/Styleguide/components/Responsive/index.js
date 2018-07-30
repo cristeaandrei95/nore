@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import Device from "../Device";
-import $application from "nore/style/index.css";
 import $ from "./style.css";
 
 const layouts = {
-	mobile: { width: "320", height: "560" },
-	tablet: { width: "780", height: "560" },
-	monitor: { width: "100%", height: "560" },
+	mobile: "320",
+	tablet: "780",
+	monitor: "100%",
 };
 
 const Action = ({ onClick, isActive, icon }) => (
@@ -29,27 +28,47 @@ const Actions = ({ onSelect, selected }) => (
 );
 
 export default class Typography extends Component {
-	state = { selected: "tablet" };
+	constructor({ layout }) {
+		super();
+		this.state = { selected: layout || null };
+	}
 
-	render({ className, style, children }, { selected }) {
-		const { width, height } = layouts[selected];
+	setLayout = layout => {
+		const { selected } = this.state;
+
+		this.setState({
+			selected: selected === layout ? null : layout,
+		});
+	};
+
+	layout() {
+		const { selected } = this.state;
+		const { children } = this.props;
+		const width = this.props.width || layouts[selected];
+		const height = this.props.height || "560";
+
+		if (!selected) {
+			return (
+				<b class={$.container} style={{ maxHeight: `${height}px` }}>
+					<b class={$.content}>{children}</b>
+				</b>
+			);
+		}
 
 		return (
+			<Device width={width} height={height} class={$.device}>
+				<b class={$.content}>{children}</b>
+			</Device>
+		);
+	}
+
+	render({ className, style, children }, { selected }) {
+		return (
 			<b class={className} style={style}>
-				<Device
-					width={width}
-					height={height}
-					class={$.device}
-					frameClass={$application.application}
-				>
-					{children}
-				</Device>
+				{this.layout()}
 
 				<b class={$.layout_select}>
-					<Actions
-						selected={selected}
-						onSelect={selected => this.setState({ selected })}
-					/>
+					<Actions selected={selected} onSelect={this.setLayout} />
 				</b>
 			</b>
 		);
