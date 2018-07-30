@@ -1,17 +1,12 @@
-@import url("https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,500,700&subset=latin-ext");
 @import "./defaults.css";
 @import "./typography.css";
 
-.application {
+.container {
+	composes: content from "./typography.css";
+
 	position: absolute;
 	top: 0;
 	right: 0;
 	left: 0;
 	bottom: 0;
-
-	font-family: $global.font_family;
-	font-size: $global.font_size;
-	font-weight: $global.font_weight;
-	line-height: $global.line_height;
-	color: $global.text_color;
 }

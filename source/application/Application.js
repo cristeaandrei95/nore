@@ -46,7 +46,7 @@ export default class Application extends Component {
 
 	render({ children }, state) {
 		return (
-			<b class={$.application}>
+			<b class={$.container}>
 				<Scope.Root context={store} route={state.path}>
 					{children}
 				</Scope.Root>

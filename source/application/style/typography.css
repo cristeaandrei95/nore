@@ -1,3 +1,16 @@
+::selection {
+	color: $global.text_select_color;
+	background-color: $global.text_select_background;
+}
+
+.content {
+	font-family: $global.font_family;
+	font-size: 18px;
+	font-weight: $global.font_weight;
+	line-height: $global.line_height;
+	color: $global.text_color;
+}
+
 h1,
 h2,
 h3,
@@ -27,43 +40,14 @@ h2 {
 	letter-spacing: $text.h2.letter_spacing;
 }
 
-h3 {
-	font-family: $text.h3.font;
-	font-weight: $text.h3.weight;
-	font-size: $text.h3.size;
-	line-height: $text.h3.line_height;
-	letter-spacing: $text.h3.letter_spacing;
-}
+$screen_720px {
+	h1 {
+		font-size: calc($text.h1.size + 50%);
+		line-height: $text.h1.line_height;
+	}
 
-h4 {
-	font-family: $text.h4.font;
-	font-weight: $text.h4.weight;
-	font-size: $text.h4.size;
-	line-height: $text.h4.line_height;
-	letter-spacing: $text.h4.letter_spacing;
-}
-
-h5 {
-	font-family: $text.h5.font;
-	font-weight: $text.h5.weight;
-	font-size: $text.h5.size;
-	line-height: $text.h5.line_height;
-	letter-spacing: $text.h5.letter_spacing;
-}
-
-h6 {
-	font-family: $text.h6.font;
-	font-weight: $text.h6.weight;
-	font-size: $text.h6.size;
-	line-height: $text.h6.line_height;
-	letter-spacing: $text.h6.letter_spacing;
-}
-
-p:not(:first-child) {
-	margin-top: 1rem;
-}
-
-::selection {
-	color: $global.text_select_color;
-	background-color: $global.text_select_background;
+	h2 {
+		font-size: calc($text.h2.size + 50%);
+		line-height: $text.h2.line_height;
+	}
 }
