@@ -5,7 +5,7 @@
 .button {
 	display: inline-block;
 	vertical-align: middle;
-	padding: $size.tiny $size.small;
+	padding: $size.xsmall $size.small;
 
 	line-height: inherit;
 	font: inherit;
@@ -104,8 +104,8 @@
 /* MODIFIERS */
 
 .small {
-	padding: $size.micro $size.small;
-	font-size: $font.size.tiny;
+	padding: $size.xxsmall $size.small;
+	font-size: $font.size.xsmall;
 }
 .large {
 	padding: $size.small $size.medium;
