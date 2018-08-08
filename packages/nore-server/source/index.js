@@ -2,6 +2,7 @@ import fastify from "fastify";
 import cors from "access-control";
 import { isString } from "@nore/std/assert";
 import setPlugins from "./plugins.js";
+import onNextEventLoop from "./onNextEventLoop.js";
 
 export default class Server {
 	constructor(options = {}) {
@@ -37,12 +38,13 @@ export default class Server {
 	}
 
 	async start() {
-		new Promise((resolve, reject) => {
-			setImmediate(() => {
-				this.http.listen(this.port, this.host, (error, address) => {
-					if (error) reject(error);
-					else resolve(address);
-				});
+		const { http, port, host } = this;
+
+		// start on next event loop so we have time to hook everyting up
+		return onNextEventLoop((resolve, reject) => {
+			http.listen(port, host, (error, address) => {
+				if (error) reject(error);
+				else resolve(`${host}:${port}`);
 			});
 		});
 	}
