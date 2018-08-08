@@ -1,0 +1,64 @@
+2px:  .2rem
+4px:  .4rem
+8px:  .8rem
+12px: 1.2rem
+16px: 1.6rem
+20px: 2.0rem
+24px: 2.4rem
+28px: 2.8rem
+32px: 3.2rem
+36px: 3.6rem
+40px: 4.0rem
+48px: 4.8rem
+64px: 6.4rem
+
+space:
+  nano:    $2px
+  xxsmall: $4px
+  xsmall:  $8px
+  small:   $12px
+  medium:  $16px
+  large:   $20px
+  xlarge:  $24px
+  xxlarge: $32px
+  huge:    $48px
+
+  vertical:   $4px
+  horizontal: $8px
+
+  inset:
+    square:
+      nano:    $2px
+      xxsmall: $4px
+      xsmall:  $8px
+      small:   $12px
+      medium:  $16px
+      large:   $20px
+      xlarge:  $24px
+      xxlarge: $32px
+
+    squish:
+      xxsmall: $2px   $2px
+      xsmall:  $2px   $4px
+      small:   $4px   $8px
+      medium:  $8px   $16px
+      large:   $12px  $24px
+      xlarge:  $16px  $32px
+      xxlarge: $24px  $48px
+
+    stretch:
+      xsmall:  .6rem  $4px
+      small:   $12px  $8px
+      medium:  $18px  $12px
+      large:   $24px  $16px
+      xlarge:  $30px  $20px
+
+    stack:
+      xxsmall: $2px
+      xsmall:  $4px
+      small:   $8px
+      medium:  $16px
+      large:   $24px
+      xlarge:  $32px
+      xxlarge: $48px
+

@@ -1,25 +1,26 @@
 font:
   size:
-    xxsmall: .625rem  # 10px
-    xsmall:  .75rem   # 12px
-    small:   .875rem  # 14px
-    base:    1rem     # 16px
-    medium:  1.25rem  # 20px
-    large:   1.5rem   # 24px
-    xlarge:  2rem     # 32px
-    xxlarge: 3rem     # 48px
-    huge:    4rem     # 64px
+    rem:      62.5%   # 10px
+    xsmall:   1rem    # 10px
+    small:    1.2rem  # 12px
+    smallish: 1.4rem  # 14px
+    medium:   1.6rem  # 16px
+    semi:     1.8rem  # 18px
+    large:    2.0rem  # 20px
+    xlarge:   2.4rem  # 24px
+    xxlarge:  3.2rem  # 32px
+    huge:     4.8rem  # 48px
 
   weight:
-    thin:    100  # (hairline)
-    lighter: 200  # (extra light)
-    light:   300  #
-    regular: 400  #
-    medium:  500  #
-    semi:    600  # (demi bold)
-    bold:    700  #
-    bolder:  800  # (extra bold)
-    heavy:   900  # (black)
+    thin:    '100'
+    lighter: '200'
+    light:   '300'
+    regular: '400'
+    medium:  '500'
+    semi:    '600'
+    bold:    '700'
+    bolder:  '800'
+    heavy:   '900'
 
   family:
     sans: IBM Plex Sans
