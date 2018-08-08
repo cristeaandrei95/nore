@@ -54,12 +54,16 @@ function normalize(variables) {
 	// a namespace cannot have a value
 	// but here we can set it to have it
 	// blue: { base: #fff } => $blue == #fff
-	for (const variable in variables) {
-		if (variable.includes("base") || variable.includes("default")) {
-			const namespace = variable.replace(/\.(base|default)/, "");
+	const defaults = ["base", "default", "medium"];
 
-			if (!variables[namespace]) {
-				variables[namespace] = variables[variable];
+	for (const variable in variables) {
+		for (const name of defaults) {
+			if (variable.includes(name)) {
+				const namespace = variable.replace(`.${name}`, "");
+
+				if (!variables[namespace]) {
+					variables[namespace] = variables[variable];
+				}
 			}
 		}
 	}
