@@ -1,9 +1,8 @@
-$max_width: 48rem;
+$max_width: 78rem;
 $padding: 0 2rem;
 
 .section {
-	padding-top: 2rem;
-	padding-bottom: 2rem;
+	padding: $space.inset.square.xlarge;
 	position: relative;
 	background-color: $color.neutral.lightest;
 	box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.05) !important;

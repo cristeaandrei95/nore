@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Device from "../Device";
+import Section from "../Section";
 import $ from "./style.css";
 
 const layouts = {
@@ -41,36 +42,38 @@ export default class Typography extends Component {
 		});
 	};
 
-	layout() {
-		const { selected } = this.state;
-		const { children } = this.props;
+	render({ className, style, children, title }, { selected }) {
 		const width = this.props.width || layouts[selected];
 		const height = this.props.height || "560";
 
-		if (!selected) {
-			return (
-				<b class={$.container} style={{ maxHeight: `${height}px` }}>
-					<b class={$.content}>{children}</b>
-				</b>
-			);
-		}
-
-		return (
+		const content = selected ? (
 			<Device width={width} height={height} class={$.device}>
 				<b class={$.content}>{children}</b>
 			</Device>
+		) : (
+			<b class={$.content_container} style={{ maxHeight: `${height}px` }}>
+				<b class={$.content}>{children}</b>
+			</b>
 		);
-	}
 
-	render({ className, style, children }, { selected }) {
-		return (
-			<b class={className} style={style}>
-				{this.layout()}
+		const container = (
+			<b class={$.reponsive}>
+				{content}
 
 				<b class={$.layout_select}>
 					<Actions selected={selected} onSelect={this.setLayout} />
 				</b>
 			</b>
+		);
+
+		return (
+			<Section
+				title={title}
+				class={className}
+				style={style}
+				flexible={selected}
+				children={container}
+			/>
 		);
 	}
 }
