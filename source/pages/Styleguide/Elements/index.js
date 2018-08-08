@@ -51,9 +51,8 @@ export default () => (
 				<code>&lt;kbd&gt;</code> – user keyboard input
 			</Sample>
 			<Sample example>
-				Mac users: To take a screenshot press <kbd>Command</kbd>+<kbd>
-					Shift
-				</kbd>+<kbd>3</kbd>
+				To take a screenshot press:
+				<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>3</kbd>
 			</Sample>
 		</Sample>
 		<Sample>

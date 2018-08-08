@@ -5,9 +5,7 @@ import Article from "./Article";
 import $ from "./style.css";
 
 export default () => (
-	<Section title="Typography" flexible style={{ padding: "2rem" }}>
-		<Responsive>
-			<Article />
-		</Responsive>
-	</Section>
+	<Responsive title="Typography">
+		<Article />
+	</Responsive>
 );
