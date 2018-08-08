@@ -4,33 +4,32 @@
  */
 .button {
 	display: inline-block;
-	vertical-align: middle;
-	padding: $size.xsmall $size.small;
+	vertical-align: baseline;
+	padding: $space.inset.squish.small;
 
-	line-height: inherit;
-	font: inherit;
+	line-height: 1em;
+	font-size: $font.size.small;
+	font-family: $font.family.sans;
+	font-weight: $font.weight.medium;
+
 	text-align: center;
 	text-decoration: none;
 	text-transform: none;
 	white-space: nowrap;
 	letter-spacing: normal;
 	color: inherit;
-	font-size: $font.size.small;
-	font-weight: 500;
 
 	background-color: transparent;
-	border: solid 1px transparent;
-
-	transition-property: box-shadow, color, transform;
-	transition-duration: 0.2s;
-	transition-timing-function: cubic-bezier(0.64, 0, 0.35, 1);
-
-	/* reset some default styles */
 	border: none;
+
 	outline: none;
 	appearance: none;
 	user-select: none;
 	cursor: pointer;
+
+	transition-property: box-shadow, color, transform;
+	transition-duration: 0.2s;
+	transition-timing-function: cubic-bezier(0.64, 0, 0.35, 1);
 }
 
 /* TYPES */
@@ -104,11 +103,11 @@
 /* MODIFIERS */
 
 .small {
-	padding: $size.xxsmall $size.small;
+	padding: 0.3rem 0.6rem;
 	font-size: $font.size.xsmall;
 }
 .large {
-	padding: $size.small $size.medium;
+	padding: $space.inset.squish.medium;
 }
 
 .round {
