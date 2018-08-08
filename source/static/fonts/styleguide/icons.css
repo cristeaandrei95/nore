@@ -12,10 +12,10 @@
 }
 
 [class^="ns-"] {
+	display: table-cell;
 	position: relative;
-	width: 1em;
-	height: 1em;
-	line-height: 1;
+	padding: 0.5em;
+	font-size: 1.6rem;
 }
 [class^="ns-"]:before,
 [class*=" ns-"]:before {
