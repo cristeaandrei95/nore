@@ -22,8 +22,6 @@
 
 html {
 	box-sizing: border-box;
-	/* Correct the line height in all browsers */
-	line-height: 1.25;
 	/* Prevent adjustments of font size after orientation changes in iOS */
 	-webkit-text-size-adjust: 100%;
 	/* Ignore non-responsive design overflows */
@@ -34,6 +32,14 @@ html {
 
 	/* Breaks words in all browsers to prevent overflow */
 	word-break: break-word;
+
+	/* Opinionated default font size / line height */
+	/* Set in % to allow users to change their default font size in browsers */
+	font-size: 62.5%;
+	line-height: 1;
+
+	/* Opinionated minimum window width */
+	min-width: 320px;
 }
 
 body {
@@ -46,19 +52,22 @@ body {
 	letter-spacing: 0;
 	font-weight: 400;
 	font-style: normal;
-
+	font-feature-settings: "liga", "kern";
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	-moz-font-feature-settings: "liga" on;
 
 	/* Text adjust is set to 100% to avoid iOS Safari bugs where the font-size is
      sometimes not restored during orientation */
 	-ms-overflow-style: scrollbar;
 	-webkit-tap-highlight-color: transparent;
+
+	/* Opinionated default color */
+	color: #2e3c40;
 }
 
-body[no-scroll] {
+/* Opinionated attribute that disables scrolling */
+body[noscroll] {
 	height: 100vh;
 	overflow: hidden;
 }
@@ -96,11 +105,21 @@ p:not(:first-child) {
 	margin-top: 1.35em;
 }
 
-ins,
 mark {
 	/* Address styling not present in IE 8/9 */
 	background-color: #ff0;
-	color: #000;
+	color: #2e3c40;
+}
+
+ins {
+	background-color: #d9f1e5;
+	text-decoration: none;
+	color: #2e3c40;
+}
+
+del {
+	background-color: #fddfd5;
+	color: #2e3c40;
 }
 
 q {
@@ -182,7 +201,7 @@ samp {
 	font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
 		"Courier New", monospace;
 	/* Correct the odd font sizing in all browsers */
-	font-size: 1em;
+	font-size: 0.875em;
 }
 
 code,
@@ -194,16 +213,21 @@ pre {
 pre {
 	margin-top: 0;
 	margin-bottom: 1rem;
+	line-height: 1.25em;
 	-ms-overflow-style: scrollbar;
 	/* Hide longs strings of text and enable scrolling */
 	overflow: auto;
 }
 
 kbd {
-	padding: 0 0.25em;
-	background-color: #f6f9fc;
-	border-style: solid;
-	border-width: 1px 2px 2px 1px;
+	display: inline-block;
+	padding: 0.25em;
+	margin: 0 0.125em;
+	line-height: 1em;
+	vertical-align: text-bottom;
+	border: 1px solid #2e3c40;
+	border-radius: 0.125em;
+	box-shadow: 0 0.125em 0 0.125em #ccc;
 }
 
 var {
@@ -217,7 +241,7 @@ var {
 ******************************************************************************/
 
 a {
-	color: #007bff;
+	color: inherit;
 	/* Remove the gray background on active links in IE 10 */
 	background-color: transparent;
 	text-decoration: none;
@@ -435,8 +459,8 @@ button:-moz-focusring,
 
 /* Text selection color */
 ::selection {
-	background-color: #feecb0;
-	color: #141414;
+	background-color: #fdf6bb;
+	color: #2e3c40;
 	text-shadow: none;
 }
 
@@ -535,7 +559,7 @@ b {
 }
 
 i {
-	display: inline-block;
+	display: table-cell;
 	vertical-align: baseline;
 	font-style: inherit;
 	background: transparent;
