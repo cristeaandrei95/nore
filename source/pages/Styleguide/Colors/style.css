@@ -1,3 +1,6 @@
+.section {
+	font-size: 1.6rem;
+}
 .section:not(:first-child) {
 	margin-top: 2rem;
 }
