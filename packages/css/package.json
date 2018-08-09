@@ -7,7 +7,7 @@
 	"author": "Navaru",
 	"license": "MIT",
 	"dependencies": {
-		"postcss": "^6.0.21",
-		"autoprefixer": "^8.3.0"
+		"postcss": "^7.0.2",
+		"autoprefixer": "^9.1.0"
 	}
 }
