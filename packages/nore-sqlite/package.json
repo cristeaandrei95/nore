@@ -1,0 +1,13 @@
+{
+	"name": "@nore/sqlite",
+	"version": "1.0.0",
+	"description": "Nore SQLite API",
+	"main": "source/index.js",
+	"repository": "https://github.com/nore/sqlite",
+	"author": "Navaru",
+	"license": "MIT",
+	"dependencies": {
+		"mongo-sql": "^5.1.0",
+		"better-sqlite3": "^4.1.4"
+	}
+}
