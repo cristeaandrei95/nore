@@ -1,6 +1,5 @@
 font:
   size:
-    rem:      62.5%   # 10px
     xsmall:   1rem    # 10px
     small:    1.2rem  # 12px
     smallish: 1.4rem  # 14px
