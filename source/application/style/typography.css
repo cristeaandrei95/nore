@@ -1,53 +1,39 @@
-::selection {
-	color: $global.text_select_color;
-	background-color: $global.text_select_background;
-}
+/*
+	headline: 180–200%
+	title: 130–150%
+	sub-heading: 100–125%
+	header: 100–125%
+	line-height: 120–145%
+*/
 
 .content {
-	font-family: $global.font_family;
-	font-size: 18px;
-	font-weight: $global.font_weight;
-	line-height: $global.line_height;
-	color: $global.text_color;
+	line-height: 1.5555555556;
+	font-size: 1.8rem;
+	font-weight: normal;
+	font-family: $font.family.serif, $font.family.default;
+	color: $color.black;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	margin: 0;
-	text-decoration: inherit;
-	text-transform: inherit;
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-font-smoothing: antialiased;
-}
-
-h1 {
-	font-family: $text.h1.font;
-	font-weight: $text.h1.weight;
-	font-size: $text.h1.size;
-	line-height: $text.h1.line_height;
-	letter-spacing: $text.h1.letter_spacing;
-}
-
-h2 {
-	font-family: $text.h2.font;
-	font-weight: $text.h2.weight;
-	font-size: $text.h2.size;
-	line-height: $text.h2.line_height;
-	letter-spacing: $text.h2.letter_spacing;
-}
-
-$screen_720px {
-	h1 {
-		font-size: calc($text.h1.size + 50%);
-		line-height: $text.h1.line_height;
+$screen_576 {
+	.content {
+		font-size: 1.8rem;
 	}
+}
 
-	h2 {
-		font-size: calc($text.h2.size + 50%);
-		line-height: $text.h2.line_height;
+$screen_768 {
+	.content {
+		font-size: 1.6rem;
+	}
+}
+
+$screen_992 {
+	.content {
+		font-size: 1.6rem;
+	}
+}
+
+$screen_1200 {
+	.content {
+		font-size: 1.8rem;
 	}
 }

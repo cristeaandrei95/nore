@@ -33,9 +33,10 @@ html {
 	/* Breaks words in all browsers to prevent overflow */
 	word-break: break-word;
 
-	/* Opinionated default font size / line height */
+	/* Opinionated default font size – 10px */
 	/* Set in % to allow users to change their default font size in browsers */
 	font-size: 62.5%;
+	/* Opinionated default line-height, no line height by default */
 	line-height: 1;
 
 	/* Opinionated minimum window width */
@@ -94,6 +95,19 @@ h5,
 h6 {
 	/* choose the size of the font so that its lowercase letters */
 	font-size-adjust: 0.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	/* Opinionated remove heading margins and inherit text properties */
+	margin: 0;
+	line-height: inherit;
+	text-decoration: inherit;
+	text-transform: inherit;
 }
 
 p {
