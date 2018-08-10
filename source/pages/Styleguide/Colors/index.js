@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import toClipboard from "~/util/toClipboard.js";
 import Section from "../components/Section";
-import $variables from "$variables";
+import $variables from "@nore/variables.json";
 import $ from "./style.css";
 
 const palettes = Object.keys($variables)
