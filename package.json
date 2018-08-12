@@ -6,13 +6,5 @@
 	"author": "Eugen Tudorancea <eugen.tudorancea@gmail.com>",
 	"license": "MIT",
 	"private": true,
-	"workspaces": ["packages/*"],
-	"scripts": {},
-	"dependencies": {
-		"react": "^16.4.0",
-		"react-dom": "^16.4.0",
-		"loadable-components": "^2.2.2",
-		"query-string": "^6.1.0",
-		"cuid": "^2.1.1"
-	}
+	"workspaces": ["packages/*"]
 }
