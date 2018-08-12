@@ -51,7 +51,8 @@ space:
       small:   $12px  $8px
       medium:  $18px  $12px
       large:   $24px  $16px
-      xlarge:  $30px  $20px
+      xlarge:  $32px  $20px
+      xxlarge: $48px  $32px
 
     stack:
       xxsmall: $2px

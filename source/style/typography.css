@@ -46,18 +46,15 @@ $screen_576 {
 
 $screen_768 {
 	.pwa {
-		font-size: 1.8rem;
 	}
 }
 
 $screen_992 {
 	.pwa {
-		font-size: 1.6rem;
 	}
 }
 
 $screen_1200 {
 	.pwa {
-		font-size: 2rem;
 	}
 }

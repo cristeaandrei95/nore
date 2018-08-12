@@ -1,6 +1,6 @@
 import Frame from "~/components/Frame";
 import React, { Component } from "react";
-import $application from "~/style";
+import $style from "~/style";
 import $ from "./style.css";
 
 function copyCSSToFrame(parent, iframe) {
@@ -39,7 +39,7 @@ export default ({ children, className, width, height }) => {
 					onReady={onReady}
 					onMount={onUpdate}
 					onUpdate={onUpdate}
-					class={$application}
+					class={$style.application}
 				>
 					{children}
 				</Frame>
