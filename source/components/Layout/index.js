@@ -1,5 +1,5 @@
-import { Link } from "nore";
 import React, { Component } from "react";
+import { Link } from "@nore/pwa";
 import $ from "./style.css";
 
 export default () => (

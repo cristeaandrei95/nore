@@ -1,0 +1,63 @@
+.pwa {
+	line-height: 1.5555555556;
+	font-size: 1.6rem;
+	font-weight: normal;
+	font-family: $font.family.sans, $font.family.default;
+	color: $color.black;
+}
+
+.pwa h1,
+.pwa h2,
+.pwa h3,
+.pwa h4 {
+	font-family: $font.family.serif;
+	font-weight: 400;
+	line-height: 1.25;
+}
+
+.pwa p ~ h1,
+.pwa p ~ h2,
+.pwa p ~ h3,
+.pwa p ~ h4 {
+	margin-top: 1.3em;
+}
+
+.pwa h1 + p,
+.pwa h2 + p,
+.pwa h3 + p,
+.pwa h4 + p {
+	margin-top: 1.6em;
+}
+
+.pwa p {
+	line-height: 1.6;
+}
+.pwa p ~ p {
+	margin-top: 1.35em;
+}
+
+.headline {
+}
+
+$screen_576 {
+	.pwa {
+	}
+}
+
+$screen_768 {
+	.pwa {
+		font-size: 1.8rem;
+	}
+}
+
+$screen_992 {
+	.pwa {
+		font-size: 1.6rem;
+	}
+}
+
+$screen_1200 {
+	.pwa {
+		font-size: 20rem;
+	}
+}

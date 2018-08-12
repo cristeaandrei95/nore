@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import qs from "query-string";
 import window from "@nore/std/global";
-import { Application } from "nore";
+import { Application, qs } from "@nore/pwa";
 import Pages from "~/pages";
+import $ from "~/style";
 
 const container = document.getElementById("application");
 
@@ -15,7 +15,7 @@ const state = {
 };
 
 const application = (
-	<Application state={state} container={container}>
+	<Application state={state} container={container} class={$.application}>
 		<Pages />
 	</Application>
 );

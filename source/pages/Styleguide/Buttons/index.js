@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "nore";
+import { Link } from "@nore/pwa";
 import Button from "~/components/Button";
 import Section from "../components/Section";
 import Responsive from "../components/Responsive";

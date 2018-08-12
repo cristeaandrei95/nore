@@ -1,0 +1,15 @@
+{
+	"name": "@nore/pwa",
+	"version": "1.0.0",
+	"description": "Nore progressive web application",
+	"main": "source/index.js",
+	"repository": "https://github.com/nore/pwa",
+	"author": "Navaru",
+	"license": "MIT",
+	"dependencies": {
+		"react": "^16.4.2",
+		"react-dom": "^16.4.2",
+		"loadable-components": "^2.2.2",
+		"query-string": "^6.1.0"
+	}
+}

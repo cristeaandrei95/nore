@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Scope, Link } from "nore";
+import { Scope, Link } from "@nore/pwa";
 import Styleguide from "./Styleguide";
 import Article from "./Styleguide/Typography/Article";
 

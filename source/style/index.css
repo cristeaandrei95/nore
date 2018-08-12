@@ -1,8 +1,8 @@
 @import "./defaults.css";
 @import "./typography.css";
 
-.container {
-	composes: content from "./typography.css";
+.application {
+	composes: pwa from "./typography.css";
 
 	position: absolute;
 	top: 0;

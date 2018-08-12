@@ -42,7 +42,7 @@ export default bundle => {
 			modules: [bundle.source, `${bundle.path}/node_modules`],
 			alias: {
 				"~": bundle.source,
-				nore: `~/application`,
+				$: `~/style`,
 			},
 		},
 		// the environment in which the bundle will run

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import history from "./util/history";
 import store from "./store";
 import Scope from "./Scope";
-import $ from "./style";
 
 export default class Application extends Component {
 	constructor({ state }) {
@@ -44,9 +43,9 @@ export default class Application extends Component {
 		document.title = title;
 	};
 
-	render({ children }, state) {
+	render({ children, className, style }, state) {
 		return (
-			<b class={$.container}>
+			<b className={className} style={style}>
 				<Scope.Root context={store} route={state.path}>
 					{children}
 				</Scope.Root>

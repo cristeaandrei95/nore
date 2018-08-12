@@ -1,6 +1,6 @@
 import Frame from "~/components/Frame";
 import React, { Component } from "react";
-import $application from "nore/style";
+import $application from "~/style";
 import $ from "./style.css";
 
 function copyCSSToFrame(parent, iframe) {
