@@ -570,7 +570,7 @@ b {
 
 i {
 	display: table-cell;
-	vertical-align: baseline;
+	vertical-align: text-bottom;
 	font-style: inherit;
 	background: transparent;
 }

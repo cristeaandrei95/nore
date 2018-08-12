@@ -1,30 +1,39 @@
 import React, { Component } from "react";
 import Device from "../Device";
 import Section from "../Section";
+import screens from "./screens.js";
 import $ from "./style.css";
 
-const layouts = {
-	mobile: "320",
-	tablet: "780",
-	monitor: "100%",
-};
-
-const Action = ({ onClick, isActive, icon }) => (
+const Action = ({ onClick, isActive, icon, label }) => (
 	<b onClick={onClick} class={$("action", { is_active: isActive })}>
-		<i class={icon} />
+		{icon ? <b class={icon} /> : label + "px"}
 	</b>
 );
 
 const Actions = ({ onSelect, selected }) => (
-	<b class={$.actions}>
-		{Object.keys(layouts).map(layout => (
+	<b class={$.actions_block}>
+		<b class={$.actions}>
 			<Action
-				key={layout}
-				icon={`ns-${layout}`}
-				isActive={layout === selected}
-				onClick={() => onSelect(layout)}
+				icon="ns-mobile"
+				isActive={"320" === selected}
+				onClick={() => onSelect("320")}
 			/>
-		))}
+
+			{screens.map(size => (
+				<Action
+					key={size}
+					label={size}
+					isActive={size === selected}
+					onClick={() => onSelect(size)}
+				/>
+			))}
+
+			<Action
+				icon="ns-monitor"
+				isActive={"100%" === selected}
+				onClick={() => onSelect("100%")}
+			/>
+		</b>
 	</b>
 );
 
@@ -43,7 +52,7 @@ export default class Typography extends Component {
 	};
 
 	render({ className, style, children, title }, { selected }) {
-		const width = this.props.width || layouts[selected];
+		const width = this.props.width || selected;
 		const height = this.props.height || "560";
 
 		const content = selected ? (
@@ -60,9 +69,7 @@ export default class Typography extends Component {
 			<b class={$.reponsive}>
 				{content}
 
-				<b class={$.layout_select}>
-					<Actions selected={selected} onSelect={this.setLayout} />
-				</b>
+				<Actions selected={selected} onSelect={this.setLayout} />
 			</b>
 		);
 

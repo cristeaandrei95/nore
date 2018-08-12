@@ -4,7 +4,7 @@
 }
 .article {
 	margin: 0 auto;
-	max-width: 40rem;
+	max-width: 60rem;
 }
 
 $screen_768 {

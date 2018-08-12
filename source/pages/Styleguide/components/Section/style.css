@@ -23,6 +23,7 @@ $padding: 0 2rem;
 	padding: $padding;
 	max-width: $max_width;
 	font-size: $font.size.large;
+	line-height: 1.2;
 }
 .title + .flexible,
 .title + .centered {

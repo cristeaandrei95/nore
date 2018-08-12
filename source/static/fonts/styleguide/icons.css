@@ -12,7 +12,8 @@
 }
 
 [class^="ns-"] {
-	display: table-cell;
+	display: inline-table;
+	vertical-align: text-bottom;
 	position: relative;
 	padding: 0.5em;
 	font-size: 1.6rem;
