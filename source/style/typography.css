@@ -1,38 +1,38 @@
-.pwa {
+.content {
 	line-height: 1.5555555556;
 	font-size: 1.6rem;
 	font-weight: normal;
-	font-family: $font.family.sans, $font.family.default;
+	font-family: $font.family.serif, $font.family.default;
 	color: $color.black;
 }
 
-.pwa h1,
-.pwa h2,
-.pwa h3,
-.pwa h4 {
+.content h1,
+.content h2,
+.content h3,
+.content h4 {
 	font-family: $font.family.serif;
 	font-weight: 400;
 	line-height: 1.25;
 }
 
-.pwa p ~ h1,
-.pwa p ~ h2,
-.pwa p ~ h3,
-.pwa p ~ h4 {
+.content p ~ h1,
+.content p ~ h2,
+.content p ~ h3,
+.content p ~ h4 {
 	margin-top: 1.3em;
 }
 
-.pwa h1 + p,
-.pwa h2 + p,
-.pwa h3 + p,
-.pwa h4 + p {
+.content h1 + p,
+.content h2 + p,
+.content h3 + p,
+.content h4 + p {
 	margin-top: 1.6em;
 }
 
-.pwa p {
+.content p {
 	line-height: 1.6;
 }
-.pwa p ~ p {
+.content p ~ p {
 	margin-top: 1.35em;
 }
 
@@ -40,21 +40,21 @@
 }
 
 $screen_576 {
-	.pwa {
+	.content {
 	}
 }
 
 $screen_768 {
-	.pwa {
+	.content {
 	}
 }
 
 $screen_992 {
-	.pwa {
+	.content {
 	}
 }
 
 $screen_1200 {
-	.pwa {
+	.content {
 	}
 }

@@ -2,7 +2,7 @@
 @import "./typography.css";
 
 .application {
-	composes: pwa from "./typography.css";
+	composes: content from "./typography.css";
 
 	position: absolute;
 	top: 0;
