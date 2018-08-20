@@ -1,6 +1,25 @@
+.group {
+	position: relative;
+	padding: 1.2rem;
+	border: 1px solid $color.neutral.lighter;
+	border-radius: 0.25em;
+}
 .group:not(:first-child) {
 	margin-top: 2rem;
 }
-.group > *:not(:first-child) {
-	margin-left: 1rem;
+.group:first-child {
+	margin-top: 1.2rem;
+}
+
+.group_title {
+	position: absolute;
+	top: -1rem;
+	padding: 0 0.5em;
+	font-size: 1.2rem;
+	color: $color.neutral.base;
+	background: #fafbfc;
+}
+
+.group_content > *:not(:first-child) {
+	margin-left: 1.6rem;
 }

@@ -1,16 +1,15 @@
-/*
-	Notes:
-	 - size comes from: text, padding, icons
- */
-.button {
-	display: inline-block;
-	vertical-align: baseline;
-	padding: $space.inset.squish.small;
+.reset {
+	position: relative;
 
-	line-height: 1em;
-	font-size: 1.4rem;
-	font-family: $font.family.sans;
-	font-weight: $font.weight.medium;
+	display: inline-block;
+	display: asidjaoisd;
+	vertical-align: baseline;
+
+	padding: 0;
+	margin: 0;
+
+	line-height: inherit;
+	font: inherit;
 
 	text-align: center;
 	text-decoration: none;
@@ -26,41 +25,44 @@
 	appearance: none;
 	user-select: none;
 	cursor: pointer;
+}
+:hover > .reset {
+	text-decoration: inherit;
+	color: inherit;
+}
+
+.button {
+	composes: reset;
+
+	background: #fff;
 
 	transition-property: box-shadow, color, transform;
-	transition-duration: 0.2s;
+	transition-duration: 0.05s;
 	transition-timing-function: cubic-bezier(0.64, 0, 0.35, 1);
 }
 
-/* TYPES */
-
+/* variant: default */
 .default {
 	composes: button;
 
-	background-color: $color.white;
-
-	border-radius: 3px;
+	border-radius: 0.125em;
 	box-shadow: 0 0 0 1px color($color.neutral.darker a(4%)),
 		0 1px 0 color($color.neutral.darker a(6%)),
 		0 1px 3px color($color.neutral.darker a(40%));
 }
-
-.plain {
-	composes: button;
-	border-radius: 3px;
-	background-color: transparent;
-	border: 0;
+.default.hover,
+:hover > .default {
+	background-color: color($color.neutral.darker a(6%));
 }
-.plain:hover {
-	box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+.default.active,
+:active > .default {
+	transform: translateY(1px);
+	box-shadow: 0 0 0 1px color($color.neutral.darker a(4%)),
+		0 1px 0 color($color.neutral.darker a(6%)),
+		0 0 0 color($color.neutral.darker a(40%));
 }
-
-/* STATES */
-
-.plain:hover,
-.plain:focus,
-.default:hover,
-.default:focus {
+.default.focus,
+:focus > .default {
 	text-decoration: none;
 	color: inherit;
 	box-shadow: 0px 0px 0px 3px color($color.neutral.darker blue(60%) a(20%)),
@@ -68,58 +70,81 @@
 		0 1px 3px color($color.neutral.darker blue(60%) a(20%));
 }
 
-.plain:active,
-.plain.active,
-.default:active,
-.default.active {
-	transform: translateY(1px);
-	box-shadow: 0px 0px 0px 3px rgba(239, 242, 245, 1), 0px 0px 0px 0px #fff,
-		0px 0px 4px -1px $color.neutral.darker;
+/* variant: flat */
+.flat {
+	composes: button;
+
+	box-shadow: inset 0 0 0 transparent;
+
+	transition: 0.125s box-shadow;
+}
+.flat.hover,
+:hover > .flat {
+	background-color: color($color.neutral.darker a(6%));
+}
+.flat.active,
+:active > .flat {
+	box-shadow: inset 0 1px 4px 0 color($color.neutral.darker blue(60%) a(20%));
+}
+.flat.focus,
+:focus > .flat {
+	text-decoration: none;
+	color: inherit;
+	box-shadow: 0px 0px 0px 3px color($color.neutral.darker blue(60%) a(20%)),
+		0px 0px 1px 0px $color.neutral.darker,
+		0 1px 3px color($color.neutral.darker blue(60%) a(20%));
 }
 
-/* STYLES */
-
-.default.accent {
-	color: $color.white;
-	background-color: $color.purple;
-	box-shadow: 0 0 0 1px color($color.purple blackness(20%) a(10%)),
-		0 1px 0 color($color.purple a(20%)),
-		0 1px 4px color($color.purple blackness(70%) a(20%));
-}
-.default.accent:focus,
-.default.accent:hover {
-	color: $color.white;
-	box-shadow: 0px 0px 0px 3px color($color.purple lightness(60%) a(20%)),
-		0 1px 0 color($color.purple blackness(10%) a(20%)),
-		0 1px 3px color($color.purple blackness(50%) a(20%));
-}
-.default.accent.active,
-.default.accent:active {
-	transform: translateY(1px);
-	box-shadow: 0px 0px 0px 3px rgba(239, 242, 245, 1), 0px 0px 0px 0px #fff,
-		0px 0px 4px -1px $color.purple;
+/* variant: plain */
+.plain {
+	composes: button;
 }
 
-/* MODIFIERS */
+/* variant: outlined */
+.outlined {
+	composes: button;
+}
 
+/* sizes */
 .small {
-	padding: 0.3rem 0.6rem;
-	font-size: $font.size.xsmall;
+	padding: 0.33333334em 0.5em;
+	text-transform: uppercase;
+	font-size: 0.8rem;
+	font-weight: 500;
+	letter-spacing: 0.05rem;
+}
+.medium {
+	padding: 0.33333334em 0.5em;
+	font-size: 1.2rem;
 }
 .large {
-	padding: $space.inset.squish.medium;
+	padding: 0.5em 0.75em;
+	font-size: 1.4rem;
+}
+.xlarge {
+	padding: 0.625em 1.25em;
+	font-size: 1.6rem;
 }
 
+/* shapes */
+.sharp {
+	border-radius: 0;
+}
 .round {
+	border-radius: 0.125em;
+}
+.pill {
 	border-radius: 1em;
 }
 
-.disabled:active,
-.disabled:focus,
-.disabled:hover,
+/* modifiers */
+:hover > .disabled,
+:active > .disabled,
+:focus > .disabled,
 .disabled {
 	opacity: 0.8;
 	color: $color.neutral.dark;
 	background-color: $color.neutral.lighter;
+	box-shadow: 0 1px 3px rgba(91, 104, 115, 0.3);
 	cursor: not-allowed;
 }
