@@ -2,7 +2,6 @@
 	position: relative;
 
 	display: inline-block;
-	display: asidjaoisd;
 	vertical-align: baseline;
 
 	padding: 0;
@@ -34,10 +33,11 @@
 .button {
 	composes: reset;
 
+	font-family: $font.family.sans;
 	background: #fff;
 
-	transition-property: box-shadow, color, transform;
-	transition-duration: 0.05s;
+	transition-property: box-shadow, color, background-color, transform;
+	transition-duration: 0.05s, 0.2s, 0.1s, 0.05s;
 	transition-timing-function: cubic-bezier(0.64, 0, 0.35, 1);
 }
 
@@ -45,7 +45,6 @@
 .default {
 	composes: button;
 
-	border-radius: 0.125em;
 	box-shadow: 0 0 0 1px color($color.neutral.darker a(4%)),
 		0 1px 0 color($color.neutral.darker a(6%)),
 		0 1px 3px color($color.neutral.darker a(40%));
@@ -65,17 +64,23 @@
 :focus > .default {
 	text-decoration: none;
 	color: inherit;
-	box-shadow: 0px 0px 0px 3px color($color.neutral.darker blue(60%) a(20%)),
-		0px 0px 1px 0px $color.neutral.darker,
-		0 1px 3px color($color.neutral.darker blue(60%) a(20%));
+	box-shadow: 0 0 0 3px color($color.accent a(20%)),
+		0 0 1px 0 $color.neutral.darker,
+		0 1px 3px color($color.neutral.darker a(20%));
 }
 
 /* variant: flat */
 .flat {
 	composes: button;
 
+	background-color: #ffffff;
+	background-color: $color.accent;
+	background-image: linear-gradient(
+		to bottom,
+		color($color.neutral.lighter a(10%)),
+		rgba(34, 102, 237, 0)
+	);
 	box-shadow: inset 0 0 0 transparent;
-
 	transition: 0.125s box-shadow;
 }
 .flat.hover,
@@ -84,15 +89,13 @@
 }
 .flat.active,
 :active > .flat {
-	box-shadow: inset 0 1px 4px 0 color($color.neutral.darker blue(60%) a(20%));
+	box-shadow: inset 0 1px 4px 0 color($color.neutral.darker a(20%));
 }
 .flat.focus,
 :focus > .flat {
 	text-decoration: none;
 	color: inherit;
-	box-shadow: 0px 0px 0px 3px color($color.neutral.darker blue(60%) a(20%)),
-		0px 0px 1px 0px $color.neutral.darker,
-		0 1px 3px color($color.neutral.darker blue(60%) a(20%));
+	box-shadow: 0 0 0 2px color($color.accent a(20%));
 }
 
 /* variant: plain */
@@ -103,6 +106,32 @@
 /* variant: outlined */
 .outlined {
 	composes: button;
+}
+
+/* variant: raised */
+.raised {
+	composes: button;
+
+	background-color: #ffffff;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 3px rgba(233, 237, 246, 0.12);
+}
+.raised.hover,
+:hover > .raised {
+	background-color: #edf1f7;
+	box-shadow: 0 5px 9px rgba(0, 0, 0, 0.12), 0 2px 3px rgba(233, 237, 246, 0.12);
+}
+.raised.active,
+:active > .raised {
+	transform: translateY(1px);
+	background-color: #ffffff;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 2px 3px rgba(233, 237, 246, 0.12);
+}
+.raised.focus,
+:focus > .raised {
+	text-decoration: none;
+	color: inherit;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 3px rgba(233, 237, 246, 0.12),
+		inset 0px 0px 0px 1px $color.accent;
 }
 
 /* sizes */
@@ -131,10 +160,10 @@
 	border-radius: 0;
 }
 .round {
-	border-radius: 0.125em;
+	border-radius: 0.1875em;
 }
 .pill {
-	border-radius: 1em;
+	border-radius: 10em;
 }
 
 /* modifiers */
@@ -147,4 +176,29 @@
 	background-color: $color.neutral.lighter;
 	box-shadow: 0 1px 3px rgba(91, 104, 115, 0.3);
 	cursor: not-allowed;
+}
+
+/* styles */
+.primary {
+	color: #ffffff;
+	font-weight: bold;
+	background-color: $color.primary;
+}
+.secondary {
+	color: #ffffff;
+	font-weight: bold;
+	background-color: $color.secondary;
+}
+.accent {
+	color: #ffffff;
+	font-weight: bold;
+	background-color: $color.accent;
+}
+.positive {
+	color: $color.green.darker;
+	background-color: $color.green.lighter;
+}
+.negative {
+	color: $color.red.darker;
+	background-color: $color.red.lighter;
 }

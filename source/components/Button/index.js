@@ -13,7 +13,8 @@ const isLink = el =>
 const variants = ["default", "plain", "outlined", "flat", "raised"];
 const sizes = ["small", "medium", "large", "xlarge"];
 const states = ["hover", "active", "focus"];
-const modifiers = ["sharp", "round", "pill", "disabled"];
+const shapes = ["sharp", "round", "pill"];
+const modifiers = ["disabled"];
 const styles = ["primary", "secondary", "accent", "positive", "negative"];
 
 export default class Button extends Component {
@@ -24,12 +25,14 @@ export default class Button extends Component {
 		const $sizes = sizes.filter(this.isSet);
 		const $states = states.filter(this.isSet);
 		const $styles = styles.filter(this.isSet);
+		const $shapes = shapes.filter(this.isSet);
 		const $modifiers = modifiers.filter(this.isSet);
 
 		if (!$variants.length) $variants.push("default");
 		if (!$sizes.length) $sizes.push("medium");
+		if (!$shapes.length) $shapes.push("round");
 
-		return $($variants, $sizes, $states, $styles, $modifiers);
+		return $($variants, $sizes, $states, $styles, $modifiers, $shapes);
 	}
 
 	content() {
@@ -37,7 +40,7 @@ export default class Button extends Component {
 
 		const attrs = {
 			tabIndex: "-1",
-			className: className + this.classes(),
+			className: (className || "") + this.classes(),
 			style: style,
 		};
 
