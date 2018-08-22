@@ -2,6 +2,10 @@ color:
   white: '#FFFEFC'
   black: '#2E3C40'
 
+  accent: $color.blue
+  primary: $color.red
+  secondary: $color.green
+
   neutral:
     lightest: '#FAFBFC'
     lighter:  '#EFF2F5'
