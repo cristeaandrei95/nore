@@ -9,7 +9,7 @@
 	"dependencies": {
 		"react": "^16.4.2",
 		"react-dom": "^16.4.2",
-		"loadable-components": "^2.2.2",
+		"loadable-components": "^2.2.3",
 		"query-string": "^6.1.0"
 	}
 }

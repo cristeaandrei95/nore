@@ -46,6 +46,7 @@ export default class Application extends Component {
 	render({ children, className, style }, state) {
 		return (
 			<b className={className} style={style}>
+				<b id="slot_application" />
 				<Scope.Root context={store} route={state.path}>
 					{children}
 				</Scope.Root>
