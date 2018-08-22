@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import Sample from "../components/Sample";
-import Section from "../components/Section";
 import $ from "./style.css";
 
 export default () => (
-	<Section title="HTML elements">
+	<b class={$.html}>
 		<Sample>
 			<Sample details>
 				<code>&lt;abbr&gt;</code> – abbreviation or acronym
@@ -232,5 +231,5 @@ export default () => (
 				<code>&lt;hr&gt;</code> – represents a horizontal line
 			</Sample>
 		</Sample>
-	</Section>
+	</b>
 );

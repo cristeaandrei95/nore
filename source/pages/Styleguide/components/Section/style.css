@@ -24,8 +24,14 @@ $screen_992 {
 .title {
 	margin: 0 auto;
 	max-width: $max_width;
-	font-size: $font.size.large;
 	line-height: 1.2;
+	font-size: 1.6rem;
+	font-family: $font.family.serif;
+	line-height: 1.2;
+	letter-spacing: 0.08rem;
+	text-align: center;
+	text-transform: uppercase;
+	color: $color.neutral.dark;
 }
 .title + .flexible,
 .title + .centered {

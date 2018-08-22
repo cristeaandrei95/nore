@@ -53,7 +53,7 @@ export default class Typography extends Component {
 
 	render({ className, style, children, title }, { selected }) {
 		const width = this.props.width || selected;
-		const height = this.props.height || "560";
+		const height = this.props.height;
 
 		const content = selected ? (
 			<Device width={width} height={height} class={$.device}>

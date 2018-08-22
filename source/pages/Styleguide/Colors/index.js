@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import toClipboard from "~/util/toClipboard.js";
+import copyToClipboard from "~/util/toClipboard.js";
 import Section from "../components/Section";
 import $variables from "@nore/variables.json";
 import $ from "./style.css";
@@ -16,29 +16,25 @@ const getByType = type =>
 		.filter(key => key.includes(`color.${type}.`))
 		.map(key => ["$" + key, $variables[key]]);
 
-const Color = ({ name, value }) => {
-	const style = { background: value };
-	const copyName = e => toClipboard(name);
-	const copyValue = e => {
-		toClipboard(value);
-		e.stopPropagation();
-	};
-
-	return (
-		<b class={$.color} style={style} onClick={copyName}>
-			<b class={$.color_name}>
-				{name.split(".").pop()}
-
-				<b class={$.color_value} onClick={copyValue}>
-					{value}
-				</b>
-			</b>
-		</b>
-	);
+const toClipboard = value => event => {
+	copyToClipboard(value);
+	event.stopPropagation();
 };
 
+const Color = ({ name, value }) => (
+	<b class={$.color} style={{ background: value }} onClick={toClipboard(name)}>
+		<b class={$.color_name}>
+			{name.split(".").pop()}
+
+			<b class={$.color_value} onClick={toClipboard(value)}>
+				{value}
+			</b>
+		</b>
+	</b>
+);
+
 export default () => (
-	<Section>
+	<b class={$.colors}>
 		{palettes.map(palette => (
 			<b class={$.section} key={palette}>
 				<code>$color.{palette}</code>
@@ -50,5 +46,5 @@ export default () => (
 				</b>
 			</b>
 		))}
-	</Section>
+	</b>
 );

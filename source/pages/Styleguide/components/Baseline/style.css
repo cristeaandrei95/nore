@@ -1,0 +1,24 @@
+.toggle {
+	position: fixed;
+	top: 2rem;
+	right: 2rem;
+	padding: 0.5em;
+	line-height: 1;
+	font-size: 1rem;
+	font-family: $font.family.sans;
+	text-transform: uppercase;
+	border: 1px solid $color.neutral.light;
+	cursor: pointer;
+	z-index: 1001;
+}
+
+.grid {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-size: 100% 8px;
+	background-image: linear-gradient(to bottom, #2c4b6817 1px, transparent 1px);
+	z-index: 1000;
+}
