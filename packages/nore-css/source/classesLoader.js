@@ -10,8 +10,8 @@ export function pitch(request) {
 		import classes from "${__dirname}/classes.js"
 		import css from ${cssImport}
 
-		function filter (a, b, c, d, e) {
-			return classes(css, a, b, c, d, e)
+		function filter (a, b, c, d, e, f, g, h, i, j) {
+			return classes(css, a, b, c, d, e, f, g, h, i, j)
 		}
 
 		for (var key in css) {

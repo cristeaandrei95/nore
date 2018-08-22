@@ -10,7 +10,7 @@ export default function(classes) {
 
 		if (typeof filter === "string") {
 			result.push(classes[filter]);
-		} else if (Array.isArray(filter) && filter.length) {
+		} else if (Array.isArray(filter)) {
 			for (let i = 0; i < filter.length; ++i) {
 				const key = filter[i];
 
