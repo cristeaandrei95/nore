@@ -1,14 +1,96 @@
 .paper {
-	padding: 1rem;
-	background-color: $color.white;
+	padding: 1.2rem;
 }
 .article {
+	position: relative;
 	margin: 0 auto;
 	max-width: 60rem;
 }
 
+.article b > code {
+	margin-right: 0.5em;
+}
+
+.select {
+	position: absolute;
+	top: 1rem;
+	left: 50%;
+	transform: translateX(-50%);
+	padding: 0.25em;
+	line-height: 1rem;
+	font-size: 0.8rem;
+	font-family: $font.family.sans;
+	text-align: center;
+	text-transform: uppercase;
+	background-color: $color.white;
+	border: 1px solid $color.neutral.light;
+	border-radius: 0.25em;
+	cursor: pointer;
+	z-index: 1;
+	opacity: 0.6;
+}
+.select:hover {
+	opacity: 1;
+}
+.select_language {
+	display: inline-table;
+	margin-left: 0.25em;
+	font-size: 1.2rem;
+	text-transform: none;
+	font-weight: bold;
+}
+
+.article h1,
+.article h2,
+.article h3,
+.article h4,
+.article p {
+	position: relative;
+}
+.article h1:after,
+.article h2:after,
+.article h3:after,
+.article h4:after,
+.article p:after {
+	position: absolute;
+	left: -0.5em;
+	top: 0;
+	transform: translateX(-100%);
+	padding: 0.25em;
+	line-height: 1em;
+	font-size: 2.2rem;
+	font-family: monospace;
+	color: $color.blue.dark;
+	border-radius: 0.25em;
+	background-color: color($color.blue lightness(95%));
+	transition: all 0.2s ease-in;
+	opacity: 0;
+}
+.article:hover h1:after,
+.article:hover h2:after,
+.article:hover h3:after,
+.article:hover h4:after,
+.article:hover p:after {
+	opacity: 1;
+}
+.article h1:after {
+	content: "h1";
+}
+.article h2:after {
+	content: "h2";
+}
+.article h3:after {
+	content: "h3";
+}
+.article h4:after {
+	content: "h4";
+}
+.article p:after {
+	content: "p";
+}
+
 $screen_768 {
 	.paper {
-		padding: 2rem 0;
+		padding: 2.4rem 0;
 	}
 }

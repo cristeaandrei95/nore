@@ -1,93 +1,88 @@
+$h1: "h1:not([class])";
+$h2: "h2:not([class])";
+$h3: "h3:not([class])";
+$h4: "h4:not([class])";
+$h5: "h5:not([class])";
+$headline: "$h1, .headline";
+$header: "$h3, .header";
+
 .content {
-	line-height: 1.5555555556;
 	font-size: 1.6rem;
 	font-weight: normal;
-	font-family: $font.family.sans, $font.family.default;
+	font-family: $font.family.sans;
 	color: $color.black;
 }
 
-.content h1,
-.content h2,
-.content h3,
-.content h4,
-.content h5,
-.content h6 {
-	font-family: $font.family.serif;
+$headline {
+	line-height: 1.214;
 	font-weight: 400;
-}
-
-.content p ~ h1,
-.content p ~ h2,
-.content p ~ h3,
-.content p ~ h4 {
-	margin-top: 1.3em;
-}
-
-.content h1 + p,
-.content h2 + p,
-.content h3 + p,
-.content h4 + p {
-	margin-top: 1.6em;
-}
-
-.content p {
+	font-size: 2.8rem;
 	font-family: $font.family.serif;
-	line-height: 1.6;
-}
-.content p ~ p {
-	margin-top: 1.35em;
+	letter-spacing: 0;
 }
 
-.content h1:not([class]) {
-	font-size: 4rem;
-	line-height: 1.1;
-	letter-spacing: -1px;
+.headline + .subhead,
+$h1 + $h2 {
+	margin-top: 1em;
+	line-height: 1.6em;
+	font-size: 1.8rem;
+	font-weight: 400;
+	font-family: $font.family.sans;
+	letter-spacing: 0.005em;
 }
-.content h2:not([class]) {
-	font-size: 3rem;
-	line-height: 1.1;
-	letter-spacing: -0.05rem;
-}
-.content h3:not([class]) {
-	font-size: 2.5rem;
-	line-height: 1.3;
-	letter-spacing: -0.05rem;
-}
-.content h4:not([class]) {
+
+$header {
+	line-height: 1.4;
 	font-size: 2rem;
-	line-height: 1.3;
-	letter-spacing: -0.05rem;
-}
-.content h5:not([class]) {
-	font-size: 1rem;
-	line-height: 1.5;
-	text-transform: uppercase;
-	font-weight: 700;
-}
-.content h6:not([class]) {
-	font-size: 1rem;
-	line-height: 1.5;
-	text-transform: uppercase;
-	font-weight: 400;
+	font-weight: 600;
+	font-family: $font.family.serif;
+	letter-spacing: 0.01em;
 }
 
-$screen_576 {
-	.content {
-	}
+.headline + .subhead {
+	margin-top: 1.25em;
+}
+
+p {
+	line-height: 1.6;
+	font-size: 1.8rem;
+	font-family: $font.family.serif;
+}
+p + p {
+	margin-top: 0.8em;
+}
+
+.headline + p,
+.header + p,
+$h1 + p,
+$h3 + p {
+	margin-top: 0.8em;
+}
+$h2 + p {
+	margin-top: 1.2em;
+}
+
+p + .headline,
+p + .header,
+p + $h1,
+p + $h3 {
+	margin-top: 1.2391em;
 }
 
 $screen_768 {
-	.content {
-		font-size: 1.8rem;
+	$headline {
+		line-height: 1.211;
+		font-size: 3.8rem;
 	}
-}
-
-$screen_992 {
-	.content {
+	.headline + .subhead,
+	$h1 + $h2 {
+		font-size: 2.1rem;
 	}
-}
+	$header {
+		font-size: 2.4rem;
+	}
 
-$screen_1200 {
-	.content {
+	p {
+		font-size: 2rem;
 	}
 }
