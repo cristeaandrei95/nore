@@ -4,66 +4,47 @@ import { unescape } from "@nore/std/html";
 import { isArray } from "@nore/std/assert";
 import $ from "./style.css";
 
-export default class Sample extends Component {
-	state = { isShowCode: false };
+const Context = React.createContext({});
 
-	renderDetails() {
-		const { children } = this.props;
+export const Details = ({ children }) => (
+	<Context.Consumer>
+		{state => <b class={$.details}>{children}</b>}
+	</Context.Consumer>
+);
 
-		if (isArray(children)) {
-			const details = children.filter(c => c.props.details).pop();
-
-			return <b class={$.details}>{details}</b>;
-		}
-
-		return null;
-	}
-
-	renderExample() {
-		const { children } = this.props;
-		const { isShowCode } = this.state;
-
-		if (isArray(children)) {
-			const example = children.filter(c => c.props.example).pop();
-			const onClick = e => this.setState({ isShowCode: !isShowCode });
-
-			const toogle = (
-				<b class={$.example_toggle} onClick={onClick}>
+export const Example = ({ children }) => (
+	<Context.Consumer>
+		{({ isShowCode, toggleCode }) => (
+			<b class={$.example}>
+				<b class={$.example_toggle} onClick={toggleCode}>
 					{isShowCode ? "Show example" : "Show code"}
 				</b>
-			);
-
-			if (isShowCode) {
-				const code = unescape(renderToStaticMarkup(example));
-
-				return (
-					<b class={$.example}>
-						{toogle}
-						<b class={$.example_code}>{code}</b>
+				{isShowCode ? (
+					<b class={$.example_code}>
+						{unescape(renderToStaticMarkup(children))}
 					</b>
-				);
-			}
+				) : (
+					children
+				)}
+			</b>
+		)}
+	</Context.Consumer>
+);
 
-			return (
-				<b class={$.example}>
-					{toogle}
-					{example}
-				</b>
-			);
-		}
+export class Sample extends Component {
+	state = { isShowCode: false };
 
-		return null;
-	}
+	toggleCode = () => {
+		this.setState({ isShowCode: !this.state.isShowCode });
+	};
 
-	render({ children, details, example }) {
-		if (details || example) {
-			return children;
-		}
+	render({ children }, { isShowCode }) {
+		const { toggleCode } = this;
+		const api = { isShowCode, toggleCode };
 
 		return (
 			<b class={$.sample}>
-				{this.renderDetails()}
-				{this.renderExample()}
+				<Context.Provider value={api}>{children}</Context.Provider>
 			</b>
 		);
 	}

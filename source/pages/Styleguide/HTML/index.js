@@ -1,162 +1,163 @@
 import React, { Component } from "react";
-import Sample from "../components/Sample";
+import { Sample, Details, Example } from "../components/Sample";
 import $ from "./style.css";
 
 export default () => (
 	<b class={$.html}>
 		<Sample>
-			<Sample details>
+			<Details>
 				<code>&lt;abbr&gt;</code> – abbreviation or acronym
-			</Sample>
-			<Sample example>
+			</Details>
+			<Example>
 				The{" "}
 				<abbr title="Web Hypertext Application Technology Working Group">
 					WHATWG
 				</abbr>{" "}
 				started working on HTML5 in 2004.
-			</Sample>
+			</Example>
 		</Sample>
 		<Sample>
-			<Sample details>
+			<Details>
 				<code>&lt;code&gt;</code> – a fragment of computer code
-			</Sample>
-			<Sample example>
+			</Details>
+			<Example>
 				The <code>push()</code> method adds one or more elements to the end of
 				an array.
-			</Sample>
+			</Example>
 		</Sample>
 		<Sample>
-			<Sample details>
-				<code>&lt;del&gt;</code> – a removal from the document
-			</Sample>
-			<Sample example>
+			<Details>
+				<code>&lt;del&gt;</code> – represents a range of text that has been
+				deleted from a document.
+			</Details>
+			<Example>
 				My favourite colour is <del dateTime="2010-10-11T01:25-07:00">blue</del>
 				<ins dateTime="2010-10-11T01:25-07:01">red</ins>, but I also like green
 				and yellow.
-			</Sample>
+			</Example>
 		</Sample>
 		<Sample>
-			<Sample details>
-				<code>&lt;ins&gt;</code> – addition to the document
-			</Sample>
-			<Sample example>
+			<Details>
+				<code>&lt;ins&gt;</code> – represents a range of text that has been
+				added to a document.
+			</Details>
+			<Example>
 				My favourite colour is <del dateTime="2010-10-11T01:25-07:00">blue</del>
 				<ins dateTime="2010-10-11T01:25-07:01">red</ins>, but I also like green
 				and yellow.
-			</Sample>
+			</Example>
 		</Sample>
 		<Sample>
-			<Sample details>
+			<Details>
 				<code>&lt;kbd&gt;</code> – user keyboard input
-			</Sample>
-			<Sample example>
-				To take a screenshot press:
-				<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>3</kbd>
-			</Sample>
+			</Details>
+			<Example>
+				Keystrokes: <kbd>Cmd ⌘</kbd>+<kbd>Shift ⇧</kbd>+<kbd>Alt ⌥</kbd>
+			</Example>
 		</Sample>
 		<Sample>
-			<Sample details>
-				<code>&lt;mark&gt;</code> – marked or highlighted
-			</Sample>
-			<Sample example>
+			<Details>
+				<code>&lt;mark&gt;</code> – represents marked or highlighted text
+			</Details>
+			<Example>
 				In this sentence we'll be using the mark element. <mark>HTML5</mark> Can
 				you see where it has been used?
-			</Sample>
+			</Example>
 		</Sample>
 		<Sample>
-			<Sample details>
+			<Details>
 				<code>&lt;q&gt;</code> – phrasing content quoted from another source
-			</Sample>
-			<Sample example>
+			</Details>
+			<Example>
 				And then he said <q>I heart HTML5</q>
-			</Sample>
+			</Example>
 		</Sample>
 		<Sample>
-			<Sample details>
+			<Details>
 				<code>&lt;s&gt;</code> – No longer accurate or no longer relevant
-			</Sample>
-			<Sample example>
+			</Details>
+			<Example>
 				<s>Get up to 25% off!</s> Great Offer 50% off!
-			</Sample>
+			</Example>
 		</Sample>
 		<Sample>
-			<Sample details>
+			<Details>
 				<code>&lt;samp&gt;</code> – output from a program or computing system
-			</Sample>
-			<Sample example>
+			</Details>
+			<Example>
 				<samp>
 					Keyboard not found <br /> Press F1 to continue
 				</samp>
-			</Sample>
+			</Example>
 		</Sample>
 		<Sample>
-			<Sample details>
+			<Details>
 				<code>&lt;small&gt;</code> – small print
-			</Sample>
-			<Sample example>
+			</Details>
+			<Example>
 				<small> Copyright © {new Date().getFullYear()} Company Inc. </small>
-			</Sample>
+			</Example>
 		</Sample>
 		<Sample>
-			<Sample details>
+			<Details>
 				<code>&lt;strong&gt;</code> – strong importance
-			</Sample>
-			<Sample example>
+			</Details>
+			<Example>
 				Design is <strong>useful</strong> and <strong>significant</strong>.
-			</Sample>
+			</Example>
 		</Sample>
 		<Sample>
-			<Sample details>
+			<Details>
 				<code>&lt;sub&gt;</code> – subscripts
-			</Sample>
-			<Sample example>
+			</Details>
+			<Example>
 				H<sub>2</sub>O is the chemical formula for water.
-			</Sample>
+			</Example>
 		</Sample>
 		<Sample>
-			<Sample details>
+			<Details>
 				<code>&lt;sup&gt;</code> – superscripts
-			</Sample>
-			<Sample example>
+			</Details>
+			<Example>
 				Today is the 2<sub>nd</sub> of May.
-			</Sample>
+			</Example>
 		</Sample>
 		<Sample>
-			<Sample details>
+			<Details>
 				<code>&lt;u&gt;</code> – unarticulated text
-			</Sample>
-			<Sample example>
+			</Details>
+			<Example>
 				We left the <u>kichen</u> door open. (misspelled words)
-			</Sample>
+			</Example>
 		</Sample>
 		<Sample>
-			<Sample details>
+			<Details>
 				<code>&lt;var&gt;</code> – represents a variable
-			</Sample>
-			<Sample example>
+			</Details>
+			<Example>
 				The volume of a box is <var>l</var> × <var>w</var> × <var>h</var>, where{" "}
 				<var>l</var> represents the length, <var>w</var> the width and{" "}
 				<var>h</var> the height of the box.
-			</Sample>
+			</Example>
 		</Sample>
 		<Sample>
-			<Sample details>
+			<Details>
 				<code>&lt;ol&gt;</code> – an ordered list
-			</Sample>
-			<Sample example>
+			</Details>
+			<Example>
 				<ol>
 					<li>Get a grip on your emotions</li>
 					<li>Understand what cash flow is</li>
 					<li>Recognize the sales mentality</li>
 					<li>Learn to anticipate and recognize the changes </li>
 				</ol>
-			</Sample>
+			</Example>
 		</Sample>
 		<Sample>
-			<Sample details>
+			<Details>
 				<code>&lt;ul&gt;</code> – an unordered list
-			</Sample>
-			<Sample example>
+			</Details>
+			<Example>
 				<ul>
 					<li>Free 14-day trial</li>
 					<li>Full access to all features</li>
@@ -164,13 +165,13 @@ export default () => (
 					<li>No credit card required</li>
 					<li>Framer runs on macOS</li>
 				</ul>
-			</Sample>
+			</Example>
 		</Sample>
 		<Sample>
-			<Sample details>
+			<Details>
 				<code>&lt;pre&gt;</code> – block of preformatted text
-			</Sample>
-			<Sample example>
+			</Details>
+			<Example>
 				<pre>{`
 <script>
 	var elements = document.getElementsByTagName("body");
@@ -179,14 +180,14 @@ export default () => (
 	body.style.backgroundColor = "indianred";
 </script>
 			`}</pre>
-			</Sample>
+			</Example>
 		</Sample>
 		<Sample>
-			<Sample details>
+			<Details>
 				<code>&lt;address&gt;</code> – contact information for its enclosing
 				section
-			</Sample>
-			<Sample example>
+			</Details>
+			<Example>
 				<address>
 					<strong>Company, Inc.</strong>
 					<br />
@@ -199,14 +200,14 @@ export default () => (
 					<br />
 					<a href="mailto:#">first.last@server.com</a>
 				</address>
-			</Sample>
+			</Example>
 		</Sample>
 		<Sample>
-			<Sample details>
+			<Details>
 				<code>&lt;blockquote&gt;</code> – a section that is quoted from another
 				source
-			</Sample>
-			<Sample example>
+			</Details>
+			<Example>
 				<blockquote>
 					<p>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
@@ -216,20 +217,20 @@ export default () => (
 						John Doe - <cite title="Source Title">Source Title</cite>
 					</small>
 				</blockquote>
-			</Sample>
+			</Example>
 		</Sample>
 		<Sample>
-			<Sample details>
+			<Details>
 				<code>&lt;cite&gt;</code> – The title of a work
-			</Sample>
-			<Sample example>
+			</Details>
+			<Example>
 				My favourite book is <cite>Introducing HTML5</cite> by Bruce and Remy
-			</Sample>
+			</Example>
 		</Sample>
 		<Sample>
-			<Sample details>
+			<Details>
 				<code>&lt;hr&gt;</code> – represents a horizontal line
-			</Sample>
+			</Details>
 		</Sample>
 	</b>
 );
