@@ -25,7 +25,7 @@
 	margin-top: 1rem;
 	height: 10rem;
 	flex-basis: calc(20% - (4rem / 5));
-	font-family: $font.family.code;
+	font-family: monospace;
 	text-align: center;
 	background: #fff;
 	border-radius: 0.25rem;
