@@ -1,6 +1,6 @@
 color:
   white: '#FFFEFC'
-  black: '#2E3C40'
+  black: '#2F2E40'
 
   accent: $color.blue
   primary: $color.red
