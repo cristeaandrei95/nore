@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Responsive from "./components/Responsive";
 import Section from "./components/Section";
-import Baseline from "./components/Baseline";
 import Buttons from "./Buttons";
 import Typography from "./Typography";
 import Colors from "./Colors";
@@ -12,7 +11,6 @@ import $ from "./style.css";
 
 export default scope => (
 	<b class={$.styleguide}>
-		<Baseline />
 		<Responsive title="Buttons">
 			<Buttons />
 		</Responsive>
