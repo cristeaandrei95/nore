@@ -1,4 +1,4 @@
-import { scssVariables } from "./postcss.js";
+import { variables as vars } from "./postcss.js";
 import config from "./config.js";
 
 export default options => nore => {
@@ -7,10 +7,10 @@ export default options => nore => {
 	});
 
 	nore.on("variables:load", variables => {
-		scssVariables.setVariables(variables);
+		vars.setVariables(variables);
 	});
 
 	nore.on("variables:change", variables => {
-		scssVariables.setVariables(variables);
+		vars.setVariables(variables);
 	});
 };

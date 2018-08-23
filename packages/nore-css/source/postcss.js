@@ -5,9 +5,9 @@ import ColorFunction from "postcss-color-function";
 import ColorHexAlpha from "postcss-color-hex-alpha";
 import imageSet from "postcss-image-set-polyfill";
 import selectorNotFix from "postcss-selector-not";
-import SCSSVariables from "./SCSSVariables.js";
+import Variables from "./Variables.js";
 
-export const scssVariables = SCSSVariables({
+export const variables = Variables({
 	unknown: function(node, name, result) {
 		node.warn(result, `\n\nUnknown variable ${name}\n`);
 	},
@@ -15,7 +15,7 @@ export const scssVariables = SCSSVariables({
 
 export default ({ config, bundle }) => [
 	// SCSS like variables: `color: $text_color`
-	scssVariables,
+	variables,
 	// polyfill the image-set CSS function
 	imageSet,
 	// fix flexbox issues on older browsers
