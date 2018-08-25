@@ -49,24 +49,25 @@ p {
 	font-family: $font.family.serif;
 }
 p + p {
-	margin-top: 0.8em;
+	margin-top: 0.88888888em;
 }
 
 .headline + p,
 .header + p,
 $h1 + p,
 $h3 + p {
-	margin-top: 0.8em;
+	margin-top: 0.66666666em;
 }
+$h2 + $h3,
 $h2 + p {
-	margin-top: 1.2em;
+	margin-top: 1.5em;
 }
 
 p + .headline,
 p + .header,
 p + $h1,
 p + $h3 {
-	margin-top: 1.2391em;
+	margin-top: 1.66666666em;
 }
 
 $screen_768 {
