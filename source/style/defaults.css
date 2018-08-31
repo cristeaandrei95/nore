@@ -4,7 +4,7 @@
 	v8.0.0 - https://github.com/necolas/normalize.css
 	v6.1.0 - https://github.com/h5bp/main.css
 	v4.1.3 - https://github.com/twbs/bootstrap (bootstrap-reboot.css)
-	v7.0.0 - https://github.com/csstools/sanitize.css
+	v7.0.1 - https://github.com/csstools/sanitize.css
 */
 
 *,
@@ -17,7 +17,7 @@
 
 ::before,
 ::after {
-	/* inherit text decoration and vertical align (opinionated) */
+	/* pseudo-elements inherit text decoration and vertical align (opinionated) */
 	text-decoration: inherit;
 	vertical-align: inherit;
 }
@@ -49,7 +49,7 @@ html {
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
 
-	tab-size: 4;
+	tab-size: 2;
 }
 
 body {
@@ -63,9 +63,7 @@ body {
 	font-weight: 400;
 	font-style: normal;
 	font-feature-settings: "liga", "kern";
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-		sans-serif;
+	font-family: $font.family.system;
 
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -226,8 +224,7 @@ kbd,
 var,
 samp {
 	/* correct the inheritance and scaling of font size in all browsers */
-	font-family: "Monaco", "Lucida Console", "Liberation Mono", "DejaVu Sans Mono",
-		"Courier", "Courier New", monospace, serif;
+	font-family: $font.family.monospace;
 	/* correct the odd font sizing in all browsers */
 	font-size: 0.875em;
 }
@@ -546,7 +543,7 @@ video {
 /* change the cursor on disabled, not-editable */
 [aria-disabled],
 [disabled] {
-	cursor: disabled;
+	cursor: not-allowed;
 }
 
 @-ms-viewport {
