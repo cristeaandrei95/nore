@@ -2,7 +2,7 @@
 	"name": "@nore/server",
 	"version": "1.0.0",
 	"description": "Nore http / websockets server",
-	"main": "source/index.js",
+	"module": "source/index.js",
 	"repository": "https://github.com/nore/nore-http",
 	"author": "Navaru",
 	"license": "MIT",

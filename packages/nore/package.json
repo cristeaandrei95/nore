@@ -2,7 +2,7 @@
 	"name": "@nore/platform",
 	"version": "1.0.0",
 	"description": "Nore platform",
-	"main": "source/index.js",
+	"module": "source/index.js",
 	"repository": "https://github.com/nore/platform",
 	"bin": {
 		"nore": "source/cli/bin.js"
