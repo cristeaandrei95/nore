@@ -2,7 +2,7 @@
 	"name": "@nore/pwa",
 	"version": "1.0.0",
 	"description": "Nore progressive web application",
-	"main": "source/index.js",
+	"module": "source/index.js",
 	"repository": "https://github.com/nore/pwa",
 	"author": "Navaru",
 	"license": "MIT",
