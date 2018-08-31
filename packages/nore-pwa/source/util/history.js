@@ -28,9 +28,11 @@ const history = {
 
 if (IN_BROWSER) {
 	window.addEventListener("popstate", event => {
-		// TODO: add synthetic event stop propagation?
 		for (const handler of listeners) {
-			handler(event.state);
+			// stop handling events if the event is canceled
+			if (event.cancelBubble) break;
+
+			handler(event.state, event);
 		}
 	});
 }
