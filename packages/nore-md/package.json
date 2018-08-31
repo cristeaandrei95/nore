@@ -8,6 +8,6 @@
 	"license": "MIT",
 	"dependencies": {
 		"@nore/nore-js": "^1.0.0",
-		"@mdx-js/loader": "^0.13.1-1"
+		"@mdx-js/loader": "^0.15.0"
 	}
 }

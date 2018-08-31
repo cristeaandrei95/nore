@@ -1,30 +1,32 @@
-import babel from "@nore/nore-js/babel";
+import babelConfig from "@nore/nore-js/babel";
 
 export default bundle => {
-	const { isDevelopment } = bundle;
-	const { presets, plugins } = babel(bundle);
+	const babel = babelConfig(bundle);
 
-	return {
-		module: {
-			rules: [
+	const rules = [
+		{
+			test: /\.md?$/,
+			use: [
 				{
-					test: /\.md?$/,
-					use: [
-						{
-							loader: "babel-loader",
-							options: {
-								presets,
-								plugins,
-								babelrc: false,
-								cacheDirectory: isDevelopment,
-							},
-						},
-						{
-							loader: "@mdx-js/loader",
-						},
-					],
+					loader: "babel-loader",
+					options: {
+						presets: babel.presets,
+						plugins: babel.plugins,
+						cacheDirectory: bundle.isDevelopment,
+						babelrc: false,
+					},
+				},
+				{
+					loader: "@mdx-js/loader",
 				},
 			],
+		},
+	];
+
+	return {
+		module: { rules },
+		resolve: {
+			extensions: [".mdx", ".md"],
 		},
 	};
 };
