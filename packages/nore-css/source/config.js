@@ -69,5 +69,11 @@ export default bundle => {
 		},
 	];
 
-	return { plugins, module: { rules } };
+	return {
+		plugins,
+		module: { rules },
+		resolve: {
+			extensions: [".css"],
+		},
+	};
 };

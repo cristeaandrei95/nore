@@ -2,7 +2,7 @@
 	"name": "@nore/nore-css",
 	"version": "1.0.0",
 	"description": "Handle .css files",
-	"main": "source/index.js",
+	"module": "source/index.js",
 	"repository": "https://github.com/nore/nore-css",
 	"author": "Navaru",
 	"license": "MIT",

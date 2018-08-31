@@ -29,5 +29,5 @@ export default function(classes) {
 
 	// leave a space so it won't mess with other
 	// classes defined during concatenation
-	return " " + result.join(" ");
+	return result.length ? " " + result.join(" ") : "";
 }
