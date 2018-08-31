@@ -59,14 +59,21 @@ $h3 + p {
 	margin-top: 0.66666666em;
 }
 $h2 + $h3,
-$h2 + p {
+$h2 + p,
+table + p,
+ul + p,
+ol + p {
 	margin-top: 1.5em;
 }
 
 p + .headline,
 p + .header,
 p + $h1,
-p + $h3 {
+p + $h2,
+p + $h3,
+p + table,
+p + ul,
+p + ol {
 	margin-top: 1.66666666em;
 }
 

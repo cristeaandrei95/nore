@@ -22,5 +22,33 @@ font:
     heavy:   '900'
 
   family:
-    sans: "IBM Plex Sans"
-    serif: "Source Serif Pro"
+    sans: >
+      "IBM Plex Sans",
+      $font.family.system,
+      sans
+
+    serif: >
+      "Source Serif Pro",
+      $font.family.system,
+      sans-serif
+
+    system: >
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      "Roboto",
+      "Oxygen",
+      "Ubuntu",
+      "Cantarell",
+      "Fira Sans",
+      "Droid Sans",
+      "Helvetica Neue"
+
+    monospace: >
+      "Monaco",
+      "Lucida Console",
+      "Liberation Mono",
+      "DejaVu Sans Mono",
+      "Courier",
+      "Courier New",
+      monospace
