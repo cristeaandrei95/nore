@@ -2,7 +2,7 @@
 	"name": "@nore/css",
 	"version": "1.0.0",
 	"description": "CSS Modules",
-	"main": "source/index.js",
+	"module": "source/index.js",
 	"repository": "https://github.com/nore/css",
 	"author": "Navaru",
 	"license": "MIT",
