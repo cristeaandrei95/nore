@@ -1,7 +1,5 @@
 import HTMLPlugin from "html-webpack-plugin";
 import InlineManifest from "./InlineManifest";
-// TODO: implement our own?
-// import PluginHTML from "./PluginHTML.js";
 
 function loader({ isDevelopment, isTemplate }) {
 	return {
