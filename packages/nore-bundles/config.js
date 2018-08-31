@@ -6,10 +6,15 @@ export default bundle => {
 	const plugins = [];
 	const optimization = {};
 
+	const mainFields = ["source", "module", "main", "style"];
+	const mainFiles = ["index", "main", "style"];
+
 	if (isForWeb) {
 		optimization.runtimeChunk = {
 			name: "manifest",
 		};
+
+		mainFields.unshift("browser");
 
 		if (!isDevelopment) {
 			optimization.splitChunks = {
@@ -36,9 +41,9 @@ export default bundle => {
 			chunkFilename: "[id].[hash].js",
 		},
 		resolve: {
-			extensions: [".js", ".json", ".jsx", ".mjs", ".css"],
-			mainFields: ["browser", "module", "main", "style"],
-			mainFiles: ["index", "style"],
+			mainFields,
+			mainFiles,
+			extensions: [".js", ".json"],
 			modules: [bundle.source, `${bundle.path}/node_modules`],
 			alias: {
 				"~": bundle.source,
