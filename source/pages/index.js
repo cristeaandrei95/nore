@@ -28,5 +28,6 @@ export default context => (
 
 		<Scope exact match="/styleguide/ideas" render={Ideas} />
 		<Scope exact match="/styleguide/typography/article" render={Article} />
+		<Scope exact match="/styleguide/typography/article" render={Article} />
 	</b>
 );

@@ -14,7 +14,7 @@ export default (
 			attention. How are you going to decide which of those demands gets
 			resources? The trap many people fall into is to allocate their time to
 			whoever screams loudest, and their talent to whatever offers them the
-			fastest reward. That’s a dangerous way to build a strategy
+			fastest reward. That’s a dangerous way to build a strategy.
 		</p>
 		<p>
 			Life audit is a fundamental part of assessing how far you’ve come, where
