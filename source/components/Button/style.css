@@ -175,6 +175,7 @@
 	color: $color.neutral.dark;
 	background-color: $color.neutral.lighter;
 	box-shadow: 0 1px 3px rgba(91, 104, 115, 0.3);
+	transform: none;
 	cursor: not-allowed;
 }
 

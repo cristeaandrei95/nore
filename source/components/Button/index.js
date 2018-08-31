@@ -1,12 +1,6 @@
 import React, { Component, createElement, cloneElement } from "react";
 import $ from "./style.css";
 
-const apply = (source, target, list) => {
-	for (const key of list) {
-		target[key] = source[key] || null;
-	}
-};
-
 const isLink = el =>
 	el && el.type && (el.type === "a" || el.type.name === "Link");
 
@@ -18,21 +12,21 @@ const modifiers = ["disabled"];
 const styles = ["primary", "secondary", "accent", "positive", "negative"];
 
 export default class Button extends Component {
-	isSet = key => this.props[key];
+	getStyle = (list, fallback) => {
+		const style = $(list.filter(i => this.props[i]));
+
+		return !style && fallback ? $[fallback] : style;
+	};
 
 	classes() {
-		const $variants = variants.filter(this.isSet);
-		const $sizes = sizes.filter(this.isSet);
-		const $states = states.filter(this.isSet);
-		const $styles = styles.filter(this.isSet);
-		const $shapes = shapes.filter(this.isSet);
-		const $modifiers = modifiers.filter(this.isSet);
+		const variant = this.getStyle(variants, "default");
+		const size = this.getStyle(sizes, "medium");
+		const shape = this.getStyle(shapes, "round");
+		const modifier = this.getStyle(modifiers);
+		const style = this.getStyle(styles);
+		const state = this.getStyle(states);
 
-		if (!$variants.length) $variants.push("default");
-		if (!$sizes.length) $sizes.push("medium");
-		if (!$shapes.length) $shapes.push("round");
-
-		return $($variants, $sizes, $states, $styles, $modifiers, $shapes);
+		return `${variant} ${size} ${shape} ${modifier} ${style} ${state}`;
 	}
 
 	content() {
