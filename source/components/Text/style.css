@@ -1,0 +1,109 @@
+.text {
+	position: relative;
+	line-height: 1;
+}
+.text::before,
+.text::after {
+	content: "";
+	display: block;
+	height: 0;
+	width: 0;
+}
+
+.sans {
+	composes: text;
+	font-family: $font.family.sans;
+}
+.serif {
+	composes: text;
+	font-family: $font.family.serif;
+}
+
+.xsmall {
+	font-size: 1rem;
+	line-height: 1.2;
+}
+.xsmall::before {
+	margin-top: -0.2em;
+}
+.xsmall::after {
+	margin-bottom: -0.2em;
+}
+
+.small {
+	font-size: 1.2rem;
+	line-height: 1.5;
+}
+.small::before {
+	margin-top: -0.33333333em;
+}
+.small::after {
+	margin-bottom: -0.33333333em;
+}
+
+.smallish {
+	font-size: 1.4rem;
+	line-height: 1.42857142;
+}
+.smallish::before {
+	margin-top: -0.28571428em;
+}
+.smallish::after {
+	margin-bottom: -0.28571428em;
+}
+
+.medium {
+	font-size: 1.6rem;
+	line-height: 1.5;
+}
+.medium::before {
+	margin-top: -0.375em;
+}
+.medium::after {
+	margin-bottom: -0.375em;
+}
+
+.semi {
+	font-size: 1.8rem;
+	line-height: 1.6;
+}
+.semi::before {
+	margin-top: -0.33333333em;
+}
+.semi::after {
+	margin-bottom: -0.33333333em;
+}
+
+.large {
+	font-size: 2rem;
+	line-height: 1.6;
+}
+.large::before {
+	margin-top: -0.35em;
+}
+.large::after {
+	margin-bottom: -0.55em;
+}
+.sans.large::before {
+	margin-top: -0.4em;
+}
+.sans.large::after {
+	margin-bottom: -0.4em;
+}
+
+.xlarge {
+	font-size: 2.4rem;
+	line-height: 1.5;
+}
+.xlarge::before {
+	margin-top: -0.375em;
+}
+.xlarge::after {
+	margin-bottom: -0.45833333em;
+}
+.sans.xlarge::before {
+	margin-top: -0.4em;
+}
+.sans.xlarge::after {
+	margin-bottom: -0.4em;
+}
