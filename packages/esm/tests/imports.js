@@ -23,15 +23,14 @@ test("es: missing file", ({ end, ok }) => {
 	});
 });
 
-// TODO: fix `esm/register` test
-// test("es/register", ({ end, equal }) => {
-// 	const cmd = `${es} ${samples}/register.js`;
+test("es/register", ({ end, equal }) => {
+	const cmd = `${es} ${samples}/register.js`;
 
-// 	exec(cmd, (error, stdout, stderr) => {
-// 		if (error) throw error;
-// 		if (stderr) throw stderr;
+	exec(cmd, (error, stdout, stderr) => {
+		if (error) throw error;
+		if (stderr) throw stderr;
 
-// 		equal(stdout, "../../..\n");
-// 		end();
-// 	});
-// });
+		equal(stdout, "valid\n");
+		end();
+	});
+});
