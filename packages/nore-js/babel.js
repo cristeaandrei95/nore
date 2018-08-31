@@ -12,10 +12,6 @@ export default bundle => {
 		TODO: add transform async/await to Promise
 		"transform-async-to-promises" it after the v7 update
 		or use https://github.com/MatAtBread/nodent-compiler?
-
-		TODO: the plugin below is buggy in beta.53
-		hoist JSX elements to the highest scope to reduce garbage collection
-		"@babel/plugin-transform-react-constant-elements",
 	*/
 
 	const javascript = [
@@ -46,6 +42,8 @@ export default bundle => {
 		"transform-react-render-parameters",
 		// Transforms JSX class attributes into className
 		"react-html-attrs",
+		// hoist JSX elements to the highest scope to reduce garbage collection
+		"@babel/plugin-transform-react-constant-elements",
 		// Turn JSX into JS function calls
 		[
 			"@babel/plugin-transform-react-jsx",

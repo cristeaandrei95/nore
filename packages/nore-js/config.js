@@ -1,10 +1,10 @@
 import os from "os";
 import { DefinePlugin } from "webpack";
 import Uglify from "uglifyjs-webpack-plugin";
-import getBabel from "./babel.js";
+import babelConfig from "./babel.js";
 
 export default bundle => {
-	const babel = getBabel(bundle);
+	const babel = babelConfig(bundle);
 
 	const plugins = [
 		new DefinePlugin({
@@ -45,5 +45,12 @@ export default bundle => {
 		},
 	];
 
-	return { plugins, optimization, module: { rules } };
+	return {
+		plugins,
+		optimization,
+		module: { rules },
+		resolve: {
+			extensions: [".jsx", ".m.js", ".mjs"],
+		},
+	};
 };
