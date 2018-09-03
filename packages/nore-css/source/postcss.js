@@ -13,7 +13,7 @@ export const variables = Variables({
 	},
 });
 
-export default ({ config, bundle }) => [
+export default bundle => [
 	// SCSS like variables: `color: $text_color`
 	variables,
 	// polyfill the image-set CSS function
@@ -30,7 +30,7 @@ export default ({ config, bundle }) => [
 	ColorHexAlpha(),
 	// add vendor prefixes to rules
 	Autoprefixer({
-		browsers: config.browserslist,
+		browsers: bundle.config.browserslist,
 		// fix flexbox and grid issues on IE11
 		flexbox: "no-2009",
 		grid: true,
