@@ -1,37 +1,24 @@
-import argv from "yargs-parser";
+#!/usr/bin/env node
+require("@nore/esm/register");
 
-const aliases = {
+const getopts = require("getopts");
+
+const alias = {
 	config: ["c"],
 	mode: ["m"],
 	path: ["p"],
-	source: ["s"],
-	output: ["o"],
 	variables: ["v"],
 	help: ["h"],
 };
 
-const cli = argv(process.argv.slice(2), { alias: aliases });
+const cli = getopts(process.argv.slice(2), { alias });
+const command = cli._[0] || "help";
 
-const commands = ["start", "build"];
-const command = cli._.filter(cmd => commands.includes(cmd)).pop();
-
-if (!command || cli.h) {
-	console.log(`
-    Usage: nore [command] [options]
-
-    Commands:
-      start             start nore platform
-      build             build files for production
-
-
-    Options:
-      -h --help         displays help information
-      -c --config       config file path
-
-    TODO: add options
+try {
+	require(`./${command}`).default(cli);
+} catch (error) {
+	console.error(`
+    ERROR: "${command}" is not a valid command.
 	`);
-} else {
-	const handler = require(`./${command}`).default;
-
-	handler(cli);
+	require("./help").default();
 }
