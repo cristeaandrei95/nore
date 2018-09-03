@@ -2,18 +2,21 @@
 	"name": "@nore/esm",
 	"version": "2.0.0",
 	"description": "Converts ES Modules to CommonJS at runtime",
+
 	"author": "Navaru",
 	"license": "ISC",
-	"homepage": "https://github.com/nore/esm#readme",
 	"repository": "https://github.com/nore/esm",
+	"homepage": "https://github.com/nore/esm#readme",
+
 	"scripts": {
 		"test": "node tests"
 	},
-	"dependencies": {
-		"acorn": "^5.7.2"
-	},
 	"bin": {
 		"es": "source/cli.js"
+	},
+
+	"dependencies": {
+		"acorn": "^5.7.2"
 	},
 	"devDependencies": {
 		"tap": "^12.0.1"

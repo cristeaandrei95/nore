@@ -2,10 +2,14 @@
 	"name": "@nore/nore-js",
 	"version": "1.0.0",
 	"description": "Handle .js files",
-	"main": "index.js",
-	"repository": "https://github.com/nore/nore-js",
+
 	"author": "Navaru",
 	"license": "MIT",
+	"repository": "https://github.com/nore/nore-js",
+
+	"module": "source/index.js",
+	"main": "source/index.js",
+
 	"dependencies": {
 		"babel-loader": "^8.0.0",
 		"babel-plugin-macros": "^2.4.0",

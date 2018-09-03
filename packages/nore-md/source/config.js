@@ -1,4 +1,4 @@
-import babelConfig from "@nore/nore-js/babel";
+import babelConfig from "@nore/nore-js/source/babel.js";
 
 export default bundle => {
 	const babel = babelConfig(bundle);

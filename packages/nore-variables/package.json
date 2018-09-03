@@ -2,10 +2,14 @@
 	"name": "@nore/nore-variables",
 	"version": "1.0.0",
 	"description": "Handle .variables files",
-	"main": "index.js",
-	"repository": "https://github.com/nore/nore-variables",
+
 	"author": "Navaru",
 	"license": "MIT",
+	"repository": "https://github.com/nore/nore-variables",
+
+	"module": "source/index.js",
+	"main": "source/index.js",
+
 	"dependencies": {
 		"virtual-module-webpack-plugin": "^0.4.0"
 	}

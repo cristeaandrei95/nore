@@ -2,10 +2,14 @@
 	"name": "@nore/nore-yaml",
 	"version": "1.0.0",
 	"description": "Handle .yaml files",
-	"main": "index.js",
-	"repository": "https://github.com/nore/nore-yaml",
+
 	"author": "Navaru",
 	"license": "MIT",
+	"repository": "https://github.com/nore/nore-yaml",
+
+	"module": "source/index.js",
+	"main": "source/index.js",
+
 	"dependencies": {
 		"js-yaml": "^3.12.0"
 	}

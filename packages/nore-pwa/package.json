@@ -2,10 +2,14 @@
 	"name": "@nore/pwa",
 	"version": "1.0.0",
 	"description": "Nore progressive web application",
-	"module": "source/index.js",
-	"repository": "https://github.com/nore/pwa",
+
 	"author": "Navaru",
 	"license": "MIT",
+	"repository": "https://github.com/nore/pwa",
+
+	"module": "source/index.js",
+	"main": "source/index.js",
+
 	"dependencies": {
 		"react": "^16.4.2",
 		"react-dom": "^16.4.2",
