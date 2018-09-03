@@ -13,9 +13,9 @@
 	"dependencies": {
 		"loader-utils": "^1.1.0",
 		"css-loader": "^1.0.0",
-		"style-loader": "^0.22.1",
-		"mini-css-extract-plugin": "^0.4.1",
-		"optimize-css-assets-webpack-plugin": "^5.0.0",
+		"style-loader": "^0.23.0",
+		"mini-css-extract-plugin": "^0.4.2",
+		"optimize-css-assets-webpack-plugin": "^5.0.1",
 		"postcss-loader": "^3.0.0",
 		"postcss-flexbugs-fixes": "^4.1.0",
 		"postcss-color-function": "^4.0.1",
@@ -25,6 +25,6 @@
 		"postcss-selector-not": "^3.0.1",
 		"postcss-image-set-polyfill": "^0.4.4",
 		"pleeease-filters": "^4.0.0",
-		"autoprefixer": "^9.1.0"
+		"autoprefixer": "^9.1.3"
 	}
 }
