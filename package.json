@@ -1,10 +1,12 @@
 {
 	"name": "navaru.com",
-	"version": "1.0.0-alpha",
 	"description": "navaru.com source code",
-	"repository": "https://github.com/ugin/navaru.com",
+	"version": "1.0.0-alpha",
+	"private": true,
+
 	"author": "Eugen Tudorancea <eugen.tudorancea@gmail.com>",
 	"license": "MIT",
-	"private": true,
+	"repository": "https://github.com/ugin/navaru.com",
+
 	"workspaces": ["packages/*"]
 }

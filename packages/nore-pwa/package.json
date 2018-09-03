@@ -1,7 +1,7 @@
 {
 	"name": "@nore/pwa",
-	"version": "1.0.0",
 	"description": "Nore progressive web application",
+	"version": "1.0.0",
 
 	"author": "Navaru",
 	"license": "MIT",

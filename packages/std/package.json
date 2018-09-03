@@ -1,7 +1,7 @@
 {
 	"name": "@nore/std",
-	"version": "1.0.0",
 	"description": "Nore standard library",
+	"version": "1.0.0",
 
 	"author": "Navaru",
 	"license": "MIT",

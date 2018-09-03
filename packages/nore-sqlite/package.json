@@ -1,7 +1,7 @@
 {
 	"name": "@nore/sqlite",
-	"version": "1.0.0",
 	"description": "Nore SQLite API",
+	"version": "1.0.0",
 
 	"author": "Navaru",
 	"license": "MIT",

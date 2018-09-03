@@ -1,7 +1,7 @@
 {
 	"name": "@nore/nore-html",
-	"version": "1.0.0",
 	"description": "Handle .html files",
+	"version": "1.0.0",
 
 	"author": "Navaru",
 	"license": "MIT",

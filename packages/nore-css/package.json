@@ -1,7 +1,7 @@
 {
 	"name": "@nore/nore-css",
-	"version": "1.0.0",
 	"description": "Handle .css files",
+	"version": "1.0.0",
 
 	"author": "Navaru",
 	"license": "MIT",

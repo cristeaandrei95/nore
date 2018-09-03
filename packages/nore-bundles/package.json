@@ -1,7 +1,7 @@
 {
 	"name": "@nore/nore-bundles",
-	"version": "1.0.0",
 	"description": "nore bundles plugin",
+	"version": "1.0.0",
 
 	"author": "Navaru",
 	"license": "MIT",
@@ -11,7 +11,7 @@
 	"main": "source/index.js",
 
 	"dependencies": {
-		"webpack": "^4.16.1",
-		"webpack-merge": "^4.1.3"
+		"webpack": "^4.17.1",
+		"webpack-merge": "^4.1.4"
 	}
 }

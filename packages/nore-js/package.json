@@ -1,7 +1,7 @@
 {
 	"name": "@nore/nore-js",
-	"version": "1.0.0",
 	"description": "Handle .js files",
+	"version": "1.0.0",
 
 	"author": "Navaru",
 	"license": "MIT",

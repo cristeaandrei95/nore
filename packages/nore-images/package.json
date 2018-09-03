@@ -1,7 +1,7 @@
 {
 	"name": "@nore/nore-images",
-	"version": "1.0.0",
 	"description": "Handle images",
+	"version": "1.0.0",
 
 	"author": "Navaru",
 	"license": "MIT",

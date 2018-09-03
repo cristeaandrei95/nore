@@ -1,7 +1,7 @@
 {
 	"name": "@nore/nore-yaml",
-	"version": "1.0.0",
 	"description": "Handle .yaml files",
+	"version": "1.0.0",
 
 	"author": "Navaru",
 	"license": "MIT",
