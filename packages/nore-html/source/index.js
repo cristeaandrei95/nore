@@ -1,8 +1,8 @@
-import config from "./config.js";
+import webpackConfig from "./webpackConfig.js";
 
 export default options => nore => {
 	nore.on("bundles:add", bundle => {
-		bundle.register(".html", config(bundle));
+		bundle.register(".html", webpackConfig(bundle));
 	});
 };
 
