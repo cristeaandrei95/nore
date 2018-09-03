@@ -20,5 +20,6 @@ try {
 	console.error(`
     ERROR: "${command}" is not a valid command.
 	`);
+
 	require("./help").default();
 }

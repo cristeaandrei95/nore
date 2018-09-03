@@ -1,11 +1,9 @@
 import os from "os";
 import { DefinePlugin } from "webpack";
 import Uglify from "uglifyjs-webpack-plugin";
-import babelConfig from "./babel.js";
+import babel from "./babel.js";
 
 export default bundle => {
-	const babel = babelConfig(bundle);
-
 	const plugins = [
 		new DefinePlugin({
 			"process.env.NODE_ENV": JSON.stringify(
@@ -35,12 +33,7 @@ export default bundle => {
 			exclude: /node_modules/,
 			use: {
 				loader: "babel-loader",
-				options: {
-					presets: babel.presets,
-					plugins: babel.plugins,
-					cacheDirectory: bundle.isDevelopment,
-					babelrc: false,
-				},
+				options: babel(bundle),
 			},
 		},
 	];
