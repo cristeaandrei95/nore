@@ -2,7 +2,7 @@ import { variables as vars } from "./postcss.js";
 import webpackConfig from "./webpackConfig.js";
 
 export default options => nore => {
-	nore.on("bundles:add", bundle => {
+	nore.on("nore:bundle", bundle => {
 		bundle.register(".css", webpackConfig(bundle));
 	});
 

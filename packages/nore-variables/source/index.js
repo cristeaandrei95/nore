@@ -31,7 +31,7 @@ export default options => async nore => {
 		},
 	});
 
-	nore.on("bundles:add", async bundle => {
+	nore.on("nore:bundle", async bundle => {
 		bundle.register("variables", await plugin(nore));
 	});
 };
