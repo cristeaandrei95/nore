@@ -1,7 +1,7 @@
 import respawn from "respawn";
 import { isString } from "@nore/std/assert";
 import { assign } from "@nore/std/object";
-import log from "./log.js";
+import Events from "./Events.js";
 
 const defaults = {
 	path: process.cwd(),
@@ -14,10 +14,12 @@ const defaults = {
 	env: {},
 };
 
-export default class Monitor {
+export default class Monitor extends Events {
 	constructor(options = {}) {
+		super();
+
 		if (!isString(options.file)) {
-			throw new Error("Missing `file` to run.");
+			throw Error("Missing `file` to run.");
 		}
 
 		this.file = options.file;
@@ -40,36 +42,44 @@ export default class Monitor {
 		// this will be emitted once the process will start
 		this.$onStartReady = null;
 
-		this.process.on("start", () => {
-			if (this.$onStartReady) {
-				this.$onStartReady();
-			}
-		});
+		this.process.on("start", this.onRespawnStart.bind(this));
 	}
 
 	get status() {
 		return this.process.status;
 	}
 
-	async start() {
+	onRespawnStart() {
+		if (this.$onStartReady) {
+			this.$onStartReady();
+		}
+	}
+
+	async start(isRestarting) {
 		await new Promise((resolve, reject) => {
 			this.$onStartReady = resolve;
 			this.process.start();
 		});
 
-		log(`process:${this.name}`, "started");
+		if (!isRestarting) {
+			this.emit("start");
+		}
 	}
 
-	async stop() {
+	async stop(isRestarting) {
 		await new Promise((resolve, reject) => {
 			this.process.stop(resolve);
 		});
 
-		log(`process:${this.name}`, "stopped");
+		if (!isRestarting) {
+			this.emit("stop");
+		}
 	}
 
 	async restart() {
-		await this.stop();
-		await this.start();
+		await this.stop(true);
+		await this.start(true);
+
+		this.emit("restart");
 	}
 }

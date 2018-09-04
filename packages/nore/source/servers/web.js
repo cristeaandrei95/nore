@@ -7,6 +7,7 @@ import { parse } from "@nore/std/url";
 import { join } from "@nore/std/path";
 
 export default async ({ nore, bundle, port }) => {
+	const log = nore.log.child({ service: `node:server:${bundle.handle}` });
 	const compiler = await bundle.compiler();
 	const webpackConfig = compiler.options;
 	const server = new Server();
@@ -16,7 +17,7 @@ export default async ({ nore, bundle, port }) => {
 		const file = join(bundle.source, "static", url.pathname);
 
 		if (await isFile(file)) {
-			await serve(request, response, { public: "source/static" });
+			await serve(request, response, { public: `${bundle.source}/static` });
 		} else {
 			handleDevMiddleware(request, response);
 		}
@@ -24,7 +25,7 @@ export default async ({ nore, bundle, port }) => {
 
 	server.listen(port);
 
-	nore.log(`server:web [started] http://localhost:${port}`);
+	log.info(`server:web [started] http://localhost:${port}`);
 
 	const hmr = WebpackHMR(compiler, {
 		server,
@@ -35,7 +36,7 @@ export default async ({ nore, bundle, port }) => {
 	});
 
 	hmr.server.on("listening", () => {
-		nore.log(`server:web [HMR] listening...`);
+		log.info(`server:web [HMR] listening...`);
 	});
 
 	const devMiddleware = WebpackDevMiddleware(compiler, {
@@ -59,7 +60,7 @@ export default async ({ nore, bundle, port }) => {
 
 	// watch variables for changes
 	nore.on("variables:change", async (variables, event) => {
-		nore.log(`watch:variables [change] "${event.path}"`);
+		log.info(`watch:variables [change] "${event.path}"`);
 
 		// rebundle the code
 		setTimeout(() => {

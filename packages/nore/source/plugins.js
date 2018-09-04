@@ -1,4 +1,3 @@
-import bundles from "@nore/nore-bundles";
 import variables from "@nore/nore-variables";
 import javascript from "@nore/nore-js";
 import css from "@nore/nore-css";
@@ -10,7 +9,7 @@ import toml from "@nore/nore-toml";
 import yaml from "@nore/nore-yaml";
 
 export default [
-	bundles(),
+	// TODO: do we need to pass options to plugins?!
 	variables(),
 	javascript(),
 	css(),
@@ -20,5 +19,4 @@ export default [
 	md(),
 	toml(),
 	yaml(),
-	//..
 ];

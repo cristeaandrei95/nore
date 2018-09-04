@@ -1,12 +1,12 @@
-import Monitor from "../util/Monitor.js";
-import log from "../util/log.js";
+import ProcessManager from "../util/ProcessManager.js";
 
 export default async ({ nore, bundle, port }) => {
+	const log = nore.log.child({ service: `node:server:${bundle.handle}` });
 	const webpackConfig = bundle.compiler.options;
 
-	log(`server:node started - http://localhost:${port}`);
+	log.info(`server:node started - http://localhost:${port}`);
 
-	const monitor = new Monitor({
+	const pm = new ProcessManager({
 		name: bundle.handle,
 		file: bundle.output,
 		path: bundle.path,
@@ -14,26 +14,27 @@ export default async ({ nore, bundle, port }) => {
 	});
 
 	async function onCompile(error, stats) {
-		log("server:node compiled");
+		log.info("server:node compiled");
 
-		if (error) return log("ERROR", error);
+		if (error) {
+			return log.error({ error });
+		}
 
-		switch (monitor.status) {
+		switch (pm.status) {
 			case "stopped":
 			case "sleeping":
 			case "crashed":
-				await monitor.start();
+				await pm.start();
 				break;
 			default:
-				await monitor.restart();
+				await pm.restart();
 		}
 	}
 
-	const watching = bundle.compiler.watch(
-		{
-			aggregateTimeout: 300,
-			ignored: ["node_modules"],
-		},
-		onCompile
-	);
+	const watchOptions = {
+		aggregateTimeout: 300,
+		ignored: ["node_modules"],
+	};
+
+	bundle.compiler.watch(watchOptions, onCompile);
 };
