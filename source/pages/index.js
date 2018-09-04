@@ -7,15 +7,24 @@ import Colors from "./Styleguide/Colors";
 import HTML from "./Styleguide/HTML";
 import Ideas from "./Styleguide/Ideas";
 import Article from "./Styleguide/Typography/Article";
+import Cropping from "./Styleguide/Typography/Cropping";
+
+const $link = { display: "block" };
 
 export default context => (
 	<b>
 		<Scope exact match="/">
 			<b style={{ padding: "4rem" }}>
-				<Link to="/styleguide" label="Styleguide" /> <br />
+				<Link to="/styleguide" label="Styleguide" style={$link} />
 				<Link
 					to="/styleguide/typography/article"
 					label="Typography / Article"
+					style={$link}
+				/>
+				<Link
+					to="/styleguide/typography/cropping"
+					label="Typography / Cropping"
+					style={$link}
 				/>
 			</b>
 		</Scope>
@@ -28,6 +37,6 @@ export default context => (
 
 		<Scope exact match="/styleguide/ideas" render={Ideas} />
 		<Scope exact match="/styleguide/typography/article" render={Article} />
-		<Scope exact match="/styleguide/typography/article" render={Article} />
+		<Scope exact match="/styleguide/typography/cropping" render={Cropping} />
 	</b>
 );
