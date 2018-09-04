@@ -16,7 +16,7 @@ export default async cli => {
 	for (const { bundle, config } of bundles) {
 		// ignore missing bundles
 		if (canLoadRequest(`${nore.path}/source/${bundle.handle}`)) {
-			await nore.bundles.add(bundle, config);
+			await nore.bundle(bundle, config);
 		}
 	}
 
@@ -27,7 +27,7 @@ export default async cli => {
 	let nodeServerPort = 5000;
 
 	// compile bundles and watch for changes
-	for (const bundle of nore.bundles.cache) {
+	for (const [handle, bundle] of nore.bundles) {
 		// delete the brevious build
 		await deleteDirectory(bundle.output);
 

@@ -1,25 +1,29 @@
 #!/usr/bin/env node
 require("@nore/esm/register");
 
+const { itExists } = require("@nore/std/fs");
 const getopts = require("getopts");
 
 const alias = {
-	config: ["c"],
+	help: ["h"],
 	mode: ["m"],
 	path: ["p"],
-	variables: ["v"],
-	help: ["h"],
+	debug: ["d"],
 };
 
 const cli = getopts(process.argv.slice(2), { alias });
 const command = cli._[0] || "help";
+const file = `${__dirname}/${command}.js`;
 
-try {
-	require(`./${command}`).default(cli);
-} catch (error) {
-	console.error(`
+const commandNotFound = `
     ERROR: "${command}" is not a valid command.
-	`);
+`;
 
-	require("./help").default();
-}
+itExists(file).then(isFile => {
+	if (isFile) {
+		require(file).default(cli);
+	} else {
+		console.error(commandNotFound);
+		require("./help").default();
+	}
+});

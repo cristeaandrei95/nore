@@ -8,12 +8,10 @@ export default () =>
 
     Options:
       -h --help         displays help information
+      -d --debug        run in debug mode
+      										default: false
       -m --mode         environment mode
                           default: development
       -p --path         absolute path to project folder
                           default: process.cwd()
-      -c --config       configuration folder
-                          default: ./config
-      -v --variables    variables folder
-                          default: ./variables
 `);
