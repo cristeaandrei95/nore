@@ -38,13 +38,8 @@ export default bundle => {
 			},
 		});
 
-		return loaders.concat([cssLoader, postcssLoader]);
+		return loaders;
 	}
-
-	const oneOf = [
-		{ use: getLoaders(false), resourceQuery: /raw/ },
-		{ use: getLoaders(true) },
-	];
 
 	if (isForWeb && !isDevelopment) {
 		plugins.push(
@@ -60,10 +55,15 @@ export default bundle => {
 		);
 	}
 
+	const oneOf = [
+		{ use: getLoaders(false), resourceQuery: /raw/ },
+		{ use: getLoaders(true) },
+	];
+
 	return {
 		plugins,
 		module: {
-			rules: { test: /\.css$/, oneOf },
+			rules: [{ test: /\.css$/, oneOf }],
 		},
 		resolve: {
 			extensions: [".css"],
