@@ -1,6 +1,8 @@
 import { insertAt } from "@nore/std/array";
+import { assign } from "@nore/std/object";
 
 export default bundle => {
+	const { isForWeb, isForNode, isDevelopment, config } = bundle;
 	/*
 		TODO: add transform async/await to Promise
 		"transform-async-to-promises" it after the v7 update
@@ -18,8 +20,8 @@ export default bundle => {
 			"transform-define",
 			// TODO: add way to extend this:
 			{
-				IN_NODE: bundle.isForNode,
-				IN_BROWSER: bundle.isForWeb,
+				IN_NODE: isForNode,
+				IN_BROWSER: isForWeb,
 			},
 		],
 		// use compile-time code transformation
@@ -38,7 +40,7 @@ export default bundle => {
 		// Turn JSX into JS function calls
 		[
 			"@babel/plugin-transform-react-jsx",
-			bundle.config.jsx || {
+			config.jsx || {
 				pragma: "React.createElement",
 				pragmaFrag: "React.Fragment",
 			},
@@ -47,7 +49,7 @@ export default bundle => {
 		"loadable-components/babel",
 	];
 
-	if (bundle.isForWeb && bundle.isDevelopment) {
+	if (isForWeb && isDevelopment) {
 		insertAt(react, 1, [
 			// Adds source file and line number to JSX elements
 			"@babel/plugin-transform-react-jsx-source",
@@ -62,33 +64,31 @@ export default bundle => {
 		);
 	}
 
-	const forWebEnv = {
-		useBuiltIns: false,
-		targets: { browsers: bundle.config.browserslist },
+	const webTarget = {
+		browsers: config.browserslist,
 	};
 
-	const forNodeEnv = {
-		useBuiltIns: "entry",
-		targets: { node: bundle.isDevelopment ? "current" : 8.0 },
+	const nodeTarget = {
+		node: isDevelopment ? "current" : 8.0,
 	};
 
-	// compiles ES2015+ down to ES5 by automatically determining the
-	// Babel plugins and polyfills you need based on your targeted browser
-	const babelPresetEnv = [
-		"@babel/preset-env",
-		{
-			loose: true,
-			shippedProposals: true,
-			modules: "commonjs",
-			debug: bundle.isDevelopment,
-			...(bundle.isForWeb ? forWebEnv : forNodeEnv),
-		},
-	];
+	const presetEnvOptions = {
+		loose: true,
+		shippedProposals: true,
+		modules: "commonjs",
+		debug: isDevelopment,
+		useBuiltIns: isForWeb ? false : "entry",
+		targets: isForWeb ? webTarget : nodeTarget,
+	};
 
 	return {
 		babelrc: false,
-		cacheDirectory: bundle.isDevelopment,
+		cacheDirectory: isDevelopment,
 		plugins: [...javascript, ...react, ...features],
-		presets: [babelPresetEnv],
+		presets: [
+			// compiles ES2015+ down to ES5 by automatically determining the
+			// Babel plugins and polyfills you need based on your targeted browser
+			["@babel/preset-env", presetEnvOptions],
+		],
 	};
 };
