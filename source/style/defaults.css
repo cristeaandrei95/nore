@@ -59,11 +59,13 @@ body {
 	/* set the minimum body height as the viewport's height */
 	min-height: 100vh;
 
-	letter-spacing: 0;
 	font-weight: 400;
 	font-style: normal;
-	font-feature-settings: "liga", "kern";
 	font-family: $font.family.system;
+	font-feature-settings: "kern", "liga", "clig", "calt";
+	font-kerning: normal;
+	word-wrap: break-word;
+	letter-spacing: 0;
 
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
