@@ -45,6 +45,7 @@ font:
       "Helvetica Neue"
 
     monospace: >
+      "SFMono-Regular",
       "Monaco",
       "Lucida Console",
       "Liberation Mono",
