@@ -1,65 +1,65 @@
 color:
-  white: '#FFFEFC'
-  black: '#2F2E40'
+  white: '#fffefc'
+  black: '#323232'
 
   accent: $color.blue
   primary: $color.red
   secondary: $color.green
 
   neutral:
-    lightest: '#FAFBFC'
-    lighter:  '#EFF2F5'
-    light:    '#D5DEE6'
-    base:     '#9CB1C3'
-    dark:     '#6E8CA8'
+    lightest: '#fafbfc'
+    lighter:  '#eff2f5'
+    light:    '#d5dee6'
+    base:     '#9cb1c3'
+    dark:     '#6e8ca8'
     darker:   '#496279'
-    darkest:  '#2C4B68'
+    darkest:  '#2c4b68'
 
   red:
-    lighter: '#F9B59D'
-    light:   '#F7926F'
-    base:    '#F36331'
-    dark:    '#DD3C06'
-    darker:  '#A32800'
+    lighter: '#f9b59d'
+    light:   '#f7926f'
+    base:    '#f36331'
+    dark:    '#dd3c06'
+    darker:  '#a32800'
 
   green:
-    lighter: '#A7DDC3'
-    light:   '#7ECDA7'
-    base:    '#47B881'
-    dark:    '#2D9760'
+    lighter: '#a7ddc3'
+    light:   '#7ecda7'
+    base:    '#47b881'
+    dark:    '#2d9760'
     darker:  '#197140'
 
   blue:
-    lighter: '#71B9FE'
-    light:   '#2E99FE'
-    base:    '#016CD1'
-    dark:    '#0055B0'
-    darker:  '#00408F'
+    lighter: '#71b9fe'
+    light:   '#2e99fe'
+    base:    '#016cd1'
+    dark:    '#0055b0'
+    darker:  '#00408f'
 
   purple:
-    lighter: '#B7ADE1'
-    light:   '#9587D3'
-    base:    '#6854C0'
-    dark:    '#4C37A8'
+    lighter: '#b7ade1'
+    light:   '#9587d3'
+    base:    '#6854c0'
+    dark:    '#4c37a8'
     darker:  '#382683'
 
   pink:
-    lighter: '#F3A0BB'
-    light:   '#EE749C'
-    base:    '#E63871'
-    dark:    '#D31A57'
-    darker:  '#A71545'
+    lighter: '#f3a0bb'
+    light:   '#ee749c'
+    base:    '#e63871'
+    dark:    '#d31a57'
+    darker:  '#a71545'
 
   orange:
-    lighter: '#FBE4AD'
-    light:   '#F9D787'
-    base:    '#F7C653'
-    dark:    '#F29738'
-    darker:  '#EC601E'
+    lighter: '#fbe4ad'
+    light:   '#f9d787'
+    base:    '#f7c653'
+    dark:    '#f29738'
+    darker:  '#ec601e'
 
   turquoise:
-    lighter: '#84E3F3'
-    light:   '#4BD6EE'
-    base:    '#14B5D0'
-    dark:    '#0B92AE'
-    darker:  '#056F8A'
+    lighter: '#84e3f3'
+    light:   '#4bd6ee'
+    base:    '#14b5d0'
+    dark:    '#0b92ae'
+    darker:  '#056f8a'
