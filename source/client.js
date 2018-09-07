@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import window from "@nore/std/global";
 import { Application, qs } from "@nore/pwa";
-import Pages from "~/pages";
+import views from "~/views";
 import $ from "~/style";
 
 const container = document.getElementById("application");
@@ -16,7 +16,7 @@ const state = {
 
 const application = (
 	<Application state={state} container={container} class={$.application}>
-		<Pages />
+		{views}
 	</Application>
 );
 
