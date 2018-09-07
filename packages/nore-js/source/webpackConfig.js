@@ -9,7 +9,6 @@ export default bundle => {
 			"process.env.NODE_ENV": JSON.stringify(
 				bundle.isDevelopment ? "development" : "production"
 			),
-			DEVELOPMENT: bundle.isDevelopment,
 		}),
 	];
 

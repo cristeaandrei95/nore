@@ -16,10 +16,10 @@ export default class Bundle {
 		this.target = options.target || "web";
 		this.config = options.config || {};
 
+		this.isDebug = options.isDebug || false;
 		this.isDevelopment = this.mode === "development";
 		this.isForNode = this.target === "node";
 		this.isForWeb = this.target === "web";
-		this.isDebug = options.isDebug || false;
 
 		// set bundle paths
 		this.source = options.source

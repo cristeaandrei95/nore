@@ -22,6 +22,7 @@ export default bundle => {
 			loader: "css-loader",
 			options: {
 				importLoaders: 1,
+				camelCase: "dashesOnly",
 				sourceMap: isDevelopment,
 				minimize: !isDevelopment,
 				modules: useCSSModules,
@@ -44,8 +45,8 @@ export default bundle => {
 	if (isForWeb && !isDevelopment) {
 		plugins.push(
 			new CSSExtract({
-				filename: "[name].[hash:8].css",
-				chunkFilename: "[id].[hash:8].css",
+				filename: "[name].[contenthash].css",
+				chunkFilename: "[name].[contenthash].css",
 			}),
 			new OptimizeCSS({
 				cssProcessorOptions: {

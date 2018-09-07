@@ -31,8 +31,7 @@ export default async ({ nore, bundle, port }) => {
 		server,
 		reload: nore.isDebug ? false : true,
 		stats: { context: webpackConfig.context },
-		logLevel: "warn",
-		logTime: true,
+		logLevel: "silent",
 	});
 
 	hmr.server.on("listening", () => {
@@ -42,8 +41,7 @@ export default async ({ nore, bundle, port }) => {
 	const devMiddleware = WebpackDevMiddleware(compiler, {
 		publicPath: webpackConfig.output.publicPath,
 		stats: { context: webpackConfig.context },
-		logLevel: "warn",
-		logTime: true,
+		logLevel: "silent",
 		writeToDisk: true,
 	});
 

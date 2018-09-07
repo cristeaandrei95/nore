@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 require("@nore/esm/register");
+require("../util/onUnhandledErrors");
 
 const { itExists } = require("@nore/std/fs");
 const getopts = require("getopts");

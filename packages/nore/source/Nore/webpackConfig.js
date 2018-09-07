@@ -1,20 +1,34 @@
 import os from "os";
+import FriendlyErrors from "friendly-errors-webpack-plugin";
 
 export default bundle => {
 	const { isDevelopment, isDebug, isForNode, isForWeb } = bundle;
 
-	const plugins = [];
 	const optimization = {};
 
-	const mainFields = ["source", "module", "main", "style"];
-	const mainFiles = ["index", "main", "style"];
+	const plugins = [
+		new FriendlyErrors({
+			clearConsole: bundle.isDebug ? false : true,
+		}),
+	];
+
+	const resolve = {
+		mainFields: ["source", "module", "main", "style"],
+		mainFiles: ["index", "main", "style"],
+		extensions: [".js", ".json"],
+		modules: [bundle.source, `${bundle.path}/node_modules`],
+		alias: {
+			"~": bundle.source,
+			$: `~/style`,
+		},
+	};
 
 	if (isForWeb) {
 		optimization.runtimeChunk = {
 			name: "manifest",
 		};
 
-		mainFields.unshift("browser");
+		resolve.mainFields.unshift("browser");
 
 		if (!isDevelopment) {
 			optimization.splitChunks = {
@@ -30,6 +44,9 @@ export default bundle => {
 	}
 
 	return {
+		plugins,
+		optimization,
+		resolve,
 		// the environment in which the bundle will run
 		// changes chunk loading behavior and available modules
 		target: bundle.target,
@@ -45,16 +62,6 @@ export default bundle => {
 			publicPath: isDevelopment ? "/" : "/",
 			chunkFilename: "[id].[hash].js",
 		},
-		resolve: {
-			mainFields,
-			mainFiles,
-			extensions: [".js", ".json"],
-			modules: [bundle.source, `${bundle.path}/node_modules`],
-			alias: {
-				"~": bundle.source,
-				$: `~/style`,
-			},
-		},
 		// limit the number of parallel processed modules
 		parallelism: os.cpus().length - 1,
 		// how source maps are generated
@@ -62,7 +69,7 @@ export default bundle => {
 		// profiling
 		cache: isDevelopment,
 		profile: isDebug,
-		plugins,
-		optimization,
+		// turn off webpack output for performance hints
+		performance: { hints: false },
 	};
 };

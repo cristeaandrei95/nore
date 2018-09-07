@@ -2,7 +2,7 @@ import { insertAt } from "@nore/std/array";
 import { assign } from "@nore/std/object";
 
 export default bundle => {
-	const { isForWeb, isForNode, isDevelopment, config } = bundle;
+	const { isForWeb, isForNode, isDebug, isDevelopment, config } = bundle;
 	/*
 		TODO: add transform async/await to Promise
 		"transform-async-to-promises" it after the v7 update
@@ -22,6 +22,7 @@ export default bundle => {
 			{
 				IN_NODE: isForNode,
 				IN_BROWSER: isForWeb,
+				IS_DEVELOPMENT: isDevelopment,
 			},
 		],
 		// use compile-time code transformation
@@ -76,7 +77,7 @@ export default bundle => {
 		loose: true,
 		shippedProposals: true,
 		modules: "commonjs",
-		debug: isDevelopment,
+		debug: isDebug,
 		useBuiltIns: isForWeb ? false : "entry",
 		targets: isForWeb ? webTarget : nodeTarget,
 	};
