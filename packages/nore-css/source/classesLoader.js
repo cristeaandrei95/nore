@@ -15,7 +15,7 @@ export function pitch(request) {
 		}
 
 		for (var key in css) {
-			filter[key] = css[key]
+			filter[key] = " " + css[key]
 		}
 
 		export default filter

@@ -2,14 +2,11 @@ import { merge } from "@nore/std";
 import CSSExtract from "mini-css-extract-plugin";
 import OptimizeCSS from "optimize-css-assets-webpack-plugin";
 import postcss from "./postcss.js";
+import getLocalIdent from "./getLocalIdent.js";
 
 export default bundle => {
 	const { isDevelopment, isForWeb } = bundle;
 	const plugins = [];
-
-	const localIdentName = isDevelopment
-		? "[local]_[hash:base64:5]"
-		: "c[hash:base64:5]";
 
 	function getLoaders(useCSSModules) {
 		const loaders = [`${__dirname}/classesLoader.js`];
@@ -26,7 +23,7 @@ export default bundle => {
 				sourceMap: isDevelopment,
 				minimize: !isDevelopment,
 				modules: useCSSModules,
-				localIdentName: useCSSModules && localIdentName,
+				getLocalIdent: useCSSModules && getLocalIdent,
 			},
 		});
 
