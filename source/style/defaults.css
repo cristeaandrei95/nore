@@ -136,7 +136,7 @@ mark {
 
 mark {
 	/* address styling not present in IE 8/9 */
-	background-color: #ff0;
+	background-color: #fcfc9c;
 	color: #2e3c40;
 }
 
@@ -231,15 +231,19 @@ samp {
 	font-size: 0.875em;
 }
 
-code,
-pre {
+code {
 	padding: 0 0.25em;
 	background-color: #f6f9fc;
+	border: 1px solid #ecf2f9;
+	border-radius: 0.125em;
 }
 
 pre {
 	margin-top: 0;
 	margin-bottom: 1rem;
+	padding: 0 0.25em;
+	background-color: #f6f9fc;
+	border-radius: 0.125em;
 	line-height: 1.25em;
 	-ms-overflow-style: scrollbar;
 	/* hide longs strings of text and enable scrolling */
@@ -512,7 +516,7 @@ figure {
 figcaption {
 	text-align: center;
 	font-size: 0.875rem;
-	color: #6e8ca8;
+	color: $color.neutral.dark;
 }
 
 template {
