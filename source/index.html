@@ -7,8 +7,6 @@
 
 		<title>${title}</title>
 
-		<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,500|Source+Serif+Pro:400,600" rel="stylesheet">
-
 		<style>
 	 		#application.is_loading {
 	 			position: relative;
@@ -33,10 +31,13 @@
 			}
 		</style>
 
+		<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,500,600|Source+Serif+Pro:400,600" rel="stylesheet">
+
 		${styles}
+		${webpack_runtime}
 	</head>
 	<body>
-		<div id="application" class="${state}"><!-- content --></div>
+		<div id="application" class="${state}">${content}</div>
 
 		${scripts}
 	</body>

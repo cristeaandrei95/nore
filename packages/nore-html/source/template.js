@@ -14,33 +14,29 @@ export default function({ htmlWebpackPlugin, webpackConfig }) {
 	const { publicPath } = webpackConfig.output;
 	const { config, source, isProduction } = options;
 
-	const scripts = files.js.map(file => {
-		const path = join(publicPath, file.path);
+	function setScriptTag(file) {
+		return `<script src="${join(publicPath, file)}"></script>`;
+	}
 
-		return `<script src="${path}"></script>`;
-	});
+	function setStyleTag(file) {
+		return `<link rel="stylesheet" href="${join(publicPath, file)}"/>`;
+	}
 
-	const styles = files.css.map(file => {
-		const path = join(publicPath, file.path);
-
-		return `<link rel="stylesheet" href="${path}"/>`;
-	});
-
-	if (isProduction) {
-		scripts.unshift(
-			`<script src="https://cdn.polyfill.io/v1/polyfill.min.js"></script>`
-		);
+	if (!isProduction) {
+		files.js.unshift(`https://cdn.polyfill.io/v1/polyfill.min.js`);
 	}
 
 	const data = {
-		state: "is_loading",
-		scripts: scripts.join("\n"),
-		styles: styles.join("\n"),
-		content: ``,
 		title: config.title,
+		scripts: files.js.map(setScriptTag).join("\n"),
+		styles: files.css.map(setStyleTag).join("\n"),
+		webpack_runtime: files.runtime,
+		state: "is_loading",
+		// TODO: is this still relevant?
+		content: "<!-- content -->",
 	};
 
-	const template = join(source, "template.html");
+	const template = join(source, "index.html");
 
 	return render(template, data);
 }

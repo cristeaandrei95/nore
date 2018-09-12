@@ -25,7 +25,7 @@ export default bundle => {
 
 	if (isForWeb) {
 		optimization.runtimeChunk = {
-			name: "manifest",
+			name: "webpack_runtime",
 		};
 
 		resolve.mainFields.unshift("browser");

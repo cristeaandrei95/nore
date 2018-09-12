@@ -1,5 +1,5 @@
 import HTMLPlugin from "html-webpack-plugin";
-import InlineManifest from "./InlineManifest";
+import InlineWebpackRuntime from "./InlineWebpackRuntime.js";
 
 function loader({ isDevelopment, isTemplate }) {
 	return {
@@ -23,7 +23,9 @@ export default bundle => {
 				template: `${__dirname}/template.js`,
 				inject: false,
 			}),
-			new InlineManifest("manifest")
+			// webpack's runtime always change between every build it's
+			// better to split the runtime code out for long-term caching
+			new InlineWebpackRuntime("webpack_runtime")
 		);
 	}
 
