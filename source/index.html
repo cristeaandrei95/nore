@@ -33,12 +33,18 @@
 
 		<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,500,600|Source+Serif+Pro:400,600" rel="stylesheet">
 
-		${styles}
-		${webpack_runtime}
+		${isDevelopment ? "" : (
+			`<script src="https://cdn.polyfill.io/v1/polyfill.min.js"></script>`
+		)}
+
+		${head.runtime}
+		${head.styles}
+		${head.scripts}
 	</head>
 	<body>
-		<div id="application" class="${state}">${content}</div>
+		<div id="application" class="is_loading">${content}</div>
 
-		${scripts}
+		${body.styles}
+		${body.scripts}
 	</body>
 </html>

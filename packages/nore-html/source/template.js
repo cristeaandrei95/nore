@@ -12,7 +12,7 @@ function render(file, data) {
 export default function({ htmlWebpackPlugin, webpackConfig }) {
 	const { files, options } = htmlWebpackPlugin;
 	const { publicPath } = webpackConfig.output;
-	const { config, source, isProduction } = options;
+	const { config, source, isDevelopment } = options;
 
 	function setScriptTag(file) {
 		return `<script src="${join(publicPath, file)}"></script>`;
@@ -22,18 +22,23 @@ export default function({ htmlWebpackPlugin, webpackConfig }) {
 		return `<link rel="stylesheet" href="${join(publicPath, file)}"/>`;
 	}
 
-	if (!isProduction) {
-		files.js.unshift(`https://cdn.polyfill.io/v1/polyfill.min.js`);
-	}
-
 	const data = {
+		isDevelopment,
 		title: config.title,
-		scripts: files.js.map(setScriptTag).join("\n"),
-		styles: files.css.map(setStyleTag).join("\n"),
-		webpack_runtime: files.runtime,
-		state: "is_loading",
+
 		// TODO: is this still relevant?
 		content: "<!-- content -->",
+
+		head: {
+			scripts: "",
+			styles: files.css.map(setStyleTag).join("\n"),
+			runtime: files.runtime || "",
+		},
+
+		body: {
+			styles: "",
+			scripts: files.js.map(setScriptTag).join("\n"),
+		},
 	};
 
 	const template = join(source, "index.html");
