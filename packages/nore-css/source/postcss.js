@@ -5,6 +5,7 @@ import ColorFunction from "postcss-color-function";
 import ColorHexAlpha from "postcss-color-hex-alpha";
 import imageSet from "postcss-image-set-polyfill";
 import selectorNotFix from "postcss-selector-not";
+import nested from "postcss-nested";
 import Variables from "./Variables.js";
 
 export const variables = Variables({
@@ -14,6 +15,11 @@ export const variables = Variables({
 });
 
 export default bundle => [
+	// unwrap nested rules like how Sass does it
+	nested({
+		// bubble only some at-rules
+		bubble: ["media"],
+	}),
 	// SCSS like variables: `color: $text_color`
 	variables,
 	// polyfill the image-set CSS function
