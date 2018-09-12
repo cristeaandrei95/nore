@@ -1,0 +1,44 @@
+markup:
+  mark:
+    background: "#fcfc9c"
+    color: "#2e3c40"
+
+  ins:
+    background: "#ebfaec"
+    color: "#2ac061"
+
+  del:
+    background: "#fff0f0"
+    color: "#ff4d4d"
+
+  kbd:
+    border: "#2e3c40"
+
+  var:
+    background: "#f6f9fc"
+
+  blockquote:
+    background: "#ffffff"
+    quotes: "#e7edf0"
+
+  hr: "#edf2f7"
+
+
+text:
+  color: $color.black
+
+  code:
+    background: "#f6f9fc"
+    border: "#ecf2f9"
+
+  selection:
+    background: "#fdf6bb"
+    color: "#2e3c40"
+
+form:
+  color: $color.black
+  placeholder: "#c2d1da"
+
+table:
+  border: "#e7edf0"
+

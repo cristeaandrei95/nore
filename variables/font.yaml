@@ -1,55 +1,32 @@
 font:
-  size:
-    xsmall:   1rem    # 10px
-    small:    1.2rem  # 12px
-    smallish: 1.4rem  # 14px
-    medium:   1.6rem  # 16px
-    semi:     1.8rem  # 18px
-    large:    2.0rem  # 20px
-    xlarge:   2.4rem  # 24px
-    xxlarge:  3.2rem  # 32px
-    huge:     4.8rem  # 48px
+  sans: >
+    "IBM Plex Sans",
+    $font.system,
+    sans
 
-  weight:
-    thin:    '100'
-    lighter: '200'
-    light:   '300'
-    regular: '400'
-    medium:  '500'
-    semi:    '600'
-    bold:    '700'
-    bolder:  '800'
-    heavy:   '900'
+  serif: >
+    "Source Serif Pro",
+    $font.system,
+    sans-serif
 
-  family:
-    sans: >
-      "IBM Plex Sans",
-      $font.family.system,
-      sans
+  system: >
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Cantarell",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue"
 
-    serif: >
-      "Source Serif Pro",
-      $font.family.system,
-      sans-serif
-
-    system: >
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      "Roboto",
-      "Oxygen",
-      "Ubuntu",
-      "Cantarell",
-      "Fira Sans",
-      "Droid Sans",
-      "Helvetica Neue"
-
-    monospace: >
-      "SFMono-Regular",
-      "Monaco",
-      "Lucida Console",
-      "Liberation Mono",
-      "DejaVu Sans Mono",
-      "Courier",
-      "Courier New",
-      monospace
+  monospace: >
+    "SFMono-Regular",
+    "Monaco",
+    "Lucida Console",
+    "Liberation Mono",
+    "DejaVu Sans Mono",
+    "Courier",
+    "Courier New",
+    monospace

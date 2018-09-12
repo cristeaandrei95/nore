@@ -1,0 +1,111 @@
+form {
+	/* prevent form element from influencing the layout */
+	display: block;
+	color: $form.color;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+	/* change the font styles in all browsers */
+	font-family: inherit;
+	font-size: 100%;
+	line-height: inherit;
+	/* remove the margin in Firefox and Safari */
+	margin: 0;
+}
+
+button,
+input {
+	/* show the overflow in: IE, Edge */
+	overflow: visible;
+}
+
+button,
+select {
+	/* remove the inheritance of text transform in Edge, Firefox, and IE */
+	text-transform: none;
+}
+
+textarea {
+	/* remove the margin in Firefox and Safari */
+	margin: 0;
+	/* remove the default vertical scrollbar in IE 10+ */
+	overflow: auto;
+	/* allow only vertical resizing of textareas */
+	resize: vertical;
+}
+
+/********************************************************************************
+		PLACEHOLDER
+********************************************************************************/
+
+/* internet Explorer 10+ */
+[placeholder]:-ms-input-placeholder {
+	color: $form.placeholder;
+}
+
+::-webkit-input-placeholder {
+	color: $form.placeholder;
+}
+
+/* mozilla Firefox 19+ */
+::-moz-placeholder {
+	color: $form.placeholder;
+	opacity: 1;
+}
+
+/********************************************************************************
+		FIXES
+********************************************************************************/
+
+/* correct the cursor style of increment and decrement buttons in Safari */
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+	height: auto;
+}
+
+/* remove the inner border and padding of focus outlines in Firefox */
+::-moz-focus-inner {
+	border-style: none;
+	padding: 0;
+}
+/* restore the focus outline styles unset by the previous rule in Firefox */
+:-moz-focusring {
+	outline: 1px dotted ButtonText;
+}
+
+/* correct the inability to style clickable types in iOS and Safari */
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+	-webkit-appearance: button;
+}
+
+[type="checkbox"],
+[type="radio"] {
+	/* remove the padding in IE 10 */
+	padding: 0;
+}
+
+[type="search"] {
+	/* correct the odd appearance in Chrome and Safari */
+	-webkit-appearance: textfield;
+	/* correct the outline style in Safari */
+	outline-offset: -2px;
+}
+
+/* remove the inner padding in Chrome and Safari on macOS */
+[type="search"]::-webkit-search-decoration {
+	-webkit-appearance: none;
+}
+
+::-webkit-file-upload-button {
+	/* correct the inability to style clickable types in iOS and Safari */
+	-webkit-appearance: button;
+	/* change font properties to `inherit` in Safari */
+	font: inherit;
+}

@@ -1,0 +1,26 @@
+table {
+	width: 100%;
+	background-color: transparent;
+	/* remove most spacing between table cells */
+	border-collapse: collapse;
+	border-spacing: 0;
+	/* use lining and tabular numerals for tables */
+	font-variant-numeric: lining-nums tabular-nums;
+}
+th {
+	font-weight: bold;
+	border-bottom: 2px solid $table.border;
+}
+th,
+td {
+	line-height: 2em;
+	text-align: left;
+	vertical-align: top;
+}
+td {
+	border-top: 1px solid $table.border;
+}
+th,
+td {
+	padding: 0;
+}

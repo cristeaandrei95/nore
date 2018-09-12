@@ -1,3 +1,4 @@
+screen_320: '@media (min-width: 320px)'
 screen_576: '@media (min-width: 576px)'
 screen_768: '@media (min-width: 768px)'
 screen_992: '@media (min-width: 992px)'

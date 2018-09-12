@@ -1,0 +1,133 @@
+*,
+*::after,
+*::before {
+	box-sizing: inherit;
+	/* remove repeating backgrounds (opinionated) */
+	background-repeat: no-repeat;
+}
+
+::before,
+::after {
+	/* pseudo-elements inherit text decoration and vertical align (opinionated) */
+	text-decoration: inherit;
+	vertical-align: inherit;
+}
+
+html {
+	/* use border-box when calculating the CSS box model (opinionated) */
+	box-sizing: border-box;
+
+	/* minimum window width (opinionated) */
+	min-width: 320px;
+
+	/* default font size – 10px (opinionated) */
+	/* set in % to allow users to change their default font size in browsers */
+	font-size: 62.5%;
+
+	/* default line-height, no line height by default (opinionated) */
+	line-height: 1;
+
+	/* prevent adjustments of font size after orientation changes in iOS */
+	-webkit-text-size-adjust: 100%;
+
+	/* breaks words in all browsers to prevent overflow */
+	word-break: break-word;
+
+	/* ignore non-responsive design overflows */
+	overflow-x: hidden;
+
+	/* always saow the vertical scrollbar so that content doesn't jump */
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+
+	tab-size: 2;
+}
+
+body {
+	position: relative;
+	/* remove the margin in all browsers */
+	margin: 0;
+	/* set the minimum body height as the viewport's height */
+	min-height: 100vh;
+
+	font-weight: 400;
+	font-style: normal;
+	font-family: $font.system;
+	font-feature-settings: "kern", "liga", "clig", "calt";
+	font-kerning: normal;
+	word-wrap: break-word;
+	letter-spacing: 0;
+
+	/* font-variant-* are supported in IE10+ and modern browsers */
+	font-variant-ligatures: common-ligatures;
+	/* old-style "lowercase" numerals for text */
+	font-variant-numeric: oldstyle-nums;
+	/* choose the size of the font so that its lowercase letters */
+	font-size-adjust: 0.5;
+
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	/* text adjust is set to 100% to avoid iOS Safari bugs where the font-size is
+     sometimes not restored during orientation */
+	-ms-overflow-style: scrollbar;
+	-webkit-tap-highlight-color: transparent;
+
+	/* default color (opinionated) */
+	color: $text.color;
+}
+
+/* attribute that disables scrolling (opinionated) */
+body[noscroll] {
+	height: 100vh;
+	overflow: hidden;
+}
+
+/* change the fill color to match the text color */
+svg {
+	fill: currentColor;
+}
+
+/* hide the overflow in IE */
+svg:not(:root) {
+	overflow: hidden;
+}
+
+template {
+	/* add the correct display in IE 10+ */
+	display: none;
+}
+
+audio,
+canvas,
+progress,
+video {
+	/* remove the gap between elements and the bottom of their containers */
+	vertical-align: middle;
+}
+
+/*
+  Suppress the focus outline on elements that cannot be accessed via keyboard.
+  This prevents an unwanted focus outline from appearing around elements that
+  might still respond to pointer events.
+*/
+[tabindex="-1"]:focus {
+	outline: none !important;
+}
+
+/* add the correct display in IE 10 */
+[hidden] {
+	display: none !important;
+}
+
+/* change the cursor on disabled, not-editable */
+[aria-disabled],
+[disabled] {
+	cursor: not-allowed;
+}
+
+@-ms-viewport {
+	width: device-width;
+}
+

@@ -1,0 +1,18 @@
+img {
+	/* remove the border on images inside links in IE 10 */
+	border-style: none;
+	/* change default image behaviour */
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+figure {
+	/* remove default margins */
+	margin: 0;
+}
+figcaption {
+	text-align: center;
+	font-size: 0.75em;
+	color: $color.neutral.dark;
+}

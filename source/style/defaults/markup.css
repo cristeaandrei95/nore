@@ -1,0 +1,59 @@
+del,
+ins,
+mark {
+	padding: 2px 4px;
+}
+
+mark {
+	/* address styling not present in IE 8/9 */
+	background-color: $markup.mark.background;
+	color: $markup.mark.color;
+}
+
+ins {
+	background-color: $markup.ins.background;
+	color: $markup.ins.color;
+}
+
+del {
+	background-color: $markup.del.background;
+	color: $markup.del.color;
+}
+
+q {
+	/* set consistent quote types */
+	quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+strong {
+	/* add the correct font weight in: Chrome, Edge, Safari */
+	font-weight: bolder;
+}
+
+small {
+	/* address inconsistent and variable font size in all browsers */
+	font-size: 80%;
+}
+
+sub,
+sup {
+	font-size: 75%;
+	position: relative;
+	vertical-align: baseline;
+	/* prevent `sub`, `sup` from affecting the line height */
+	line-height: 0;
+}
+sub {
+	bottom: -0.25em;
+}
+sup {
+	top: -0.5em;
+}
+
+abbr[title] {
+	/* remove the bottom border in Chrome 57 */
+	border-bottom: none; /* 1 */
+	/* add the correct text decoration in: Chrome, Edge, IE, Opera, Safari */
+	text-decoration: underline;
+	text-decoration: underline dotted;
+}
