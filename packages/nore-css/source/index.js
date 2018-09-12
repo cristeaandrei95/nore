@@ -1,5 +1,5 @@
-import { variables as vars } from "./postcss.js";
 import webpackConfig from "./webpackConfig.js";
+import { variables as vars } from "./postcss.js";
 
 export default options => nore => {
 	nore.on("nore:bundle", bundle => {

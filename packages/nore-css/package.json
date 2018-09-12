@@ -21,11 +21,11 @@
 		"postcss-flexbugs-fixes": "^4.1.0",
 		"postcss-color-function": "^4.0.1",
 		"postcss-color-hex-alpha": "^3.0.0",
-		"postcss-custom-selectors": "^4.0.1",
+		"postcss-custom-selectors": "^5.0.0",
 		"postcss-custom-media": "^6.0.0",
 		"postcss-selector-not": "^3.0.1",
 		"postcss-image-set-polyfill": "^0.4.4",
 		"pleeease-filters": "^4.0.0",
-		"autoprefixer": "^9.1.3"
+		"autoprefixer": "^9.1.5"
 	}
 }
