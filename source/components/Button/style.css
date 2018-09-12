@@ -33,7 +33,7 @@
 .button {
 	composes: reset;
 
-	font-family: $font.family.sans;
+	font-family: $font.sans;
 	background: #fff;
 
 	transition-property: box-shadow, color, background-color, transform;

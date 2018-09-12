@@ -46,10 +46,10 @@
 .sample_serif {
 	line-height: 1.6;
 	font-size: 1.8rem;
-	font-family: $font.family.serif;
+	font-family: $font.serif;
 }
 .sample_sans {
 	line-height: 1.6;
 	font-size: 1.8rem;
-	font-family: $font.family.sans;
+	font-family: $font.sans;
 }

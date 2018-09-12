@@ -12,11 +12,11 @@
 
 .sans {
 	composes: text;
-	font-family: $font.family.sans;
+	font-family: $font.sans;
 }
 .serif {
 	composes: text;
-	font-family: $font.family.serif;
+	font-family: $font.serif;
 }
 
 .xsmall {

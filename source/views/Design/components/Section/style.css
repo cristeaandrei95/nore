@@ -26,7 +26,7 @@ $screen_992 {
 	max-width: $max_width;
 	line-height: 1.2;
 	font-size: 1.6rem;
-	font-family: $font.family.serif;
+	font-family: $font.serif;
 	line-height: 1.2;
 	letter-spacing: 0.08rem;
 	text-align: center;

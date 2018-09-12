@@ -1,15 +1,6 @@
 .paper {
 	padding: 1.2rem;
 }
-.article {
-	position: relative;
-	margin: 0 auto;
-	max-width: 60rem;
-}
-
-.article b > code {
-	margin-right: 0.5em;
-}
 
 .select {
 	position: absolute;
@@ -19,7 +10,7 @@
 	padding: 0.25em;
 	line-height: 1rem;
 	font-size: 0.8rem;
-	font-family: $font.family.sans;
+	font-family: $font.sans;
 	text-align: center;
 	text-transform: uppercase;
 	background-color: $color.white;
@@ -40,18 +31,21 @@
 	font-weight: bold;
 }
 
-.article h1,
-.article h2,
-.article h3,
-.article h4,
-.article p {
+.sample {
 	position: relative;
 }
-.article h1:after,
-.article h2:after,
-.article h3:after,
-.article h4:after,
-.article p:after {
+.sample h1,
+.sample h2,
+.sample h3,
+.sample h4,
+.sample p {
+	position: relative;
+}
+.sample h1:after,
+.sample h2:after,
+.sample h3:after,
+.sample h4:after,
+.sample p:after {
 	position: absolute;
 	left: -0.5em;
 	top: 0;
@@ -66,26 +60,26 @@
 	transition: all 0.2s ease-in;
 	opacity: 0;
 }
-.article:hover h1:after,
-.article:hover h2:after,
-.article:hover h3:after,
-.article:hover h4:after,
-.article:hover p:after {
+.sample:hover h1:after,
+.sample:hover h2:after,
+.sample:hover h3:after,
+.sample:hover h4:after,
+.sample:hover p:after {
 	opacity: 1;
 }
-.article h1:after {
+.sample h1:after {
 	content: "h1";
 }
-.article h2:after {
+.sample h2:after {
 	content: "h2";
 }
-.article h3:after {
+.sample h3:after {
 	content: "h3";
 }
-.article h4:after {
+.sample h4:after {
 	content: "h4";
 }
-.article p:after {
+.sample p:after {
 	content: "p";
 }
 
