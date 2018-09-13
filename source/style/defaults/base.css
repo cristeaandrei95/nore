@@ -28,7 +28,7 @@ html {
 	line-height: 1;
 
 	/* prevent adjustments of font size after orientation changes in iOS */
-	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
 
 	/* breaks words in all browsers to prevent overflow */
 	word-break: break-word;
