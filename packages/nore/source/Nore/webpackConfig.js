@@ -1,16 +1,38 @@
-import os from "os";
 import FriendlyErrors from "friendly-errors-webpack-plugin";
+import Uglify from "uglifyjs-webpack-plugin";
+import { DefinePlugin } from "webpack";
+import { assign } from "@nore/std/object";
+import os from "os";
 
 export default bundle => {
 	const { isDevelopment, isDebug, isForNode, isForWeb } = bundle;
 
-	const optimization = {};
+	const optimization = {
+		nodeEnv: process.env.NODE_ENV,
+		minimizer: [],
+	};
 
 	const plugins = [
+		// TODO: add config constants
+		new DefinePlugin({
+			"process.env.NODE_ENV": JSON.stringify(
+				bundle.isDevelopment ? "development" : "production"
+			),
+		}),
 		new FriendlyErrors({
 			clearConsole: bundle.isDebug ? false : true,
 		}),
 	];
+
+	const entry = [bundle.entry || bundle.handle];
+
+	const output = {
+		path: bundle.output,
+		filename: isForNode ? "index.js" : "[name].[hash].js",
+		// TODO: how to handle publicPath?
+		publicPath: isDevelopment ? "/" : "/",
+		chunkFilename: "[id].[hash].js",
+	};
 
 	const resolve = {
 		mainFields: ["source", "module", "main", "style"],
@@ -40,13 +62,19 @@ export default bundle => {
 					},
 				},
 			};
+
+			optimization.minimizer.push(
+				new Uglify({
+					sourceMap: true,
+					parallel: os.cpus().length - 1,
+					// TODO: add uglify options
+					uglifyOptions: {},
+				})
+			);
 		}
 	}
 
-	return {
-		plugins,
-		optimization,
-		resolve,
+	const config = {
 		// the environment in which the bundle will run
 		// changes chunk loading behavior and available modules
 		target: bundle.target,
@@ -54,14 +82,6 @@ export default bundle => {
 		mode: isDevelopment ? "development" : "production",
 		name: bundle.handle,
 		context: bundle.source,
-		entry: [bundle.entry || bundle.handle],
-		output: {
-			path: bundle.output,
-			filename: isForNode ? "index.js" : "[name].[hash].js",
-			// TODO: how to handle publicPath?
-			publicPath: isDevelopment ? "/" : "/",
-			chunkFilename: "[id].[hash].js",
-		},
 		// limit the number of parallel processed modules
 		parallelism: os.cpus().length - 1,
 		// how source maps are generated
@@ -72,4 +92,6 @@ export default bundle => {
 		// turn off webpack output for performance hints
 		performance: { hints: false },
 	};
+
+	return assign(config, { optimization, plugins, resolve, entry, output });
 };

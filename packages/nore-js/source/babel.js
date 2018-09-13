@@ -78,7 +78,7 @@ export default bundle => {
 		shippedProposals: true,
 		modules: "commonjs",
 		debug: isDebug,
-		useBuiltIns: isForWeb ? false : "entry",
+		useBuiltIns: isForWeb ? "entry" : false,
 		targets: isForWeb ? webTarget : nodeTarget,
 	};
 

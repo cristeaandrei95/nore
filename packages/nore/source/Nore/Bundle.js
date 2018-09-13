@@ -44,7 +44,7 @@ export default class Bundle {
 
 	async compiler() {
 		// base webpack config and configs added by plugins
-		const configs = [webpackConfig(this), ...this.webpackConfigs.values()];
+		const configs = [...this.webpackConfigs.values(), webpackConfig(this)];
 
 		// push external webpack configuration
 		if (await itExists(this.webpackExtend)) {
