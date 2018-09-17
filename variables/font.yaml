@@ -16,17 +16,16 @@ font:
     "Roboto",
     "Oxygen",
     "Ubuntu",
-    "Cantarell",
     "Fira Sans",
     "Droid Sans",
     "Helvetica Neue"
 
   monospace: >
-    "SFMono-Regular",
-    "Monaco",
-    "Lucida Console",
-    "Liberation Mono",
+    "SF Mono",
+    "Segoe UI Mono",
+    "Roboto Mono",
+    "Ubuntu Mono",
     "DejaVu Sans Mono",
-    "Courier",
-    "Courier New",
+    Menlo,
+    Courier,
     monospace
