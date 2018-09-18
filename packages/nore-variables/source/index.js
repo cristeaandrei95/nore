@@ -1,4 +1,4 @@
-import { readDirectory } from "@nore/std/fs";
+import { readDirectory, itExists } from "@nore/std/fs";
 import watcher from "./watcher.js";
 import format from "./format.js";
 import plugin from "./plugin.js";
@@ -6,13 +6,19 @@ import plugin from "./plugin.js";
 export default options => async nore => {
 	nore.plug("variables", {
 		async load() {
-			const files = await readDirectory(`${nore.path}/variables`);
-			const datasets = await Promise.all(files.map(file => nore.load(file)));
-			const variables = format(datasets, files);
+			const variablesDirectory = `${nore.path}/variables`;
 
-			await nore.emit("variables:load", variables);
+			if (await itExists(variablesDirectory)) {
+				const files = await readDirectory(variablesDirectory);
+				const datasets = await Promise.all(files.map(file => nore.load(file)));
+				const variables = format(datasets, files);
 
-			return variables;
+				await nore.emit("variables:load", variables);
+
+				return variables;
+			} else {
+				return {};
+			}
 		},
 
 		watch(onChange) {
