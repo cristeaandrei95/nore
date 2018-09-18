@@ -15,8 +15,8 @@ export default bundle => {
 		[
 			"@babel/plugin-proposal-object-rest-spread",
 			{
-				loose: true,
-				useBuiltIns: isForWeb ? "entry" : false,
+				loose: isForNode,
+				useBuiltIns: isForNode ? false : "entry",
 			},
 		],
 	];
