@@ -67,7 +67,7 @@ export default bundle => {
 			name: "webpack_runtime",
 		};
 
-		resolve.mainFields.unshift("browser");
+		config.resolve.mainFields.unshift("browser");
 
 		if (!isDevelopment) {
 			config.optimization.splitChunks = {
