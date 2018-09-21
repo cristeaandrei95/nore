@@ -14,7 +14,7 @@ function genPath(path) {
 }
 
 // generates a directory with files and subdirectories
-// subtirectories are populated based on the level count
+// subdirectories are populated based on the level count
 async function createSampleDir(onPath, level) {
 	const dirs = [genPath(onPath), genPath(onPath)];
 	const files = [genPath(onPath), genPath(onPath), genPath(onPath)];
