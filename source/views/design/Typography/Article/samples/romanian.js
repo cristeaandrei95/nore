@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import $ from "./style.css";
+import $ from "../style.css";
 
 export default (
 	<b class={$.article}>

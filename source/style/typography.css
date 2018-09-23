@@ -1,117 +1,137 @@
-$h1: "h1:not([class])";
-$h2: "h2:not([class])";
-$h3: "h3:not([class])";
-$h4: "h4:not([class])";
-$h5: "h5:not([class])";
-$headline: "$h1, .headline";
-$header: "$h3, .header";
-
-.content {
-	font-size: 1.6rem;
-	font-weight: normal;
-	font-family: $font.family.sans;
-	color: $color.black;
-}
-
-$headline {
-	line-height: 1.214;
-	font-weight: 400;
+/******************************************************************************
+		HEADINGS
+******************************************************************************/
+.headline {
+	line-height: 3.2rem;
 	font-size: 2.8rem;
-	font-family: $font.family.serif;
+	font-weight: 400;
+	font-family: $font.serif;
 	letter-spacing: 0;
 }
-
-.headline + .subhead,
-$h1 + $h2 {
-	margin-top: 1em;
-	line-height: 1.6em;
+.subhead {
+	margin-top: 2rem;
+	line-height: 2.8rem;
 	font-size: 1.8rem;
 	font-weight: 400;
-	font-family: $font.family.sans;
+	font-family: $font.sans;
 	letter-spacing: 0.005em;
 }
-
-$header {
-	line-height: 1.4;
+.header {
+	margin-top: 3.2rem;
+	line-height: 2.8rem;
 	font-size: 2rem;
 	font-weight: 600;
-	font-family: $font.family.serif;
+	font-family: $font.serif;
 	letter-spacing: 0.01em;
 }
 
-.headline + .subhead {
-	margin-top: 1.25em;
-}
+/******************************************************************************
+		PARAGRAPH
+******************************************************************************/
 
-p {
-	line-height: 1.6;
+.font_serif p {
+	line-height: 2.8rem;
 	font-size: 1.8rem;
-	font-family: $font.family.serif;
-}
-p + p {
-	margin-top: 0.88888888em;
+	font-family: $font.serif;
 }
 
-.headline + p,
-.header + p,
-$h1 + p,
-$h3 + p {
-	margin-top: 0.66666666em;
+/******************************************************************************
+		LINKS
+******************************************************************************/
+.document a {
+	color: #0000f2;
+	font-weight: 500;
 }
-$h2 + $h3,
-$h2 + p,
-table + p,
-ul + p,
-ol + p {
-	margin-top: 1.5em;
+.article a {
+	position: relative;
+	text-decoration: none;
+	box-shadow: inset 0 -2px 0 0 rgba(0, 118, 255, 0.5), inset 0 -0 0 0 #e6f3ff;
+	transition: box-shadow 0.25s ease-in;
+}
+.article a:hover,
+.article a:active,
+.article a:focus {
+	text-decoration: none;
+	color: inherit;
+	box-shadow: inset 0 -2px 0 0 rgba(0, 118, 255, 1), inset 0 -3em 0 0 #e6f3ff;
+}
+.article a:visited {
+	text-decoration: none;
+}
+.article a:focus {
+	outline-offset: 2px;
+	outline-style: solid;
+	outline-width: 3px;
+	outline-color: #0076ff;
 }
 
-p + .headline,
-p + .header,
-p + $h1,
-p + $h2,
-p + $h3,
-p + table,
-p + ul,
-p + ol {
-	margin-top: 1.66666666em;
+/******************************************************************************
+		HELPERS
+******************************************************************************/
+
+[class~="truncate"],
+.truncate {
+	white-space: nowrap !important;
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+}
+[class~="nowrap"],
+.nowrap {
+	white-space: nowrap !important;
+}
+.bold {
+	font-weight: 600 !important;
+}
+.italic {
+	font-style: italic !important;
+}
+.caps {
+	text-transform: uppercase !important;
+}
+/******************************************************************************
+		TO REVIEW
+******************************************************************************/
+
+/* typography containers */
+.content {
+	font-size: 1.6rem;
+	font-weight: normal;
+	font-family: $font.sans;
+	color: $color.black;
 }
 
-p > a {
-	border-bottom: 2px solid #0076ff;
-	background-image: linear-gradient(120deg, #e6f3ff 0%, #e6f3ff 100%);
-	background-repeat: no-repeat;
-	background-size: 100% 0em;
-	background-position: 0 100%;
-	text-decoration: none;
-	transition: background-size 0.125s ease-in;
+/* images inside article */
+.article img {
+	margin-top: 2rem;
 }
-p > a:hover,
-p > a:active,
-p > a:focus {
-	border-color: #0076ff;
-	text-decoration: none;
-	color: #0055b0;
-	background-size: 100% 100%;
+.article figcaption {
+	margin-top: 0.25em;
+	font-size: 1.4rem;
 }
-p > a:visited {
-	text-decoration: none;
+
+/* code blocks */
+.code_block,
+.article pre {
+	margin-top: 2rem;
+}
+
+/* tables */
+.article table:not(:first-child) {
+	margin-top: 2rem;
 }
 
 $screen_768 {
-	$headline {
+	.headline {
 		line-height: 1.211;
 		font-size: 3.8rem;
 	}
-	.headline + .subhead,
-	$h1 + $h2 {
+	.subhead {
 		font-size: 2.1rem;
 	}
-	$header {
+	.header {
 		font-size: 2.4rem;
 	}
-
-	p {
+	.article p {
 		font-size: 2rem;
 	}
 }
