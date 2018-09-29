@@ -1,7 +1,7 @@
 import { deleteDirectory } from "@nore/std/fs";
 import canLoadRequest from "../util/canLoadRequest";
-import webServer from "../servers/web";
-import nodeServer from "../servers/node";
+import devServerWeb from "../Nore/devServerWeb";
+import devServerNode from "../Nore/devServerNode";
 import plugins from "../plugins";
 import bundles from "../bundles";
 import Nore from "../Nore";
@@ -32,11 +32,11 @@ export default async cli => {
 		await deleteDirectory(bundle.output);
 
 		if (bundle.isForWeb) {
-			await webServer({ nore, bundle, port: webServerPort++ });
+			await devServerWeb({ nore, bundle, port: webServerPort++ });
 		}
 
 		if (bundle.isForNode) {
-			await nodeServer({ nore, bundle, port: nodeServerPort++ });
+			await devServerNode({ nore, bundle, port: nodeServerPort++ });
 		}
 	}
 };

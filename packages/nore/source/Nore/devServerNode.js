@@ -2,7 +2,8 @@ import ProcessManager from "../util/ProcessManager.js";
 
 export default async ({ nore, bundle, port }) => {
 	const log = nore.log.child({ service: `node:server:${bundle.handle}` });
-	const webpackConfig = bundle.compiler.options;
+	const compiler = await bundle.compiler();
+	const webpackConfig = compiler.options;
 
 	log.info(`server:node started - http://localhost:${port}`);
 
@@ -36,5 +37,5 @@ export default async ({ nore, bundle, port }) => {
 		ignored: ["node_modules"],
 	};
 
-	bundle.compiler.watch(watchOptions, onCompile);
+	compiler.watch(watchOptions, onCompile);
 };

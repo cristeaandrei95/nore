@@ -1,8 +1,10 @@
 import FriendlyErrors from "friendly-errors-webpack-plugin";
-import Uglify from "uglifyjs-webpack-plugin";
 import { DefinePlugin } from "webpack";
+import { readFileSync } from "fs";
 import { assign } from "@nore/std/object";
 import os from "os";
+import webpackConfigWeb from "./webpackConfigWeb.js";
+import webpackConfigNode from "./webpackConfigNode.js";
 
 export default bundle => {
 	const { isDevelopment, isDebug, isForNode, isForWeb } = bundle;
@@ -28,7 +30,7 @@ export default bundle => {
 
 	config.output = {
 		path: bundle.output,
-		filename: isForNode ? "index.js" : "[name].[hash].js",
+		filename: "[name].[hash].js",
 		// TODO: how to handle publicPath?
 		publicPath: isDevelopment ? "/" : "/",
 		chunkFilename: "[id].[hash].js",
@@ -58,38 +60,9 @@ export default bundle => {
 			),
 		}),
 		new FriendlyErrors({
-			clearConsole: bundle.isDebug ? false : true,
+			clearConsole: isDebug ? false : true,
 		}),
 	];
-
-	if (isForWeb) {
-		config.optimization.runtimeChunk = {
-			name: "webpack_runtime",
-		};
-
-		config.resolve.mainFields.unshift("browser");
-
-		if (!isDevelopment) {
-			config.optimization.splitChunks = {
-				cacheGroups: {
-					commons: {
-						test: /[\\/]node_modules[\\/]/,
-						name: "common",
-						chunks: "initial",
-					},
-				},
-			};
-
-			config.optimization.minimizer.push(
-				new Uglify({
-					sourceMap: true,
-					parallel: os.cpus().length - 1,
-					// TODO: add uglify options
-					uglifyOptions: {},
-				})
-			);
-		}
-	}
 
 	// turn off webpack output for performance hints
 	config.performance = {
@@ -98,6 +71,14 @@ export default bundle => {
 		hints: !isDevelopment && "warning",
 		assetFilter: str => !/\.map|mp4|ogg|mov|webm$/.test(str),
 	};
+
+	if (isForWeb) {
+		webpackConfigWeb(bundle, config);
+	}
+
+	if (isForNode) {
+		webpackConfigNode(bundle, config);
+	}
 
 	return config;
 };
