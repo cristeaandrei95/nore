@@ -1,7 +1,7 @@
 import { readDirectory, itExists } from "@nore/std/fs";
 import watcher from "./watcher.js";
 import format from "./format.js";
-import plugin from "./plugin.js";
+import webpackConfig from "./webpackConfig.js";
 
 export default options => async nore => {
 	nore.plug("variables", {
@@ -38,6 +38,6 @@ export default options => async nore => {
 	});
 
 	nore.on("nore:bundle", async bundle => {
-		bundle.register("variables", await plugin(nore));
+		bundle.register("variables", await webpackConfig(bundle, nore));
 	});
 };
