@@ -4,7 +4,6 @@ const onError = require("./onError.js");
 
 const cache = new Map();
 const extensions = [".js", ".mjs"];
-
 const nodeLoader = require.extensions[".js"];
 
 function load(module, file) {
