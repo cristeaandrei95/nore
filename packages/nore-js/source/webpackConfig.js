@@ -17,7 +17,7 @@ export default bundle => {
 		entry: bundle.isForWeb ? ["@babel/polyfill"] : [],
 		module: { rules },
 		resolve: {
-			extensions: [".jsx", ".m.js", ".mjs"],
+			extensions: [".js", ".json", ".jsx", ".mjs"],
 		},
 	};
 };

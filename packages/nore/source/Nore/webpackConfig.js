@@ -39,7 +39,7 @@ export default bundle => {
 	config.resolve = {
 		mainFields: ["source", "module", "main", "style"],
 		mainFiles: ["index", "main", "style"],
-		extensions: [".js", ".json"],
+		extensions: [],
 		modules: [bundle.source, `${bundle.path}/node_modules`],
 		alias: {
 			"~": bundle.source,
