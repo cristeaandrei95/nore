@@ -6,7 +6,7 @@ import colorHexAlpha from "postcss-color-hex-alpha";
 import customSelectors from "postcss-custom-selectors";
 import customMedia from "postcss-custom-media";
 import selectorNotFix from "postcss-selector-not";
-import imageSet from "postcss-image-set-polyfill";
+import imageSetFunction from "postcss-image-set-function";
 import pleasefilters from "pleeease-filters";
 import sassVariables from "./sassVariables.js";
 
@@ -30,8 +30,8 @@ export default bundle => [
 		// bubble only some at-rules
 		bubble: ["media"],
 	}),
-	// polyfill the image-set CSS function
-	imageSet,
+	// image-set() helper function (https://git.io/fxfwu)
+	imageSetFunction(),
 	// fix flexbox issues on older browsers
 	fixFlexbox,
 	// convert `not(:first-child, .special)`
