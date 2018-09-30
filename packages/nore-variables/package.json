@@ -11,6 +11,7 @@
 	"main": "source/index.js",
 
 	"dependencies": {
-		"virtual-module-webpack-plugin": "^0.4.0"
+		"virtual-module-webpack-plugin": "^0.4.0",
+		"chokidar": "^2.0.4"
 	}
 }
