@@ -7,7 +7,7 @@ import { readFile, writeFile, isFile } from "@nore/std/fs";
 import { parse } from "@nore/std/url";
 import { join } from "@nore/std/path";
 import { Application } from "@nore/pwa";
-import Pages from "~/pages";
+import Views from "~/views";
 
 const cwd = process.cwd();
 const build = `${cwd}/public/build`;
@@ -15,7 +15,7 @@ const build = `${cwd}/public/build`;
 async function render(page) {
 	const application = (
 		<Application state={page}>
-			<Pages />
+			<Views />
 		</Application>
 	);
 
