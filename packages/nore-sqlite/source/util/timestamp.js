@@ -6,14 +6,15 @@ function format(segment) {
 
 // format: yyyymmddhhmmss
 export default function timestamp() {
-	const date = new Date();
+	const now = new Date();
 
-	const year = date.getFullYear().toString();
-	const month = format(date.getMonth() + 1);
-	const date = format(date.getDate());
-	const hours = format(date.getHours());
-	const minutes = format(date.getMinutes());
-	const seconds = format(date.getSeconds());
+	const year = now.getFullYear().toString();
+	const month = format(now.getMonth() + 1);
+	const date = format(now.getDate());
+	const hours = format(now.getHours());
+	const minutes = format(now.getMinutes());
+	const seconds = format(now.getSeconds());
+	const milliseconds = format(now.getMilliseconds());
 
-	return year + month + date + hours + minutes + seconds;
+	return year + month + date + hours + minutes + seconds + milliseconds;
 }

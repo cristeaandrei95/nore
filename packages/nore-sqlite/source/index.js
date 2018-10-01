@@ -1,5 +1,6 @@
-import Database from "./Database.js";
-import mosql, { buildQuery } from "./util/mosql.js";
+import SQLite from "./SQLite.js";
+import Connection from "./Connection.js";
+import timestamp from "./util/timestamp.js";
 
-export { mosql, buildQuery };
-export default Database;
+export { Connection, timestamp };
+export default SQLite;

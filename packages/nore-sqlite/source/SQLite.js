@@ -1,39 +1,27 @@
-import Connection from "better-sqlite3";
-import { buildQuery } from "./util/mosql.js";
+import Table from "./Table.js";
+import Connection from "./Connection.js";
+import Migrations from "./Migrations.js";
 
-export default class SQLite {
-	constructor(options) {
-		this.connection = new Connection(options.file, {
-			memory: options.inMemory || false,
-			readonly: options.isReadOnly || false,
-			fileMustExist: options.throwOnMissingFile || false,
-		});
+export default class Database {
+	constructor(options = {}) {
+		// the Connection connection
+		this.db = new Connection(options);
+
+		// cache table instances
+		this.tables = new Map();
 	}
 
-	command(query, method) {
-		const { sql, values } = buildQuery(query);
-		const statement = this.connection.prepare(sql);
+	table(name) {
+		const { tables, db } = this;
 
-		return Promise.resolve(statement[method](values));
-	}
+		if (tables.has(name)) {
+			return tables.get(name);
+		}
 
-	// only on queries that do not return data
-	run(query) {
-		return this.command(query, "run");
-	}
+		const table = new Table({ name, db });
 
-	// only on queries that return data
-	get(query) {
-		return this.command(query, "get");
-	}
+		tables.set(name, table);
 
-	// only on queries that return data
-	getAll(query) {
-		return this.command(query, "all");
-	}
-
-	// only on queries that return data
-	getOneByOne(query) {
-		return this.command(query, "iterate");
+		return table;
 	}
 }

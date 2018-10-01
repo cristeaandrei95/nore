@@ -1,13 +1,12 @@
 import mosql from "mongo-sql";
 
-const DOLLAR_DIGIT = /\$\d/gm;
-const normalize = q => q.replace(DOLLAR_DIGIT, "?");
+const TO_MATCH = /\$\d+/gm;
+const normalize = sql => sql.replace(TO_MATCH, "?");
 
-export function buildQuery(request) {
-	const { query, values } = mosql.sql(request);
-	const sql = normalize(query);
+export default query => {
+	const result = mosql.sql(query);
+	const sql = normalize(result.query);
+	const values = result.values;
 
 	return { sql, values };
-}
-
-export default mosql;
+};
