@@ -60,7 +60,7 @@ export default bundle => {
 			),
 		}),
 		new FriendlyErrors({
-			clearConsole: isDebug ? false : true,
+			clearConsole: bundle.isDebug ? false : true,
 		}),
 	];
 
