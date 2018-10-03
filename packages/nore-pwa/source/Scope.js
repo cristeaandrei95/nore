@@ -34,11 +34,13 @@ function itMatches(parent, context, isExact) {
 }
 
 function renderOrChildren(render, children, context) {
-	return render
-		? React.createElement(render, { context })
-		: isFunction(children)
-			? children(context)
-			: children;
+	if (render) {
+		return React.isValidElement(render)
+			? render
+			: React.createElement(render, { context });
+	}
+
+	return isFunction(children) ? children(context) : children;
 }
 
 class Scope extends Component {
@@ -54,7 +56,7 @@ class Scope extends Component {
 			<Consumer>
 				{parent => {
 					// create new scope and inherit from parent
-					const context = inherit(parent, match);
+					const context = inherit(parent, match || parent.path);
 
 					return itMatches(parent, context, exact)
 						? this.content(context)
