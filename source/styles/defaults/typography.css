@@ -11,17 +11,11 @@ h1 {
 	font-size: 2.441rem;
 	font-weight: 600;
 }
-h1:not(:first-child) {
-	margin-top: 5.6rem;
-}
 h2 {
 	margin: 0;
 	line-height: 2.4rem;
 	font-size: 1.953rem;
 	font-weight: 500;
-}
-h2:not(:first-child) {
-	margin-top: 4rem;
 }
 h3 {
 	margin: 0;
@@ -29,26 +23,17 @@ h3 {
 	font-size: 1.563rem;
 	font-weight: 600;
 }
-h3:not(:first-child) {
-	margin-top: 3.2rem;
-}
 h4 {
 	margin: 0;
 	line-height: 1.6rem;
 	font-size: 1.25rem;
 	font-weight: 500;
 }
-h4:not(:first-child) {
-	margin-top: 3.2rem;
-}
 h5 {
 	margin: 0;
 	line-height: 1.4rem;
 	font-size: 1rem;
 	font-weight: 500;
-}
-h5:not(:first-child) {
-	margin-top: 2rem;
 }
 
 p {
@@ -57,9 +42,6 @@ p {
 	line-height: 2.4rem;
 	font-size: 1.6rem;
 	font-family: $font.sans;
-}
-p:not(:first-child) {
-	margin-top: 2rem;
 }
 
 blockquote {
@@ -82,9 +64,13 @@ blockquote:after {
 	font-size: 3em;
 	color: $markup.blockquote.quotes;
 }
-
 blockquote > p:not(:first-child) {
 	margin-top: 0.25rem;
+}
+blockquote + cite {
+	display: block;
+	font-size: 0.875em;
+	margin: 0 2.75em;
 }
 
 /* TODO: review the block below, how's the default <hr> style? */
@@ -100,4 +86,3 @@ hr {
 	/* show the overflow in Edge and IE */
 	overflow: visible;
 }
-
