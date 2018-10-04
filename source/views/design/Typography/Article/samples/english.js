@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import $ from "../style.css";
-import $typo from "~/style/typography";
+import $typo from "~/styles/typography";
 
 export default (
 	<b class={$typo.font_serif} style={{ margin: "0 auto", maxWidth: "60rem" }}>

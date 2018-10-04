@@ -1,30 +1,21 @@
 import React, { Component } from "react";
-import Responsive from "./components/Responsive";
-import Section from "./components/Section";
-import Buttons from "./Buttons";
-import Typography from "./Typography";
-import Colors from "./Colors";
-import Lists from "./Lists";
-import Cards from "./Cards";
-import HTML from "./HTML";
+import { Scope, Link } from "@nore/pwa";
+import HTMLElements from "./HTMLElements";
+import TypographyArticle from "./Typography/Article";
 import $ from "./style.css";
 
-export default scope => (
-	<b class={$.styleguide}>
-		<Responsive title="Buttons">
-			<Buttons />
-		</Responsive>
-		<Responsive title="Typography" height="560">
-			<Typography />
-		</Responsive>
-		<Section title="Colors">
-			<Colors />
-		</Section>
-		<Section title="Cards">
-			<Cards />
-		</Section>
-		<Section title="HTML">
-			<HTML />
-		</Section>
+const links = (
+	<b class={$.links}>
+		<Link to="html" label="HTML Elements" />
+		<Link to="typography/article" label="Typography – Article" />
 	</b>
+);
+
+export default scope => (
+	<>
+		<Scope exact render={links} />
+
+		<Scope exact match="html" render={HTMLElements} />
+		<Scope exact match="typography/article" render={TypographyArticle} />
+	</>
 );

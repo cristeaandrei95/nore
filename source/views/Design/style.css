@@ -1,5 +1,15 @@
 @import url("/fonts/styleguide/icons.css");
 
-.styleguide {
+.page {
 	position: relative;
+}
+
+.links {
+	padding: 4rem;
+}
+.links a {
+	display: block;
+}
+.links a:not(:first-child) {
+	margin-top: 1rem;
 }

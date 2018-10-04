@@ -6,6 +6,20 @@ export default () => (
 	<b class={$.html}>
 		<Sample>
 			<Details>
+				<code>&lt;h1&gt;</code> - <code>&lt;h6&gt;</code> – six levels of
+				section headings
+			</Details>
+			<Example>
+				<h1>The mind is a wonderful servant but a terrible master.</h1>
+				<h2>The mind is a wonderful servant but a terrible master.</h2>
+				<h3>The mind is a wonderful servant but a terrible master.</h3>
+				<h4>The mind is a wonderful servant but a terrible master.</h4>
+				<h5>The mind is a wonderful servant but a terrible master.</h5>
+				<h6>The mind is a wonderful servant but a terrible master.</h6>
+			</Example>
+		</Sample>
+		<Sample>
+			<Details>
 				<code>&lt;abbr&gt;</code> – abbreviation or acronym
 			</Details>
 			<Example>
@@ -74,7 +88,8 @@ export default () => (
 		</Sample>
 		<Sample>
 			<Details>
-				<code>&lt;s&gt;</code> – No longer accurate or no longer relevant
+				<code>&lt;s&gt;</code> – text that is no longer correct, accurate or
+				relevant
 			</Details>
 			<Example>
 				<s>Get up to 25% off!</s> Great Offer 50% off!
@@ -190,9 +205,10 @@ export default () => (
 			<Example>
 				<address>
 					<strong>Company, Inc.</strong>
+					<br />1<sup>st</sup> Awesome Street, Nr. 101
 					<br />
-					1<sup>st</sup> Awesome Street, Nr. 101<br />
-					New York, NY 10101<br />
+					New York, NY 10101
+					<br />
 					<abbr title="Mobile Phone">Mobile:</abbr> (123) 456-7890
 				</address>
 				<address>
@@ -210,13 +226,11 @@ export default () => (
 			<Example>
 				<blockquote>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-						posuere erat a ante.
+						Wise men speak because they have something to say; Fools because
+						they have to say something.
 					</p>
-					<small>
-						John Doe - <cite title="Source Title">Source Title</cite>
-					</small>
 				</blockquote>
+				<cite>Plato – The Republic</cite>
 			</Example>
 		</Sample>
 		<Sample>
@@ -224,13 +238,19 @@ export default () => (
 				<code>&lt;cite&gt;</code> – The title of a work
 			</Details>
 			<Example>
-				My favourite book is <cite>Introducing HTML5</cite> by Bruce and Remy
+				The case <cite>Hugo v. Danielle</cite> is relevant here.
 			</Example>
 		</Sample>
 		<Sample>
 			<Details>
 				<code>&lt;hr&gt;</code> – represents a horizontal line
 			</Details>
+			<Example>
+				Let us sacrifice our today so that our children can have a better
+				tomorrow.
+				<hr />
+				There is nothing permanent except change.
+			</Example>
 		</Sample>
 	</b>
 );

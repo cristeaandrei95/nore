@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import $typo from "~/style/typography";
+import $typo from "~/styles/typography";
 import $ from "../style.css";
 
 export default (
