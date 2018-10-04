@@ -2,47 +2,53 @@ import { deleteDirectory } from "@nore/std/fs";
 import { assign } from "@nore/std/object";
 import { join } from "@nore/std/path";
 import canLoadRequest from "../util/canLoadRequest";
-import log from "../util/log";
-import Platform from "../Platform";
+import Nore from "../Nore";
 import plugins from "../plugins";
 import bundles from "../bundles";
 
 export default async cli => {
-	log("nore:build", "in progress…");
+	const options = assign(cli, { plugins, mode: "production" });
+	const nore = new Nore(options);
 
-	const options = assign({}, cli, { mode: "production" });
-	const nore = new Platform(options);
+	nore.log.info("nore:build", "in progress…");
 
-	await nore.loadVariables();
-	await nore.loadPlugins(plugins);
+	// load plugins
+	await nore.initialize();
+	// load variabiles
+	await nore.variables.load();
 
-	// try to load default bundles
-	for (const { options, config } of bundles) {
-		const file = join(nore.path, options.source, options.handle);
-
+	// add default bundles
+	for (const { bundle, config } of bundles) {
 		// ignore missing bundles
-		if (!canLoadRequest(file)) continue;
+		if (canLoadRequest(`${nore.path}/source/${bundle.handle}`)) {
+			await nore.bundle(bundle, config);
 
-		await nore.loadBundle(options, config);
-
-		log("nore:build", `bundle: ${options.handle} – loaded`);
+			nore.log.info("nore:build", `bundle: ${options.handle} – loaded`);
+		}
 	}
 
 	// compile bundles and watch for changes
-	for (const [_, bundle] of nore.bundles) {
+	for (const [handle, bundle] of nore.bundles) {
+		// delete the brevious build
+		await deleteDirectory(bundle.outputPath);
+
 		if (bundle.isForWeb) {
-			// delete the brevious build
-			await deleteDirectory(bundle.output);
+			nore.log.info("nore:build", `bundle: ${bundle.handle} – compile started`);
 
-			log("nore:build", `bundle: ${bundle.handle} – compile started`);
+			const compiler = await bundle.compiler();
 
-			const stats = await bundle.compile();
+			compiler.run((error, stats) => {
+				if (error) return console.error(error);
 
-			if (stats.errors) {
-				log(stats.errors);
-			} else {
-				log("nore:build", `bundle: ${bundle.handle} – compile finished`);
-			}
+				if (stats.errors) {
+					nore.log.info(stats.errors);
+				} else {
+					nore.log.info(
+						"nore:build",
+						`bundle: ${bundle.handle} – compile finished`
+					);
+				}
+			});
 		}
 	}
 };
