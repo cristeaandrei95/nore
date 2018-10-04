@@ -12,17 +12,18 @@ function loader({ isDevelopment, isTemplate }) {
 }
 
 export default bundle => {
-	const plugins = [];
+	const plugins = [
+		new HTMLPlugin({
+			config: bundle.config,
+			source: bundle.sourcePath,
+			isDevelopment: bundle.isDevelopment,
+			template: `${__dirname}/template.js`,
+			inject: false,
+		}),
+	];
 
 	if (bundle.isForWeb) {
 		plugins.push(
-			new HTMLPlugin({
-				config: bundle.config,
-				source: bundle.source,
-				isDevelopment: bundle.isDevelopment,
-				template: `${__dirname}/template.js`,
-				inject: false,
-			}),
 			// webpack's runtime always change between every build it's
 			// better to split the runtime code out for long-term caching
 			new InlineWebpackRuntime("webpack_runtime")
