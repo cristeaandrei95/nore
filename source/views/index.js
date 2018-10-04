@@ -1,18 +1,21 @@
+import loadable from "loadable-components";
 import React, { Component } from "react";
 import { Scope, Link } from "@nore/pwa";
-import Article from "./design/Typography/Article";
-
-const index = (
-	<Scope exact match="/">
-		<b style={{ padding: "4rem" }}>
-			<Link to="/design/typography/article" label="Typography / Article" />
-		</b>
-	</Scope>
-);
+import $ from "./style.css";
 
 export default (
-	<b>
-		{index}
-		<Scope exact match="/design/typography/article" render={Article} />
+	<b class={$.page}>
+		<Scope exact match="/">
+			<b class={$.links}>
+				<Link to="/playground" label="Playground" />
+				<Link to="/design" label="Design System" />
+			</b>
+		</Scope>
+
+		<Scope
+			match="/playground"
+			render={loadable(() => import("./playground"))}
+		/>
 	</b>
 );
+// <Scope match="/design" render={loadable(() => import("./design"))} />

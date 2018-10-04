@@ -1,0 +1,12 @@
+.page {
+}
+
+.links {
+	padding: 4rem;
+}
+.links a {
+	display: block;
+}
+.links a:not(:first-child) {
+	margin-top: 1rem;
+}
