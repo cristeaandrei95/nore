@@ -34,7 +34,7 @@ export default class Bundle {
 			? fmtPath(this.path, options.output)
 			: `${this.path}/.builds/${this.handle}`;
 
-		this.cachePath = `${this.output}/cache`;
+		this.cachePath = `${this.outputPath}/cache`;
 
 		// webpack configs
 		this.webpackConfigs = new Map();
