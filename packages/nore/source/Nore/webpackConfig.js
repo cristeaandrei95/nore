@@ -52,25 +52,35 @@ export default bundle => {
 		nodeEnv: process.env.NODE_ENV,
 	};
 
-	config.plugins = [
-		new CaseSensitivePaths({ debug: isDebug }),
-		// TODO: add config constants
-		new DefinePlugin({
-			"process.env.NODE_ENV": JSON.stringify(
-				bundle.isDevelopment ? "development" : "production"
-			),
-		}),
-		new FriendlyErrors({
-			clearConsole: bundle.isDebug ? false : true,
-		}),
-	];
-
 	// turn off webpack output for performance hints
 	config.performance = {
 		maxAssetSize: 2e5, // 200kb
 		maxEntrypointSize: 2e5,
 		hints: !isDevelopment && "warning",
 		assetFilter: str => !/\.map|mp4|ogg|mov|webm$/.test(str),
+	};
+
+	config.plugins = [
+		new CaseSensitivePaths(),
+		// TODO: add config constants
+		new DefinePlugin({
+			"process.env.NODE_ENV": JSON.stringify(
+				bundle.isDevelopment ? "development" : "production"
+			),
+		}),
+	];
+
+	if (!isDebug) {
+		config.plugins.push(
+			new FriendlyErrors({
+				clearConsole: true,
+			})
+		);
+	}
+
+	config.module = {
+		// makes missing exports an error instead of warning
+		strictExportPresence: true,
 	};
 
 	if (isForWeb) {

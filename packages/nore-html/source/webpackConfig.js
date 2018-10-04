@@ -19,6 +19,18 @@ export default bundle => {
 			isDevelopment: bundle.isDevelopment,
 			template: `${__dirname}/template.js`,
 			inject: false,
+			minify: !bundle.isDevelopment && {
+				removeComments: true,
+				collapseWhitespace: true,
+				removeRedundantAttributes: true,
+				useShortDoctype: true,
+				removeEmptyAttributes: true,
+				removeStyleLinkTypeAttributes: true,
+				keepClosingSlash: true,
+				minifyJS: true,
+				minifyCSS: true,
+				minifyURLs: true,
+			},
 		}),
 	];
 
