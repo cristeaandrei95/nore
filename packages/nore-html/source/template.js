@@ -26,9 +26,6 @@ export default function({ htmlWebpackPlugin, webpackConfig }) {
 		isDevelopment,
 		title: config.title,
 
-		// TODO: is this still relevant?
-		content: "<!-- content -->",
-
 		head: {
 			scripts: "",
 			styles: files.css.map(setStyleTag).join("\n"),
