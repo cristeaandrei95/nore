@@ -12,8 +12,8 @@ const client = {
 
 const server = {
 	config: {
-		// on node builds, use the latest features
-		browserslist: ">5%",
+		// use Chrome 60 to match node 10's V8 version
+		browserslist: "chrome 60",
 		http: {
 			port: 3000,
 		},
