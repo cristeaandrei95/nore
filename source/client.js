@@ -1,9 +1,7 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import window from "@nore/std/global";
-import { Application, qs } from "@nore/pwa";
+import { qs, render } from "@nore/pwa";
 import views from "~/views";
-import $ from "~/style";
+import $ from "~/styles";
 
 const container = document.getElementById("application");
 
@@ -14,13 +12,7 @@ const state = {
 	hash: window.location.hash,
 };
 
-const application = (
-	<Application state={state} container={container} class={$.application}>
-		{views}
-	</Application>
-);
-
-ReactDOM.render(application, container);
+render({ state, container, children: views, class: $.application });
 
 // enable HMR (Hot Module Replacement)
 if (module.hot) {

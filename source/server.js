@@ -6,28 +6,44 @@ import { getLoadableState } from "loadable-components/server";
 import { readFile, writeFile, isFile } from "@nore/std/fs";
 import { parse } from "@nore/std/url";
 import { join } from "@nore/std/path";
-import { Application } from "@nore/pwa";
-import Views from "~/views";
+import { render, Application } from "@nore/pwa";
+import views from "~/views";
+import $ from "~/styles";
 
 const cwd = process.cwd();
-const build = `${cwd}/public/build`;
+const clientBundlePath = `${cwd}/.builds/client`;
 
-async function render(page) {
-	const application = (
-		<Application state={page}>
-			<Views />
-		</Application>
-	);
+async function renderToHTML(page) {
+	console.log("trying to render html");
 
-	const cwd = process.cwd();
-	const layout = await readFile(`${build}/index.html`);
-	const loadable = await getLoadableState(application);
+	const application = render({
+		state: page,
+		children: views,
+		class: $.application,
+	});
+
 	const content = renderToString(application);
 
-	const html = layout
-		.replace("<title>undefined</title>", `<title>${page.title}</title>`)
-		.replace(`"is_loading"`, `"is_loaded"`)
-		.replace("<!-- content -->", content);
+	// const layout = await readFile(join(clientBundlePath, "index.html"));
+	const loadableState = await getLoadableState(application);
+
+	console.log(loadableState.tree ? loadableState.tree.children : loadableState);
+
+	const html = `
+    <!doctype html>
+    <html>
+    <head></head>
+    <body>
+      <div id="main">${content}</div>
+      ${loadableState.getScriptTag()}
+    </body>
+    </html>
+  `;
+
+	// const html = layout
+	// 	.replace("<title>undefined</title>", `<title>${page.title}</title>`)
+	// 	.replace(`"is_loading"`, `"is_loaded"`)
+	// 	.replace("<!-- content -->", content);
 
 	return html;
 }
@@ -36,12 +52,12 @@ const server = new Server();
 
 server.on("request", async (request, response) => {
 	const url = parse(request.url);
-	const tryFile = join(build, url.pathname);
+	const tryFile = join(clientBundlePath, url.pathname);
 
 	if (await isFile(tryFile)) {
 		createReadStream(tryFile).pipe(response);
 	} else {
-		const html = await render({
+		const html = await renderToHTML({
 			title: "Navaru",
 			path: url.pathname,
 			query: {},
@@ -53,10 +69,10 @@ server.on("request", async (request, response) => {
 
 process.on("exit", () => {
 	server.close(() => {
-		console.log("STOPPED: http://localhost:7000 ");
+		console.log("STOPPED: http://localhost:5000 ");
 	});
 });
 
-server.listen(7000);
+server.listen(5000);
 
-console.log("STARTED: http://localhost:7000");
+console.log("STARTED: http://localhost:5000");

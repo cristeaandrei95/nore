@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no viewport-fit=cover">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-		<title>${title}</title>
+		<title>${title || "<!-- title -->"}</title>
 
 		<style>
 	 		#application.is_loading {
@@ -42,7 +42,7 @@
 		${head.scripts}
 	</head>
 	<body>
-		<div id="application" class="is_loading">${content}</div>
+		<div id="application" class="is_loading"><!-- content --></div>
 
 		${body.styles}
 		${body.scripts}
