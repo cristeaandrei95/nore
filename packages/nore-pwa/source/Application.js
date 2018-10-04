@@ -17,9 +17,6 @@ export default class Application extends Component {
 	componentDidMount() {
 		const { container } = this.props;
 
-		// set loaded class, removing loading
-		container.className = "is_loaded";
-
 		// add current app state to browser history
 		history.set(store.path, store.data);
 
@@ -29,6 +26,9 @@ export default class Application extends Component {
 		// hook into store updates
 		store.on("update", this.onUpdate);
 		store.on("title", this.setTitle);
+
+		// set loaded class, removing loading
+		container.className = "is_loaded";
 	}
 
 	componentWillUnmount() {
@@ -46,7 +46,9 @@ export default class Application extends Component {
 	render({ children, className, style }, state) {
 		return (
 			<b className={className} style={style}>
+				{/* TODO: add more slots: stacks, modals, etc */}
 				<b id="slot_application" />
+
 				<Scope.Root context={store} route={state.path}>
 					{children}
 				</Scope.Root>
