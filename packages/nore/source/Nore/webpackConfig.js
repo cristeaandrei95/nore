@@ -1,4 +1,5 @@
 import FriendlyErrors from "friendly-errors-webpack-plugin";
+import CaseSensitivePaths from "case-sensitive-paths-webpack-plugin";
 import { DefinePlugin } from "webpack";
 import { readFileSync } from "fs";
 import { assign } from "@nore/std/object";
@@ -16,7 +17,7 @@ export default bundle => {
 		// tells webpack to use its built-in optimizations
 		mode: isDevelopment ? "development" : "production",
 		name: bundle.handle,
-		context: bundle.source,
+		context: bundle.sourcePath,
 		// limit the number of parallel processed modules
 		parallelism: os.cpus().length - 1,
 		// how source maps are generated
@@ -29,7 +30,7 @@ export default bundle => {
 	config.entry = [bundle.entry || bundle.handle];
 
 	config.output = {
-		path: bundle.output,
+		path: bundle.outputPath,
 		filename: "[name].[hash].js",
 		// TODO: how to handle publicPath?
 		publicPath: isDevelopment ? "/" : "/",
@@ -40,19 +41,19 @@ export default bundle => {
 		mainFields: ["source", "module", "main", "style"],
 		mainFiles: ["index", "main", "style"],
 		extensions: [],
-		modules: [bundle.source, `${bundle.path}/node_modules`],
+		modules: [bundle.sourcePath, `${bundle.path}/node_modules`],
 		alias: {
-			"~": bundle.source,
-			$: `~/style`,
+			"~": bundle.sourcePath,
+			$: `~/styles`,
 		},
 	};
 
 	config.optimization = {
 		nodeEnv: process.env.NODE_ENV,
-		minimizer: [],
 	};
 
 	config.plugins = [
+		new CaseSensitivePaths({ debug: isDebug }),
 		// TODO: add config constants
 		new DefinePlugin({
 			"process.env.NODE_ENV": JSON.stringify(

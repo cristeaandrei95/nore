@@ -22,17 +22,19 @@ export default class Bundle {
 		this.isForWeb = this.target === "web";
 
 		// set bundle paths
-		this.source = options.source
+		this.sourcePath = options.source
 			? fmtPath(this.path, options.source)
 			: `${this.path}/source`;
 
-		this.output = options.output
+		this.webpackExtendPath = options.webpack
+			? fmtPath(this.path, options.webpack)
+			: `${this.path}/source/webpack.${this.handle}.js`;
+
+		this.outputPath = options.output
 			? fmtPath(this.path, options.output)
 			: `${this.path}/.builds/${this.handle}`;
 
-		this.webpackExtend = options.webpack
-			? fmtPath(this.path, options.webpack)
-			: `${this.path}/source/webpack.${this.handle}.js`;
+		this.cachePath = `${this.output}/cache`;
 
 		// webpack configs
 		this.webpackConfigs = new Map();
@@ -47,8 +49,8 @@ export default class Bundle {
 		const configs = [...this.webpackConfigs.values(), webpackConfig(this)];
 
 		// push external webpack configuration
-		if (await itExists(this.webpackExtend)) {
-			const extendWebpack = require(this.webpackExtend);
+		if (await itExists(this.webpackExtendPath)) {
+			const extendWebpack = require(this.webpackExtendPath);
 
 			configs.push(
 				await Promise.resolve(

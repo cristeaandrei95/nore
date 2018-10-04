@@ -9,7 +9,7 @@ export default async ({ nore, bundle, port }) => {
 
 	const pm = new ProcessManager({
 		name: bundle.handle,
-		file: bundle.output,
+		file: bundle.outputPath,
 		path: bundle.path,
 		env: { HTTP_PORT: port },
 	});
@@ -37,5 +37,13 @@ export default async ({ nore, bundle, port }) => {
 		ignored: ["node_modules"],
 	};
 
-	compiler.watch(watchOptions, onCompile);
+	const watcher = compiler.watch(watchOptions, onCompile);
+
+	// watch variables for changes
+	nore.on("variables:change", async (variables, event) => {
+		log.info(`watch:variables [change] "${event.path}"`);
+
+		// rebundle the code
+		watcher.invalidate();
+	});
 };

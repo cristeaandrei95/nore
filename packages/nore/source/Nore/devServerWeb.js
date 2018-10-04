@@ -14,10 +14,10 @@ export default async ({ nore, bundle, port }) => {
 
 	server.on("request", async (request, response) => {
 		const url = parse(request.url);
-		const file = join(bundle.source, "static", url.pathname);
+		const file = join(bundle.sourcePath, "static", url.pathname);
 
 		if (await isFile(file)) {
-			await serve(request, response, { public: `${bundle.source}/static` });
+			await serve(request, response, { public: `${bundle.sourcePath}/static` });
 		} else {
 			handleDevMiddleware(request, response);
 		}
@@ -61,8 +61,6 @@ export default async ({ nore, bundle, port }) => {
 		log.info(`watch:variables [change] "${event.path}"`);
 
 		// rebundle the code
-		setTimeout(() => {
-			devMiddleware.invalidate();
-		}, 100);
+		devMiddleware.invalidate();
 	});
 };

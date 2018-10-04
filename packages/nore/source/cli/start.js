@@ -2,9 +2,9 @@ import { deleteDirectory } from "@nore/std/fs";
 import canLoadRequest from "../util/canLoadRequest";
 import devServerWeb from "../Nore/devServerWeb";
 import devServerNode from "../Nore/devServerNode";
+import Nore from "../Nore";
 import plugins from "../plugins";
 import bundles from "../bundles";
-import Nore from "../Nore";
 
 export default async cli => {
 	const options = Object.assign({ plugins }, cli);
@@ -29,7 +29,7 @@ export default async cli => {
 	// compile bundles and watch for changes
 	for (const [handle, bundle] of nore.bundles) {
 		// delete the brevious build
-		await deleteDirectory(bundle.output);
+		await deleteDirectory(bundle.outputPath);
 
 		if (bundle.isForWeb) {
 			await devServerWeb({ nore, bundle, port: webServerPort++ });

@@ -28,6 +28,7 @@
 		"webpack-dev-middleware": "^3.4.0",
 		"webpack-hot-client": "^4.1.1",
 		"friendly-errors-webpack-plugin": "^1.7.0",
-		"virtual-module-webpack-plugin": "^0.4.0"
+		"virtual-module-webpack-plugin": "^0.4.0",
+		"case-sensitive-paths-webpack-plugin": "^2.1.2"
 	}
 }

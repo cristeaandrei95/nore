@@ -10,4 +10,7 @@ export default (bundle, config) => {
 			contents: nodeHelpers,
 		})
 	);
+
+	// turn off performance hints on node builds
+	config.performance = false;
 };

@@ -15,16 +15,14 @@ export default class Platform extends Events {
 		this.mode = options.mode || "development";
 		this.isDebug = options.debug || false;
 
+		// cache plugins and bundles
+		this.plugins = new Set(options.plugins);
+		this.bundles = new Map();
+
 		this.log = pino({
 			base: { name: "nore" },
 			level: this.isDebug ? "debug" : "info",
 		});
-
-		// plugins cache
-		this.plugins = new Set(options.plugins);
-		this.bundles = new Map();
-
-		this.log.debug({ action: "nore:constructor", options });
 	}
 
 	plug(namespace, api) {
