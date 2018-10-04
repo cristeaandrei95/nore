@@ -3,7 +3,7 @@ import babel from "./babel.js";
 export default bundle => {
 	const rules = [
 		{
-			test: /\.m?jsx?$/,
+			test: /\.jsx?$/,
 			enforce: "pre",
 			exclude: /node_modules/,
 			use: {
@@ -14,10 +14,10 @@ export default bundle => {
 	];
 
 	return {
-		entry: bundle.isForWeb ? ["@babel/polyfill"] : [],
+		entry: bundle.isForWeb ? [] : [],
 		module: { rules },
 		resolve: {
-			extensions: [".js", ".json", ".jsx", ".mjs"],
+			extensions: [".js", ".jsx", ".json"],
 		},
 	};
 };

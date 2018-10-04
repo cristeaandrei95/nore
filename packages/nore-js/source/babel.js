@@ -11,14 +11,18 @@ export default bundle => {
 
 	const javascript = [
 		// transforms JS class properties
-		"@babel/plugin-proposal-class-properties",
-		[
-			"@babel/plugin-proposal-object-rest-spread",
-			{
-				loose: isForNode,
-				useBuiltIns: isForNode ? false : "entry",
-			},
-		],
+		// enable loose mode to use assignment instead of defineProperty
+		["@babel/plugin-proposal-class-properties", { loose: true }],
+
+		// transform ES6 destructuring to ES5
+		"@babel/plugin-transform-destructuring",
+
+		// transform ES6 object rest and spread to ES5
+		// useBuiltIns will use Object.assign instead of babel's extend helper
+		["@babel/plugin-proposal-object-rest-spread", { useBuiltIns: true }],
+
+		// add syntax support for dynamic `import()`
+		"@babel/plugin-syntax-dynamic-import",
 	];
 
 	const features = [
@@ -32,35 +36,45 @@ export default bundle => {
 				IS_DEVELOPMENT: isDevelopment,
 			},
 		],
+
 		// use compile-time code transformation
 		// without adding them to babel plugins
 		"babel-plugin-macros",
+
+		// code splitting via the dynamic import syntax
+		"loadable-components/babel",
 	];
 
 	// like: @babel/preset-react
 	const react = [
 		// Transforms JSX class attributes into className
 		"react-html-attrs",
+
 		// transforms `render(props, state, context)` to react format
 		"transform-react-render-parameters",
+
 		// hoist JSX elements to the highest scope to reduce garbage collection
 		"@babel/plugin-transform-react-constant-elements",
+
 		// Turn JSX into JS function calls
 		[
 			"@babel/plugin-transform-react-jsx",
-			config.jsx || {
-				pragma: "React.createElement",
-				pragmaFrag: "React.Fragment",
-			},
+			assign(
+				{
+					pragma: "React.createElement",
+					pragmaFrag: "React.Fragment",
+					useBuiltIns: true,
+				},
+				config.jsx
+			),
 		],
-		// add react loadable imports
-		"loadable-components/babel",
 	];
 
 	if (isForWeb && isDevelopment) {
 		insertAt(react, 1, [
 			// Adds source file and line number to JSX elements
 			"@babel/plugin-transform-react-jsx-source",
+
 			// adds __self prop to JSX elements, which
 			// React will use to generate runtime warnings
 			"@babel/plugin-transform-react-jsx-self",
@@ -70,6 +84,11 @@ export default bundle => {
 			// adds `console.scope()` to log a function's entire scope
 			"babel-plugin-console"
 		);
+	}
+
+	if (isForNode) {
+		// transpile `import("./module")` to a deferred `require("./module")`
+		features.push("dynamic-import-node");
 	}
 
 	const webTarget = {
@@ -91,7 +110,9 @@ export default bundle => {
 
 	return {
 		babelrc: false,
+		configFile: false,
 		cacheDirectory: isDevelopment,
+		cacheCompression: !isDevelopment,
 		plugins: [...javascript, ...react, ...features],
 		presets: [
 			// compiles ES2015+ down to ES5 by automatically determining the
