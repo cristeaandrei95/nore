@@ -26,13 +26,13 @@ export default class Bundle {
 			? fmtPath(this.path, options.source)
 			: `${this.path}/source`;
 
-		this.webpackExtendPath = options.webpack
-			? fmtPath(this.path, options.webpack)
-			: `${this.path}/source/webpack.${this.handle}.js`;
-
 		this.outputPath = options.output
 			? fmtPath(this.path, options.output)
 			: `${this.path}/.builds/${this.handle}`;
+
+		this.webpackExtendPath = options.webpack
+			? fmtPath(this.path, options.webpack)
+			: `${this.path}/source/webpack.${this.handle}.js`;
 
 		this.cachePath = `${this.outputPath}/cache`;
 
@@ -40,8 +40,8 @@ export default class Bundle {
 		this.webpackConfigs = new Map();
 	}
 
-	register(type, webpackConfig) {
-		this.webpackConfigs.set(type, webpackConfig);
+	register(key, webpackConfig) {
+		this.webpackConfigs.set(key, webpackConfig);
 	}
 
 	async compiler() {
