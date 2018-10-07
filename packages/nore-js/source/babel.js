@@ -1,8 +1,9 @@
 import { insertAt } from "@nore/std/array";
 import { assign } from "@nore/std/object";
+import setExternalBabelConfig from "./setExternalBabelConfig.js";
 
-export default bundle => {
-	const { isForWeb, isForNode, isDebug, isDevelopment, config } = bundle;
+export default async bundle => {
+	const { isForWeb, isForNode, isDebug, isDevelopment } = bundle;
 	/*
 		TODO: add transform async/await to Promise
 		"transform-async-to-promises" it after the v7 update
@@ -65,9 +66,25 @@ export default bundle => {
 					pragmaFrag: "React.Fragment",
 					useBuiltIns: true,
 				},
-				config.jsx
+				bundle.config.jsx
 			),
 		],
+	];
+
+	// compiles ES2015+ down to ES5 by automatically determining the
+	// Babel plugins and polyfills you need based on your targeted browser
+	const babelPresetEnv = [
+		"@babel/preset-env",
+		{
+			debug: isDebug,
+			loose: true,
+			shippedProposals: true,
+			modules: "commonjs",
+			useBuiltIns: isForWeb ? "entry" : false,
+			targets: isForWeb
+				? { browsers: bundle.config.browserslist }
+				: { node: isDevelopment ? "current" : 8.0 },
+		},
 	];
 
 	if (isForWeb && isDevelopment) {
@@ -91,33 +108,19 @@ export default bundle => {
 		features.push("dynamic-import-node");
 	}
 
-	const webTarget = {
-		browsers: config.browserslist,
-	};
+	const plugins = [...javascript, ...react, ...features];
+	const presets = [babelPresetEnv];
 
-	const nodeTarget = {
-		node: isDevelopment ? "current" : 8.0,
-	};
-
-	const presetEnvOptions = {
-		loose: true,
-		shippedProposals: true,
-		modules: "commonjs",
-		debug: isDebug,
-		useBuiltIns: isForWeb ? "entry" : false,
-		targets: isForWeb ? webTarget : nodeTarget,
-	};
-
-	return {
+	const config = {
+		plugins,
+		presets,
 		babelrc: false,
 		configFile: false,
-		cacheDirectory: isDevelopment,
-		cacheCompression: !isDevelopment,
-		plugins: [...javascript, ...react, ...features],
-		presets: [
-			// compiles ES2015+ down to ES5 by automatically determining the
-			// Babel plugins and polyfills you need based on your targeted browser
-			["@babel/preset-env", presetEnvOptions],
-		],
+		cacheDirectory: bundle.isDevelopment,
 	};
+
+	// try to load external babel file and extend config
+	await setExternalBabelConfig(bundle, config);
+
+	return config;
 };

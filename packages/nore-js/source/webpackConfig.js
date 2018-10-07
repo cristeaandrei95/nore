@@ -1,6 +1,6 @@
 import babel from "./babel.js";
 
-export default bundle => {
+export default async bundle => {
 	const rules = [
 		{
 			test: /\.jsx?$/,
@@ -8,7 +8,7 @@ export default bundle => {
 			exclude: /node_modules/,
 			use: {
 				loader: "babel-loader",
-				options: babel(bundle),
+				options: await babel(bundle),
 			},
 		},
 	];

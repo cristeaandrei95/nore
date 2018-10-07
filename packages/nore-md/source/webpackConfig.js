@@ -1,13 +1,13 @@
 import babel from "@nore/nore-js/source/babel";
 
-export default bundle => {
+export default async bundle => {
 	const rules = [
 		{
 			test: /\.md?$/,
 			use: [
 				{
 					loader: "babel-loader",
-					options: babel(bundle),
+					options: await babel(bundle),
 				},
 				{
 					loader: "@mdx-js/loader",

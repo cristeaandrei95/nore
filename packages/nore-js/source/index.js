@@ -1,7 +1,7 @@
 import webpackConfig from "./webpackConfig.js";
 
 export default options => nore => {
-	nore.on("nore:bundle", bundle => {
-		bundle.register(".js", webpackConfig(bundle));
+	nore.on("nore:bundle", async bundle => {
+		bundle.register(".js", await webpackConfig(bundle, nore));
 	});
 };
