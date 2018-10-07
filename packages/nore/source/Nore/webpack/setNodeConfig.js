@@ -1,5 +1,5 @@
 import VirtualModule from "virtual-module-webpack-plugin";
-import nodeHelpers from "./nodeHelpers.js";
+import nodeGlobalHelpers from "./nodeGlobalHelpers.js";
 
 export default (bundle, config) => {
 	config.output.filename = "index.js";
@@ -7,7 +7,7 @@ export default (bundle, config) => {
 	config.plugins.push(
 		new VirtualModule({
 			moduleName: "@nore/node.js",
-			contents: nodeHelpers,
+			contents: nodeGlobalHelpers,
 		})
 	);
 

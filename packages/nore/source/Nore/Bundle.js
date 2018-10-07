@@ -1,8 +1,9 @@
-import { itExists } from "@nore/std/fs";
-import { isAbsolute, join } from "@nore/std/path";
-import merge from "webpack-merge";
 import webpack from "webpack";
-import webpackConfig from "./webpackConfig.js";
+import { isAbsolute, join } from "@nore/std/path";
+import { merge } from "@nore/std/object";
+import loadFile from "../util/loadFile.js";
+import getConfig from "./webpack/getConfig";
+import loadWebpackConfig from "./webpack/loadWebpackConfig";
 
 function fmtPath(path, file) {
 	return isAbsolute(file) ? file : join(path, file);
@@ -30,37 +31,32 @@ export default class Bundle {
 			? fmtPath(this.path, options.output)
 			: `${this.path}/.builds/${this.handle}`;
 
-		this.webpackExtendPath = options.webpack
-			? fmtPath(this.path, options.webpack)
-			: `${this.path}/source/webpack.${this.handle}.js`;
-
+		this.configPath = `${this.path}/config`;
 		this.cachePath = `${this.outputPath}/cache`;
 
-		// webpack configs
-		this.webpackConfigs = new Map();
+		// webpack configs added by plugins
+		this.webpackConfig = new Map();
 	}
 
-	register(key, webpackConfig) {
-		this.webpackConfigs.set(key, webpackConfig);
+	register(key, config) {
+		this.webpackConfig.set(key, config);
+	}
+
+	async loadConfig() {
+		const file = `${this.configPath}/${this.handle}.${this.mode}`;
+		const content = await loadFile(file);
+
+		this.config = merge(this.config, content || {});
+	}
+
+	async prepare() {
+		await this.loadConfig();
 	}
 
 	async compiler() {
-		// base webpack config and configs added by plugins
-		const configs = [...this.webpackConfigs.values(), webpackConfig(this)];
+		const config = await loadWebpackConfig(this);
+		const compiler = webpack(config);
 
-		// push external webpack configuration
-		if (await itExists(this.webpackExtendPath)) {
-			const extendWebpack = require(this.webpackExtendPath);
-
-			configs.push(
-				await Promise.resolve(
-					isFunction(extendWebpack)
-						? extendWebpack(this, configs)
-						: extendWebpack
-				)
-			);
-		}
-
-		return webpack(merge(...configs));
+		return compiler;
 	}
 }

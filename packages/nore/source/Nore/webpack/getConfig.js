@@ -4,8 +4,8 @@ import { DefinePlugin } from "webpack";
 import { readFileSync } from "fs";
 import { assign } from "@nore/std/object";
 import os from "os";
-import webpackConfigWeb from "./webpackConfigWeb.js";
-import webpackConfigNode from "./webpackConfigNode.js";
+import setWebConfig from "./setWebConfig.js";
+import setNodeConfig from "./setNodeConfig.js";
 
 export default bundle => {
 	const { isDevelopment, isDebug, isForNode, isForWeb } = bundle;
@@ -84,11 +84,11 @@ export default bundle => {
 	};
 
 	if (isForWeb) {
-		webpackConfigWeb(bundle, config);
+		setWebConfig(bundle, config);
 	}
 
 	if (isForNode) {
-		webpackConfigNode(bundle, config);
+		setNodeConfig(bundle, config);
 	}
 
 	return config;
