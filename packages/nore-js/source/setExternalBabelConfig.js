@@ -1,11 +1,16 @@
 import { itExists } from "@nore/std/fs";
 
 export default async (bundle, config) => {
-	const file = `${bundle.configPath}/${bundle.handle}.babel.js`;
+	const files = [
+		`${bundle.configPath}/${bundle.handle}.${bundle.mode}.babel.js`,
+		`${bundle.configPath}/${bundle.handle}.babel.js`,
+	];
 
-	if (await itExists(file)) {
-		const extend = require(file).default;
+	for (const file of files) {
+		if (await itExists(file)) {
+			const extend = require(file).default;
 
-		await Promise.resolve(extend(config, bundle));
+			await Promise.resolve(extend(config, bundle));
+		}
 	}
 };

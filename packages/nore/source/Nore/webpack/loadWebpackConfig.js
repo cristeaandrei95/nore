@@ -3,17 +3,18 @@ import merge from "webpack-merge";
 import getConfig from "./getConfig";
 
 async function loadExternalConfig(bundle, config) {
-	const file = `${bundle.configPath}/${bundle.handle}.webpack.js`;
+	const files = [
+		`${bundle.configPath}/${bundle.handle}.${bundle.mode}.webpack.js`,
+		`${bundle.configPath}/${bundle.handle}.webpack.js`,
+	];
 
-	if (await itExists(file)) {
-		const extend = require(file);
+	for (const file of files) {
+		if (await itExists(file)) {
+			const extend = require(file);
 
-		return await Promise.resolve(
-			isFunction(extend) ? extend(bundle, config) : extend
-		);
+			return await Promise.resolve(extend(config, bundle));
+		}
 	}
-
-	return {};
 }
 
 export default async bundle => {
@@ -22,5 +23,5 @@ export default async bundle => {
 	const config = merge(defaults, ...fromPlugins);
 	const external = await loadExternalConfig(bundle, config);
 
-	return merge(config, external);
+	return merge(config, external || {});
 };
