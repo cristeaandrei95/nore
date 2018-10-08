@@ -1,30 +1,23 @@
 import { deleteDirectory } from "@nore/std/fs";
-import { assign } from "@nore/std/object";
-import { join } from "@nore/std/path";
-import canLoadRequest from "../util/canLoadRequest";
+import loadBundles from "../Nore/loadBundles";
 import Nore from "../Nore";
 import plugins from "../plugins";
-import bundles from "../bundles";
 
 export default async cli => {
-	const options = assign(cli, { plugins, mode: "production" });
-	const nore = new Nore(options);
+	const nore = new Nore(Object.assign(cli, { plugins, mode: "production" }));
 
-	nore.log.info("nore:build", "in progress…");
+	const bundles = await loadBundles({
+		selected: cli._.slice(1),
+		path: nore.path,
+		mode: nore.mode,
+	});
 
-	// load plugins
+	// setup plugins
 	await nore.initialize();
-	// load variabiles
-	await nore.variables.load();
 
-	// add default bundles
-	for (const { bundle, config } of bundles) {
-		// ignore missing bundles
-		if (canLoadRequest(`${nore.path}/source/${bundle.handle}`)) {
-			await nore.bundle(bundle, config);
-
-			nore.log.info("nore:build", `bundle: ${options.handle} – loaded`);
-		}
+	// add bundles
+	for (const options of bundles) {
+		await nore.bundle(options);
 	}
 
 	// compile bundles and watch for changes

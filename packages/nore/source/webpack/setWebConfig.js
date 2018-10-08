@@ -10,14 +10,16 @@ export default (bundle, config) => {
 		name: false,
 	};
 
-	// some libraries import Node modules but don't use them in the browser
-	// provide empty mocks for them so importing them works
+	// prevent webpack from injecting mocks to Node native modules
+	// that does not make sense for the client
 	config.node = {
 		dgram: "empty",
 		fs: "empty",
 		net: "empty",
 		tls: "empty",
 		child_process: "empty",
+		// prevent webpack from injecting a useless setImmediate polyfill
+		setImmediate: false,
 	};
 
 	// resolve imports using the `browser` field from package.json
@@ -26,10 +28,18 @@ export default (bundle, config) => {
 	if (!bundle.isDevelopment) {
 		config.optimization.splitChunks = {
 			cacheGroups: {
-				commons: {
+				vendors: {
+					name: `chunk-vendors`,
 					test: /[\\/]node_modules[\\/]/,
-					name: "common",
+					priority: -10,
 					chunks: "initial",
+				},
+				common: {
+					name: `chunk-common`,
+					minChunks: 2,
+					priority: -20,
+					chunks: "initial",
+					reuseExistingChunk: true,
 				},
 			},
 		};

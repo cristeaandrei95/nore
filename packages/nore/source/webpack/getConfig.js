@@ -11,13 +11,13 @@ export default bundle => {
 	const { isDevelopment, isDebug, isForNode, isForWeb } = bundle;
 
 	const config = {
+		name: bundle.handle,
+		context: bundle.sourcePath,
 		// the environment in which the bundle will run
 		// changes chunk loading behavior and available modules
 		target: bundle.target,
 		// tells webpack to use its built-in optimizations
 		mode: isDevelopment ? "development" : "production",
-		name: bundle.handle,
-		context: bundle.sourcePath,
 		// limit the number of parallel processed modules
 		parallelism: os.cpus().length - 1,
 		// how source maps are generated

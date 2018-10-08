@@ -15,7 +15,7 @@ export default bundle => {
 				name: "fonts/[name].[hash:8].[ext]",
 
 				// TODO: add URL public path
-				// publicPath: bundle.settings.url.pathname,
+				// publicPath: bundle.config.url.pathname,
 			},
 		},
 	};

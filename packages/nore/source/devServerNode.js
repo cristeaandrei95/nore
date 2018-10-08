@@ -1,4 +1,4 @@
-import ProcessManager from "../util/ProcessManager.js";
+import ProcessManager from "./util/ProcessManager.js";
 
 export default async ({ nore, bundle, port }) => {
 	const log = nore.log.child({ service: `node:server:${bundle.handle}` });

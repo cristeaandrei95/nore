@@ -1,25 +1,19 @@
 import { deleteDirectory } from "@nore/std/fs";
-import canLoadRequest from "../util/canLoadRequest";
-import devServerWeb from "../Nore/devServerWeb";
-import devServerNode from "../Nore/devServerNode";
+import devServerWeb from "../devServerWeb";
+import devServerNode from "../devServerNode";
 import Nore from "../Nore";
 import plugins from "../plugins";
-import bundles from "../bundles";
 
 export default async cli => {
-	const options = Object.assign({ plugins }, cli);
-	const nore = new Nore(options);
+	const nore = new Nore(
+		Object.assign(cli, {
+			plugins,
+			handles: cli._.slice(1),
+		})
+	);
 
+	// setup plugins and load bundles
 	await nore.initialize();
-
-	// add default bundles
-	for (const { bundle, config } of bundles) {
-		// ignore missing bundles
-		if (canLoadRequest(`${nore.path}/source/${bundle.handle}`)) {
-			await nore.bundle(bundle, config);
-		}
-	}
-
 	// watch variables for changes
 	await nore.variables.watch();
 
@@ -27,7 +21,7 @@ export default async cli => {
 	let nodeServerPort = 5000;
 
 	// compile bundles and watch for changes
-	for (const [handle, bundle] of nore.bundles) {
+	for (const bundle of nore.bundles) {
 		// delete the brevious build
 		await deleteDirectory(bundle.outputPath);
 
