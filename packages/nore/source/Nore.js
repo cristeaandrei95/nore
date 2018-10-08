@@ -16,7 +16,7 @@ export default class Platform extends Events {
 		this.isDebug = options.debug || false;
 
 		this.plugins = new Set(options.plugins);
-		this.bundles = [];
+		this.bundles = new Set();
 
 		this.log = pino({
 			base: { name: "nore" },
@@ -30,14 +30,16 @@ export default class Platform extends Events {
 			await Promise.resolve(plugin(this));
 		}
 
-		this.bundles = await loadBundles({
+		const bundles = await loadBundles({
 			handles: this.handles,
 			path: this.path,
 			mode: this.mode,
 		});
 
-		for (const bundle of this.bundles) {
+		for (const bundle of bundles) {
 			await this.emit("nore:bundle", bundle);
+
+			this.bundles.add(bundle);
 		}
 	}
 
