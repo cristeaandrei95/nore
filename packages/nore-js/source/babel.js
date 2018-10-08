@@ -66,7 +66,7 @@ export default async bundle => {
 					pragmaFrag: "React.Fragment",
 					useBuiltIns: true,
 				},
-				bundle.config.jsx
+				bundle.settings.jsx
 			),
 		],
 	];
@@ -80,9 +80,9 @@ export default async bundle => {
 			loose: true,
 			shippedProposals: true,
 			modules: "commonjs",
-			useBuiltIns: isForWeb ? "entry" : false,
+			useBuiltIns: isForWeb ? "usage" : false,
 			targets: isForWeb
-				? { browsers: bundle.config.browserslist }
+				? { browsers: bundle.settings.browserslist }
 				: { node: isDevelopment ? "current" : 8.0 },
 		},
 	];

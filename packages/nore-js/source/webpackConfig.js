@@ -14,7 +14,6 @@ export default async bundle => {
 	];
 
 	return {
-		entry: bundle.isForWeb ? ["@babel/polyfill"] : [],
 		module: { rules },
 		resolve: {
 			extensions: [".js", ".jsx", ".json"],
