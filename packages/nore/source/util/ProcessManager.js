@@ -9,7 +9,7 @@ const defaults = {
 	stderr: process.stderr,
 	name: "node:monitor",
 	node: "node",
-	restarts: 2,
+	restarts: 0,
 	args: [],
 	env: {},
 };
