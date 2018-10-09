@@ -44,7 +44,7 @@ export default bundle => {
 		modules: [bundle.sourcePath, `${bundle.path}/node_modules`],
 		alias: {
 			"~": bundle.sourcePath,
-			$: `~/styles`,
+			$: `${bundle.sourcePath}/styles`,
 		},
 	};
 
