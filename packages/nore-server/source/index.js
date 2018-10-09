@@ -4,6 +4,8 @@ import { isString } from "@nore/std/assert";
 import setPlugins from "./plugins.js";
 import onNextEventLoop from "./onNextEventLoop.js";
 
+const methods = ["get", "head", "post", "put", "delete", "options", "patch"];
+
 export default class Server {
 	constructor(options = {}) {
 		// setup options
@@ -27,6 +29,17 @@ export default class Server {
 		});
 
 		this.fastify.setErrorHandler(this.onHTTPError.bind(this));
+
+		// set HTTP route handling methods
+		for (const method of methods) {
+			this[method] = (path, options, handler) => {
+				this.fastify[method](path, options, handler);
+			};
+		}
+	}
+
+	route(options) {
+		this.fastify.route(options);
 	}
 
 	cors(path, options) {
