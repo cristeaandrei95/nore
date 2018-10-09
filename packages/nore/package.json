@@ -27,8 +27,9 @@
 		"webpack-merge": "^4.1.4",
 		"webpack-dev-middleware": "^3.4.0",
 		"webpack-hot-client": "^4.1.1",
-		"friendly-errors-webpack-plugin": "^1.7.0",
 		"webpack-virtual-modules": "^0.1.10",
+		"webpack-node-externals": "^1.7.2",
+		"friendly-errors-webpack-plugin": "^1.7.0",
 		"case-sensitive-paths-webpack-plugin": "^2.1.2"
 	}
 }
