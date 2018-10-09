@@ -3,7 +3,6 @@ import nested from "postcss-nested";
 import fixFlexbox from "postcss-flexbugs-fixes";
 import colorFunction from "postcss-color-function";
 import colorHexAlpha from "postcss-color-hex-alpha";
-import customSelectors from "postcss-custom-selectors";
 import customMedia from "postcss-custom-media";
 import selectorNotFix from "postcss-selector-not";
 import imageSetFunction from "postcss-image-set-function";
@@ -22,15 +21,11 @@ export default async bundle => {
 		// SCSS like variables: `color: $text_color`
 		variables,
 
-		// use Custom Selectors in CSS
-		// ex: `@custom-selector :--heading h1, h2, h3;`
-		customSelectors,
-
-		// use Custom Media Queries in CSS
+		// use Custom Media Queries in CSS (https://git.io/fxnCW)
 		// ex: `@custom-media --small-viewport (max-width: 30em)`
 		customMedia,
 
-		// unwrap nested rules like how Sass does it
+		// unwrap nested rules like how Sass does it (https://git.io/vUBoT)
 		nested({
 			// bubble only some at-rules
 			bubble: ["media"],
@@ -42,6 +37,7 @@ export default async bundle => {
 		// fix flexbox issues on older browsers
 		fixFlexbox,
 
+		// https://git.io/fxnC4
 		// convert `not(:first-child, .special)`
 		// to `:not(:first-child):not(.special)`
 		selectorNotFix,
