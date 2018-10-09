@@ -12,7 +12,7 @@ export default class Server {
 		this.host = options.host || "localhost";
 		this.isDebug = options.isDebug || true;
 
-		this.http = fastify({
+		this.fastify = fastify({
 			logger: options.logger || true,
 			ignoreTrailingSlash: true,
 			defaultRoute: options.onNotFound,
@@ -26,23 +26,23 @@ export default class Server {
 			secret: options.secret,
 		});
 
-		this.http.setErrorHandler(this.onHTTPError.bind(this));
+		this.fastify.setErrorHandler(this.onHTTPError.bind(this));
 	}
 
 	cors(path, options) {
 		if (isString(path)) {
-			this.http.use(path, cors(options));
+			this.fastify.use(path, cors(options));
 		} else {
-			this.http.use(cors(options));
+			this.fastify.use(cors(options));
 		}
 	}
 
 	async start() {
-		const { http, port, host } = this;
+		const { fastify, port, host } = this;
 
 		// start on next event loop so we have time to hook everyting up
 		return onNextEventLoop((resolve, reject) => {
-			http.listen(port, host, (error, address) => {
+			fastify.listen(port, host, (error, address) => {
 				if (error) reject(error);
 				else resolve(`${host}:${port}`);
 			});
@@ -64,7 +64,7 @@ export default class Server {
 			// ignore not found
 			if (error.message === "Not found") return;
 
-			this.http.log.error("HTTP ERROR", error);
+			this.fastify.log.error("HTTP ERROR", error);
 		}
 	}
 }

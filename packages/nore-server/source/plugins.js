@@ -16,31 +16,31 @@ const defaults = {
 };
 
 export default (server, config) => {
-	const { path, http, isDebug } = server;
+	const { path, fastify, isDebug } = server;
 	const store = config.store || defaults.store;
 	const secret = config.secret || defaults.secret;
 
 	function onError(error) {
-		http.log.error("HTTP PLUGIN ERROR", error);
+		fastify.log.error("HTTP PLUGIN ERROR", error);
 	}
 
-	http.register(helmet);
-	http.register(accepts, onError);
-	http.register(cookie, onError);
-	http.register(sessions, { secret, store });
-	http.register(jwt, { secret });
-	http.register(multipart);
-	http.register(templates, { path, isDebug, templates: config.templates });
+	fastify.register(helmet);
+	fastify.register(accepts, onError);
+	fastify.register(cookie, onError);
+	fastify.register(sessions, { secret, store });
+	fastify.register(jwt, { secret });
+	fastify.register(multipart);
+	fastify.register(templates, { path, isDebug, templates: config.templates });
 
 	// add support for qs parser
-	http.decorateRequest("parseQuery", function() {
+	fastify.decorateRequest("parseQuery", function() {
 		const [path, query] = this.raw.url.split("?");
 
 		return qs.parse(query);
 	});
 
 	// add support for boom errors generic error handling
-	http.decorateReply("success", data => Object.assign({ success: 1 }, data));
-	http.decorateReply("error", error => ({ error }));
-	http.decorate("error", boom);
+	fastify.decorateReply("success", data => Object.assign({ success: 1 }, data));
+	fastify.decorateReply("error", error => ({ error }));
+	fastify.decorate("error", boom);
 };
