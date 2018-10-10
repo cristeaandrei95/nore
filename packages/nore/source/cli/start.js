@@ -5,12 +5,11 @@ import Nore from "../Nore";
 import plugins from "../plugins";
 
 export default async cli => {
-	const nore = new Nore(
-		Object.assign(cli, {
-			plugins,
-			handles: cli._.slice(1),
-		})
-	);
+	const nore = new Nore({
+		...cli,
+		plugins,
+		handles: cli._.slice(1),
+	});
 
 	// setup plugins and load bundles
 	await nore.initialize();

@@ -52,7 +52,7 @@ export default (server, config) => {
 	});
 
 	// add support for boom errors generic error handling
-	fastify.decorateReply("success", data => Object.assign({ success: 1 }, data));
+	fastify.decorateReply("success", (data = {}) => ({ success: 1, ...data }));
 	fastify.decorateReply("error", error => ({ error }));
 	fastify.decorate("error", boom);
 };
