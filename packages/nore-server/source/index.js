@@ -62,6 +62,13 @@ export default class Server {
 		});
 	}
 
+	serve(path, options = {}) {
+		this.fastify.serve({
+			root: path,
+			send: options,
+		});
+	}
+
 	onHTTPError(error, request, reply) {
 		if (error && error.isBoom) {
 			reply
