@@ -13,7 +13,7 @@ function getLoaders({ bundle, useModules }) {
 	}
 
 	loaders.push({
-		loader: "css-loader",
+		loader: isForWeb ? "css-loader" : "css-loader/locals",
 		options: {
 			importLoaders: 1,
 			camelCase: "dashesOnly",
