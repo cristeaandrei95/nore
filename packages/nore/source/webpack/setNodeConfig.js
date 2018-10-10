@@ -8,7 +8,14 @@ export default (bundle, config) => {
 	// ignore all modules from node_modules folder
 	config.externals = [
 		getNodeExternals({
-			whitelist: [/@nore.+/],
+			whitelist: [
+				// @nore modules
+				/@nore.+/,
+				// CSS imports
+				/\.(css|less|scss|sss)$/,
+				// image imports
+				/\.(bmp|gif|jpe?g|png|svg)$/,
+			],
 		}),
 	];
 
