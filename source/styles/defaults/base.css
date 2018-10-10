@@ -84,8 +84,13 @@ body[noscroll] {
 	overflow: hidden;
 }
 
+/* remove the default border on iframes */
+iframe {
+	border: 0;
+}
+
 /* change the fill color to match the text color */
-svg {
+svg:not([fill]) {
 	fill: currentColor;
 }
 
@@ -105,6 +110,22 @@ progress,
 video {
 	/* remove the gap between elements and the bottom of their containers */
 	vertical-align: middle;
+}
+
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+figure,
+p,
+pre {
+	/* removes the default spacing  */
+	margin: 0;
 }
 
 /*
@@ -130,4 +151,3 @@ video {
 @-ms-viewport {
 	width: device-width;
 }
-
