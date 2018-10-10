@@ -150,3 +150,18 @@ test("ExportDefaultDeclaration object", ({ end, same }) => {
 	same(transform(input), output);
 	end();
 });
+
+test("parse rest * spread syntax", ({ end, doesNotThrow }) => {
+	doesNotThrow(() => {
+		transform(`
+			const m = { one: 1 };
+			const x = { ...m, two: 2 };
+
+			function foo (...args) {
+				const [one, ...rest] = [1, 2, ...args];
+			}
+		`);
+	});
+
+	end();
+});
