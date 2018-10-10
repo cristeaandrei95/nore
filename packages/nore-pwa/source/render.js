@@ -1,30 +1,28 @@
-import { loadComponents } from "loadable-components";
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import Application from "./Application";
 
-export default function render(args) {
-	const application = (
+export default function render(options) {
+	/* state, container, class, children */
+	const component = (
 		<Application
-			state={args.state}
-			container={args.container}
-			class={args.class}
-			style={args.style}
-			children={args.children}
+			state={options.state}
+			container={options.container}
+			class={options.class}
+			style={options.style}
+			children={options.children}
 		/>
 	);
 
 	if (IN_NODE) {
-		return application;
+		const { renderToString } = require("react-dom/server");
+		const html = renderToString(component);
+
+		return { html, component };
 	}
 
 	if (IN_BROWSER) {
-		function reactDOMRender() {
-			return ReactDOM.render(application, args.container);
-		}
+		const { render } = require("react-dom");
 
-		return args.isAsync
-			? loadComponents().then(reactDOMRender)
-			: reactDOMRender();
+		return render(component, args.container);
 	}
 }
