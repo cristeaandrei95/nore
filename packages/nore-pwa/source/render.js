@@ -23,6 +23,6 @@ export default function render(options) {
 	if (IN_BROWSER) {
 		const { render } = require("react-dom");
 
-		return render(component, args.container);
+		return render(component, options.container);
 	}
 }
