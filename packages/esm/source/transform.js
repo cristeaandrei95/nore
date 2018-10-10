@@ -209,7 +209,7 @@ module.exports = source => {
 	const patches = [];
 
 	const ast = parse(source, {
-		ecmaVersion: 8,
+		ecmaVersion: 9,
 		sourceType: "module",
 		allowHashBang: true,
 		allowReturnOutsideFunction: true,
