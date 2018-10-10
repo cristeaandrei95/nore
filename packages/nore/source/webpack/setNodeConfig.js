@@ -5,7 +5,7 @@ import nodeGlobalHelpers from "./nodeGlobalHelpers.js";
 export default (bundle, config) => {
 	config.output.filename = "index.js";
 
-	// ignore all modules from node_modules folder
+	// ignore modules from node_modules folder
 	config.externals = [
 		getNodeExternals({
 			whitelist: [
