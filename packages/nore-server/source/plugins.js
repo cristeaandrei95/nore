@@ -1,12 +1,14 @@
+import rateLimiter from "fastify-rate-limit";
 import multipart from "fastify-multipart";
+import serveFiles from "fastify-static";
 import accepts from "fastify-accepts";
 import cookie from "fastify-cookie";
-import jwt from "fastify-jwt";
 import helmet from "fastify-helmet";
-import serveFiles from "fastify-static";
+import jwt from "fastify-jwt";
 import boom from "boom";
-import qs from "qs";
 import cuid from "cuid";
+import qs from "qs";
+import { merge } from "@nore/std/object";
 import * as url from "@nore/std/url";
 import sessions from "./sessions.js";
 import templates from "./templates.js";
@@ -17,22 +19,37 @@ const defaults = {
 	secret: `${cuid()}|${cuid()}`,
 };
 
-export default (server, config) => {
+export default (server, options = {}) => {
 	const { path, fastify, isDebug } = server;
-	const store = config.store || defaults.store;
-	const secret = config.secret || defaults.secret;
+	const config = merge(defaults, options);
 
 	function onError(error) {
 		fastify.log.error("HTTP PLUGIN ERROR", error);
 	}
 
-	fastify.register(helmet);
+	fastify.register(templates, { path, isDebug, templates: config.templates });
 	fastify.register(accepts, onError);
 	fastify.register(cookie, onError);
-	fastify.register(sessions, { secret, store });
-	fastify.register(jwt, { secret });
 	fastify.register(multipart);
-	fastify.register(templates, { path, isDebug, templates: config.templates });
+
+	fastify.register(sessions, {
+		secret: config.secret,
+		store: config.store,
+	});
+
+	// TODO: set helmet config
+	fastify.register(helmet);
+	fastify.register(jwt, { secret: config.secret });
+
+	fastify.register(rateLimiter, {
+		max: 120,
+		timeWindow: "1 minute",
+		cache: 1000,
+		keyGenerator: req =>
+			req.headers["x-real-ip"] || // nginx
+			req.headers["x-client-ip"] || // apache
+			req.ip,
+	});
 
 	// add support for qs parser
 	fastify.decorateRequest("parseQuery", function() {

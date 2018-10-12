@@ -22,11 +22,7 @@ export default class Server {
 		});
 
 		// set up fastify & plugins
-		setPlugins(this, {
-			templates: options.templates,
-			store: options.store,
-			secret: options.secret,
-		});
+		setPlugins(this, options);
 
 		this.fastify.setErrorHandler(this.onHTTPError.bind(this));
 
