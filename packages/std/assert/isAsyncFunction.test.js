@@ -22,6 +22,7 @@ test("isAsyncFunction", ({ equal, end }) => {
 	equal(isAsyncFunction(function() {}), false, "function () {}");
 	equal(isAsyncFunction(function*() {}), false, "function * () {}");
 	equal(isAsyncFunction(async function() {}), true, "async function () {}");
+	equal(isAsyncFunction(async () => {}), true, "async () => {}");
 	equal(isAsyncFunction(() => {}), false, "() => {}");
 
 	equal(isAsyncFunction(new Date()), false, "new Date()");

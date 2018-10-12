@@ -14,6 +14,7 @@ Returns `true` if the _source_ is an [generator function](https://developer.mozi
 ```js
 import { isAsyncFunction } from "@nore/std/assert";
 
-isAsyncFunction(function*() {});
+isAsyncFunction(async function() {});
+isAsyncFunction(async () => {});
 // => true
 ```
