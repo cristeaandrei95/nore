@@ -15,10 +15,6 @@ export function isNullOrBoolean(value) {
 	return value === true || value === false || value === null;
 }
 
-export function getIsOrIsNot(value) {
-	return value ? "IS" : "IS NOT";
-}
-
 export function normalizeQuery(query) {
 	if (query.type == "select") {
 		if (!query.columns) {
