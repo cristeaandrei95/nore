@@ -1,9 +1,9 @@
 import { isArray } from "@nore/std/assert";
 
-export default function $sql({ cell }) {
-	if (isArray(cell)) {
-		return { sql: cell[0], values: cell.slice(1) };
+export default function $sql({ where, context, joiner, query, parse, build }) {
+	if (isArray(where)) {
+		return [where[0], where.slice(1)];
 	}
 
-	return cell;
+	return where;
 }

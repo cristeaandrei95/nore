@@ -9,6 +9,7 @@ import $like from "./$like.js";
 import $notLike from "./$notLike.js";
 import $in from "./$in.js";
 import $nin from "./$nin.js";
+import $or from "./$or.js";
 import $sql from "./$sql.js";
 
 const operators = new Map();
@@ -26,6 +27,7 @@ operators.set("$in", $in);
 operators.set("$nin", $nin);
 operators.set("$like", $like);
 operators.set("$notLike", $notLike);
+operators.set("$or", $or);
 operators.set("$sql", $sql);
 
 export default operators;

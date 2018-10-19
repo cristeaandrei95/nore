@@ -261,22 +261,27 @@ test("where", ({ end, equal, same }) => {
 			sql: `foo == ? OR beep == ?`,
 			values: ["bar", "Boop"],
 		},
+		{
+			query: { $sql: "foo IS NOT FALSE" },
+			sql: `foo IS NOT FALSE`,
+			values: [],
+		},
 	];
 
 	[
-		// "$is",
+		"$is",
 		"$not",
-		// "$gt",
-		// "$gte",
-		// "$lt",
-		// "$lte",
+		"$gt",
+		"$gte",
+		"$lt",
+		"$lte",
 		"$null",
-		// "$like",
-		// "$notLike",
+		"$sql",
+		"$or",
+		"$like",
+		"$notLike",
 		// "$in",
 		// "$nin",
-		// "$sql",
-		// "$or",
 	].forEach(operator => {
 		cases[operator].forEach(c => {
 			const { sql, values } = getBuild(c.query);
