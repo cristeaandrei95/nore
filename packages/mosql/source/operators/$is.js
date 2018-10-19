@@ -31,8 +31,5 @@ export default function $is({ where, context, joiner, query, parse, build }) {
 	}
 
 	// string
-	return [
-		getCondition(context, where),
-		isNullOrBoolean(where) ? null : [where],
-	];
+	return [getCondition(context, where), [where]];
 }
