@@ -339,63 +339,73 @@ test("$in", ({ end, equal, same }) => {
 	end();
 });
 
-// test("$nin", ({ end, equal, same }) => {
-// 	const cases = [
-// 		{
-// 			where: { foo: { $nin: ["foo", "bar", "baz"] } },
-// 			sql: `foo NOT IN (?, ?, ?)`,
-// 			values: ["foo", "bar", "baz"],
-// 		},
-// 		{
-// 			where: { foo: { $nin: ["bar", false, null, undefined, "baz"] } },
-// 			sql: `foo NOT IN (?, ?) AND foo IS NOT FALSE AND foo IS NOT NULL`,
-// 			values: ["bar", "baz"],
-// 		},
-// 	];
+test("$nin", ({ end, equal, same }) => {
+	const cases = [
+		{
+			where: { foo: { $nin: ["foo", "bar", "baz"] } },
+			sql: `foo NOT IN (?, ?, ?)`,
+			values: ["foo", "bar", "baz"],
+		},
+		{
+			where: { foo: { $nin: ["bar", false, null, undefined, "baz"] } },
+			sql: `foo NOT IN (?, ?) OR foo IS NOT FALSE OR foo IS NOT NULL`,
+			values: ["bar", "baz"],
+		},
+	];
 
-// 	forEach(cases, (expected, result) => {
-// 		equal(result.sql, expected.sql);
-// 		same(result.values, expected.values);
-// 	});
+	forEach(cases, (expected, result) => {
+		equal(result.sql, expected.sql);
+		same(result.values, expected.values);
+	});
 
-// 	end();
-// });
+	end();
+});
 
-// test("$like", ({ end, equal, same }) => {
-// 	const cases = [
-// 		{
-// 			where: { foo: { $like: "bar" } },
-// 			sql: `foo LIKE ?`,
-// 			values: ["bar"],
-// 		},
-// 		{
-// 			where: { $like: { foo: "bar", beep: "Boop" } },
-// 			sql: `foo LIKE ? AND beep LIKE ?`,
-// 			values: ["bar", "Boop"],
-// 		},
-// 	];
+test("$like", ({ end, equal, same }) => {
+	const cases = [
+		{
+			where: { foo: { $like: "bar" } },
+			sql: `foo LIKE ?`,
+			values: ["bar"],
+		},
+		{
+			where: { $like: { foo: "bar", beep: "Boop" } },
+			sql: `foo LIKE ? AND beep LIKE ?`,
+			values: ["bar", "Boop"],
+		},
+		{
+			where: { $or: { $like: { foo: "bar", beep: "Boop" } } },
+			sql: `foo LIKE ? OR beep LIKE ?`,
+			values: ["bar", "Boop"],
+		},
+	];
 
-// 	forEach(cases, (expected, result) => {
-// 		equal(result.sql, expected.sql);
-// 		same(result.values, expected.values);
-// 	});
+	forEach(cases, (expected, result) => {
+		equal(result.sql, expected.sql);
+		same(result.values, expected.values);
+	});
 
-// 	end();
-// });
+	end();
+});
 
-// test("$notLike", ({ end, equal, same }) => {
-// 	const cases = [
-// 		{
-// 			where: { foo: { $notLike: "bar" } },
-// 			sql: `foo NOT LIKE ?`,
-// 			values: ["bar"],
-// 		},
-// 	];
+test("$nlike", ({ end, equal, same }) => {
+	const cases = [
+		{
+			where: { foo: { $nlike: "bar" } },
+			sql: `foo NOT LIKE ?`,
+			values: ["bar"],
+		},
+		{
+			where: { $nlike: { foo: "bar", beep: "Boop" } },
+			sql: `foo NOT LIKE ? AND beep NOT LIKE ?`,
+			values: ["bar", "Boop"],
+		},
+	];
 
-// 	forEach(cases, (expected, result) => {
-// 		equal(result.sql, expected.sql);
-// 		same(result.values, expected.values);
-// 	});
+	forEach(cases, (expected, result) => {
+		equal(result.sql, expected.sql);
+		same(result.values, expected.values);
+	});
 
-// 	end();
-// });
+	end();
+});

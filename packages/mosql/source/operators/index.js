@@ -10,7 +10,7 @@ import $gte from "./$gte.js";
 import $in from "./$in.js";
 import $nin from "./$nin.js";
 import $like from "./$like.js";
-import $notLike from "./$notLike.js";
+import $nlike from "./$nlike.js";
 import $sql from "./$sql.js";
 
 const operators = new Map();
@@ -29,7 +29,7 @@ operators.set("$gte", $gte);
 operators.set("$in", $in);
 operators.set("$nin", $nin);
 operators.set("$like", $like);
-operators.set("$notLike", $notLike);
+operators.set("$nlike", $nlike);
 operators.set("$sql", $sql);
 
 export default operators;

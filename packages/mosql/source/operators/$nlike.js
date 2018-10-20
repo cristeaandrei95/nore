@@ -1,12 +1,12 @@
 import { isObject } from "@nore/std/assert";
 
-export default function $notLike({ where, context, joiner, query, parse }) {
+export default function $like({ where, context, joiner, query, parse, build }) {
 	if (isObject(where)) {
 		const conditions = [];
 		const values = [];
 
 		for (const column in where) {
-			conditions.push(`${column} LIKE ?`);
+			conditions.push(`${column} NOT LIKE ?`);
 			values.push(where[column]);
 		}
 

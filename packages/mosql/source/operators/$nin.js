@@ -1,17 +1,30 @@
-import $in from "./$in.js";
+import { isArray, isObject } from "@nore/std/assert";
+import { isNullOrBoolean, toUpperCase } from "../helpers.js";
 
-function invert(value) {
-	return value.replace(" IN ", " NOT IN ").replace(/ IS /g, " IS NOT ");
-}
+export default function $nin({ where, context, joiner, query, parse, build }) {
+	// array
+	if (isArray(where)) {
+		const values = where.filter(Boolean);
+		const special = where.filter(isNullOrBoolean);
+		const conditions = [];
 
-export default args => {
-	const result = $in(args);
+		if (values.length) {
+			conditions.push(`${context} NOT IN (${values.map(i => "?").join(", ")})`);
+		}
 
-	if (result && result.sql) {
-		result.sql = invert(result.sql);
+		if (special.length) {
+			conditions.push(
+				...special.map(v => `${context} IS NOT ${toUpperCase(v)}`)
+			);
+		}
 
-		return result;
+		return [conditions.join(" OR "), values];
 	}
 
-	return invert(result);
-};
+	// sub-query
+	if (isObject(where)) {
+		const { sql, values } = build(where);
+
+		return [`${context} NOT IN (${sql})`, values];
+	}
+}
