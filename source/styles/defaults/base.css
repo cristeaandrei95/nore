@@ -99,6 +99,11 @@ svg:not(:root) {
 	overflow: hidden;
 }
 
+img {
+	/* prevent images from overflowing the container (opinionated) */
+	max-width: 100%;
+}
+
 template {
 	/* add the correct display in IE 10+ */
 	display: none;
