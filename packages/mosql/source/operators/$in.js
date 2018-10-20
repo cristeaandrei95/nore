@@ -1,36 +1,28 @@
-import { isArray } from "@nore/std/assert";
-import { isNullOrBoolean } from "../helpers.js";
-
-function getNullOrBoolean(nullOrBoolean, column) {
-	const conditions = nullOrBoolean.map(
-		value => column + " IS " + String(value).toUpperCase()
-	);
-
-	return conditions.join(" AND ");
-}
+import { isArray, isObject } from "@nore/std/assert";
+import { isNullOrBoolean, toUpperCase } from "../helpers.js";
 
 export default function $in({ where, context, joiner, query, parse, build }) {
-	if (isArray(cell)) {
+	// array
+	if (isArray(where)) {
+		const values = where.filter(Boolean);
+		const special = where.filter(isNullOrBoolean);
 		const conditions = [];
-		const nullOrBoolean = cell.filter(isNullOrBoolean);
-		const values = cell.filter(Boolean);
 
 		if (values.length) {
-			conditions.push(`${column} IN (${values.join(", ")})`);
+			conditions.push(`${context} IN (${values.map(i => "?").join(", ")})`);
 		}
 
-		if (nullOrBoolean.length) {
-			conditions.push(getNullOrBoolean(nullOrBoolean, column));
+		if (special.length) {
+			conditions.push(...special.map(v => `${context} IS ${toUpperCase(v)}`));
 		}
 
-		return conditions.join(" AND ");
+		return [conditions.join(" OR "), values];
 	}
 
-	// allow a sub-query request
-	const result = build(cell);
+	// sub-query
+	if (isObject(where)) {
+		const { sql, values } = build(where);
 
-	return {
-		values: result.values,
-		sql: `${column} IN (${result.sql})`,
-	};
+		return [`${context} IN (${sql})`, values];
+	}
 }

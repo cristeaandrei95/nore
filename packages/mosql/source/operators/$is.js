@@ -1,28 +1,22 @@
 import { isArray, isObject } from "@nore/std/assert";
-import { isNullOrBoolean } from "../helpers.js";
-
-function getNullOrBooleanCondition(column, value) {
-	return `${column} IS ${String(value).toUpperCase()}`;
-}
-
-function getCondition(column, value) {
-	return isNullOrBoolean(value)
-		? getNullOrBooleanCondition(column, value)
-		: `${column} == ?`;
-}
+import { isNullOrBoolean, toUpperCase } from "../helpers.js";
 
 export default function $is({ where, context, joiner, query, parse, build }) {
-	// null or boolean
-	if (isNullOrBoolean(where)) {
-		return getNullOrBooleanCondition(context, where);
-	}
-
 	// array
 	if (isArray(where)) {
 		const values = where.filter(Boolean);
-		const sql = where.map(value => getCondition(context, value)).join(joiner);
+		const special = where.filter(isNullOrBoolean);
+		const conditions = [];
 
-		return [sql, values];
+		if (values.length) {
+			conditions.push(...values.map(v => `${context} == ?`));
+		}
+
+		if (special.length) {
+			conditions.push(...special.map(v => `${context} IS ${toUpperCase(v)}`));
+		}
+
+		return [conditions.join(joiner), values];
 	}
 
 	// sub-query
@@ -30,6 +24,11 @@ export default function $is({ where, context, joiner, query, parse, build }) {
 		return parse({ where, context, joiner, query, parse, build });
 	}
 
+	// null or boolean
+	if (isNullOrBoolean(where)) {
+		return `${context} IS ${toUpperCase(where)}`;
+	}
+
 	// string
-	return [getCondition(context, where), [where]];
+	return [`${context} == ?`, [where]];
 }
