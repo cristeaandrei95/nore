@@ -15,6 +15,10 @@ export function isNullOrBoolean(value) {
 	return value === true || value === false || value === null;
 }
 
+export function toUpperCase(value) {
+	return String(value).toUpperCase();
+}
+
 export function normalizeQuery(query) {
 	if (query.type == "select") {
 		if (!query.columns) {

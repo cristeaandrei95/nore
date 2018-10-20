@@ -5,18 +5,18 @@ function invert(value) {
 	return value.replace(/ == /g, " != ").replace(/ IS /g, " IS NOT ");
 }
 
-function isParsable(where) {
-	return !isArray(where) && isObject(where);
+function invertResult(result) {
+	return isArray(result) ? [invert(result[0]), result[1]] : invert(result);
 }
 
 export default function $not(args) {
-	const result = isParsable(args.where) ? args.parse(args) : $is(args);
-
-	if (isArray(result)) {
-		result[0] = invert(result[0]);
-
-		return result;
+	if (isArray(args.where)) {
+		return invertResult($is({ ...args, joiner: " OR " }));
 	}
 
-	return invert(result);
+	if (isObject(args.where)) {
+		return invertResult(args.parse(args));
+	}
+
+	return invertResult($is(args));
 }
