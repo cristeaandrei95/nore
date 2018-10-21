@@ -1,5 +1,5 @@
 import { test } from "tap";
-import isArray from "./isArray.js";
+import { isArray } from "./index.js";
 
 test("isArray", ({ equal, end }) => {
 	equal(isArray(true), false, "true");

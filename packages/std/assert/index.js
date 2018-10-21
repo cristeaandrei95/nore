@@ -1,40 +1,21 @@
 // type checking
-import isArguments from "./isArguments.js";
-import isArray from "./isArray.js";
-import isBoolean from "./isBoolean.js";
-import isBuffer from "./isBuffer.js";
-import isDate from "./isDate.js";
-import isError from "./isError.js";
-import isFalsy from "./isFalsy.js";
-import isFunction from "./isFunction.js";
-import isAsyncFunction from "./isAsyncFunction.js";
-import isGeneratorFunction from "./isGeneratorFunction.js";
-import isGeneratorObject from "./isGeneratorObject.js";
-import isNaN from "./isNaN.js";
-import isNull from "./isNull.js";
-import isNumber from "./isNumber.js";
-import isObject from "./isObject.js";
-import isRegExp from "./isRegExp.js";
-import isString from "./isString.js";
-import isTruthy from "./isTruthy.js";
-
-export {
-	isArguments,
-	isArray,
-	isBoolean,
-	isBuffer,
-	isDate,
-	isError,
-	isFalsy,
-	isFunction,
-	isAsyncFunction,
-	isGeneratorFunction,
-	isGeneratorObject,
-	isNaN,
-	isNull,
-	isNumber,
-	isObject,
-	isRegExp,
-	isString,
-	isTruthy,
-};
+export { default as isArguments } from "./isArguments.js";
+export { default as isArray } from "./isArray.js";
+export { default as isBoolean } from "./isBoolean.js";
+export { default as isBuffer } from "./isBuffer.js";
+export { default as isDate } from "./isDate.js";
+export { default as isError } from "./isError.js";
+export { default as isFalsy } from "./isFalsy.js";
+export { default as isFunction } from "./isFunction.js";
+export { default as isAsyncFunction } from "./isAsyncFunction.js";
+export { default as isGeneratorFunction } from "./isGeneratorFunction.js";
+export { default as isGeneratorObject } from "./isGeneratorObject.js";
+export { default as isNaN } from "./isNaN.js";
+export { default as isNull } from "./isNull.js";
+export { default as isNumber } from "./isNumber.js";
+export { default as isObject } from "./isObject.js";
+export { default as isRegExp } from "./isRegExp.js";
+export { default as isString } from "./isString.js";
+export { default as isTruthy } from "./isTruthy.js";
+export { default as isSymbol } from "./isSymbol.js";
+export { default as isPrimitive } from "./isPrimitive.js";

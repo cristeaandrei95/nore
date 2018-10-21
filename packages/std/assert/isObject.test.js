@@ -1,5 +1,5 @@
 import { test } from "tap";
-import isObject from "./isObject.js";
+import { isObject } from "./index.js";
 
 test("isObject", ({ equal, end }) => {
 	equal(isObject(true), false, "true");
