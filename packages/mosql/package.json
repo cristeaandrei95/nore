@@ -10,7 +10,9 @@
 	"module": "source/index.js",
 	"main": "source/index.js",
 
-	"dependencies": {},
+	"dependencies": {
+		"xql": "^1.4.3"
+	},
 	"devDependencies": {
 		"tap": "^12.0.1"
 	}

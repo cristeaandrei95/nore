@@ -1,9 +1,13 @@
 export default `
 	{with}
-	SELECT {columns}
+	SELECT
+	{expression}
+	{distinct}
+	{columns}
 	{table}
 	{where}
 	{groupBy}
-	{order} {limit} {offset}
-	{for}
+	{order}
+	{limit}
+	{offset}
 `;
