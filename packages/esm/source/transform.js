@@ -72,18 +72,19 @@ function onImportDeclaration(node, fmtName) {
 	return {
 		patch,
 		start: node.start,
-		end: node.end,
+		end: node.end
 	};
 }
 
 function onExportNamedDeclaration(node, source, fmtName) {
 	let patch = "";
 
-	// export { foo } from "bar"
+	// export { foo, default as bar } from "bar"
 	if (node.source) {
 		const module = fmtName(node.source.value);
+
 		const exports = [
-			`const ${module} = require("${setRequirePath(node.source.value)}");`,
+			`const ${module} = require("${setRequirePath(node.source.value)}");`
 		];
 
 		node.specifiers.forEach(node => {
@@ -95,13 +96,11 @@ function onExportNamedDeclaration(node, source, fmtName) {
 
 		patch += exports.join(" ");
 	}
-	// export { foo, biz as baz } from "bar"
+	// export { foo, biz }
 	else if (node.specifiers.length) {
-		const exports = [];
-
-		node.specifiers.forEach(({ local, exported }) => {
-			exports.push(`exports.${exported.name} = ${local.name};`);
-		});
+		const exports = node.specifiers.map(
+			({ local, exported }) => `exports.${exported.name} = ${local.name};`
+		);
 
 		patch += exports.join(" ");
 	}
@@ -140,7 +139,7 @@ function onExportNamedDeclaration(node, source, fmtName) {
 	return {
 		patch,
 		start: node.start,
-		end: node.end,
+		end: node.end
 	};
 }
 
@@ -155,7 +154,7 @@ function onExportDefaultDeclaration(node, source, fmtName) {
 	return {
 		patch,
 		start: node.start,
-		end: node.end,
+		end: node.end
 	};
 }
 
@@ -173,7 +172,7 @@ function onExportAllDeclaration(node, source, fmtName) {
 	return {
 		patch,
 		start: node.start,
-		end: node.end,
+		end: node.end
 	};
 }
 
@@ -212,7 +211,7 @@ module.exports = source => {
 		ecmaVersion: 9,
 		sourceType: "module",
 		allowHashBang: true,
-		allowReturnOutsideFunction: true,
+		allowReturnOutsideFunction: true
 	});
 
 	traverse(ast, node => {
