@@ -28,12 +28,8 @@ test("columns", ({ end, equal, same }) => {
 	// array
 	equal(columns(["foo", "bar", "baz"]), `"foo", "bar", "baz"`);
 	equal(
-		columns([
-			"max(version) as max",
-			{ name: "bar", alias: "rab" },
-			{ name: "baz", alias: "zab" },
-		]),
-		`max(version) as max, "bar" as "rab", "baz" as "zab"`
+		columns([{ name: "bar", alias: "rab" }, { name: "baz", alias: "zab" }]),
+		`"bar" as "rab", "baz" as "zab"`
 	);
 
 	// object
@@ -110,6 +106,18 @@ test("offset", ({ end, equal, same }) => {
 	same(offset(123), { sql: "OFFSET ?", values: ["123"] });
 	same(offset("123"), { sql: "OFFSET ?", values: ["123"] });
 	same(offset("123ab"), { sql: "OFFSET ?", values: ["123"] });
+
+	end();
+});
+
+test("count", ({ end, equal, same }) => {
+	const count = queryFields.get("count");
+
+	equal(count(null), "");
+	equal(count([]), "");
+	equal(count("*"), `COUNT(*)`);
+	same(count("123"), { sql: `COUNT(?)`, values: ["123"] });
+	same(count(["foo", "bar"]), { sql: `COUNT(?, ?)`, values: ["foo", "bar"] });
 
 	end();
 });

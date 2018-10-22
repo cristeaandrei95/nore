@@ -8,6 +8,7 @@ import groupBy from "./groupBy.js";
 import orderBy from "./orderBy.js";
 import limit from "./limit.js";
 import offset from "./offset.js";
+import count from "./count.js";
 
 const queryFields = new QueryFieldsMap();
 
@@ -20,5 +21,6 @@ queryFields.add("groupBy", groupBy);
 queryFields.add("orderBy", orderBy);
 queryFields.add("limit", limit);
 queryFields.add("offset", offset);
+queryFields.add("count", count);
 
 export default queryFields;

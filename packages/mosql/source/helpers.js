@@ -18,6 +18,10 @@ export class QueryFieldsMap extends Map {
 	}
 }
 
+export function toParams(values) {
+	return values.map(v => "?").join(", ");
+}
+
 export function quote(value) {
 	return `"${value}"`;
 }
