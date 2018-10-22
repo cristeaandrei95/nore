@@ -1,6 +1,6 @@
 import { isObject } from "@nore/std/assert";
 
-export default function $lt({ where, context, joiner, query, parse, build }) {
+export default function $lt({ where, column, joiner, query, parse, build }) {
 	if (isObject(where)) {
 		const conditions = [];
 		const values = [];
@@ -13,5 +13,5 @@ export default function $lt({ where, context, joiner, query, parse, build }) {
 		return [conditions.join(joiner), values];
 	}
 
-	return [`${context} < ?`, [where]];
+	return [`${column} < ?`, [where]];
 }

@@ -1,7 +1,7 @@
 import { isArray, isObject } from "@nore/std/assert";
 import { isNullOrBoolean, toUpperCase } from "../helpers.js";
 
-export default function $is({ where, context, joiner, query, parse, build }) {
+export default function $is({ where, column, joiner, query, parse, build }) {
 	// array
 	if (isArray(where)) {
 		const values = where.filter(Boolean);
@@ -9,11 +9,11 @@ export default function $is({ where, context, joiner, query, parse, build }) {
 		const conditions = [];
 
 		if (values.length) {
-			conditions.push(...values.map(v => `${context} == ?`));
+			conditions.push(...values.map(v => `${column} == ?`));
 		}
 
 		if (special.length) {
-			conditions.push(...special.map(v => `${context} IS ${toUpperCase(v)}`));
+			conditions.push(...special.map(v => `${column} IS ${toUpperCase(v)}`));
 		}
 
 		return [conditions.join(joiner), values];
@@ -21,14 +21,14 @@ export default function $is({ where, context, joiner, query, parse, build }) {
 
 	// sub-query
 	if (isObject(where)) {
-		return parse({ where, context, joiner, query, parse, build });
+		return parse({ where, column, joiner, query, parse, build });
 	}
 
 	// null or boolean
 	if (isNullOrBoolean(where)) {
-		return `${context} IS ${toUpperCase(where)}`;
+		return `${column} IS ${toUpperCase(where)}`;
 	}
 
 	// string
-	return [`${context} == ?`, [where]];
+	return [`${column} == ?`, [where]];
 }

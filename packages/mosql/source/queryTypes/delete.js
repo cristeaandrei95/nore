@@ -1,6 +1,5 @@
 export default `
-	UPDATE
+	DELETE FROM
 	{table}
-	{values}
 	{where}
 `;

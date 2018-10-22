@@ -4,7 +4,7 @@ import build from "../source/build";
 
 const query = { type: "select", table: "users" };
 const subQuery = { ...query, where: { foo: "bar" } };
-const subQueryOutput = `SELECT * FROM users WHERE foo == ?`;
+const subQueryOutput = `SELECT * FROM "users" WHERE foo == ?`;
 const where = queryFields.get("where");
 const getWhereOutput = data => where(data, { ...query, where: data }, build);
 
@@ -400,6 +400,23 @@ test("$nlike", ({ end, equal, same }) => {
 			where: { $nlike: { foo: "bar", beep: "Boop" } },
 			sql: `foo NOT LIKE ? AND beep NOT LIKE ?`,
 			values: ["bar", "Boop"],
+		},
+	];
+
+	forEach(cases, (expected, result) => {
+		equal(result.sql, expected.sql);
+		same(result.values, expected.values);
+	});
+
+	end();
+});
+
+test("$between", ({ end, equal, same }) => {
+	const cases = [
+		{
+			where: { $between: { foo: ["bar", "baz"] } },
+			sql: `foo BETWEEN ? AND ?`,
+			values: ["bar", "baz"],
 		},
 	];
 

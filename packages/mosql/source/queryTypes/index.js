@@ -1,12 +1,14 @@
-import { parseQueryType } from "../helpers.js";
+import { QueryTypesMap } from "../helpers.js";
+import insert from "./insert.js";
 import select from "./select.js";
+import update from "./update.js";
+import delete_ from "./delete.js";
 
-const queryTypes = new Map();
+const queryTypes = new QueryTypesMap();
 
-queryTypes.add = (type, template) => {
-	queryTypes.set(type, parseQueryType(template));
-};
-
+queryTypes.add("insert", insert);
 queryTypes.add("select", select);
+queryTypes.add("update", update);
+queryTypes.add("delete", delete_);
 
 export default queryTypes;

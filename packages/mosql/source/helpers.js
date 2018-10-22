@@ -1,14 +1,25 @@
 const REGEX_SPACES = /\s\s+/g;
-const REGEX_VARIABLES = /\{\w+\}/g;
 
-export function parseQueryType(template) {
-	const variables = template.match(REGEX_VARIABLES);
+export class QueryTypesMap extends Map {
+	add(type, template) {
+		const tmpl = template
+			.trim()
+			.replace(REGEX_SPACES, " ")
+			.split(" ")
+			.map(v => (v[0] === "{" ? v.slice(1, -1) : v));
 
-	return {
-		variables,
-		fields: variables.map(s => s.slice(1, -1)),
-		template: template.trim().replace(REGEX_SPACES, " "),
-	};
+		this.set(type, tmpl);
+	}
+}
+
+export class QueryFieldsMap extends Map {
+	add(field, handler) {
+		this.set(field, handler);
+	}
+}
+
+export function quote(value) {
+	return `"${value}"`;
 }
 
 export function isNullOrBoolean(value) {

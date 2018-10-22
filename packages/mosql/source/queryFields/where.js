@@ -13,7 +13,7 @@ function parse(args) {
 
 		// if no operator, we treat it like a column name
 		if (!operators.has(field)) {
-			options.context = field;
+			options.column = field;
 		}
 
 		const result = operator(options);
@@ -39,9 +39,11 @@ export default (value, query, build) => {
 		// the conditionals object
 		where: value,
 		// the property name of the parent object, if any
-		context: null,
+		column: null,
 		// the logical operator used to join conditions
 		joiner: " AND ",
+		isNot: false,
+		toWrap: false,
 	};
 
 	const [sql, values] = parse(options);

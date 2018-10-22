@@ -10,29 +10,29 @@ export default function build(query = {}) {
 
 	query = normalizeQuery(query);
 
-	const { template, fields, variables } = queryTypes.get(query.type);
+	const sections = queryTypes.get(query.type);
+	const blocks = [];
+	const values = [];
 
-	let sql = template;
-	let values = [];
-
-	fields.forEach((field, i) => {
+	sections.forEach((field, i) => {
 		if (queryFields.has(field)) {
 			const data = query[field];
 			const handler = queryFields.get(field);
 			const result = handler(data, query, build);
 
-			if (isObject(result)) {
-				sql = sql.replace(variables[i], result.sql || "");
-				values = values.concat(result.values || []);
-			} else {
-				sql = sql.replace(variables[i], result || "");
+			if (result) {
+				blocks.push(result.sql || result);
+
+				if (result.values) {
+					values.push.apply(values, result.values);
+				}
 			}
 		}
 		// ignore field if no query field handler was implemented
 		else {
-			sql = sql.replace(variables[i], "");
+			blocks.push(field);
 		}
 	});
 
-	return { values, sql: sql.trim() };
+	return { values, sql: blocks.join(" ") };
 }

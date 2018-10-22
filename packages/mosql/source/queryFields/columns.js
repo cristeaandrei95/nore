@@ -1,11 +1,15 @@
 import { isArray } from "@nore/std/assert";
 
-function aliasOrColumn(entry) {
-	if (entry && entry.alias) {
-		return `"${entry.name}" as "${entry.alias}"`;
+function format(value) {
+	if (value && value.alias) {
+		return `"${value.name}" as "${value.alias}"`;
 	}
 
-	return `"${entry}"`;
+	if (value.includes("(")) {
+		return value;
+	}
+
+	return `"${value}"`;
 }
 
 function toMark() {
@@ -15,7 +19,7 @@ function toMark() {
 export default (value, query, build) => {
 	// array
 	if (isArray(value)) {
-		return value.map(aliasOrColumn).join(", ");
+		return value.map(format).join(", ");
 	}
 
 	// object
@@ -27,5 +31,5 @@ export default (value, query, build) => {
 	}
 
 	// string
-	return value === "*" ? value : `"${value}"`;
+	return value === "*" ? value : format(value);
 };
