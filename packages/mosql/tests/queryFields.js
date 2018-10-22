@@ -66,8 +66,12 @@ test("orderBy", ({ end, equal }) => {
 	const orderBy = queryFields.get("orderBy");
 
 	equal(orderBy(["foo", "bar"]), `ORDER BY "foo", "bar"`);
-	equal(orderBy({ asc: ["foo", "bar"] }), `ORDER BY "foo", "bar" ASC`);
-	equal(orderBy({ desc: ["foo", "bar"] }), `ORDER BY "foo", "bar" DESC`);
+	equal(orderBy({ $asc: ["foo", "bar"] }), `ORDER BY "foo", "bar" ASC`);
+	equal(orderBy({ $desc: ["foo", "bar"] }), `ORDER BY "foo", "bar" DESC`);
+	equal(
+		orderBy({ $asc: ["foo", "bar"], baz: "desc", beep: "asc" }),
+		`ORDER BY "foo", "bar", "beep" ASC, "baz" DESC`
+	);
 	equal(orderBy("foo"), `ORDER BY "foo"`);
 	equal(orderBy(""), "");
 	equal(orderBy([]), "");

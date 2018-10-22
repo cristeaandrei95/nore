@@ -11,12 +11,31 @@ export default (data, query, build) => {
 
 	// object
 	if (isObject(data)) {
-		if (!data.asc && !data.desc) return;
+		const asc = [];
+		const desc = [];
+		const orderBy = [];
 
-		const columns = (data.asc || data.desc).map(quote).join(", ");
-		const order = data.desc ? "DESC" : "ASC";
+		for (const field in data) {
+			const value = data[field];
 
-		return columns && `ORDER BY ${columns} ${order}`;
+			if (field === "$asc") {
+				asc.push.apply(asc, value);
+			} else if (field === "$desc") {
+				desc.push.apply(desc, value);
+			} else {
+				(value === "desc" ? desc : asc).push(field);
+			}
+		}
+
+		if (asc.length) {
+			orderBy.push(`${asc.map(quote).join(", ")} ASC`);
+		}
+
+		if (desc.length) {
+			orderBy.push(`${desc.map(quote).join(", ")} DESC`);
+		}
+
+		return orderBy.length ? `ORDER BY ${orderBy.join(", ")}` : "";
 	}
 
 	// string
