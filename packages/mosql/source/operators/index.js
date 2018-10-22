@@ -9,9 +9,10 @@ import $lte from "./$lte.js";
 import $gt from "./$gt.js";
 import $gte from "./$gte.js";
 import $in from "./$in.js";
-import $nin from "./$nin.js";
+import $notIn from "./$notIn.js";
+import $match from "./$match.js";
 import $like from "./$like.js";
-import $nlike from "./$nlike.js";
+import $notLike from "./$notLike.js";
 import $sql from "./$sql.js";
 import $between from "./$between.js";
 
@@ -19,8 +20,10 @@ const operators = new QueryFieldsMap();
 
 operators.add("$is", $is);
 operators.add("$eq", $is);
+operators.add("$equal", $is);
 operators.add("$not", $not);
 operators.add("$ne", $not);
+operators.add("$notEqual", $not);
 operators.add("$or", $or);
 operators.add("$and", $and);
 operators.add("$null", $null);
@@ -29,9 +32,12 @@ operators.add("$lte", $lte);
 operators.add("$gt", $gt);
 operators.add("$gte", $gte);
 operators.add("$in", $in);
-operators.add("$nin", $nin);
+operators.add("$nin", $notIn);
+operators.add("$notIn", $notIn);
+operators.add("$match", $match);
 operators.add("$like", $like);
-operators.add("$nlike", $nlike);
+operators.add("$notLike", $notLike);
+operators.add("$nlike", $notLike);
 operators.add("$sql", $sql);
 operators.add("$between", $between);
 

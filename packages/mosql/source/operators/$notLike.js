@@ -1,7 +1,7 @@
 import { isObject } from "@nore/std/assert";
 import { quote } from "../helpers.js";
 
-export default function $like({ where, column, joiner, query, parse, build }) {
+export default function $notLike({ where, column, joiner, query, parse }) {
 	if (isObject(where)) {
 		const conditions = [];
 		const values = [];

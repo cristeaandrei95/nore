@@ -1,7 +1,7 @@
 import { isArray, isObject } from "@nore/std/assert";
 import { isNullOrBoolean, toUpperCase, quote } from "../helpers.js";
 
-export default function $nin({ where, column, joiner, query, parse, build }) {
+export default function $notIn({ where, column, joiner, query, parse, build }) {
 	// array
 	if (isArray(where)) {
 		const values = where.filter(Boolean);

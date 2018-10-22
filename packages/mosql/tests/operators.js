@@ -432,3 +432,30 @@ test("$between", ({ end, equal, same }) => {
 
 	end();
 });
+
+test("$match", ({ end, equal, same }) => {
+	const cases = [
+		{
+			where: { foo: { $match: "bar" } },
+			sql: `"foo" GLOB ?`,
+			values: ["bar"],
+		},
+		{
+			where: { $match: { foo: "bar", beep: "Boop" } },
+			sql: `"foo" GLOB ? AND "beep" GLOB ?`,
+			values: ["bar", "Boop"],
+		},
+		{
+			where: { $or: { $match: { foo: "bar", beep: "Boop" } } },
+			sql: `"foo" GLOB ? OR "beep" GLOB ?`,
+			values: ["bar", "Boop"],
+		},
+	];
+
+	forEach(cases, (expected, result) => {
+		equal(result.sql, expected.sql);
+		same(result.values, expected.values);
+	});
+
+	end();
+});
