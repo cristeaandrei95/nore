@@ -1,8 +1,8 @@
 export default `
 	SELECT
 	{distinct}
-	{columns}
 	{count}
+	{columns}
 	{table}
 	{where}
 	{groupBy}
