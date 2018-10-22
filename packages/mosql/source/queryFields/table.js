@@ -1,3 +1,3 @@
-export default (value, query, build) => {
-	return `FROM "${value}"`;
+export default (name, query, build) => {
+	return `FROM "${name}"`;
 };

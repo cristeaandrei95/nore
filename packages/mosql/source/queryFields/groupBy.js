@@ -1,14 +1,14 @@
 import { isArray } from "@nore/std/assert";
 import { quote } from "../helpers.js";
 
-export default (value, query, build) => {
+export default (data, query, build) => {
 	// array
-	if (isArray(value)) {
-		const columns = value.map(quote).join(", ");
+	if (isArray(data)) {
+		const columns = data.map(quote).join(", ");
 
 		return columns && `GROUP BY ${columns}`;
 	}
 
 	// string
-	return value && `GROUP BY ${quote(value)}`;
+	return data && `GROUP BY ${quote(data)}`;
 };

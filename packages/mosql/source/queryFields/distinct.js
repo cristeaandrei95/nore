@@ -1,3 +1,3 @@
-export default (value, query, build) => {
-	return value ? "DISTINCT" : "";
+export default (isTrue, query, build) => {
+	return isTrue ? "DISTINCT" : "";
 };

@@ -29,7 +29,7 @@ function parse(args) {
 	return [conditions.join(args.joiner), values];
 }
 
-export default (value, query, build) => {
+export default (data, query, build) => {
 	const options = {
 		// build and parse functions will be passed to operators
 		build,
@@ -37,7 +37,7 @@ export default (value, query, build) => {
 		// original query passed to build
 		query,
 		// the conditionals object
-		where: value,
+		where: data,
 		// the property name of the parent object, if any
 		column: null,
 		// the logical operator used to join conditions

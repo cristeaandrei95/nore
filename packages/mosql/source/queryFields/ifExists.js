@@ -1,3 +1,3 @@
-export default (value, query, build) => {
-	return value ? "IF EXISTS" : "";
+export default (isTrue, query, build) => {
+	return isTrue ? "IF EXISTS" : "";
 };

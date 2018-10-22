@@ -1,35 +1,28 @@
 import { isArray } from "@nore/std/assert";
+import { toParams } from "../helpers.js";
 
 function format(value) {
 	if (value && value.alias) {
 		return `"${value.name}" as "${value.alias}"`;
 	}
 
-	if (value.includes("(")) {
-		return value;
-	}
-
 	return `"${value}"`;
 }
 
-function toMark() {
-	return "?";
-}
-
-export default (value, query, build) => {
+export default (data, query, build) => {
 	// array
-	if (isArray(value)) {
-		return value.map(format).join(", ");
+	if (isArray(data)) {
+		return data.map(format).join(", ");
 	}
 
 	// object
-	if (isArray(value.values)) {
+	if (isArray(data.values)) {
 		return {
-			sql: value.values.map(toMark).join(", "),
-			values: value.values,
+			sql: toParams(data.values),
+			values: data.values,
 		};
 	}
 
 	// string
-	return value === "*" ? value : format(value);
+	return data === "*" ? data : format(data);
 };
