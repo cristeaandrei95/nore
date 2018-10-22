@@ -1,3 +1,3 @@
 import "./queryFields.js";
-// import "./operators.js";
+import "./operators.js";
 

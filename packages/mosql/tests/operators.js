@@ -418,6 +418,11 @@ test("$between", ({ end, equal, same }) => {
 			sql: `foo BETWEEN ? AND ?`,
 			values: ["bar", "baz"],
 		},
+		{
+			where: { foo: { $between: ["bar", "baz"] } },
+			sql: `foo BETWEEN ? AND ?`,
+			values: ["bar", "baz"],
+		},
 	];
 
 	forEach(cases, (expected, result) => {

@@ -1,6 +1,10 @@
-import { isObject } from "@nore/std/assert";
+import { isObject, isArray } from "@nore/std/assert";
 
 export default function $between({ where, column, joiner, query, parse }) {
+	if (isArray(where)) {
+		return where.length && [`${column} BETWEEN ? AND ?`, where];
+	}
+
 	if (isObject(where)) {
 		const conditions = [];
 		const values = [];
