@@ -2,9 +2,9 @@ import { test, only } from "tap";
 import queryFields from "../source/queryFields";
 import build from "../source/build";
 
-const query = { type: "select", table: "users" };
+const query = { type: "select", columns: "*", table: "users" };
 const subQuery = { ...query, where: { foo: "bar" } };
-const subQueryOutput = `SELECT * FROM "users" WHERE foo == ?`;
+const subQueryOutput = `SELECT * FROM "users" WHERE "foo" == ?`;
 const where = queryFields.get("where");
 const getWhereOutput = data => where(data, { ...query, where: data }, build);
 
@@ -17,32 +17,32 @@ test("$is", ({ end, equal, same }) => {
 	const cases = [
 		{
 			where: { foo: "bar" },
-			sql: `foo == ?`,
+			sql: `"foo" == ?`,
 			values: ["bar"],
 		},
 		{
 			where: { foo: "bar", beep: "Boop" },
-			sql: `foo == ? AND beep == ?`,
+			sql: `"foo" == ? AND "beep" == ?`,
 			values: ["bar", "Boop"],
 		},
 		{
 			where: { foo: { $is: ["bar", "baz", null] } },
-			sql: `foo == ? AND foo == ? AND foo IS NULL`,
+			sql: `"foo" == ? AND "foo" == ? AND "foo" IS NULL`,
 			values: ["bar", "baz"],
 		},
 		{
 			where: { isAwesome: true },
-			sql: `isAwesome IS TRUE`,
+			sql: `"isAwesome" IS TRUE`,
 			values: [],
 		},
 		{
 			where: { isAwesome: false },
-			sql: `isAwesome IS FALSE`,
+			sql: `"isAwesome" IS FALSE`,
 			values: [],
 		},
 		{
 			where: { isAwesome: null },
-			sql: `isAwesome IS NULL`,
+			sql: `"isAwesome" IS NULL`,
 			values: [],
 		},
 	];
@@ -59,22 +59,22 @@ test("$null", ({ end, equal, same }) => {
 	const cases = [
 		{
 			where: { foo: { $null: true } },
-			sql: `foo IS NULL`,
+			sql: `"foo" IS NULL`,
 			values: [],
 		},
 		{
 			where: { foo: { $null: false } },
-			sql: `foo IS NOT NULL`,
+			sql: `"foo" IS NOT NULL`,
 			values: [],
 		},
 		{
 			where: { $null: ["foo", "bar"] },
-			sql: `foo IS NULL AND bar IS NULL`,
+			sql: `"foo" IS NULL AND "bar" IS NULL`,
 			values: [],
 		},
 		{
 			where: { $not: { $null: ["foo", "bar"] } },
-			sql: `foo IS NOT NULL AND bar IS NOT NULL`,
+			sql: `"foo" IS NOT NULL AND "bar" IS NOT NULL`,
 			values: [],
 		},
 	];
@@ -91,32 +91,32 @@ test("$not", ({ end, equal, same }) => {
 	const cases = [
 		{
 			where: { foo: { $not: "bar" } },
-			sql: `foo != ?`,
+			sql: `"foo" != ?`,
 			values: ["bar"],
 		},
 		{
 			where: { $not: { foo: "bar", beep: "Boop", nop: null } },
-			sql: `foo != ? AND beep != ? AND nop IS NOT NULL`,
+			sql: `"foo" != ? AND "beep" != ? AND "nop" IS NOT NULL`,
 			values: ["bar", "Boop"],
 		},
 		{
 			where: { foo: { $not: ["bar", false, "baz", null] } },
-			sql: `foo != ? OR foo != ? OR foo IS NOT FALSE OR foo IS NOT NULL`,
+			sql: `"foo" != ? OR "foo" != ? OR "foo" IS NOT FALSE OR "foo" IS NOT NULL`,
 			values: ["bar", "baz"],
 		},
 		{
 			where: { $not: { isAwesome: true } },
-			sql: `isAwesome IS NOT TRUE`,
+			sql: `"isAwesome" IS NOT TRUE`,
 			values: [],
 		},
 		{
 			where: { $not: { isAwesome: false } },
-			sql: `isAwesome IS NOT FALSE`,
+			sql: `"isAwesome" IS NOT FALSE`,
 			values: [],
 		},
 		{
 			where: { $not: { isAwesome: null } },
-			sql: `isAwesome IS NOT NULL`,
+			sql: `"isAwesome" IS NOT NULL`,
 			values: [],
 		},
 	];
@@ -133,22 +133,22 @@ test("$or", ({ end, equal, same }) => {
 	const cases = [
 		{
 			where: { $or: { foo: 25, beep: "Boop" } },
-			sql: `foo == ? OR beep == ?`,
+			sql: `"foo" == ? OR "beep" == ?`,
 			values: [25, "Boop"],
 		},
 		{
 			where: { $or: { foo: { $is: "bar" }, beep: { $is: "Boop" } } },
-			sql: `foo == ? OR beep == ?`,
+			sql: `"foo" == ? OR "beep" == ?`,
 			values: ["bar", "Boop"],
 		},
 		{
 			where: { $or: { beep: { $is: ["bar", "Boop"] } } },
-			sql: `beep == ? OR beep == ?`,
+			sql: `"beep" == ? OR "beep" == ?`,
 			values: ["bar", "Boop"],
 		},
 		{
 			where: { $or: { beep: ["bar", "Boop"] } },
-			sql: `beep == ? OR beep == ?`,
+			sql: `"beep" == ? OR "beep" == ?`,
 			values: ["bar", "Boop"],
 		},
 	];
@@ -165,7 +165,7 @@ test("$and", ({ end, equal, same }) => {
 	const cases = [
 		{
 			where: { $or: { foo: 25, $and: { bar: 20, baz: 15 } } },
-			sql: `foo == ? OR bar == ? AND baz == ?`,
+			sql: `"foo" == ? OR "bar" == ? AND "baz" == ?`,
 			values: [25, 20, 15],
 		},
 	];
@@ -182,17 +182,17 @@ test("$gt", ({ end, equal, same }) => {
 	const cases = [
 		{
 			where: { foo: { $gt: 25 } },
-			sql: `foo > ?`,
+			sql: `"foo" > ?`,
 			values: [25],
 		},
 		{
 			where: { $gt: { id: 25 } },
-			sql: `id > ?`,
+			sql: `"id" > ?`,
 			values: [25],
 		},
 		{
 			where: { $gt: { id: 25, beep: "Boop" } },
-			sql: `id > ? AND beep > ?`,
+			sql: `"id" > ? AND "beep" > ?`,
 			values: [25, "Boop"],
 		},
 	];
@@ -209,17 +209,17 @@ test("$gte", ({ end, equal, same }) => {
 	const cases = [
 		{
 			where: { foo: { $gte: 25 } },
-			sql: `foo >= ?`,
+			sql: `"foo" >= ?`,
 			values: [25],
 		},
 		{
 			where: { $gte: { id: 25 } },
-			sql: `id >= ?`,
+			sql: `"id" >= ?`,
 			values: [25],
 		},
 		{
 			where: { $gte: { id: 25, beep: "Boop" } },
-			sql: `id >= ? AND beep >= ?`,
+			sql: `"id" >= ? AND "beep" >= ?`,
 			values: [25, "Boop"],
 		},
 	];
@@ -236,17 +236,17 @@ test("$lt", ({ end, equal, same }) => {
 	const cases = [
 		{
 			where: { foo: { $lt: 25 } },
-			sql: `foo < ?`,
+			sql: `"foo" < ?`,
 			values: [25],
 		},
 		{
 			where: { $lt: { id: 25 } },
-			sql: `id < ?`,
+			sql: `"id" < ?`,
 			values: [25],
 		},
 		{
 			where: { $lt: { id: 25, beep: "Boop" } },
-			sql: `id < ? AND beep < ?`,
+			sql: `"id" < ? AND "beep" < ?`,
 			values: [25, "Boop"],
 		},
 	];
@@ -263,17 +263,17 @@ test("$lte", ({ end, equal, same }) => {
 	const cases = [
 		{
 			where: { foo: { $lte: 25 } },
-			sql: `foo <= ?`,
+			sql: `"foo" <= ?`,
 			values: [25],
 		},
 		{
 			where: { $lte: { id: 25 } },
-			sql: `id <= ?`,
+			sql: `"id" <= ?`,
 			values: [25],
 		},
 		{
 			where: { $lte: { id: 25, beep: "Boop" } },
-			sql: `id <= ? AND beep <= ?`,
+			sql: `"id" <= ? AND "beep" <= ?`,
 			values: [25, "Boop"],
 		},
 	];
@@ -312,12 +312,12 @@ test("$in", ({ end, equal, same }) => {
 	const cases = [
 		{
 			where: { foo: { $in: ["bar", null, false, "baz", undefined] } },
-			sql: `foo IN (?, ?) OR foo IS NULL OR foo IS FALSE`,
+			sql: `"foo" IN (?, ?) OR "foo" IS NULL OR "foo" IS FALSE`,
 			values: ["bar", "baz"],
 		},
 		{
 			where: { foo: { $in: [null] } },
-			sql: `foo IS NULL`,
+			sql: `"foo" IS NULL`,
 			values: [],
 		},
 		{
@@ -327,7 +327,7 @@ test("$in", ({ end, equal, same }) => {
 		},
 		{
 			where: { foo: { $in: subQuery } },
-			sql: `foo IN (${subQueryOutput})`,
+			sql: `"foo" IN (${subQueryOutput})`,
 			values: ["bar"],
 		},
 	];
@@ -344,12 +344,12 @@ test("$nin", ({ end, equal, same }) => {
 	const cases = [
 		{
 			where: { foo: { $nin: ["foo", "bar", "baz"] } },
-			sql: `foo NOT IN (?, ?, ?)`,
+			sql: `"foo" NOT IN (?, ?, ?)`,
 			values: ["foo", "bar", "baz"],
 		},
 		{
 			where: { foo: { $nin: ["bar", false, null, undefined, "baz"] } },
-			sql: `foo NOT IN (?, ?) OR foo IS NOT FALSE OR foo IS NOT NULL`,
+			sql: `"foo" NOT IN (?, ?) OR "foo" IS NOT FALSE OR "foo" IS NOT NULL`,
 			values: ["bar", "baz"],
 		},
 	];
@@ -366,17 +366,17 @@ test("$like", ({ end, equal, same }) => {
 	const cases = [
 		{
 			where: { foo: { $like: "bar" } },
-			sql: `foo LIKE ?`,
+			sql: `"foo" LIKE ?`,
 			values: ["bar"],
 		},
 		{
 			where: { $like: { foo: "bar", beep: "Boop" } },
-			sql: `foo LIKE ? AND beep LIKE ?`,
+			sql: `"foo" LIKE ? AND "beep" LIKE ?`,
 			values: ["bar", "Boop"],
 		},
 		{
 			where: { $or: { $like: { foo: "bar", beep: "Boop" } } },
-			sql: `foo LIKE ? OR beep LIKE ?`,
+			sql: `"foo" LIKE ? OR "beep" LIKE ?`,
 			values: ["bar", "Boop"],
 		},
 	];
@@ -393,12 +393,12 @@ test("$nlike", ({ end, equal, same }) => {
 	const cases = [
 		{
 			where: { foo: { $nlike: "bar" } },
-			sql: `foo NOT LIKE ?`,
+			sql: `"foo" NOT LIKE ?`,
 			values: ["bar"],
 		},
 		{
 			where: { $nlike: { foo: "bar", beep: "Boop" } },
-			sql: `foo NOT LIKE ? AND beep NOT LIKE ?`,
+			sql: `"foo" NOT LIKE ? AND "beep" NOT LIKE ?`,
 			values: ["bar", "Boop"],
 		},
 	];
@@ -415,12 +415,12 @@ test("$between", ({ end, equal, same }) => {
 	const cases = [
 		{
 			where: { $between: { foo: ["bar", "baz"] } },
-			sql: `foo BETWEEN ? AND ?`,
+			sql: `"foo" BETWEEN ? AND ?`,
 			values: ["bar", "baz"],
 		},
 		{
 			where: { foo: { $between: ["bar", "baz"] } },
-			sql: `foo BETWEEN ? AND ?`,
+			sql: `"foo" BETWEEN ? AND ?`,
 			values: ["bar", "baz"],
 		},
 	];

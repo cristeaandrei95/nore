@@ -1,5 +1,5 @@
 import { isArray, isObject } from "@nore/std/assert";
-import { isNullOrBoolean, toUpperCase } from "../helpers.js";
+import { isNullOrBoolean, toUpperCase, quote } from "../helpers.js";
 
 export default function $nin({ where, column, joiner, query, parse, build }) {
 	// array
@@ -9,12 +9,14 @@ export default function $nin({ where, column, joiner, query, parse, build }) {
 		const conditions = [];
 
 		if (values.length) {
-			conditions.push(`${column} NOT IN (${values.map(i => "?").join(", ")})`);
+			conditions.push(
+				`${quote(column)} NOT IN (${values.map(i => "?").join(", ")})`
+			);
 		}
 
 		if (special.length) {
 			conditions.push(
-				...special.map(v => `${column} IS NOT ${toUpperCase(v)}`)
+				...special.map(v => `${quote(column)} IS NOT ${toUpperCase(v)}`)
 			);
 		}
 
@@ -25,6 +27,6 @@ export default function $nin({ where, column, joiner, query, parse, build }) {
 	if (isObject(where)) {
 		const { sql, values } = build(where);
 
-		return [`${column} NOT IN (${sql})`, values];
+		return [`${quote(column)} NOT IN (${sql})`, values];
 	}
 }

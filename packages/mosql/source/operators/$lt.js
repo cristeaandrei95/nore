@@ -1,4 +1,5 @@
 import { isObject } from "@nore/std/assert";
+import { quote } from "../helpers.js";
 
 export default function $lt({ where, column, joiner, query, parse, build }) {
 	if (isObject(where)) {
@@ -6,12 +7,12 @@ export default function $lt({ where, column, joiner, query, parse, build }) {
 		const values = [];
 
 		for (const column in where) {
-			conditions.push(`${column} < ?`);
+			conditions.push(`${quote(column)} < ?`);
 			values.push(where[column]);
 		}
 
 		return [conditions.join(joiner), values];
 	}
 
-	return [`${column} < ?`, [where]];
+	return [`${quote(column)} < ?`, [where]];
 }

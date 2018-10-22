@@ -54,7 +54,7 @@ test("where", ({ end, equal, same }) => {
 			baz: { $in: ["1", "2"] },
 		}),
 		{
-			sql: `WHERE foo == ? AND baz IN (?, ?)`,
+			sql: `WHERE "foo" == ? AND "baz" IN (?, ?)`,
 			values: ["bar", "1", "2"],
 		}
 	);

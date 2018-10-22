@@ -1,4 +1,5 @@
 import { isObject } from "@nore/std/assert";
+import { quote } from "../helpers.js";
 
 export default function $like({ where, column, joiner, query, parse, build }) {
 	if (isObject(where)) {
@@ -6,12 +7,12 @@ export default function $like({ where, column, joiner, query, parse, build }) {
 		const values = [];
 
 		for (const column in where) {
-			conditions.push(`${column} LIKE ?`);
+			conditions.push(`${quote(column)} LIKE ?`);
 			values.push(where[column]);
 		}
 
 		return [conditions.join(joiner), values];
 	}
 
-	return [`${column} LIKE ?`, [where]];
+	return [`${quote(column)} LIKE ?`, [where]];
 }
