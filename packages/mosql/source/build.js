@@ -8,17 +8,16 @@ export default function build(query = {}) {
 		throw Error(`Invalid query type: ${query.type}`);
 	}
 
-	query = normalizeQuery(query);
-
-	const sections = queryTypes.get(query.type);
 	const blocks = [];
 	const values = [];
 
-	sections.forEach((field, i) => {
+	for (const field of queryTypes.get(query.type)) {
 		if (queryFields.has(field)) {
-			const data = query[field];
+			// ignore field if no data was passed
+			if (typeof query[field] === "undefined") continue;
+
 			const handler = queryFields.get(field);
-			const result = handler(data, query, build);
+			const result = handler(query[field], query, build);
 
 			if (result) {
 				blocks.push(result.sql || result);
@@ -32,7 +31,7 @@ export default function build(query = {}) {
 		else {
 			blocks.push(field);
 		}
-	});
+	}
 
 	return { values, sql: blocks.join(" ") };
 }

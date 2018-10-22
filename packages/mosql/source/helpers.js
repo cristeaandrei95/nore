@@ -33,13 +33,3 @@ export function isNullOrBoolean(value) {
 export function toUpperCase(value) {
 	return String(value).toUpperCase();
 }
-
-export function normalizeQuery(query) {
-	if (query.type == "select") {
-		if (!query.columns) {
-			query.columns = "*";
-		}
-	}
-
-	return query;
-}
