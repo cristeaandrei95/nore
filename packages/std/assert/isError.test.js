@@ -1,5 +1,5 @@
 import { test } from "tap";
-import isError from "./isError.js";
+import { isError } from "./index.js";
 
 test("isError", ({ equal, end }) => {
 	equal(isError(true), false, "true");

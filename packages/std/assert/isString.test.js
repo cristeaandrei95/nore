@@ -1,5 +1,5 @@
 import { test } from "tap";
-import isString from "./isString.js";
+import { isString } from "./index.js";
 
 test("isString", ({ equal, end }) => {
 	equal(isString(true), false, "true");

@@ -1,5 +1,5 @@
 import { test } from "tap";
-import isDate from "./isDate.js";
+import { isDate } from "./index.js";
 
 test("isDate", ({ equal, end }) => {
 	equal(isDate(true), false, "true");

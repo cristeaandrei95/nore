@@ -1,5 +1,5 @@
 import { test } from "tap";
-import isGeneratorObject from "./isGeneratorObject.js";
+import { isGeneratorObject } from "./index.js";
 
 test("isGeneratorObject", ({ equal, end }) => {
 	equal(isGeneratorObject(true), false, "true");

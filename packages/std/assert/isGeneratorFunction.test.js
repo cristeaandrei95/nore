@@ -1,5 +1,5 @@
 import { test } from "tap";
-import isGeneratorFunction from "./isGeneratorFunction.js";
+import { isGeneratorFunction } from "./index.js";
 
 test("isGeneratorFunction", ({ equal, end }) => {
 	equal(isGeneratorFunction(true), false, "true");

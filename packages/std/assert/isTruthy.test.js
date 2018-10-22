@@ -1,5 +1,5 @@
 import { test } from "tap";
-import isTruthy from "./isTruthy.js";
+import { isTruthy } from "./index.js";
 
 test("isTruthy", ({ equal, end }) => {
 	equal(isTruthy(true), true, "true");

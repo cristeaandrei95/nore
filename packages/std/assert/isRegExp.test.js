@@ -1,5 +1,5 @@
 import { test } from "tap";
-import isRegExp from "./isRegExp.js";
+import { isRegExp } from "./index.js";
 
 test("isRegExp", ({ equal, end }) => {
 	equal(isRegExp(true), false, "true");

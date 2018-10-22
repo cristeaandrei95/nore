@@ -1,5 +1,5 @@
 import { test } from "tap";
-import isNaN from "./isNaN.js";
+import { isNaN } from "./index.js";
 
 test("isNaN", ({ equal, end }) => {
 	equal(isNaN(true), false, "true");

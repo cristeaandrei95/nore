@@ -1,5 +1,5 @@
 import { test } from "tap";
-import isFalsy from "./isFalsy.js";
+import { isFalsy } from "./index.js";
 
 /*
 https://developer.mozilla.org/en-US/docs/Glossary/Falsy

@@ -1,5 +1,5 @@
 import { test } from "tap";
-import isAsyncFunction from "./isAsyncFunction.js";
+import { isAsyncFunction } from "./index.js";
 
 test("isAsyncFunction", ({ equal, end }) => {
 	equal(isAsyncFunction(true), false, "true");

@@ -1,5 +1,5 @@
 import { test } from "tap";
-import isBuffer from "./isBuffer.js";
+import { isBuffer } from "./index.js";
 
 test("isBuffer", ({ equal, end }) => {
 	equal(isBuffer(true), false, "true");
