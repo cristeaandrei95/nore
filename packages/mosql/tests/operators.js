@@ -26,11 +26,6 @@ test("$is", ({ end, equal, same }) => {
 			values: ["bar", "Boop"],
 		},
 		{
-			where: { foo: { $is: ["bar", "baz", null] } },
-			sql: `"foo" == ? AND "foo" == ? AND "foo" IS NULL`,
-			values: ["bar", "baz"],
-		},
-		{
 			where: { isAwesome: true },
 			sql: `"isAwesome" IS TRUE`,
 			values: [],
@@ -55,38 +50,6 @@ test("$is", ({ end, equal, same }) => {
 	end();
 });
 
-test("$null", ({ end, equal, same }) => {
-	const cases = [
-		{
-			where: { foo: { $null: true } },
-			sql: `"foo" IS NULL`,
-			values: [],
-		},
-		{
-			where: { foo: { $null: false } },
-			sql: `"foo" IS NOT NULL`,
-			values: [],
-		},
-		{
-			where: { $null: ["foo", "bar"] },
-			sql: `"foo" IS NULL AND "bar" IS NULL`,
-			values: [],
-		},
-		{
-			where: { $not: { $null: ["foo", "bar"] } },
-			sql: `"foo" IS NOT NULL AND "bar" IS NOT NULL`,
-			values: [],
-		},
-	];
-
-	forEach(cases, (expected, result) => {
-		equal(result.sql, expected.sql);
-		same(result.values, expected.values);
-	});
-
-	end();
-});
-
 test("$not", ({ end, equal, same }) => {
 	const cases = [
 		{
@@ -98,11 +61,6 @@ test("$not", ({ end, equal, same }) => {
 			where: { $not: { foo: "bar", beep: "Boop", nop: null } },
 			sql: `"foo" != ? AND "beep" != ? AND "nop" IS NOT NULL`,
 			values: ["bar", "Boop"],
-		},
-		{
-			where: { foo: { $not: ["bar", false, "baz", null] } },
-			sql: `"foo" != ? OR "foo" != ? OR "foo" IS NOT FALSE OR "foo" IS NOT NULL`,
-			values: ["bar", "baz"],
 		},
 		{
 			where: { $not: { isAwesome: true } },
@@ -137,19 +95,9 @@ test("$or", ({ end, equal, same }) => {
 			values: [25, "Boop"],
 		},
 		{
-			where: { $or: { foo: { $is: "bar" }, beep: { $is: "Boop" } } },
-			sql: `"foo" == ? OR "beep" == ?`,
-			values: ["bar", "Boop"],
-		},
-		{
-			where: { $or: { beep: { $is: ["bar", "Boop"] } } },
-			sql: `"beep" == ? OR "beep" == ?`,
-			values: ["bar", "Boop"],
-		},
-		{
-			where: { $or: { beep: ["bar", "Boop"] } },
-			sql: `"beep" == ? OR "beep" == ?`,
-			values: ["bar", "Boop"],
+			where: { $or: { $not: { foo: 25, beep: "Boop" } } },
+			sql: `"foo" != ? OR "beep" != ?`,
+			values: [25, "Boop"],
 		},
 	];
 
@@ -167,6 +115,38 @@ test("$and", ({ end, equal, same }) => {
 			where: { $or: { foo: 25, $and: { bar: 20, baz: 15 } } },
 			sql: `"foo" == ? OR "bar" == ? AND "baz" == ?`,
 			values: [25, 20, 15],
+		},
+	];
+
+	forEach(cases, (expected, result) => {
+		equal(result.sql, expected.sql);
+		same(result.values, expected.values);
+	});
+
+	end();
+});
+
+test("$null", ({ end, equal, same }) => {
+	const cases = [
+		{
+			where: { foo: { $null: true } },
+			sql: `"foo" IS NULL`,
+			values: [],
+		},
+		{
+			where: { foo: { $null: false } },
+			sql: `"foo" IS NOT NULL`,
+			values: [],
+		},
+		{
+			where: { $null: ["foo", "bar"] },
+			sql: `"foo" IS NULL AND "bar" IS NULL`,
+			values: [],
+		},
+		{
+			where: { $not: { $null: ["foo", "bar"] } },
+			sql: `"foo" IS NOT NULL AND "bar" IS NOT NULL`,
+			values: [],
 		},
 	];
 

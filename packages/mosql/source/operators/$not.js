@@ -10,10 +10,6 @@ function invertResult(result) {
 }
 
 export default function $not(args) {
-	if (isArray(args.where)) {
-		return invertResult($is({ ...args, joiner: " OR " }));
-	}
-
 	if (isObject(args.where)) {
 		return invertResult(args.parse(args));
 	}
