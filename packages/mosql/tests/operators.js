@@ -143,11 +143,6 @@ test("$null", ({ end, equal, same }) => {
 			sql: `"foo" IS NULL AND "bar" IS NULL`,
 			values: [],
 		},
-		{
-			where: { $not: { $null: ["foo", "bar"] } },
-			sql: `"foo" IS NOT NULL AND "bar" IS NOT NULL`,
-			values: [],
-		},
 	];
 
 	forEach(cases, (expected, result) => {

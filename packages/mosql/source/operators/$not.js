@@ -1,4 +1,5 @@
 import { isArray, isObject } from "@nore/std/assert";
+import { isNullOrBoolean, toUpperCase, quote } from "../helpers.js";
 import $is from "./$is.js";
 
 function invert(value) {
@@ -9,10 +10,19 @@ function invertResult(result) {
 	return isArray(result) ? [invert(result[0]), result[1]] : invert(result);
 }
 
-export default function $not(args) {
-	if (isObject(args.where)) {
-		return invertResult(args.parse(args));
+export default function $not({ where, column, joiner, query, parse, build }) {
+	// sub-query
+	if (isObject(where)) {
+		const result = $is({ where, column, joiner, query, parse, build });
+
+		return result ? invertResult(result) : "";
 	}
 
-	return invertResult($is(args));
+	// null or boolean
+	if (isNullOrBoolean(where)) {
+		return `${quote(column)} IS NOT ${toUpperCase(where)}`;
+	}
+
+	// string
+	return [`${quote(column)} != ?`, [where]];
 }
