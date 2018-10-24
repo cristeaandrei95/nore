@@ -2,9 +2,14 @@ import { test, only } from "tap";
 import build from "../source";
 import queryFields from "../source/queryFields";
 
-test("table", ({ end, equal }) => {
+test("table", ({ end, equal, same }) => {
 	const table = queryFields.get("table");
 	equal(table("foo"), `FROM "foo"`);
+	same(table(["foo", "baz"]), { sql: `FROM ? ?`, values: ["foo", "baz"] });
+	same(table({ name: "foo", alias: "baz" }), {
+		sql: `FROM ? ?`,
+		values: ["foo", "baz"],
+	});
 	end();
 });
 
