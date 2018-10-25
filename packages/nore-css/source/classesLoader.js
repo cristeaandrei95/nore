@@ -2,8 +2,6 @@ import util from "loader-utils";
 
 // automatically bind CSS modules to classes utility
 export function pitch(request) {
-	this.cacheable();
-
 	const cssImport = util.stringifyRequest(this, "!!" + request);
 
 	return `
