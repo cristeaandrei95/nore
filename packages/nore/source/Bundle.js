@@ -1,6 +1,5 @@
 import webpack from "webpack";
 import { join } from "@nore/std/path";
-import getConfig from "./webpack/getConfig";
 import loadWebpackConfig from "./webpack/loadWebpackConfig";
 
 export default class Bundle {
@@ -32,11 +31,11 @@ export default class Bundle {
 		);
 
 		// webpack configs added by plugins
-		this.webpackConfig = new Map();
+		this.webpackConfig = new Set();
 	}
 
-	register(key, config) {
-		this.webpackConfig.set(key, config);
+	setWebpack(config) {
+		this.webpackConfig.add(config);
 	}
 
 	async compiler() {

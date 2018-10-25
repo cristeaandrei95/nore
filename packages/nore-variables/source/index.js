@@ -29,6 +29,6 @@ export default options => async nore => {
 	});
 
 	nore.on("nore:bundle", async bundle => {
-		bundle.register("variables", await webpackConfig(bundle, nore));
+		bundle.setWebpack(await webpackConfig(bundle, nore));
 	});
 };
