@@ -11,8 +11,8 @@
 	"main": "source/index.js",
 
 	"dependencies": {
-		"html-webpack-plugin": "^4.0.0-beta.1",
-		"source-map-url": "^0.4.0",
-		"html-loader": "^1.0.0-alpha.0"
+		"html-webpack-plugin": "^4.0.0-beta.2",
+		"html-loader": "^1.0.0-alpha.0",
+		"source-map-url": "^0.4.0"
 	}
 }

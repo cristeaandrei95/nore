@@ -1,16 +1,6 @@
 import HTMLPlugin from "html-webpack-plugin";
 import InlineWebpackRuntime from "./InlineWebpackRuntime.js";
 
-function loader({ isDevelopment, isTemplate }) {
-	return {
-		loader: "html-loader",
-		options: {
-			minimize: !isDevelopment,
-			template: isTemplate,
-		},
-	};
-}
-
 export default bundle => {
 	const plugins = [
 		new HTMLPlugin({
@@ -42,29 +32,29 @@ export default bundle => {
 		);
 	}
 
-	const rules = [
-		{
-			test: /\.html$/,
-			oneOf: [
-				{
-					resourceQuery: /raw/,
-					use: loader({
-						isDevelopment: bundle.isDevelopment,
-						isTemplate: false,
-					}),
-				},
-				{
-					use: loader({
-						isDevelopment: bundle.isDevelopment,
-						isTemplate: true,
-					}),
-				},
-			],
+	const htmlLoader = ({ useTemplate }) => ({
+		loader: "html-loader",
+		options: {
+			minimize: !bundle.isDevelopment,
+			template: useTemplate,
 		},
-	];
+	});
+
+	const rule = {
+		test: /\.html$/,
+		oneOf: [
+			{
+				resourceQuery: /raw/,
+				use: htmlLoader({ useTemplate: false }),
+			},
+			{
+				use: htmlLoader({ useTemplate: true }),
+			},
+		],
+	};
 
 	return {
 		plugins,
-		module: { rules },
+		module: { rules: [rule] },
 	};
 };
