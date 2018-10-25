@@ -3,25 +3,39 @@ export default function(classes) {
 	const result = [];
 
 	for (let i = 1; i < arguments.length; ++i) {
-		const filter = arguments[i];
+		const arg = arguments[i];
+		const type = typeof arg;
 
 		// ignore null / false / undefined
-		if (!filter) continue;
+		if (!arg) continue;
 
-		if (typeof filter === "string") {
-			result.push(classes[filter]);
-		} else if (Array.isArray(filter)) {
-			for (let i = 0; i < filter.length; ++i) {
-				const key = filter[i];
+		// case arg is a string
+		if (type === "string") {
+			// ignore empty strings
+			if (arg.length) {
+				// pass the CSS modules class or a custom class
+				result.push(classes[arg] || arg);
+			}
+		}
+		// case arg is an array
+		else if (Array.isArray(arg)) {
+			for (let i = 0; i < arg.length; ++i) {
+				const key = arg[i];
+				const classname = classes[key];
 
-				if (classes[key]) {
-					result.push(classes[key]);
+				if (classname) {
+					result.push(classname);
 				}
 			}
-		} else {
-			for (const key in filter) {
-				if (filter[key] && classes[key]) {
-					result.push(classes[key]);
+		}
+		// case arg is an object
+		else {
+			for (const name in arg) {
+				const isTrue = arg[name];
+				const classname = classes[name];
+
+				if (isTrue && classname) {
+					result.push(classname);
 				}
 			}
 		}
