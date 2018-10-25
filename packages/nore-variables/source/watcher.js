@@ -1,9 +1,9 @@
 import { watch } from "chokidar";
 
-export default ({ path, onChange }) => {
+export default (path, onChange) => {
 	const watcher = watch("*", {
 		ignoreInitial: true,
-		cwd: `${path}/variables`,
+		cwd: path,
 	});
 
 	["change", "add"].forEach(event => {

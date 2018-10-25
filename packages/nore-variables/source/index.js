@@ -1,38 +1,29 @@
-import { readDirectory, itExists } from "@nore/std/fs";
 import watcher from "./watcher.js";
-import format from "./format.js";
 import webpackConfig from "./webpackConfig.js";
+import loadVariables from "./loadVariables.js";
 
 export default options => async nore => {
 	nore.plug("variables", {
+		path: `${nore.path}/variables`,
 		async load() {
-			const variablesDirectory = `${nore.path}/variables`;
+			const variables = await loadVariables(this.path, nore);
 
-			if (await itExists(variablesDirectory)) {
-				const files = await readDirectory(variablesDirectory);
-				const datasets = await Promise.all(files.map(file => nore.load(file)));
-				const variables = format(datasets, files);
-
+			if (variables) {
 				await nore.emit("variables:load", variables);
-
-				return variables;
-			} else {
-				return {};
 			}
+
+			return variables || {};
 		},
 
 		watch(onChange) {
-			watcher({
-				path: nore.path,
-				onChange: async event => {
-					const variables = await this.load();
+			watcher(this.path, async event => {
+				const variables = await loadVariables(nore);
 
-					await nore.emit("variables:change", variables, event);
+				await nore.emit("variables:change", variables, event);
 
-					if (onChange) {
-						await Promise.resolve(onChange(variables, event));
-					}
-				},
+				if (onChange) {
+					await Promise.resolve(onChange(variables, event));
+				}
 			});
 		},
 	});
