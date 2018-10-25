@@ -24,13 +24,9 @@ function getVariable(variables, node, str, name, options, result) {
 		return str;
 	}
 
-	var fix = options.unknown(node, name, result);
+	const fix = options.onNotFound(node, name, result);
 
-	if (fix) {
-		return fix;
-	}
-
-	return str;
+	return fix || str;
 }
 
 function simpleSyntax(variables, node, str, options, result) {
@@ -96,9 +92,9 @@ function comment(variables, node, options, result) {
 }
 
 export default postcss.plugin("variables", (options = {}) => {
-	if (!options.unknown) {
-		options.unknown = function(node, name) {
-			throw node.error("Undefined variable $" + name);
+	if (!options.onNotFound) {
+		options.onNotFound = (node, name, result) => {
+			node.warn(result, `\n\nUnknown variable $${name}\n`);
 		};
 	}
 
@@ -133,7 +129,7 @@ export default postcss.plugin("variables", (options = {}) => {
 		});
 	};
 
-	plugin.setVariables = data => {
+	plugin.set = data => {
 		variables = data;
 	};
 

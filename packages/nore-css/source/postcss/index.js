@@ -7,14 +7,10 @@ import customMedia from "postcss-custom-media";
 import selectorNotFix from "postcss-selector-not";
 import imageSetFunction from "postcss-image-set-function";
 import pleasefilters from "pleeease-filters";
-import sassVariables from "./sassVariables.js";
+import varsPlugin from "./variables.js";
 import setExternalPostcssConfig from "./setExternalPostcssConfig.js";
 
-export const variables = sassVariables({
-	unknown: function(node, name, result) {
-		node.warn(result, `\n\nUnknown variable ${name}\n`);
-	},
-});
+export const variables = varsPlugin();
 
 export default async bundle => {
 	const plugins = [

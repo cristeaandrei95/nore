@@ -2,7 +2,7 @@ import { merge } from "@nore/std";
 import CSSExtract from "mini-css-extract-plugin";
 import OptimizeCSS from "optimize-css-assets-webpack-plugin";
 import getLocalIdent from "./getLocalIdent.js";
-import postcss from "./postcss.js";
+import postcss from "./postcss";
 
 function getLoaders({ bundle, useModules }) {
 	const { isDevelopment, isForWeb } = bundle;
