@@ -1,4 +1,4 @@
-import VirtualModules from "webpack-virtual-modules";
+import { VirtualModule } from "@nore/webpack";
 import getNodeExternals from "webpack-node-externals";
 import nodeGlobalHelpers from "./nodeGlobalHelpers.js";
 
@@ -20,8 +20,9 @@ export default (bundle, config) => {
 	];
 
 	config.plugins.push(
-		new VirtualModules({
-			"@nore/node.js": nodeGlobalHelpers,
+		new VirtualModule({
+			name: "@nore/node.js",
+			source: nodeGlobalHelpers,
 		})
 	);
 
