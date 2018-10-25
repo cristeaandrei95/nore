@@ -16,14 +16,13 @@
 
 	"dependencies": {
 		"dumper.js": "^1.2.0",
-		"@nore/esm": "^2.0.0",
-		"pino": "^5.7.0",
+		"@nore/esm": "^2.1.1",
+		"pino": "^5.8.0",
 		"toml": "^2.3.3",
 		"js-yaml": "^3.12.0",
 		"respawn": "^2.5.0",
-		"getopts": "^2.2.1",
-		"serve-handler": "^5.0.5",
-		"webpack": "^4.20.2",
+		"getopts": "^2.2.2",
+		"webpack": "^4.23.0",
 		"webpack-merge": "^4.1.4",
 		"webpack-dev-middleware": "^3.4.0",
 		"webpack-hot-client": "^4.1.1",

@@ -13,18 +13,18 @@
 	"dependencies": {
 		"loader-utils": "^1.1.0",
 		"css-loader": "^1.0.0",
-		"style-loader": "^0.23.0",
-		"mini-css-extract-plugin": "^0.4.3",
+		"style-loader": "^0.23.1",
+		"mini-css-extract-plugin": "^0.4.4",
 		"optimize-css-assets-webpack-plugin": "^5.0.1",
 		"postcss-loader": "^3.0.0",
 		"postcss-nested": "^4.1.0",
 		"postcss-flexbugs-fixes": "^4.1.0",
 		"postcss-color-function": "^4.0.1",
 		"postcss-color-hex-alpha": "^5.0.2",
-		"postcss-custom-media": "^7.0.4",
+		"postcss-custom-media": "^7.0.7",
 		"postcss-selector-not": "^4.0.0",
 		"postcss-image-set-function": "^3.0.1",
 		"pleeease-filters": "^4.0.0",
-		"autoprefixer": "^9.1.5"
+		"autoprefixer": "^9.3.1"
 	}
 }

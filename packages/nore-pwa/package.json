@@ -11,9 +11,9 @@
 	"main": "source/index.js",
 
 	"dependencies": {
-		"react": "^16.5.0",
-		"react-dom": "^16.5.0",
+		"react": "^16.6.0",
+		"react-dom": "^16.6.0",
 		"loadable-components": "^2.2.3",
-		"query-string": "^6.1.0"
+		"query-string": "^6.2.0"
 	}
 }

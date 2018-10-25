@@ -12,6 +12,6 @@
 
 	"dependencies": {
 		"@nore/nore-js": "^1.0.0",
-		"@mdx-js/loader": "^0.15.4"
+		"@mdx-js/loader": "^0.15.5"
 	}
 }
