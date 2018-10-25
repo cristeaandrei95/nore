@@ -1,0 +1,16 @@
+{
+	"name": "@nore/nore-graphql",
+	"description": "Handle .graphql and .gql files",
+	"version": "1.0.0",
+
+	"author": "Navaru",
+	"license": "MIT",
+	"repository": "https://github.com/nore/nore-graphql",
+
+	"module": "source/index.js",
+	"main": "source/index.js",
+
+	"dependencies": {
+		"graphql-tag": "^2.10.0"
+	}
+}
