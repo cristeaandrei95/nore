@@ -73,7 +73,6 @@ blockquote + cite {
 	margin: 0 2.75em;
 }
 
-/* TODO: review the block below, how's the default <hr> style? */
 hr {
 	/* a better looking default horizontal rule */
 	display: block;

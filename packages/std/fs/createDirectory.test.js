@@ -18,7 +18,6 @@ function genPath() {
 const _0777 = parseInt("0777", 8);
 const _0755 = parseInt("0755", 8);
 
-// TODO: add more tests, check github / npm
 test("createDirectory", async ({ end, ok, equal }) => {
 	const path = genPath();
 
