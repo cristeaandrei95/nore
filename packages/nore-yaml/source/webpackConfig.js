@@ -1,12 +1,12 @@
 export default bundle => {
+	const rule = {
+		test: /\.yaml$/,
+		use: `${__dirname}/loader.js`,
+	};
+
 	return {
 		module: {
-			rules: [
-				{
-					test: /\.ya?ml$/,
-					use: `${__dirname}/loader.js`,
-				},
-			],
+			rules: [rule],
 		},
 	};
 };
