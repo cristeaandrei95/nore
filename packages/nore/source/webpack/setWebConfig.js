@@ -5,6 +5,7 @@ export default (bundle, config) => {
 		name: "webpack_runtime",
 	};
 
+	// TODO: https://webpack.js.org/plugins/split-chunks-plugin/#optimization-splitchunks
 	config.optimization.splitChunks = {
 		chunks: "all",
 		name: false,
