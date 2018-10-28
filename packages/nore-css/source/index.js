@@ -3,7 +3,7 @@ import { variables } from "./postcss";
 
 export default options => nore => {
 	nore.on("nore:bundle", async bundle => {
-		bundle.setWebpack(await webpackConfig(bundle));
+		bundle.setConfig(await webpackConfig(bundle));
 	});
 
 	nore.on("variables:load", data => {

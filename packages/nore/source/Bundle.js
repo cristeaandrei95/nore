@@ -34,7 +34,7 @@ export default class Bundle {
 		this.webpackConfig = new Set();
 	}
 
-	setWebpack(config) {
+	setConfig(config) {
 		this.webpackConfig.add(config);
 	}
 
