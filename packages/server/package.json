@@ -15,7 +15,7 @@
 		"fastify-multipart": "^0.5.1",
 		"fastify-accepts": "^0.5.0",
 		"fastify-cookie": "^2.0.2",
-		"fastify-jwt": "^0.6.0",
+		"fastify-jwt": "^0.7.0",
 		"fastify-helmet": "^2.1.0",
 		"fastify-plugin": "^1.2.1",
 		"fastify-static": "^0.14.0",

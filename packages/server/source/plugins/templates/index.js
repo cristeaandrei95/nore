@@ -1,15 +1,15 @@
 import { Environment, FileSystemLoader } from "nunjucks";
-import { readFile } from "@nore/std/fs";
 import plugin from "fastify-plugin";
 
 function fmtRequest(request) {
 	return request.includes(".html") ? request : `${request}.html`;
 }
 
-export default plugin(async (fastify, { isDebug, path, templates }) => {
-	templates = templates || ["templates", "source/templates"];
-
-	const loader = new FileSystemLoader(templates, { watch: true });
+export default plugin(async (fastify, options = {}) => {
+	const loader = new FileSystemLoader(options.paths || "templates", {
+		watch: options.watch,
+		noCache: options.noCache || options.isDebug,
+	});
 	const engine = new Environment(loader);
 
 	fastify.decorateReply("render", function(template, data = {}) {

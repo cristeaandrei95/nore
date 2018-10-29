@@ -1,25 +1,24 @@
 import plugin from "fastify-plugin";
 import { sign, unsign } from "cookie-signature";
 import cuid from "cuid";
-
-const MAX_AGE = 1000 * 60 * 60 * 24; // 24 hours
+import { merge } from "@nore/std/object";
 
 const defaults = {
+	secret: null,
+	cookieName: "SID",
+	maxAge: 1000 * 60 * 60 * 24, // 24 hours
 	cookie: {
 		path: "/",
-		// secure: true,
 		httpOnly: true,
-		sameSite: true,
+		secure: undefined,
+		sameSite: undefined,
 		domain: undefined,
 		expires: undefined,
 	},
-	secret: undefined,
-	cookieName: "SID",
-	maxAge: MAX_AGE,
 };
 
-export default plugin(async (fastify, options) => {
-	const config = Object.assign({}, defaults, options);
+export default plugin(async (fastify, options = {}) => {
+	const config = merge(defaults, options);
 
 	if (!config.secret) {
 		throw Error(`options.secret is required`);
@@ -66,12 +65,19 @@ export default plugin(async (fastify, options) => {
 			await store.remove(request.sessionId);
 		} else {
 			const signedId = sign(request.sessionId, secret);
-			const cookie = Object.assign({}, config.cookie);
 
-			cookie.expires = Date.now() + defaults.maxAge;
+			const cookieSettings = {
+				...config.cookie,
+				expires: Date.now() + config.maxAge,
+			};
 
-			reply.setCookie(cookieName, signedId, cookie);
-			await store.set(request.sessionId, request.session, cookie.expires);
+			reply.setCookie(cookieName, signedId, cookieSettings);
+
+			await store.set(
+				request.sessionId,
+				request.session,
+				cookieSettings.expires
+			);
 		}
 	});
 

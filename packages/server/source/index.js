@@ -1,10 +1,9 @@
 import fastify from "fastify";
 import cors from "access-control";
 import { isString } from "@nore/std/assert";
-import setPlugins from "./plugins.js";
+import setPlugins from "./plugins";
+import setRoutingMethods from "./setRoutingMethods.js";
 import onNextEventLoop from "./onNextEventLoop.js";
-
-const methods = ["get", "head", "post", "put", "delete", "options", "patch"];
 
 export default class Server {
 	constructor(options = {}) {
@@ -21,21 +20,12 @@ export default class Server {
 			caseSensitive: options.caseSensitive || false,
 		});
 
-		// set up fastify & plugins
-		setPlugins(this, options);
-
 		this.fastify.setErrorHandler(this.onHTTPError.bind(this));
 
-		// set HTTP route handling methods
-		for (const method of methods) {
-			this[method] = (path, options, handler) => {
-				this.fastify[method](path, options, handler);
-			};
-		}
-	}
-
-	route(options) {
-		this.fastify.route(options);
+		// set up fastify plugins
+		setPlugins(this, options);
+		// set methods to handle HTTP routing
+		setRoutingMethods(this);
 	}
 
 	cors(path, options) {
@@ -47,11 +37,11 @@ export default class Server {
 	}
 
 	async start() {
-		const { fastify, port, host } = this;
+		const { port, host } = this;
 
 		// start on next event loop so we have time to hook everyting up
 		return onNextEventLoop((resolve, reject) => {
-			fastify.listen(port, host, (error, address) => {
+			this.fastify.listen(port, host, (error, address) => {
 				if (error) reject(error);
 				else resolve(`${host}:${port}`);
 			});
