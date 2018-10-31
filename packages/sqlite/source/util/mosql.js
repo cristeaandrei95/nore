@@ -1,4 +1,4 @@
-import mosql from "mongo-sql";
+// import mosql from "mongo-sql";
 
 const TO_MATCH = /\$\d+/gm;
 const normalize = sql => sql.replace(TO_MATCH, "?");

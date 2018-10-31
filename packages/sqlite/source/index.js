@@ -1,6 +1,6 @@
 import SQLite from "./SQLite.js";
-import Connection from "./Connection.js";
 import timestamp from "./util/timestamp.js";
+import Database from "./Database.js";
 
-export { Connection, timestamp };
-export default SQLite;
+export { SQLite, timestamp };
+export default Database;

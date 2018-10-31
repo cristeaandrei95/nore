@@ -1,27 +1,44 @@
-import Table from "./Table.js";
-import Connection from "./Connection.js";
-import Migrations from "./Migrations.js";
+import BetterSQLite3 from "better-sqlite3";
+import { isString } from "@nore/std/assert";
+import { isAbsolute } from "@nore/std/path";
 
-export default class Database {
+// https://github.com/JoshuaWise/better-sqlite3/wiki/API
+export default class SQLite {
 	constructor(options = {}) {
-		// the Connection connection
-		this.db = new Connection(options);
+		const { file, inMemory, isReadOnly, throwOnMissingFile } = options;
 
-		// cache table instances
-		this.tables = new Map();
-	}
-
-	table(name) {
-		const { tables, db } = this;
-
-		if (tables.has(name)) {
-			return tables.get(name);
+		if (!isString(file)) {
+			throw Error(`Missing path to Connection database file.`);
 		}
 
-		const table = new Table({ name, db });
+		if (!isAbsolute(file)) {
+			throw Error(`The database file path must be an absolute path.`);
+		}
 
-		tables.set(name, table);
+		this.connection = new BetterSQLite3(file, {
+			fileMustExist: throwOnMissingFile || false,
+			readonly: isReadOnly || false,
+			memory: inMemory || false,
+		});
+	}
 
-		return table;
+	async sql(sql) {
+		return this.connection.exec(sql);
+	}
+
+	async run(sql, values = []) {
+		return this.connection.prepare(sql).run(values);
+	}
+
+	async get(sql, values = []) {
+		return this.connection.prepare(sql).all(values);
+	}
+
+	async getOne(sql, values = []) {
+		return this.connection.prepare(sql).get(values);
+	}
+
+	iterate(sql, values = []) {
+		return this.connection.prepare(sql).iterate(values);
 	}
 }
