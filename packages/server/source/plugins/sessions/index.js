@@ -1,12 +1,13 @@
+import { merge } from "@nore/std/object";
 import plugin from "fastify-plugin";
 import { sign, unsign } from "cookie-signature";
 import cuid from "cuid";
-import { merge } from "@nore/std/object";
 
 const defaults = {
 	secret: null,
 	cookieName: "SID",
-	maxAge: 1000 * 60 * 60 * 24, // 24 hours
+	// 1sec -> 1min -> 60min => 24h
+	maxAge: 1000 * 60 * 60 * 24,
 	cookie: {
 		path: "/",
 		httpOnly: true,
