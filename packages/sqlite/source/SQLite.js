@@ -22,23 +22,35 @@ export default class SQLite {
 		});
 	}
 
-	async sql(sql) {
+	sql(sql) {
 		return this.connection.exec(sql);
 	}
 
-	async run(sql, values = []) {
+	run(sql, values = []) {
 		return this.connection.prepare(sql).run(values);
 	}
 
-	async get(sql, values = []) {
+	get(sql, values = []) {
 		return this.connection.prepare(sql).all(values);
 	}
 
-	async getOne(sql, values = []) {
+	getOne(sql, values = []) {
 		return this.connection.prepare(sql).get(values);
+	}
+
+	pragma(sql) {
+		return this.connection.pragma(sql);
+	}
+
+	prepare(sql) {
+		return this.connection.prepare(sql);
 	}
 
 	iterate(sql, values = []) {
 		return this.connection.prepare(sql).iterate(values);
+	}
+
+	transaction(handler) {
+		return this.connection.transaction(handler);
 	}
 }
