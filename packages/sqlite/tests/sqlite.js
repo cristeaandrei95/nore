@@ -1,9 +1,8 @@
-import { unlinkSync } from "fs";
-import { tmpdir } from "os";
 import { test, tearDown } from "tap";
 import { SQLite } from "../source";
+import { getTemporaryFile } from "./util";
 
-const dbFile = `${tmpdir()}/sqlite_test.sqlite`;
+const dbFile = getTemporaryFile();
 
 const create_table = `
 	CREATE TABLE sessions (
@@ -23,16 +22,14 @@ const select_data = `
 	SELECT * FROM sessions WHERE token == 'sid_token'
 `;
 
-tearDown(() => unlinkSync(dbFile));
+tearDown(() => dbFile.delete());
 
 test("SQLite()", async ({ end, equal }) => {
-	const db = new SQLite({
-		file: dbFile,
-	});
+	const db = new SQLite({ file: dbFile.path });
 
 	// create table
-	var result = await db.sql(create_table);
-	equal(result.name, dbFile);
+	var result = await db.runRaw(create_table);
+	equal(result.name, dbFile.path);
 
 	// insert data using transactions
 	var statement = db.prepare(insert_data);
@@ -46,16 +43,16 @@ test("SQLite()", async ({ end, equal }) => {
 	equal(result.length, 2);
 
 	// select all data
-	var result = await db.get(select_data);
+	var result = await db.getAll(select_data);
 	equal(result[0].token, "sid_token");
 	equal(result[1].token, "sid_token");
 
 	// select first row
-	var result = await db.getOne(select_data);
+	var result = await db.get(select_data);
 	equal(result.token, "sid_token");
 
 	// iterate over table entries
-	for (const entry of await db.iterate(select_data)) {
+	for (const entry of db.iterate(select_data)) {
 		equal(result.token, "sid_token");
 	}
 

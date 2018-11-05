@@ -1,136 +1,81 @@
-import { assign } from "@nore/std/object";
-import getTableDefinition from "./util/getTableDefinition.js";
-import mosql from "./util/mosql.js";
+import { keys, first } from "@nore/std/object";
+import { isArray } from "@nore/std/array";
+import { toSQL } from "./util/definitions.js";
+import Indexes from "./Indexes.js";
+import Columns from "./Columns.js";
 
-/*
-	API CRUD:
-	.insert(data) - add records
-	.find(query)
-	.findById(id)
-	.findOne(query)
-	.remove(query) -> return removed records
-
-	API on table:
-	.drop() - delete table
-	.rename(newName)
-*/
-
-// The SQLite table API
 export default class Table {
 	constructor({ name, db }) {
 		this.tableName = name;
+		this.isDropped = false;
 		this.db = db;
+		this.indexes = new Indexes(this);
+		this.columns = new Columns(this);
 	}
 
 	get name() {
 		if (this.isDropped) {
-			throw Error(`Table "${this.tableName}" was dropped`);
+			throw Error(`Table ${this.tableName} was deleted.`);
 		}
 
 		return this.tableName;
 	}
 
-	create(definition) {
-		const { sql, values } = mosql({
-			type: "create-table",
-			table: this.name,
-			ifNotExists: true,
-			definition: getTableDefinition(definition),
-		});
+	async create(definitions) {
+		const columns = toSQL(definitions);
+		const sql = `CREATE TABLE "${this.name}" (${columns})`;
 
-		return this.db.run(sql, values).then(result => {
-			this.isDropped = false;
-
-			return result;
-		});
+		return this.db.run(sql);
 	}
 
-	rename(newName) {
-		const { sql } = mosql({
-			type: "alter-table",
-			table: this.name,
-			action: { rename: newName },
-		});
-
-		return this.db.run(sql).then(() => {
-			this.tableName = newName;
-		});
+	async drop() {
+		this.db.run(`DROP TABLE ${this.name}`);
+		this.isDropped = true;
 	}
 
-	drop() {
-		const { sql } = mosql({
-			type: "drop-table",
-			table: this.name,
-			ifExists: true,
-		});
-
-		return this.db.run(sql).then(() => {
-			this.isDropped = true;
-		});
+	async rename(name) {
+		const sql = `ALTER TABLE ${this.name} RENAME TO ${name}`;
+		this.tableName = name;
+		return this.db.run(sql);
 	}
 
-	insert(data) {
-		const { sql, values } = mosql({
-			type: "insert",
-			table: this.name,
-			values: data,
-		});
+	async insert(data) {
+		if (!isArray(data)) data = [data];
 
-		return this.db.run(sql, values);
-	}
+		const columns = keys(data[0]);
+		const entries = [];
+		const values = [];
 
-	find(where, options = {}) {
-		const { sql, values } = mosql(
-			assign(
-				{
-					type: "select",
-					table: this.name,
-					where: where,
-				},
-				options
-			)
+		for (const entry of data) {
+			entries.push(`(${columns.map(e => "?").join(", ")})`);
+			values.push.apply(values, columns.map(e => entry[e]));
+		}
+
+		return this.db.run(
+			`INSERT INTO ${this.name} (${columns}) VALUES ${entries.join(", ")}`,
+			values
 		);
-
-		return this.db.getAll(sql, values);
 	}
 
-	findOne(where, options = {}) {
-		const { sql, values } = mosql(
-			assign(
-				{
-					type: "select",
-					table: this.name,
-					where: where,
-				},
-				options
-			)
-		);
+	async findById(id, options = {}) {
+		let columns = "*";
 
-		return this.db.get(sql, values);
+		if (options.columns) {
+			columns = options.columns.map(name => `"${name}"`).join(", ");
+		}
+
+		const sql = `SELECT ${columns} FROM ${this.name} WHERE "id" == ?`;
+
+		return this.db.get(sql, [id]);
 	}
 
-	findById(id) {
-		return this.findOne({ id });
-	}
+	async count(target = "*", options = {}) {
+		if (options.isDistinct) {
+			target = `DISTINCT ${target}`;
+		}
 
-	remove(where) {
-		const { sql, values } = mosql({
-			type: "delete",
-			table: this.name,
-			where: where,
-		});
-
-		return this.db.run(sql, values);
-	}
-
-	update(where, updates) {
-		const { sql, values } = mosql({
-			type: "update",
-			table: this.name,
-			where: where,
-			updates: updates,
-		});
-
-		return this.db.run(sql, values);
+		return this.db
+			.get(`SELECT COUNT(${target}) FROM ${this.name}`)
+			.then(result => first(result));
 	}
 }

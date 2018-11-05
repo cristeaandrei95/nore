@@ -1,10 +1,10 @@
 // ensure that we have 2 places for each of the date segments.
 function format(segment) {
 	segment = segment.toString();
-	return segment[1] ? segment : `0${segment}`;
+	return segment[1] ? segment : "0" + segment;
 }
 
-// format: yyyymmddhhmmss
+// format: yyyymmddhhmmssmmm
 export default function timestamp() {
 	const now = new Date();
 
@@ -14,7 +14,7 @@ export default function timestamp() {
 	const hours = format(now.getHours());
 	const minutes = format(now.getMinutes());
 	const seconds = format(now.getSeconds());
-	const milliseconds = format(now.getMilliseconds());
+	const milliseconds = now.getMilliseconds().toString();
 
 	return year + month + date + hours + minutes + seconds + milliseconds;
 }

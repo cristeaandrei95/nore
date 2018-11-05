@@ -20,34 +20,39 @@ export default class SQLite {
 			readonly: isReadOnly || false,
 			memory: inMemory || false,
 		});
+
+		// use WAL journaling mode by default
+		if (options.useWAL !== false) {
+			this.pragma("journal_mode = WAL");
+		}
 	}
 
-	sql(sql) {
+	async runRaw(sql) {
 		return this.connection.exec(sql);
 	}
 
-	run(sql, values = []) {
+	async run(sql, values = []) {
 		return this.connection.prepare(sql).run(values);
 	}
 
-	get(sql, values = []) {
-		return this.connection.prepare(sql).all(values);
-	}
-
-	getOne(sql, values = []) {
+	async get(sql, values = []) {
 		return this.connection.prepare(sql).get(values);
 	}
 
-	pragma(sql) {
-		return this.connection.pragma(sql);
+	async getAll(sql, values = []) {
+		return this.connection.prepare(sql).all(values);
 	}
 
-	prepare(sql) {
-		return this.connection.prepare(sql);
+	async pragma(sql) {
+		return this.connection.pragma(sql);
 	}
 
 	iterate(sql, values = []) {
 		return this.connection.prepare(sql).iterate(values);
+	}
+
+	prepare(sql) {
+		return this.connection.prepare(sql);
 	}
 
 	transaction(handler) {

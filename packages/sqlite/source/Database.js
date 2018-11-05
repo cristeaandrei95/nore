@@ -1,31 +1,29 @@
-import Table from "./Table.js";
-import SQLite from "./SQLite.js";
-import Migrations from "./Migrations.js";
+import Table from "./Table";
+import SQLite from "./SQLite";
 
 export default class Database {
 	constructor(options = {}) {
-		// the SQLite connection
 		this.sqlite = new SQLite(options);
 
 		// cache table instances
-		this.tables = new Map();
+		this.$tables = new Map();
 	}
 
-	create(name, definition) {
-		return this.table(name).create(definition);
+	async list() {
+		const sql = `SELECT name FROM sqlite_master WHERE type == 'table'`;
+
+		return this.sqlite.getAll(sql).then(result => result.map(e => e.name));
 	}
 
 	table(name) {
-		const { tables, sqlite } = this;
+		let table = this.$tables.has(name);
 
-		if (tables.has(name)) {
-			return tables.get(name);
+		if (!table) {
+			table = new Table({ name, db: this.sqlite });
+
+			this.$tables.set(name, table);
 		}
 
-		const table = new Table({ name, db: sqlite });
-		tables.set(name, table);
 		return table;
 	}
-
-	list() {}
 }

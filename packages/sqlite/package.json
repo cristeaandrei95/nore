@@ -12,6 +12,7 @@
 
 	"dependencies": {
 		"@nore/mosql": "^1.0.0",
+		"cuid": "^2.1.4",
 		"better-sqlite3": "^5.0.1"
 	},
 	"devDependencies": {

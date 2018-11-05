@@ -1,67 +1,50 @@
-import { test } from "tap";
-import { randomBytes } from "crypto";
-import SQLite from "../source";
+import { test, tearDown } from "tap";
+import { rndInt, rndStr } from "./util";
+import getFixtures from "./fixtures";
 
-const random = n => randomBytes(n - 1).toString("hex");
-const genTableName = () => "t" + random(7);
+const { dbFile, db, tableName, columns, samples } = getFixtures(50);
 
-const db = new SQLite({
-	connection:
-	file: `${__dirname}/samples/test.sqlite`,
-});
+tearDown(() => dbFile.delete());
 
 test("table", async ({ end, equal, same, ok, throws }) => {
-	const tableName = genTableName();
 	const table = db.table(tableName);
 
-	await table.create({
-		id: { type: "TEXT" },
-		foo: { type: "TEXT" },
-		bar: { type: "TEXT" },
-	});
+	// create table
+	await table.create(columns);
 
-	var result = await table.insert([
-		{ foo: "first", bar: random(8), id: random(4) },
-		{ foo: "second", bar: random(8), id: random(4) },
-		{ foo: "third", bar: random(8), id: random(4) },
-		{ foo: "fourth", bar: random(8), id: random(4) },
-		{ foo: "fifth", bar: random(8), id: random(4) },
-	]);
+	// insert data
+	var result = await table.insert(samples);
+	same(result, { changes: 50, lastInsertRowid: 50 });
 
-	equal(result.changes, 5);
+	// find by id
+	var sample = samples[rndInt(0, 50 - 1)];
+	var result = await table.findById(sample.id);
+	same(result, sample);
 
-	const records = await table.find({ $like: { foo: "%i%" } });
-	const second = await table.findOne({ foo: { $like: "%con%" } });
-	const third = await table.findOne({ foo: "third" });
-	const secondById = await table.findById(second.id);
+	// find by id, filter by columns
+	var sample = samples[rndInt(0, 50 - 1)];
+	var result = await table.findById(sample.id, { columns: ["id", "sit"] });
+	same(result, { id: sample.id, sit: sample.sit });
 
-	equal(records.length, 3);
-	equal(records[0].foo, "first");
-	equal(second.foo, "second");
-	equal(secondById.foo, "second");
-	equal(third.foo, "third");
+	// rename table
+	var result = await table.rename(rndStr());
+	ok(table.name !== tableName);
 
-	var result = await table.update(
-		{ $like: { foo: "%i%" } },
-		{ bar: "updated" }
-	);
-	equal(result.changes, 3);
+	// count
+	var result = await table.count();
+	ok(result === 50);
+	var result = await table.count("ipsum");
+	ok(result < 50);
 
-	const updates = await table.find({ $like: { foo: "%i%" } });
-	same(updates.map(r => r.bar), ["updated", "updated", "updated"]);
-
-	var { changes } = await table.remove({ bar: "updated" });
-
-	equal(changes, 3);
-
-	const newName = genTableName();
-	await table.rename(newName);
-
-	equal(table.name, newName);
-	ok(tableName !== newName);
-
+	// drop table
 	await table.drop();
-	throws(() => table.name);
+	equal(table.isDropped, true);
+
+	try {
+		await table.db.get(`SELECT * FROM ${tableName}`);
+	} catch (error) {
+		equal(error.message, `no such table: ${tableName}`);
+	}
 
 	end();
 });
