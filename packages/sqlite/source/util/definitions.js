@@ -3,7 +3,6 @@ export function toDefinitions(info) {
 		name: info.name,
 		type: info.type.toLowerCase(),
 		default: info.dflt_value,
-		index: null,
 		isNullable: !Boolean(info.notnull),
 		isPrimaryKey: Boolean(info.pk),
 		isUnique: Boolean(info.pk),

@@ -30,7 +30,6 @@ test("table.columns", async ({ end, equal, same, ok, throws }) => {
 		name: "id",
 		type: "text",
 		default: null,
-		index: null,
 		isNullable: false,
 		isPrimaryKey: true,
 		isUnique: true,
