@@ -1,3 +1,1 @@
-import endsWith from "./endsWith.js";
-
-export { endsWith };
+export { default as endsWith } from "./endsWith.js";

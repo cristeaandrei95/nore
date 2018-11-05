@@ -1,4 +1,2 @@
-import clone from "./clone.js";
-import typeOf from "./typeOf.js";
-
-export { clone, typeOf };
+export { default as clone } from "./clone.js";
+export { default as typeOf } from "./typeOf.js";

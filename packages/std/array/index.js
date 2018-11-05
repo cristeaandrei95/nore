@@ -1,8 +1,6 @@
-import isArray from "../assert/isArray.js";
-import flatten from "./flatten.js";
-import insertAt from "./insertAt.js";
-import union from "./union.js";
-import pickRandom from "./pickRandom.js";
-import shuffle from "./shuffle.js";
-
-export { flatten, insertAt, isArray, union, pickRandom, shuffle };
+export { default as isArray } from "../assert/isArray.js";
+export { default as pickRandom } from "./pickRandom.js";
+export { default as insertAt } from "./insertAt.js";
+export { default as flatten } from "./flatten.js";
+export { default as shuffle } from "./shuffle.js";
+export { default as union } from "./union.js";

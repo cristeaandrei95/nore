@@ -1,3 +1,1 @@
-import parse from "./parse.js";
-
-export { parse };
+export { default as parse } from "./parse.js";

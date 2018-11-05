@@ -1,4 +1,2 @@
-import escape from "./escape";
-import unescape from "./unescape";
-
-export { escape, unescape };
+export { default as escape } from "./escape";
+export { default as unescape } from "./unescape";

@@ -5,10 +5,10 @@ import * as fs from "./fs";
 import * as path from "./path";
 import * as string from "./string";
 import * as time from "./time";
-import * as validate from "./assert";
+import * as assert from "./assert";
 import * as util from "./util";
 
-export { array, error, fs, path, string, time, util, validate };
+export { array, error, fs, path, string, time, util, assert };
 
 // utilities
 import clone from "./util/clone.js";

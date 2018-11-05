@@ -1,3 +1,1 @@
-import delay from "./delay.js";
-
-export { delay };
+export { default as delay } from "./delay.js";
