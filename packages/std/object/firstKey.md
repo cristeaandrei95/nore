@@ -6,7 +6,7 @@ tags:
   - first
 ---
 
-Returns the first element of an object.
+Returns the first key of the first element of an object.
 
 `firstKey(source)`
 
