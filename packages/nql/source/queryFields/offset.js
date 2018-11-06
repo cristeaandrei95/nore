@@ -5,5 +5,5 @@ export default (data, query, build) => {
 
 	if (!isNumber(count)) return "";
 
-	return { sql: `OFFSET ?`, values: [count] };
+	return [`OFFSET ?`, [count]];
 };

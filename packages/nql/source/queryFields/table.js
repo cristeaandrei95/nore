@@ -1,13 +1,11 @@
 import { isArray, isObject } from "@nore/std/assert";
 
 export default (data, query, build) => {
-	if (isArray(data)) {
-		return { sql: `FROM ? ?`, values: data };
-	}
+	const prefix = query.type === "insert" ? "INTO" : "FROM";
 
 	if (isObject(data)) {
-		return { sql: `FROM ? ?`, values: [data.name, data.alias] };
+		return `${prefix} "${data.name}" AS "${data.as}"`;
 	}
 
-	return `FROM "${data}"`;
+	return `${prefix} "${data}"`;
 };

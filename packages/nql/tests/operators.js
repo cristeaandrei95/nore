@@ -42,9 +42,9 @@ test("$is", ({ end, equal, same }) => {
 		},
 	];
 
-	forEach(cases, (expected, result) => {
-		equal(result.sql, expected.sql);
-		same(result.values, expected.values);
+	forEach(cases, (expected, [sql, values]) => {
+		equal(sql, expected.sql);
+		same(values, expected.values);
 	});
 
 	end();
@@ -79,9 +79,9 @@ test("$not", ({ end, equal, same }) => {
 		},
 	];
 
-	forEach(cases, (expected, result) => {
-		equal(result.sql, expected.sql);
-		same(result.values, expected.values);
+	forEach(cases, (expected, [sql, values]) => {
+		equal(sql, expected.sql);
+		same(values, expected.values);
 	});
 
 	end();
@@ -101,9 +101,9 @@ test("$or", ({ end, equal, same }) => {
 		},
 	];
 
-	forEach(cases, (expected, result) => {
-		equal(result.sql, expected.sql);
-		same(result.values, expected.values);
+	forEach(cases, (expected, [sql, values]) => {
+		equal(sql, expected.sql);
+		same(values, expected.values);
 	});
 
 	end();
@@ -118,9 +118,9 @@ test("$and", ({ end, equal, same }) => {
 		},
 	];
 
-	forEach(cases, (expected, result) => {
-		equal(result.sql, expected.sql);
-		same(result.values, expected.values);
+	forEach(cases, (expected, [sql, values]) => {
+		equal(sql, expected.sql);
+		same(values, expected.values);
 	});
 
 	end();
@@ -145,9 +145,9 @@ test("$isNull", ({ end, equal, same }) => {
 		},
 	];
 
-	forEach(cases, (expected, result) => {
-		equal(result.sql, expected.sql);
-		same(result.values, expected.values);
+	forEach(cases, (expected, [sql, values]) => {
+		equal(sql, expected.sql);
+		same(values, expected.values);
 	});
 
 	end();
@@ -172,9 +172,9 @@ test("$gt", ({ end, equal, same }) => {
 		},
 	];
 
-	forEach(cases, (expected, result) => {
-		equal(result.sql, expected.sql);
-		same(result.values, expected.values);
+	forEach(cases, (expected, [sql, values]) => {
+		equal(sql, expected.sql);
+		same(values, expected.values);
 	});
 
 	end();
@@ -199,9 +199,9 @@ test("$gte", ({ end, equal, same }) => {
 		},
 	];
 
-	forEach(cases, (expected, result) => {
-		equal(result.sql, expected.sql);
-		same(result.values, expected.values);
+	forEach(cases, (expected, [sql, values]) => {
+		equal(sql, expected.sql);
+		same(values, expected.values);
 	});
 
 	end();
@@ -226,9 +226,9 @@ test("$lt", ({ end, equal, same }) => {
 		},
 	];
 
-	forEach(cases, (expected, result) => {
-		equal(result.sql, expected.sql);
-		same(result.values, expected.values);
+	forEach(cases, (expected, [sql, values]) => {
+		equal(sql, expected.sql);
+		same(values, expected.values);
 	});
 
 	end();
@@ -253,9 +253,9 @@ test("$lte", ({ end, equal, same }) => {
 		},
 	];
 
-	forEach(cases, (expected, result) => {
-		equal(result.sql, expected.sql);
-		same(result.values, expected.values);
+	forEach(cases, (expected, [sql, values]) => {
+		equal(sql, expected.sql);
+		same(values, expected.values);
 	});
 
 	end();
@@ -275,9 +275,9 @@ test("$sql", ({ end, equal, same }) => {
 		},
 	];
 
-	forEach(cases, (expected, result) => {
-		equal(result.sql, expected.sql);
-		same(result.values, expected.values);
+	forEach(cases, (expected, [sql, values]) => {
+		equal(sql, expected.sql);
+		same(values, expected.values);
 	});
 
 	end();
@@ -307,9 +307,9 @@ test("$in", ({ end, equal, same }) => {
 		},
 	];
 
-	forEach(cases, (expected, result) => {
-		equal(result.sql, expected.sql);
-		same(result.values, expected.values);
+	forEach(cases, (expected, [sql, values]) => {
+		equal(sql, expected.sql);
+		same(values, expected.values);
 	});
 
 	end();
@@ -329,9 +329,9 @@ test("$nin", ({ end, equal, same }) => {
 		},
 	];
 
-	forEach(cases, (expected, result) => {
-		equal(result.sql, expected.sql);
-		same(result.values, expected.values);
+	forEach(cases, (expected, [sql, values]) => {
+		equal(sql, expected.sql);
+		same(values, expected.values);
 	});
 
 	end();
@@ -356,9 +356,9 @@ test("$like", ({ end, equal, same }) => {
 		},
 	];
 
-	forEach(cases, (expected, result) => {
-		equal(result.sql, expected.sql);
-		same(result.values, expected.values);
+	forEach(cases, (expected, [sql, values]) => {
+		equal(sql, expected.sql);
+		same(values, expected.values);
 	});
 
 	end();
@@ -378,9 +378,9 @@ test("$nlike", ({ end, equal, same }) => {
 		},
 	];
 
-	forEach(cases, (expected, result) => {
-		equal(result.sql, expected.sql);
-		same(result.values, expected.values);
+	forEach(cases, (expected, [sql, values]) => {
+		equal(sql, expected.sql);
+		same(values, expected.values);
 	});
 
 	end();
@@ -400,9 +400,9 @@ test("$between", ({ end, equal, same }) => {
 		},
 	];
 
-	forEach(cases, (expected, result) => {
-		equal(result.sql, expected.sql);
-		same(result.values, expected.values);
+	forEach(cases, (expected, [sql, values]) => {
+		equal(sql, expected.sql);
+		same(values, expected.values);
 	});
 
 	end();
@@ -427,9 +427,9 @@ test("$match", ({ end, equal, same }) => {
 		},
 	];
 
-	forEach(cases, (expected, result) => {
-		equal(result.sql, expected.sql);
-		same(result.values, expected.values);
+	forEach(cases, (expected, [sql, values]) => {
+		equal(sql, expected.sql);
+		same(values, expected.values);
 	});
 
 	end();

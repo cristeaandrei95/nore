@@ -1,5 +1,5 @@
 import { isArray, isObject } from "@nore/std/assert";
-import { isNullOrBoolean, toUpperCase, quote } from "../helpers.js";
+import { isNullOrBoolean, toUpperCase, quote } from "../utils";
 
 export default function $notIn({ where, column, joiner, query, parse, build }) {
 	// array

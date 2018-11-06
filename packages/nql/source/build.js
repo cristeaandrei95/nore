@@ -1,7 +1,7 @@
-import { isObject } from "@nore/std/assert";
+import { isArray } from "@nore/std/assert";
+import { normalizeQuery } from "./utils";
 import queryTypes from "./queryTypes";
 import queryFields from "./queryFields";
-import { normalizeQuery } from "./utils";
 
 export default function build(query = {}) {
 	if (!queryTypes.has(query.type)) {
@@ -19,12 +19,11 @@ export default function build(query = {}) {
 			const handler = queryFields.get(field);
 			const result = handler(query[field], query, build);
 
-			if (result) {
-				blocks.push(result.sql || result);
-
-				if (result.values) {
-					values.push.apply(values, result.values);
-				}
+			if (isArray(result)) {
+				blocks.push(result[0]);
+				values.push.apply(values, result[1]);
+			} else {
+				blocks.push(result);
 			}
 		}
 		// ignore field if no query field handler was implemented

@@ -3,12 +3,41 @@ import queryFields from "../source/queryFields";
 
 test("table", ({ end, equal, same }) => {
 	const table = queryFields.get("table");
-	equal(table("foo"), `FROM "foo"`);
-	same(table(["foo", "baz"]), { sql: `FROM ? ?`, values: ["foo", "baz"] });
-	same(table({ name: "foo", alias: "baz" }), {
-		sql: `FROM ? ?`,
-		values: ["foo", "baz"],
-	});
+	const query = { type: "select" };
+
+	equal(table("foo", { type: "insert" }), `INTO "foo"`);
+	equal(table("foo", query), `FROM "foo"`);
+	equal(table({ name: "foo", as: "bar" }, query), `FROM "foo" AS "bar"`);
+
+	end();
+});
+
+test("columns", ({ end, equal, same }) => {
+	const columns = queryFields.get("columns");
+	const query = { type: "select" };
+
+	// array
+	equal(columns(["foo", "bar"]), `"foo", "bar"`);
+	equal(
+		columns([{ name: "bar", as: "rab" }, { name: "baz", as: "zab" }]),
+		`"bar" as "rab", "baz" as "zab"`
+	);
+
+	// string
+	equal(columns("foo"), `"foo"`);
+	equal(columns("*"), `*`);
+
+	end();
+});
+
+test("values", ({ end, same }) => {
+	const values = queryFields.get("values");
+
+	same(values({ foo: "bar", lorem: "ipsum" }), [
+		`("foo", "lorem") VALUES (?, ?)`,
+		["bar", "ipsum"],
+	]);
+
 	end();
 });
 
@@ -26,29 +55,6 @@ test("ifExists", ({ end, equal }) => {
 	end();
 });
 
-test("columns", ({ end, equal, same }) => {
-	const columns = queryFields.get("columns");
-
-	// array
-	equal(columns(["foo", "bar", "baz"]), `"foo", "bar", "baz"`);
-	equal(
-		columns([{ name: "bar", alias: "rab" }, { name: "baz", alias: "zab" }]),
-		`"bar" as "rab", "baz" as "zab"`
-	);
-
-	// object
-	same(columns({ values: ["foo", "bar", "baz"] }), {
-		sql: "?, ?, ?",
-		values: ["foo", "bar", "baz"],
-	});
-
-	// string
-	equal(columns("foo"), `"foo"`);
-	equal(columns("*"), `*`);
-
-	end();
-});
-
 test("where", ({ end, equal, same }) => {
 	const where = queryFields.get("where");
 
@@ -57,10 +63,7 @@ test("where", ({ end, equal, same }) => {
 			foo: "bar",
 			baz: { $in: ["1", "2"] },
 		}),
-		{
-			sql: `WHERE "foo" == ? AND "baz" IN (?, ?)`,
-			values: ["bar", "1", "2"],
-		}
+		[`WHERE "foo" == ? AND "baz" IN (?, ?)`, ["bar", "1", "2"]]
 	);
 
 	end();
@@ -99,9 +102,9 @@ test("limit", ({ end, equal, same }) => {
 
 	equal(limit(null), "");
 	equal(limit([]), "");
-	same(limit(123), { sql: "LIMIT ?", values: ["123"] });
-	same(limit("123"), { sql: "LIMIT ?", values: ["123"] });
-	same(limit("123ab"), { sql: "LIMIT ?", values: ["123"] });
+	same(limit(123), ["LIMIT ?", ["123"]]);
+	same(limit("123"), ["LIMIT ?", ["123"]]);
+	same(limit("123ab"), ["LIMIT ?", ["123"]]);
 
 	end();
 });
@@ -111,9 +114,9 @@ test("offset", ({ end, equal, same }) => {
 
 	equal(offset(null), "");
 	equal(offset([]), "");
-	same(offset(123), { sql: "OFFSET ?", values: ["123"] });
-	same(offset("123"), { sql: "OFFSET ?", values: ["123"] });
-	same(offset("123ab"), { sql: "OFFSET ?", values: ["123"] });
+	same(offset(123), ["OFFSET ?", ["123"]]);
+	same(offset("123"), ["OFFSET ?", ["123"]]);
+	same(offset("123ab"), ["OFFSET ?", ["123"]]);
 
 	end();
 });
@@ -124,8 +127,8 @@ test("count", ({ end, equal, same }) => {
 	equal(count(null), "");
 	equal(count([]), "");
 	equal(count("*"), `COUNT(*)`);
-	same(count("123"), { sql: `COUNT(?)`, values: ["123"] });
-	same(count(["foo", "bar"]), { sql: `COUNT(?, ?)`, values: ["foo", "bar"] });
+	same(count("foo"), `COUNT("foo")`);
+	same(count(["foo", "bar"]), `COUNT("foo", "bar")`);
 
 	end();
 });

@@ -1,5 +1,5 @@
 import { isObject, isArray } from "@nore/std/assert";
-import { quote } from "../helpers.js";
+import { quote } from "../utils";
 
 export default function $between({ where, column, joiner, query, parse }) {
 	if (isArray(where)) {

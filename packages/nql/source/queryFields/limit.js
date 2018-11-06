@@ -5,5 +5,5 @@ export default (data, query, build) => {
 
 	if (!isNumber(count)) return "";
 
-	return { sql: `LIMIT ?`, values: [count] };
+	return [`LIMIT ?`, [count]];
 };

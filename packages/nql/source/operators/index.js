@@ -1,4 +1,4 @@
-import QueryFieldsMap from "../utils/QueryFieldsMap";
+import FieldsMap from "../utils/FieldsMap";
 import $is from "./$is.js";
 import $not from "./$not.js";
 import $or from "./$or.js";
@@ -16,7 +16,7 @@ import $notLike from "./$notLike.js";
 import $sql from "./$sql.js";
 import $between from "./$between.js";
 
-const operators = new QueryFieldsMap();
+const operators = new FieldsMap();
 
 operators.add("$is", $is);
 operators.add("$eq", $is);

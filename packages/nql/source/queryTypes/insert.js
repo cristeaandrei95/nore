@@ -1,6 +1,6 @@
 export default `
-	INSERT INTO
+	INSERT
 	{table}
-	{columns}
 	{values}
+	{where}
 `;

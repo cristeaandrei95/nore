@@ -1,6 +1,6 @@
 import { isObject, isArray, isString, isNumber } from "@nore/std/assert";
 import { keys } from "@nore/std/object";
-import { isNullOrBoolean } from "../helpers.js";
+import { isNullOrBoolean } from "../utils";
 import operators from "../operators";
 
 function parse(args) {
@@ -30,7 +30,7 @@ function parse(args) {
 }
 
 export default (data, query, build) => {
-	const options = {
+	const [sql, values] = parse({
 		// build and parse functions will be passed to operators
 		build,
 		parse,
@@ -44,9 +44,7 @@ export default (data, query, build) => {
 		joiner: " AND ",
 		isNot: false,
 		toWrap: false,
-	};
+	});
 
-	const [sql, values] = parse(options);
-
-	return { values, sql: sql && `WHERE ${sql}` };
+	return [sql && `WHERE ${sql}`, values];
 };

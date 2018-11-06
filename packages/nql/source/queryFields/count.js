@@ -1,12 +1,12 @@
 import { isArray } from "@nore/std/assert";
-import { quote, toParams } from "../helpers.js";
+import { quote } from "../utils";
 
 export default (data, query, build) => {
 	// array
 	if (isArray(data)) {
 		if (!data.length) return "";
 
-		return { sql: `COUNT(${toParams(data)})`, values: data };
+		return `COUNT(${data.map(quote).join(", ")})`;
 	}
 
 	// string
@@ -14,5 +14,5 @@ export default (data, query, build) => {
 		return `COUNT(*)`;
 	}
 
-	return !data ? "" : { sql: `COUNT(?)`, values: [data] };
+	return !data ? "" : `COUNT(${quote(data)})`;
 };

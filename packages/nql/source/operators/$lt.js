@@ -1,5 +1,5 @@
 import { isObject } from "@nore/std/assert";
-import { quote } from "../helpers.js";
+import { quote } from "../utils";
 
 export default function $lt({ where, column, joiner, query, parse, build }) {
 	if (isObject(where)) {

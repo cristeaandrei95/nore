@@ -1,10 +1,10 @@
-import QueryTypesMap from "../utils/QueryTypesMap";
+import TypesMap from "../utils/TypesMap";
 import insert from "./insert.js";
 import select from "./select.js";
 import update from "./update.js";
 import delete_ from "./delete.js";
 
-const queryTypes = new QueryTypesMap();
+const queryTypes = new TypesMap();
 
 queryTypes.add("insert", insert);
 queryTypes.add("select", select);

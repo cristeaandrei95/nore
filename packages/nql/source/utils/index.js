@@ -1,5 +1,5 @@
-export function toParams(values) {
-	return values.map(v => "?").join(", ");
+export function toQMarks(list) {
+	return list.map(e => "?").join(", ");
 }
 
 export function quote(value) {
