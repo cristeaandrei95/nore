@@ -15,24 +15,3 @@ export function getTemporaryFile() {
 	const path = `${tmpdir()}/${rndStr()}.sqlite`;
 	return { path, delete: () => unlinkSync(path) };
 }
-
-export function getRandomData(columns, n = 100) {
-	return Array.from(Array(n)).map(e => {
-		const data = {};
-
-		for (const key in columns) {
-			const { name, type, isNullable, isPrimaryKey } = columns[key];
-
-			data[name] = getValue(type, isNullable !== false && !isPrimaryKey);
-		}
-
-		return data;
-	});
-}
-
-function getValue(type, isNullable) {
-	if (isNullable && rndInt() < 50) return null;
-	if (type == "real") return Math.random();
-	if (type == "integer") return rndInt(10000, 999999999999);
-	if (type == "text") return rndStr(rndInt(8, 32));
-}

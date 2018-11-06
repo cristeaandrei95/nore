@@ -5,12 +5,12 @@ export default (data, query, build) => {
 	const values = [];
 
 	for (const key in data) {
-		const value = data[key];
-		const sql = quote(key) + " = " + (value === null ? "NULL" : "?");
+		const isNull = data[key] === null;
+		const sql = quote(key) + " = " + (isNull ? "NULL" : "?");
 
 		updates.push(sql);
 
-		if (value !== null) values.push(value);
+		if (!isNull) values.push(data[key]);
 	}
 
 	return [`SET ${updates.join(", ")}`, values];

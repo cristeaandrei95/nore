@@ -1,21 +1,21 @@
 import { keys, first } from "@nore/std/object";
 import { isArray } from "@nore/std/array";
 import nql from "@nore/nql";
-import { toSQL } from "./utils/definitions.js";
+import defs from "./utils/definitions.js";
 import Indexes from "./Indexes.js";
 import Columns from "./Columns.js";
 
 export default class Table {
 	constructor({ name, db }) {
 		this.tableName = name;
-		this.isDropped = false;
+		this.isDeleted = false;
 		this.db = db;
 		this.indexes = new Indexes(this);
 		this.columns = new Columns(this);
 	}
 
 	get name() {
-		if (this.isDropped) {
+		if (this.isDeleted) {
 			throw Error(`Table ${this.tableName} was deleted.`);
 		}
 
@@ -23,7 +23,7 @@ export default class Table {
 	}
 
 	async create(definitions) {
-		const columns = toSQL(definitions);
+		const columns = defs.toSQL(definitions);
 		const sql = `CREATE TABLE "${this.name}" (${columns})`;
 
 		return this.db.run(sql);
@@ -31,54 +31,13 @@ export default class Table {
 
 	async drop() {
 		this.db.run(`DROP TABLE ${this.name}`);
-		this.isDropped = true;
+		return (this.isDeleted = true);
 	}
 
 	async rename(name) {
 		const sql = `ALTER TABLE ${this.name} RENAME TO ${name}`;
 		this.tableName = name;
 		return this.db.run(sql);
-	}
-
-	async insert(data) {
-		if (!isArray(data)) data = [data];
-
-		const columns = keys(data[0]);
-		const entries = [];
-		const values = [];
-
-		for (const entry of data) {
-			entries.push(`(${columns.map(e => "?").join(", ")})`);
-			values.push.apply(values, columns.map(e => entry[e]));
-		}
-
-		return this.db.run(
-			`INSERT INTO ${this.name} (${columns}) VALUES ${entries.join(", ")}`,
-			values
-		);
-	}
-
-	async find(query, filters = {}) {
-		const { sql, values } = nql({
-			type: "select",
-			table: this.name,
-			where: query,
-			...filters,
-		});
-
-		return this.db.getAll(sql, values);
-	}
-
-	async findById(id, filters = {}) {
-		let columns = "*";
-
-		if (filters.columns) {
-			columns = filters.columns.map(name => `"${name}"`).join(", ");
-		}
-
-		const sql = `SELECT ${columns} FROM ${this.name} WHERE "id" == ?`;
-
-		return this.db.get(sql, [id]);
 	}
 
 	async count(target = "*", filters = {}) {
@@ -91,11 +50,63 @@ export default class Table {
 			.then(result => first(result));
 	}
 
-	async update(data, query) {
-		const { sql, values } = nql({
-			type: "update",
-			where: query,
+	async insert(data) {
+		const [sql, values] = nql({
+			type: "insert",
+			table: this.name,
 			values: data,
+		});
+
+		return this.db.run(sql, values);
+	}
+
+	async query(sql, values = []) {
+		return this.db.getAll(sql, values);
+	}
+
+	async find(query, filters = {}) {
+		const [sql, values] = nql({
+			type: "select",
+			table: this.name,
+			where: query,
+			columns: filters.columns || "*",
+			orderBy: filters.orderBy,
+			groupBy: filters.groupBy,
+			limit: filters.limit,
+			offset: filters.offset,
+			distinct: filters.distinct,
+		});
+
+		return this.db.getAll(sql, values);
+	}
+
+	async findById(id, filters = {}) {
+		const [sql, values] = nql({
+			type: "select",
+			table: this.name,
+			where: { id },
+			columns: filters.columns || "*",
+		});
+
+		return this.db.get(sql, values);
+	}
+
+	async update(data, query) {
+		const [sql, values] = nql({
+			type: "update",
+			table: this.name,
+			set: data,
+			where: query,
+		});
+
+		return this.db.run(sql, values);
+	}
+
+	async delete(query) {
+		const [sql, values] = nql({
+			type: "delete",
+			table: this.name,
+			where: query,
 		});
 
 		return this.db.run(sql, values);
