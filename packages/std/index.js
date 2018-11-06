@@ -6,12 +6,10 @@ import * as path from "./path";
 import * as string from "./string";
 import * as time from "./time";
 import * as assert from "./assert";
-import * as util from "./util";
+import * as utils from "./utils";
 
-export { array, error, fs, path, string, time, util, assert };
+export { array, error, fs, path, string, time, utils, assert };
 
-// utilities
-import clone from "./util/clone.js";
-import typeOf from "./util/typeOf.js";
-
-export { clone, typeOf };
+// utilsities
+export { default as clone } from "./utils/clone.js";
+export { default as typeOf } from "./utils/typeOf.js";
