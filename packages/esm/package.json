@@ -16,7 +16,7 @@
 	},
 
 	"dependencies": {
-		"acorn": "^6.0.2"
+		"acorn": "^6.0.4"
 	},
 	"devDependencies": {
 		"tap": "^12.0.1"
