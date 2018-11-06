@@ -1,7 +1,7 @@
 import { ArgumentError } from "../error";
 import { isObject, isArray } from "../assert";
 import { union } from "../array";
-import { typeOf, clone } from "../util";
+import { typeOf, clone } from "../utils";
 
 const { keys } = Object;
 
