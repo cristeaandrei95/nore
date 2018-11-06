@@ -1,7 +1,7 @@
 import { isObject } from "@nore/std/assert";
 import queryTypes from "./queryTypes";
 import queryFields from "./queryFields";
-import { normalizeQuery } from "./helpers.js";
+import { normalizeQuery } from "./utils";
 
 export default function build(query = {}) {
 	if (!queryTypes.has(query.type)) {
@@ -33,5 +33,5 @@ export default function build(query = {}) {
 		}
 	}
 
-	return { values, sql: blocks.join(" ") };
+	return [blocks.join(" "), values];
 }

@@ -1,5 +1,4 @@
 import { test, only } from "tap";
-import build from "../source";
 import queryFields from "../source/queryFields";
 
 test("table", ({ end, equal, same }) => {

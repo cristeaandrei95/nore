@@ -1,4 +1,4 @@
-import { QueryTypesMap } from "../helpers.js";
+import QueryTypesMap from "../utils/QueryTypesMap";
 import insert from "./insert.js";
 import select from "./select.js";
 import update from "./update.js";

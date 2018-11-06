@@ -126,20 +126,20 @@ test("$and", ({ end, equal, same }) => {
 	end();
 });
 
-test("$null", ({ end, equal, same }) => {
+test("$isNull", ({ end, equal, same }) => {
 	const cases = [
 		{
-			where: { foo: { $null: true } },
+			where: { foo: { $isNull: true } },
 			sql: `"foo" IS NULL`,
 			values: [],
 		},
 		{
-			where: { foo: { $null: false } },
+			where: { foo: { $isNull: false } },
 			sql: `"foo" IS NOT NULL`,
 			values: [],
 		},
 		{
-			where: { $null: ["foo", "bar"] },
+			where: { $isNull: ["foo", "bar"] },
 			sql: `"foo" IS NULL AND "bar" IS NULL`,
 			values: [],
 		},

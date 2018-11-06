@@ -1,9 +1,9 @@
-import { QueryFieldsMap } from "../helpers.js";
+import QueryFieldsMap from "../utils/QueryFieldsMap";
 import $is from "./$is.js";
 import $not from "./$not.js";
 import $or from "./$or.js";
 import $and from "./$and.js";
-import $null from "./$null.js";
+import $isNull from "./$isNull.js";
 import $lt from "./$lt.js";
 import $lte from "./$lte.js";
 import $gt from "./$gt.js";
@@ -21,24 +21,30 @@ const operators = new QueryFieldsMap();
 operators.add("$is", $is);
 operators.add("$eq", $is);
 operators.add("$equal", $is);
+
 operators.add("$not", $not);
 operators.add("$ne", $not);
 operators.add("$notEqual", $not);
+
 operators.add("$or", $or);
 operators.add("$and", $and);
-operators.add("$null", $null);
+
 operators.add("$lt", $lt);
 operators.add("$lte", $lte);
 operators.add("$gt", $gt);
 operators.add("$gte", $gte);
+operators.add("$isNull", $isNull);
+
 operators.add("$in", $in);
 operators.add("$nin", $notIn);
 operators.add("$notIn", $notIn);
-operators.add("$match", $match);
+operators.add("$between", $between);
+
 operators.add("$like", $like);
 operators.add("$notLike", $notLike);
 operators.add("$nlike", $notLike);
+operators.add("$match", $match);
+
 operators.add("$sql", $sql);
-operators.add("$between", $between);
 
 export default operators;

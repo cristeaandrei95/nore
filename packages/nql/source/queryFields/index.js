@@ -1,4 +1,4 @@
-import { QueryFieldsMap } from "../helpers.js";
+import QueryFieldsMap from "../utils/QueryFieldsMap";
 import distinct from "./distinct.js";
 import columns from "./columns.js";
 import table from "./table.js";

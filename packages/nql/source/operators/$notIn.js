@@ -1,7 +1,7 @@
 import { isArray, isObject } from "@nore/std/assert";
 import { isNullOrBoolean, toUpperCase, quote } from "../helpers.js";
 
-export default function $in({ where, column, joiner, query, parse, build }) {
+export default function $notIn({ where, column, joiner, query, parse, build }) {
 	// array
 	if (isArray(where)) {
 		const values = where.filter(Boolean);
@@ -10,13 +10,13 @@ export default function $in({ where, column, joiner, query, parse, build }) {
 
 		if (values.length) {
 			conditions.push(
-				`${quote(column)} IN (${values.map(i => "?").join(", ")})`
+				`${quote(column)} NOT IN (${values.map(i => "?").join(", ")})`
 			);
 		}
 
 		if (special.length) {
 			conditions.push(
-				...special.map(v => `${quote(column)} IS ${toUpperCase(v)}`)
+				...special.map(v => `${quote(column)} IS NOT ${toUpperCase(v)}`)
 			);
 		}
 
@@ -25,8 +25,8 @@ export default function $in({ where, column, joiner, query, parse, build }) {
 
 	// sub-query
 	if (isObject(where)) {
-		const { sql, values } = build(where);
+		const [sql, values] = build(where);
 
-		return [`${quote(column)} IN (${sql})`, values];
+		return [`${quote(column)} NOT IN (${sql})`, values];
 	}
 }
