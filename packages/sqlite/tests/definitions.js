@@ -1,5 +1,5 @@
 import { test } from "tap";
-import * as defs from "../source/util/definitions.js";
+import * as defs from "../source/utils/definitions.js";
 
 const sample = [
 	{ name: "zero", type: "integer" },

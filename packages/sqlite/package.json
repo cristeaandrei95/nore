@@ -11,7 +11,7 @@
 	"main": "source/index.js",
 
 	"dependencies": {
-		"@nore/mosql": "^1.0.0",
+		"@nore/nql": "^1.0.0",
 		"cuid": "^2.1.4",
 		"better-sqlite3": "^5.0.1"
 	},

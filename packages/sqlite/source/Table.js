@@ -1,6 +1,7 @@
 import { keys, first } from "@nore/std/object";
 import { isArray } from "@nore/std/array";
-import { toSQL } from "./util/definitions.js";
+import nql from "@nore/nql";
+import { toSQL } from "./utils/definitions.js";
 import Indexes from "./Indexes.js";
 import Columns from "./Columns.js";
 
@@ -57,11 +58,22 @@ export default class Table {
 		);
 	}
 
-	async findById(id, options = {}) {
+	async find(query, filters = {}) {
+		const { sql, values } = nql({
+			type: "select",
+			table: this.name,
+			where: query,
+			...filters,
+		});
+
+		return this.db.getAll(sql, values);
+	}
+
+	async findById(id, filters = {}) {
 		let columns = "*";
 
-		if (options.columns) {
-			columns = options.columns.map(name => `"${name}"`).join(", ");
+		if (filters.columns) {
+			columns = filters.columns.map(name => `"${name}"`).join(", ");
 		}
 
 		const sql = `SELECT ${columns} FROM ${this.name} WHERE "id" == ?`;
@@ -69,13 +81,23 @@ export default class Table {
 		return this.db.get(sql, [id]);
 	}
 
-	async count(target = "*", options = {}) {
-		if (options.isDistinct) {
+	async count(target = "*", filters = {}) {
+		if (filters.isDistinct) {
 			target = `DISTINCT ${target}`;
 		}
 
 		return this.db
 			.get(`SELECT COUNT(${target}) FROM ${this.name}`)
 			.then(result => first(result));
+	}
+
+	async update(data, query) {
+		const { sql, values } = nql({
+			type: "update",
+			where: query,
+			values: data,
+		});
+
+		return this.db.run(sql, values);
 	}
 }

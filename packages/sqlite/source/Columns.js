@@ -1,6 +1,6 @@
 import { flatten } from "@nore/std/array";
-import { parse, toDefinitions } from "./util/definitions.js";
-import alterColumn from "./util/alterColumn.js";
+import { parse, toDefinitions } from "./utils/definitions.js";
+import alterColumn from "./utils/alterColumn.js";
 
 export default class Columns {
 	constructor(table) {

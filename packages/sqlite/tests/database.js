@@ -1,5 +1,5 @@
 import { test, tearDown } from "tap";
-import { rndStr, getTemporaryFile } from "./util";
+import { rndStr, getTemporaryFile } from "./utils";
 import Database, { timestamp, uid } from "../source";
 
 const dbFile = getTemporaryFile();

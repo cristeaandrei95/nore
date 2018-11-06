@@ -1,5 +1,5 @@
 import { test, tearDown } from "tap";
-import { rndInt, rndStr } from "./util";
+import { rndInt, rndStr } from "./utils";
 import getFixtures from "./fixtures";
 
 const { dbFile, db, tableName, columns, samples } = getFixtures(50);
@@ -25,6 +25,12 @@ test("table", async ({ end, equal, same, ok, throws }) => {
 	var sample = samples[rndInt(0, 50 - 1)];
 	var result = await table.findById(sample.id, { columns: ["id", "sit"] });
 	same(result, { id: sample.id, sit: sample.sit });
+
+	// find
+	var sample = samples[rndInt(0, 50 - 1)];
+	var result = await table.find({ id: sample.id }, { columns: ["id", "sit"] });
+	equal(result.length, 1);
+	same(result[0], { id: sample.id, sit: sample.sit });
 
 	// rename table
 	var result = await table.rename(rndStr());

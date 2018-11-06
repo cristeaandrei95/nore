@@ -1,4 +1,4 @@
-import { rndStr, getTemporaryFile, getRandomData } from "./util";
+import { rndStr, getTemporaryFile, getRandomData } from "./utils";
 import Database from "../source";
 
 export default count => {

@@ -1,6 +1,6 @@
 import { test, tearDown } from "tap";
 import { SQLite } from "../source";
-import { getTemporaryFile } from "./util";
+import { getTemporaryFile } from "./utils";
 
 const dbFile = getTemporaryFile();
 

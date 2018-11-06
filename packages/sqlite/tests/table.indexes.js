@@ -1,5 +1,5 @@
 import { test, tearDown } from "tap";
-import { rndInt, rndStr } from "./util";
+import { rndInt, rndStr } from "./utils";
 import getFixtures from "./fixtures";
 
 const { dbFile, db, tableName, columns, samples } = getFixtures(50);
