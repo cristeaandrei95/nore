@@ -3,11 +3,10 @@ import queryFields from "../source/queryFields";
 
 test("table", ({ end, equal, same }) => {
 	const table = queryFields.get("table");
-	const query = { type: "select" };
 
-	equal(table("foo", { type: "insert" }), `INTO "foo"`);
-	equal(table("foo", query), `FROM "foo"`);
-	equal(table({ name: "foo", as: "bar" }, query), `FROM "foo" AS "bar"`);
+	equal(table("foo"), `"foo"`);
+	equal(table("foo"), `"foo"`);
+	equal(table({ name: "foo", as: "bar" }), `"foo" AS "bar"`);
 
 	end();
 });
@@ -30,28 +29,21 @@ test("columns", ({ end, equal, same }) => {
 	end();
 });
 
-test("values", ({ end, same }) => {
-	const values = queryFields.get("values");
-
-	same(values({ foo: "bar", lorem: "ipsum" }), [
-		`("foo", "lorem") VALUES (?, ?)`,
-		["bar", "ipsum"],
-	]);
-
-	end();
-});
-
 test("distinct", ({ end, equal }) => {
 	const distinct = queryFields.get("distinct");
+
 	equal(distinct(false), ``);
 	equal(distinct(true), `DISTINCT`);
+
 	end();
 });
 
 test("ifExists", ({ end, equal }) => {
 	const ifExists = queryFields.get("ifExists");
+
 	equal(ifExists(false), ``);
 	equal(ifExists(true), `IF EXISTS`);
+
 	end();
 });
 
@@ -76,8 +68,8 @@ test("orderBy", ({ end, equal }) => {
 	equal(orderBy({ $asc: ["foo", "bar"] }), `ORDER BY "foo", "bar" ASC`);
 	equal(orderBy({ $desc: ["foo", "bar"] }), `ORDER BY "foo", "bar" DESC`);
 	equal(
-		orderBy({ $asc: ["foo", "bar"], baz: "desc", beep: "asc" }),
-		`ORDER BY "foo", "bar", "beep" ASC, "baz" DESC`
+		orderBy({ $asc: ["foo", "bar"], baz: "desc", lorem: "asc" }),
+		`ORDER BY "foo", "bar", "lorem" ASC, "baz" DESC`
 	);
 	equal(orderBy("foo"), `ORDER BY "foo"`);
 	equal(orderBy(""), "");
@@ -129,6 +121,34 @@ test("count", ({ end, equal, same }) => {
 	equal(count("*"), `COUNT(*)`);
 	same(count("foo"), `COUNT("foo")`);
 	same(count(["foo", "bar"]), `COUNT("foo", "bar")`);
+
+	end();
+});
+
+test("values", ({ end, same }) => {
+	const values = queryFields.get("values");
+
+	same(values({ foo: "bar", lorem: "ipsum" }), [
+		`("foo", "lorem") VALUES (?, ?)`,
+		["bar", "ipsum"],
+	]);
+
+	same(values({ foo: "bar", lorem: null, ipsum: 25 }), [
+		`("foo", "lorem", "ipsum") VALUES (?, NULL, ?)`,
+		["bar", 25],
+	]);
+
+	end();
+});
+
+test("set", ({ end, same }) => {
+	const set = queryFields.get("set");
+
+	same(set({ foo: "bar" }), [`SET "foo" = ?`, ["bar"]]);
+	same(set({ foo: "bar", lorem: null, ipsum: 25 }), [
+		`SET "foo" = ?, "lorem" = NULL, "ipsum" = ?`,
+		["bar", 25],
+	]);
 
 	end();
 });

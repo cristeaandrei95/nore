@@ -1,11 +1,10 @@
 import { isArray, isObject } from "@nore/std/assert";
+import { quote } from "../utils";
 
 export default (data, query, build) => {
-	const prefix = query.type === "insert" ? "INTO" : "FROM";
-
 	if (isObject(data)) {
-		return `${prefix} "${data.name}" AS "${data.as}"`;
+		return `${quote(data.name)} AS ${quote(data.as)}`;
 	}
 
-	return `${prefix} "${data}"`;
+	return quote(data);
 };

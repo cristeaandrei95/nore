@@ -10,6 +10,7 @@ import table from "./table.js";
 import where from "./where.js";
 import limit from "./limit.js";
 import count from "./count.js";
+import set from "./set.js";
 
 const queryFields = new FieldsMap();
 
@@ -24,5 +25,6 @@ queryFields.add("table", table);
 queryFields.add("where", where);
 queryFields.add("limit", limit);
 queryFields.add("count", count);
+queryFields.add("set", set);
 
 export default queryFields;

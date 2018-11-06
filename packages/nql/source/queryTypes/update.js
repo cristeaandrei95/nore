@@ -1,6 +1,5 @@
 export default `
-	UPDATE
-	{table}
-	{values}
+	UPDATE {table}
+	{set}
 	{where}
 `;

@@ -13,8 +13,8 @@ export default function build(query = {}) {
 
 	for (const field of queryTypes.get(query.type)) {
 		if (queryFields.has(field)) {
-			// ignore field if no data was passed
-			if (typeof query[field] === "undefined") continue;
+			// ignore field if invalid data is passed
+			if (query[field] == null) continue;
 
 			const handler = queryFields.get(field);
 			const result = handler(query[field], query, build);
@@ -26,7 +26,7 @@ export default function build(query = {}) {
 				blocks.push(result);
 			}
 		}
-		// ignore field if no query field handler was implemented
+		// push field if handler was implemented
 		else {
 			blocks.push(field);
 		}

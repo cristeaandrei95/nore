@@ -3,8 +3,19 @@ import { quote, toQMarks } from "../utils";
 
 export default (data, query, build) => {
 	const columns = keys(data).map(quote);
-	const values = keys(data).map(e => data[e]);
-	const placeholders = toQMarks(columns);
+	const params = [];
+	const values = [];
 
-	return [`(${columns.join(", ")}) VALUES (${placeholders})`, values];
+	for (const key in data) {
+		const value = data[key];
+
+		if (value === null) {
+			params.push("NULL");
+		} else {
+			params.push("?");
+			values.push(value);
+		}
+	}
+
+	return [`(${columns.join(", ")}) VALUES (${params.join(", ")})`, values];
 };

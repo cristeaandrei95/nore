@@ -5,13 +5,13 @@ import queryTypes from "../source/queryTypes";
 test("select", ({ end, equal, same }) => {
 	const result = build({
 		type: "select",
-		table: "users",
+		table: "demo",
 		count: "*",
-		where: { county: "Harris" },
+		where: { lorem: "ipsum" },
 	});
 	const expected = [
-		`SELECT COUNT(*) FROM "users" WHERE "county" == ?`,
-		["Harris"],
+		`SELECT COUNT(*) FROM "demo" WHERE "lorem" == ?`,
+		["ipsum"],
 	];
 
 	same(result, expected);
@@ -22,14 +22,42 @@ test("insert", ({ end, equal, same }) => {
 	const result = build({
 		type: "insert",
 		table: "foo",
-		values: { foo: "one", bar: "two" },
-		where: { age: { $between: [21, 35] } },
+		values: { foo: "bar", lorem: null, ipsum: 25 },
 	});
 
 	const expected = [
-		'INSERT INTO "foo" ("foo", "bar") VALUES (?, ?) WHERE "age" BETWEEN ? AND ?',
-		["one", "two", 21, 35],
+		'INSERT INTO "foo" ("foo", "lorem", "ipsum") VALUES (?, NULL, ?)',
+		["bar", 25],
 	];
+
+	same(result, expected);
+	end();
+});
+
+test("update", ({ end, equal, same }) => {
+	const result = build({
+		type: "update",
+		table: "demo",
+		set: { foo: "bar", lorem: null, ipsum: 25 },
+	});
+
+	const expected = [
+		`UPDATE "demo" SET "foo" = ?, "lorem" = NULL, "ipsum" = ?`,
+		["bar", 25],
+	];
+
+	same(result, expected);
+	end();
+});
+
+test("delete", ({ end, equal, same }) => {
+	const result = build({
+		type: "delete",
+		table: "demo",
+		where: { lorem: "ipsum" },
+	});
+
+	const expected = [`DELETE FROM "demo" WHERE "lorem" == ?`, ["ipsum"]];
 
 	same(result, expected);
 	end();
