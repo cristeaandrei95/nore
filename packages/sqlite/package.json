@@ -12,6 +12,7 @@
 
 	"dependencies": {
 		"@nore/nql": "^1.0.0",
+		"xql": "^1.4.10",
 		"cuid": "^2.1.4",
 		"better-sqlite3": "^5.0.1"
 	},

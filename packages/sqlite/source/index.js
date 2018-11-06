@@ -1,7 +1,9 @@
 import cuid from "cuid";
-import SQLite from "./SQLite.js";
+import * as nql from "@nore/nql";
 import timestamp from "./utils/timestamp.js";
+import xql from "./utils/xql.js";
 import Database from "./Database.js";
+import SQLite from "./SQLite.js";
 
-export { SQLite, timestamp, cuid as uid };
+export { SQLite, timestamp, xql, nql, cuid as uid };
 export default Database;
