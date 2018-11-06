@@ -27,6 +27,7 @@ test("Database()", async ({ end, ok, same }) => {
 
 	ok(typeof timestamp() === "string");
 	ok(timestamp().length === 17);
+	ok(timestamp(new Date()).length === 17);
 
 	var result = await db.list();
 	same(result, tables);
