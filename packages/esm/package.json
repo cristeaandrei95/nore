@@ -1,7 +1,7 @@
 {
 	"name": "@nore/esm",
 	"description": "Converts ES Modules to CommonJS at runtime",
-	"version": "2.1.1",
+	"version": "2.2.0",
 
 	"author": "Navaru",
 	"license": "ISC",
