@@ -1,12 +1,15 @@
+const { join } = require("path");
 const { parse } = require("acorn");
 
 const isArray = Array.isArray;
 const getKeys = Object.keys;
-const cwd = process.env.PROJECT_PATH || process.cwd();
+const cwd = process.cwd();
+const source = process.env.ES_SOURCE_PATH || "";
+const path = source[0] === "/" ? source : join(cwd, source);
 
 function setRequirePath(request) {
-	if (request.charAt(0) === "~") {
-		return request.replace("~", cwd);
+	if (request[0] === "~") {
+		return request.replace("~", path);
 	} else {
 		return request;
 	}
