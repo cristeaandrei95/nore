@@ -5,5 +5,5 @@ import xql from "./utils/xql.js";
 import Database from "./Database.js";
 import SQLite from "./SQLite.js";
 
-export { SQLite, timestamp, xql, nql, cuid as uid };
+export { SQLite, nql, xql, timestamp, cuid as uid };
 export default Database;

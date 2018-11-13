@@ -1,7 +1,7 @@
 {
 	"name": "@nore/sqlite",
 	"description": "Nore SQLite API",
-	"version": "1.0.0",
+	"version": "1.0.1",
 
 	"author": "Navaru",
 	"license": "MIT",
@@ -12,7 +12,7 @@
 
 	"dependencies": {
 		"@nore/nql": "^1.0.0",
-		"xql": "^1.4.10",
+		"xql": "^1.4.12",
 		"cuid": "^2.1.4",
 		"better-sqlite3": "^5.0.1"
 	},

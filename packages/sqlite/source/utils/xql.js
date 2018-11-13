@@ -2,9 +2,8 @@ import xql from "xql";
 
 const ctx = xql.dialect.newContext({ dialect: "sqlite" });
 
-xql.node.Query.prototype.toSQL = function toSQL() {
-	return this.compileQuery(ctx);
+xql.node.QueryStatement.prototype.toSQL = function toSQL() {
+	return this.compileStatement(ctx);
 };
 
 export default xql;
-
