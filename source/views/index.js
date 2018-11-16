@@ -1,7 +1,10 @@
-import loadable from "loadable-components";
+import loadable from "@loadable/component";
 import React, { Component } from "react";
 import { Scope, Link } from "@nore/pwa";
 import $ from "./style.css";
+
+const Playground = loadable(() => import("./playground"));
+const Design = loadable(() => import("./design"));
 
 export default (
 	<b class={$.page}>
@@ -12,10 +15,7 @@ export default (
 			</b>
 		</Scope>
 
-		<Scope
-			match="/playground"
-			render={loadable(() => import("./playground"))}
-		/>
+		<Scope match="/playground" render={Playground} />
+		<Scope match="/design" render={Design} />
 	</b>
 );
-// <Scope match="/design" render={loadable(() => import("./design"))} />

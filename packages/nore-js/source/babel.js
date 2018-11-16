@@ -43,7 +43,7 @@ export default async bundle => {
 		"babel-plugin-macros",
 
 		// code splitting via the dynamic import syntax
-		"loadable-components/babel",
+		"@loadable/babel-plugin",
 	];
 
 	// like: @babel/preset-react
