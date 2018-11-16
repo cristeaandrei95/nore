@@ -15,18 +15,19 @@
 	},
 
 	"dependencies": {
+		"@nore/esm": "^2.3.0",
 		"dumper.js": "^1.2.0",
-		"@nore/esm": "^2.1.1",
-		"pino": "^5.8.0",
+		"getopts": "^2.2.3",
+		"respawn": "^2.5.0",
+		"pino": "^5.8.1",
 		"toml": "^2.3.3",
 		"js-yaml": "^3.12.0",
-		"respawn": "^2.5.0",
-		"getopts": "^2.2.3",
 		"webpack": "^4.25.1",
 		"webpack-merge": "^4.1.4",
-		"webpack-dev-middleware": "^3.4.0",
 		"webpack-hot-client": "^4.1.1",
 		"webpack-node-externals": "^1.7.2",
+		"webpack-dev-middleware": "^3.4.0",
+		"serve-handler": "^5.0.7",
 		"friendly-errors-webpack-plugin": "^1.7.0",
 		"case-sensitive-paths-webpack-plugin": "^2.1.2"
 	}

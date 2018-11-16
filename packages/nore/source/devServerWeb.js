@@ -1,5 +1,6 @@
 import WebpackDevMiddleware from "webpack-dev-middleware";
 import WebpackHMR from "webpack-hot-client";
+import serve from "serve-handler";
 import { Server } from "http";
 import { isFile } from "@nore/std/fs";
 import { parse } from "@nore/std/url";
