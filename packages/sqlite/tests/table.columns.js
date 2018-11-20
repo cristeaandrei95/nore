@@ -1,13 +1,22 @@
 import { test, tearDown } from "tap";
-import { rndInt, rndStr } from "./utils";
-import getFixtures from "./fixtures";
+import Database from "../source";
+import { rndInt, rndStr, getTemporaryFile, getRandomData } from "./utils";
 
-const { dbFile, db, tableName, columns, samples } = getFixtures(50);
+const columns = [
+	{ name: "id", type: "text", isPrimaryKey: true },
+	{ name: "lorem", type: "text", isUnique: true },
+	{ name: "ipsum", type: "real", default: 100 },
+	{ name: "baz", type: "text", foreignKey: ["foo", "bar"] },
+];
 
-tearDown(() => dbFile.delete());
+const samples = getRandomData(columns, 50);
+const dbFile = getTemporaryFile();
+const db = new Database({ file: dbFile.path });
+const table = db.table(rndStr());
 
 test("table.columns", async ({ end, equal, same, ok, throws }) => {
-	const table = db.table(tableName);
+	// create sample table used for foreign key constraint
+	db.table("foo").create([{ name: "bar", isPrimaryKey: true }]);
 
 	// create table and insert sample data
 	await table.create(columns);
@@ -15,11 +24,11 @@ test("table.columns", async ({ end, equal, same, ok, throws }) => {
 
 	// get columns
 	var result = await table.columns.getAll();
-	same(result.map(c => c.name), ["id", "lorem", "ipsum", "sit"]);
+	same(result.map(c => c.name), ["id", "lorem", "ipsum", "baz"]);
 
 	// get columns that are unique
 	var result = await table.columns.getAll({ isUnique: true });
-	same(result, ["lorem", "sit"]);
+	same(result, ["lorem"]);
 
 	// has column
 	equal(await table.columns.has("boo"), false);
@@ -39,7 +48,7 @@ test("table.columns", async ({ end, equal, same, ok, throws }) => {
 	await table.columns.set({ name: "dolor", type: "text" });
 
 	var result = await table.columns.getAll();
-	same(result.map(c => c.name), ["id", "lorem", "ipsum", "sit", "dolor"]);
+	same(result.map(c => c.name), ["id", "lorem", "ipsum", "baz", "dolor"]);
 
 	// update a column
 	await table.columns.set({ name: "dolor", type: "real", isUnique: true });
@@ -52,16 +61,18 @@ test("table.columns", async ({ end, equal, same, ok, throws }) => {
 	await table.columns.rename("dolor", "amet");
 
 	var result = await table.columns.getAll();
-	same(result.map(c => c.name), ["id", "lorem", "ipsum", "sit", "amet"]);
+	same(result.map(c => c.name), ["id", "lorem", "ipsum", "baz", "amet"]);
 
 	// delete a column
 	await table.columns.delete("lorem");
 
 	var result = await table.columns.getAll();
-	same(result.map(c => c.name), ["id", "ipsum", "sit", "amet"]);
+	same(result.map(c => c.name), ["id", "ipsum", "baz", "amet"]);
 
 	var result = await table.columns.getAll({ isUnique: true });
-	same(result, ["sit", "amet"]);
+	same(result, ["amet"]);
 
 	end();
 });
+
+tearDown(() => dbFile.delete());

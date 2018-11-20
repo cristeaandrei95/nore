@@ -6,7 +6,3 @@ export function getPlaceholders(n, hasParens) {
 
 	return hasParens ? `(${placeholders})` : placeholders;
 }
-
-export function quote(string) {
-	return `"${string}"`;
-}

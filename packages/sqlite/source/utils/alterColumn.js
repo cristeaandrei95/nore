@@ -1,71 +1,86 @@
-import { parse } from "./definitions.js";
+import parseCreateTableSQL from "./parseCreateTableSQL.js";
+import defsToSQL from "./defsToSQL.js";
 
-function parseCreateTable(sql) {
-	const [match] = sql.match(/\((.*)\)/g);
-	const [defs, uniques] = match.slice(1, -1).split(", UNIQUE ");
-	const definitions = defs.split(", ");
+function toSQLDefinitions({ columns, foreignKeys, uniques }) {
+	let sql = columns.join(", ");
 
-	return {
-		definitions,
-		columns: definitions.map(e => e.match(/^(".+")/)[0]),
-		uniques: uniques.slice(1, -1).split(", "),
-	};
-}
-
-function joinMeta(meta) {
-	for (const key in meta) {
-		meta[key] = meta[key].join(", ");
+	if (foreignKeys.length) {
+		sql += `, ${foreignKeys.join(", ")}`;
 	}
-	return meta;
+
+	if (uniques.length) {
+		sql += `, UNIQUE (${uniques.join(", ")})`;
+	}
+
+	return sql;
 }
 
-function updateAction(column, { definitions, columns, uniques }) {
-	definitions = definitions.map(
-		def => (def.includes(`"${column.name}"`) ? parse(column) : def)
+function getColumnsName(columns) {
+	return columns.map(definition => definition.match(/^("(.+)")/)[1]);
+}
+
+function updateTransform(column, createTableSQL) {
+	let { columns, foreignKeys, uniques } = parseCreateTableSQL(createTableSQL);
+	let quotedName = `"${column.name}"`;
+
+	// set the updated definition
+	columns = columns.map(def =>
+		def.indexOf(quotedName) === 0 ? defsToSQL.toDefinition(column) : def
 	);
 
-	if (column.isUnique && !uniques.includes(column.name)) {
-		uniques = uniques.concat(column.name);
-	} else if (!column.isUnique && uniques.includes(column.name)) {
-		uniques = uniques.filter(e => e !== column.name);
+	// add or remove from UNIQUE constraint
+	if (column.isUnique && !uniques.includes(quotedName)) {
+		uniques.push(quotedName);
+	} else if (!column.isUnique && uniques.includes(quotedName)) {
+		uniques = uniques.filter(e => e !== quotedName);
 	}
 
-	return joinMeta({ definitions, columns, uniques });
-}
+	// add or remove from FOREIGN KEY constraint
+	const isNameInForeignKey = e => e.indexOf(quotedName) === 13;
+	const isInKeys = foreignKeys.filter(isNameInForeignKey).length;
 
-function deleteAction(column, { definitions, columns, uniques }) {
-	const quotedColumn = `"${column}"`;
-
-	definitions = definitions.filter(def => !def.includes(quotedColumn));
-	columns = columns.filter(name => name !== quotedColumn);
-
-	if (uniques.includes(column)) {
-		uniques = uniques.filter(name => name !== column);
+	if (column.foreignKey && !isInKeys) {
+		foreignKeys.push(defsToSQL.toForeignKeys([column]));
+	} else if (!column.foreignKey && isInKeys) {
+		foreignKeys = foreignKeys.filter(e => !isNameInForeignKey(e));
 	}
 
-	return joinMeta({ definitions, columns, uniques });
+	return { columns, foreignKeys, uniques };
 }
 
-const actions = {
-	update: updateAction,
-	delete: deleteAction,
+function deleteTransform(column, createTableSQL) {
+	let { columns, foreignKeys, uniques } = parseCreateTableSQL(createTableSQL);
+
+	// match the index of the column name in: `FOREIGN KEY "column" ...`
+	foreignKeys = foreignKeys.filter(e => e.indexOf(column) !== 13);
+
+	// the column names are quoted so the index will be 1 to skip the quote
+	uniques = uniques.filter(e => e.indexOf(column) !== 1);
+	columns = columns.filter(e => e.indexOf(column) !== 1);
+
+	return { columns, foreignKeys, uniques };
+}
+
+const transformers = {
+	update: updateTransform,
+	delete: deleteTransform,
 };
 
 // procedure from: https://www.sqlite.org/lang_altertable.html
-async function procedure(table, action, column) {
+async function transaction(table, action, column) {
+	await table.db.pragma("foreign_keys = OFF");
+
 	const sqliteTableInfo = await table.db.getAll(
 		`SELECT type, sql FROM sqlite_master WHERE tbl_name == '${table.name}'`
 	);
 
-	const doAction = actions[action];
-	const meta = parseCreateTable(sqliteTableInfo[0].sql);
-	const { definitions, columns, uniques } = doAction(column, meta);
-
-	// construct SQL column definitions and unique columns
-	const sqlDefinitions = definitions + (uniques && `, UNIQUE (${uniques})`);
+	const transform = transformers[action];
+	const defs = transform(column, sqliteTableInfo[0].sql);
+	const sqlDefs = toSQLDefinitions(defs);
+	const columns = getColumnsName(defs.columns).join(", ");
 
 	// create a new table with the updated column definitions
-	await table.db.run(`CREATE TABLE "${table.name}__tmp" (${sqlDefinitions})`);
+	await table.db.run(`CREATE TABLE "${table.name}__tmp" (${sqlDefs})`);
 
 	// copy data from the old table to the new one
 	await table.db.run(
@@ -80,9 +95,11 @@ async function procedure(table, action, column) {
 		`ALTER TABLE "${table.name}__tmp" RENAME TO ${table.name}`
 	);
 
+	await table.db.pragma("foreign_keys = ON");
+
 	// TODO: use meta to CREATE INDEX and CREATE TRIGGER
 }
 
 export default async function alterColumn(table, type, column) {
-	return table.db.transaction(procedure)(table, type, column);
+	return table.db.transaction(transaction)(table, type, column);
 }

@@ -25,6 +25,9 @@ export default class SQLite {
 		if (options.useWAL !== false) {
 			this.pragma("journal_mode = WAL");
 		}
+
+		// enable "FOREIGN KEY" support
+		this.pragma("foreign_keys = ON");
 	}
 
 	async runRaw(sql) {

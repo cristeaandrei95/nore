@@ -1,44 +1,112 @@
 import { test } from "tap";
-import * as defs from "../source/utils/definitions.js";
+import defsToSQL from "../source/utils/defsToSQL.js";
+import metaToDefs from "../source/utils/metaToDefs.js";
+import parseCreateTableSQL from "../source/utils/parseCreateTableSQL.js";
 
-const sample = [
-	{ name: "zero", type: "integer" },
-	{ name: "one", default: "nomnomnom" },
-	{ name: "two", isNullable: false },
-	{ name: "three", isPrimaryKey: true },
-	{ name: "four", isUnique: true },
-	{ name: "five", isAutoIncrement: true },
-	{ name: "six", isUnique: true, type: "real" },
-];
+test("parseCreateTableSQL", ({ end, same }) => {
+	var result = parseCreateTableSQL(
+		`CREATE TABLE "test" ("id" TEXT PRIMARY KEY NOT NULL, UNIQUE ("id"))`
+	);
+	var expected = {
+		columns: [`"id" TEXT PRIMARY KEY NOT NULL`],
+		foreignKeys: [],
+		uniques: [`"id"`],
+	};
+	same(result, expected);
 
-const expected = [
-	`"zero" INTEGER`,
-	`"one" TEXT DEFAULT (nomnomnom)`,
-	`"two" TEXT NOT NULL`,
-	`"three" TEXT PRIMARY KEY NOT NULL`,
-	`"four" TEXT`,
-	`"five" INTEGER PRIMARY KEY AUTOINCREMENT`,
-	`"six" REAL`,
-];
+	var result = parseCreateTableSQL(
+		`CREATE TABLE "test" ("id" TEXT PRIMARY KEY NOT NULL, FOREIGN KEY ("baz") REFERENCES "foo" ("bar"))`
+	);
+	var expected = {
+		columns: [`"id" TEXT PRIMARY KEY NOT NULL`],
+		foreignKeys: [`FOREIGN KEY ("baz") REFERENCES "foo" ("bar")`],
+		uniques: [],
+	};
+	same(result, expected);
 
-test("parse", async ({ end, equal }) => {
-	sample.forEach((entry, i) => {
-		equal(defs.parse(entry), expected[i]);
-	});
+	var result = parseCreateTableSQL(
+		`CREATE TABLE "test" ("id" TEXT PRIMARY KEY NOT NULL, "lorem" TEXT, "ipsum" REAL DEFAULT 'foo, bar', "sit" INTEGER, "baz" TEXT, FOREIGN KEY ("baz") REFERENCES "foo" ("bar"), FOREIGN KEY ("hop") REFERENCES "foo" ("asd"), FOREIGN KEY ("gre") REFERENCES "foo" ("bvc"), UNIQUE ("lorem", "sit"))`
+	);
+	var expected = {
+		columns: [
+			`"id" TEXT PRIMARY KEY NOT NULL`,
+			`"lorem" TEXT`,
+			`"ipsum" REAL DEFAULT 'foo, bar'`,
+			`"sit" INTEGER`,
+			`"baz" TEXT`,
+		],
+		foreignKeys: [
+			`FOREIGN KEY ("baz") REFERENCES "foo" ("bar")`,
+			`FOREIGN KEY ("hop") REFERENCES "foo" ("asd")`,
+			`FOREIGN KEY ("gre") REFERENCES "foo" ("bvc")`,
+		],
+		uniques: [`"lorem"`, `"sit"`],
+	};
+	same(result, expected);
 
 	end();
 });
 
-test("toSQL", async ({ end, equal }) => {
-	const result = defs.toSQL(sample);
+test("defsToSQL", async ({ end, equal }) => {
+	equal(defsToSQL([{ name: "foo", type: "text" }]), `"foo" TEXT`);
+	equal(
+		defsToSQL([{ name: "foo", type: "text", isNullable: true }]),
+		`"foo" TEXT`
+	);
 
-	equal(result, `${expected.join(", ")}, UNIQUE (four, six)`);
+	equal(
+		defsToSQL([{ name: "foo", type: "text", default: "lorem" }]),
+		`"foo" TEXT DEFAULT 'lorem'`
+	);
+
+	equal(
+		defsToSQL([{ name: "foo", type: "text", isPrimaryKey: true }]),
+		`"foo" TEXT PRIMARY KEY NOT NULL`
+	);
+
+	equal(
+		defsToSQL([{ name: "foo", type: "integer", isAutoIncrement: true }]),
+		`"foo" INTEGER AUTOINCREMENT`
+	);
+
+	equal(
+		defsToSQL([{ name: "foo", type: "text", isNullable: false }]),
+		`"foo" TEXT NOT NULL`
+	);
+
+	equal(
+		defsToSQL([{ name: "foo", type: "text", isUnique: true }]),
+		`"foo" TEXT, UNIQUE ("foo")`
+	);
+
+	equal(
+		defsToSQL([{ name: "foo", type: "text", isPrimaryKey: ["lorem(ipsum)"] }]),
+		`"foo" TEXT PRIMARY KEY NOT NULL`
+	);
+
+	equal(
+		defsToSQL([{ name: "foo", foreignKey: ["lorem", "ipsum"] }]),
+		`"foo" TEXT, FOREIGN KEY ("foo") REFERENCES "lorem" ("ipsum")`
+	);
+
+	equal(
+		defsToSQL([
+			{ name: "foo", type: "text", isPrimaryKey: true },
+			{ name: "bar", type: "real", isUnique: true },
+			{ name: "baz", type: "text", default: "foobar" },
+			{ name: "lorem", type: "integer", foreignKey: ["baz", "sit"] },
+			{ name: "ipsum", type: "integer", foreignKey: ["baz", "dolor"] },
+		]),
+		`"foo" TEXT PRIMARY KEY NOT NULL, "bar" REAL, "baz" TEXT DEFAULT 'foobar', "lorem" INTEGER, "ipsum" INTEGER, FOREIGN KEY ("lorem") REFERENCES "baz" ("sit"), FOREIGN KEY ("ipsum") REFERENCES "baz" ("dolor"), UNIQUE ("bar")`
+	);
+
+	// equal(result, `${expected.join(", ")}, UNIQUE (four, six)`);
 	end();
 });
 
-test("toDefinitions", async ({ end, same }) => {
+test("metaToDefs", async ({ end, same }) => {
 	same(
-		defs.toDefinitions({
+		metaToDefs({
 			cid: 1,
 			name: "foo",
 			type: "TEXT",
@@ -57,7 +125,7 @@ test("toDefinitions", async ({ end, same }) => {
 	);
 
 	same(
-		defs.toDefinitions({
+		metaToDefs({
 			cid: 1,
 			name: "id",
 			type: "integer",

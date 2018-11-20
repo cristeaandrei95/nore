@@ -1,5 +1,6 @@
 import { flatten } from "@nore/std/array";
-import { parse, toDefinitions } from "./utils/definitions.js";
+import defsToSQL from "./utils/defsToSQL.js";
+import metaToDefs from "./utils/metaToDefs.js";
 import alterColumn from "./utils/alterColumn.js";
 
 export default class Columns {
@@ -13,7 +14,7 @@ export default class Columns {
 			return await alterColumn(this.table, "update", definition);
 		} else {
 			return this.db.run(
-				`ALTER TABLE ${this.table.name} ADD COLUMN ${parse(definition)}`
+				`ALTER TABLE ${this.table.name} ADD COLUMN ${defsToSQL([definition])}`
 			);
 		}
 	}
@@ -33,7 +34,7 @@ export default class Columns {
 		const columns = await this.getAll();
 		const uniques = await this.getAll({ isUnique: true });
 		const meta = columns.filter(c => c.name === name);
-		const column = toDefinitions(meta[0]);
+		const column = metaToDefs(meta[0]);
 
 		if (uniques.includes(column.name)) {
 			column.isUnique = true;

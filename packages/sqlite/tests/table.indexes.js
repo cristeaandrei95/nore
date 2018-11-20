@@ -1,13 +1,20 @@
 import { test, tearDown } from "tap";
-import { rndInt, rndStr } from "./utils";
-import getFixtures from "./fixtures";
+import Database from "../source";
+import { rndInt, rndStr, getRandomData, getTemporaryFile } from "./utils";
 
-const { dbFile, db, tableName, columns, samples } = getFixtures(50);
+const columns = [
+	{ name: "id", type: "text", isPrimaryKey: true },
+	{ name: "lorem", type: "text", isUnique: true },
+	{ name: "ipsum", type: "real", default: 100 },
+	{ name: "sit", type: "integer", isUnique: true },
+];
 
-tearDown(() => dbFile.delete());
+const samples = getRandomData(columns, 50);
+const dbFile = getTemporaryFile();
+const db = new Database({ file: dbFile.path });
 
 test("table.indexes", async ({ end, equal, same, ok, throws }) => {
-	const table = db.table(tableName);
+	const table = db.table(rndStr());
 
 	// create table
 	await table.create(columns);
@@ -48,3 +55,5 @@ test("table.indexes", async ({ end, equal, same, ok, throws }) => {
 
 	end();
 });
+
+tearDown(() => dbFile.delete());

@@ -1,7 +1,7 @@
 import { keys, first } from "@nore/std/object";
 import { isArray } from "@nore/std/array";
 import nql from "@nore/nql";
-import defs from "./utils/definitions.js";
+import defsToSQL from "./utils/defsToSQL.js";
 import Indexes from "./Indexes.js";
 import Columns from "./Columns.js";
 
@@ -23,7 +23,7 @@ export default class Table {
 	}
 
 	async create(definitions) {
-		const columns = defs.toSQL(definitions);
+		const columns = defsToSQL(definitions);
 		const sql = `CREATE TABLE "${this.name}" (${columns})`;
 
 		return this.db.run(sql);
