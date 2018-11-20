@@ -50,6 +50,6 @@ console.log(readFileSync('/etc/passwd', 'utf8'))
 
 ---
 
-> License [ISC](https://github.com/nore/esm/blob/master/license) &nbsp;&middot;&nbsp;
-> GitHub [@navaru](https://github.com/navaru) &nbsp;&middot;&nbsp;
+> License [ISC](https://github.com/ugin/nore/license.md) &nbsp;&middot;&nbsp;
+> GitHub [@ugin](https://github.com/ugin) &nbsp;&middot;&nbsp;
 > Twitter [@navaru](https://twitter.com/navaru)

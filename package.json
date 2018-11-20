@@ -1,11 +1,11 @@
 {
-	"name": "navaru.com",
-	"description": "navaru.com source code",
+	"name": "nore",
+	"description": "Web application development made easy",
 	"version": "1.0.0-alpha",
 
 	"author": "Eugen Tudorancea <eugen.tudorancea@gmail.com>",
 	"license": "SEE LICENSE IN license.md",
-	"repository": "https://github.com/ugin/navaru.com",
+	"repository": "https://github.com/ugin/nore",
 
 	"workspaces": ["packages/*"]
 }

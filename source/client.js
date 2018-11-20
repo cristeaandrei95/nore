@@ -6,7 +6,7 @@ import $ from "~/styles";
 const container = document.getElementById("application");
 
 const state = {
-	title: window.document.head.title || "navaru.com",
+	title: window.document.head.title || "Nore",
 	path: window.location.pathname,
 	query: qs.parse(window.location.search),
 	hash: window.location.hash,
