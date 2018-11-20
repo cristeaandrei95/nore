@@ -2,10 +2,9 @@
 	"name": "navaru.com",
 	"description": "navaru.com source code",
 	"version": "1.0.0-alpha",
-	"private": true,
 
 	"author": "Eugen Tudorancea <eugen.tudorancea@gmail.com>",
-	"license": "MIT",
+	"license": "SEE LICENSE IN license.md",
 	"repository": "https://github.com/ugin/navaru.com",
 
 	"workspaces": ["packages/*"]

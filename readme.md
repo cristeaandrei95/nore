@@ -1,5 +1,3 @@
-# navaru.com
+# Nore – web application development made easy
 
-[alpha version -- development in progress]
-
-Documentation: [nore/platform](https://paper.dropbox.com/doc/noreplatform-Ua8MZMfYP9OyEUWLCt513)
+This will be a paid product, please read the license.
