@@ -1,6 +1,6 @@
 import { test, only, tearDown } from "tap";
 import Database from "../source";
-import { rndInt, rndStr, getRandomData, getTemporaryFile } from "./utils";
+import * as util from "./utils";
 
 const columns = [
 	{ name: "id", type: "text", isPrimaryKey: true },
@@ -9,19 +9,19 @@ const columns = [
 	{ name: "sit", type: "integer" },
 ];
 
-const samples = getRandomData(columns, 50);
-const dbFile = getTemporaryFile();
+const samples = util.getRandomData(columns, 50);
+const dbFile = util.getTemporaryFile();
 const db = new Database({ file: dbFile.path });
 
 test("table", async ({ end, equal, same, ok, throws }) => {
-	const tableName = rndStr();
+	const tableName = util.getRandomString();
 	const table = db.table(tableName);
 
 	// create table
 	await table.create(columns);
 
 	// rename table
-	var result = await table.rename(rndStr());
+	var result = await table.rename(util.getRandomString());
 	ok(table.name !== tableName);
 
 	// insert data
@@ -35,17 +35,17 @@ test("table", async ({ end, equal, same, ok, throws }) => {
 	ok(result < 50);
 
 	// find by id
-	var sample = samples[rndInt(0, 50 - 1)];
+	var sample = samples[util.getRandomInt(0, 50 - 1)];
 	var result = await table.findById(sample.id);
 	same(result, sample);
 
 	// find by id, filter by columns
-	var sample = samples[rndInt(0, 50 - 1)];
+	var sample = samples[util.getRandomInt(0, 50 - 1)];
 	var result = await table.findById(sample.id, { columns: ["id", "sit"] });
 	same(result, { id: sample.id, sit: sample.sit });
 
 	// find
-	var sample = samples[rndInt(0, 50 - 1)];
+	var sample = samples[util.getRandomInt(0, 50 - 1)];
 	var result = await table.find({ id: sample.id });
 	equal(result.length, 1);
 	same(result[0], sample);
@@ -55,7 +55,7 @@ test("table", async ({ end, equal, same, ok, throws }) => {
 	same(result, []);
 
 	// update
-	var sample = samples[rndInt(0, 50 - 1)];
+	var sample = samples[util.getRandomInt(0, 50 - 1)];
 	await table.update({ lorem: "updated" }, { id: sample.id });
 	var result = await table.findById(sample.id);
 	equal(result.lorem, "updated");

@@ -1,6 +1,6 @@
 import { test, tearDown } from "tap";
 import Database from "../source";
-import { rndInt, rndStr, getRandomData, getTemporaryFile } from "./utils";
+import { getRandomString, getRandomData, getTemporaryFile } from "./utils";
 
 const columns = [
 	{ name: "id", type: "text", isPrimaryKey: true },
@@ -14,7 +14,7 @@ const dbFile = getTemporaryFile();
 const db = new Database({ file: dbFile.path });
 
 test("table.indexes", async ({ end, equal, same, ok, throws }) => {
-	const table = db.table(rndStr());
+	const table = db.table(getRandomString());
 
 	// create table
 	await table.create(columns);

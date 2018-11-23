@@ -18,14 +18,20 @@ export default class Database {
 		}
 	}
 
+	async run(sql) {
+		return this.sqlite.runRaw(sql);
+	}
+
 	async list() {
 		const sql = `SELECT name FROM sqlite_master WHERE type == 'table'`;
 
 		return this.sqlite.getAll(sql).then(result => result.map(e => e.name));
 	}
 
-	async run(sql) {
-		return this.sqlite.runRaw(sql);
+	async has(table) {
+		const tables = await this.list();
+
+		return tables.includes(table);
 	}
 
 	async create(table, definitions) {

@@ -1,5 +1,5 @@
 import { test, tearDown } from "tap";
-import { rndStr, getTemporaryFile } from "./utils";
+import { getRandomString, getTemporaryFile } from "./utils";
 import Database, { timestamp, uid } from "../source";
 
 const dbFile = getTemporaryFile();
@@ -14,7 +14,7 @@ const createTableSQL = name => `
 
 test("Database()", async ({ end, ok, same }) => {
 	const db = new Database({ file: dbFile.path });
-	const tables = [rndStr(4), rndStr(6), rndStr(8)];
+	const tables = [getRandomString(4), getRandomString(6), getRandomString(8)];
 
 	for (const name of tables) {
 		await db.sqlite.run(createTableSQL(name));

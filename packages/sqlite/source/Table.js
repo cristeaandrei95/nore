@@ -91,7 +91,7 @@ export default class Table {
 		return this.db.get(sql, values);
 	}
 
-	async update(data, query) {
+	async update(query, data) {
 		const [sql, values] = nql({
 			type: "update",
 			table: this.name,

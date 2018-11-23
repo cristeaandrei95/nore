@@ -1,19 +1,46 @@
 import { randomBytes } from "crypto";
-import { unlinkSync } from "fs";
-import { tmpdir } from "os";
+import fs from "fs";
+import os from "os";
 
-export function rndStr(n = 8) {
+export function getRandomString(n = 8) {
 	// make sure the string starts with a letter not a number
 	return "s" + randomBytes(n - 1).toString("hex");
 }
 
-export function rndInt(min = 1, max = 100) {
+export function getRandomInt(min = 1, max = 100) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+export function deleteDirectory(path) {
+	if (fs.existsSync(path)) {
+		for (const file of fs.readdirSync(path)) {
+			const $path = path + "/" + file;
+			const isDirectory = fs.lstatSync($path).isDirectory();
+
+			isDirectory ? deleteDirectory($path) : fs.unlinkSync($path);
+		}
+
+		fs.rmdirSync(path);
+	}
+}
+
+export function writeToFile(file, data) {
+	return fs.writeFileSync(file, data);
+}
+
+export function getTemporaryDirectory() {
+	const path = `${os.tmpdir()}/${getRandomString(12)}`;
+
+	fs.mkdirSync(path);
+
+	return { path, delete: () => deleteDirectory(path) };
+}
+
 export function getTemporaryFile() {
-	const path = `${tmpdir()}/${rndStr()}.sqlite`;
-	return { path, delete: () => unlinkSync(path) };
+	const directory = getTemporaryDirectory();
+	const path = `${directory.path}/${getRandomString(12)}`;
+
+	return { path, delete: () => fs.unlinkSync(path) };
 }
 
 export function getRandomData(definitions, n = 100) {
@@ -35,8 +62,8 @@ export function getRandomData(definitions, n = 100) {
 }
 
 function getRandomValue(type, canBeNull) {
-	if (canBeNull && rndInt() < 50) return null;
+	if (canBeNull && getRandomInt() < 50) return null;
 	if (type == "real") return Math.random();
-	if (type == "integer") return rndInt(10000, 999999999999);
-	if (type == "text") return rndStr(rndInt(8, 32));
+	if (type == "integer") return getRandomInt(10000, 999999999999);
+	if (type == "text") return getRandomString(getRandomInt(8, 32));
 }

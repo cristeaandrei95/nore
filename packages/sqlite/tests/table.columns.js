@@ -1,6 +1,6 @@
 import { test, tearDown } from "tap";
 import Database from "../source";
-import { rndInt, rndStr, getTemporaryFile, getRandomData } from "./utils";
+import { getRandomString, getTemporaryFile, getRandomData } from "./utils";
 
 const columns = [
 	{ name: "id", type: "text", isPrimaryKey: true },
@@ -12,7 +12,7 @@ const columns = [
 const samples = getRandomData(columns, 50);
 const dbFile = getTemporaryFile();
 const db = new Database({ file: dbFile.path });
-const table = db.table(rndStr());
+const table = db.table(getRandomString());
 
 test("table.columns", async ({ end, equal, same, ok, throws }) => {
 	// create sample table used for foreign key constraint
