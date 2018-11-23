@@ -72,8 +72,8 @@ export default class Table {
 			columns: filters.columns || "*",
 			orderBy: filters.orderBy,
 			groupBy: filters.groupBy,
-			limit: filters.limit,
 			offset: filters.offset,
+			limit: filters.limit || 100,
 			distinct: filters.distinct,
 		});
 

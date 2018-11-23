@@ -12,8 +12,6 @@ const createTableSQL = name => `
 	);
 `;
 
-tearDown(() => dbFile.delete());
-
 test("Database()", async ({ end, ok, same }) => {
 	const db = new Database({ file: dbFile.path });
 	const tables = [rndStr(4), rndStr(6), rndStr(8)];
@@ -37,3 +35,5 @@ test("Database()", async ({ end, ok, same }) => {
 
 	end();
 });
+
+tearDown(() => dbFile.delete());

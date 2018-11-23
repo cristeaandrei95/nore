@@ -22,8 +22,6 @@ const select_data = `
 	SELECT * FROM sessions WHERE token == 'sid_token'
 `;
 
-tearDown(() => dbFile.delete());
-
 test("SQLite()", async ({ end, equal }) => {
 	const db = new SQLite({ file: dbFile.path });
 
@@ -62,3 +60,5 @@ test("SQLite()", async ({ end, equal }) => {
 
 	end();
 });
+
+tearDown(() => dbFile.delete());

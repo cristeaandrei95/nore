@@ -1,3 +1,9 @@
+const keywords = ["CURRENT_TIME", "CURRENT_DATE", "CURRENT_TIMESTAMP"];
+
+function fmtDefault(value) {
+	return keywords.includes(value) ? value : `'${value}'`;
+}
+
 function toDefinition(def) {
 	const column = [`"` + def.name + `"`];
 
@@ -14,7 +20,7 @@ function toDefinition(def) {
 	}
 
 	if (def.default) {
-		column.push(`DEFAULT '${def.default}'`);
+		column.push(`DEFAULT ${fmtDefault(def.default)}`);
 	}
 
 	return column.join(" ");
