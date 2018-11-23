@@ -10,7 +10,7 @@ export default async (bundle, config) => {
 		if (await itExists(file)) {
 			const extend = require(file).default;
 
-			await Promise.resolve(extend(config, bundle));
+			await extend(config, bundle);
 		}
 	}
 };

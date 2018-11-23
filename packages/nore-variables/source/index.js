@@ -22,7 +22,7 @@ export default options => async nore => {
 				await nore.emit("variables:change", variables, event);
 
 				if (onChange) {
-					await Promise.resolve(onChange(variables, event));
+					await onChange(variables, event);
 				}
 			});
 		},

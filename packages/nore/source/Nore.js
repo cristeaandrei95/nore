@@ -27,7 +27,7 @@ export default class Platform extends Events {
 	async initialize() {
 		// initialize plugins
 		for (const plugin of this.plugins) {
-			await Promise.resolve(plugin(this));
+			await plugin(this);
 		}
 
 		const bundles = await loadBundles({
