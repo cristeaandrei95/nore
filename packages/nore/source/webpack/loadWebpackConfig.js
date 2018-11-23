@@ -12,7 +12,7 @@ async function loadExternalConfig(bundle, config) {
 		if (await itExists(file)) {
 			const extend = require(file);
 
-			return await Promise.resolve(extend(config, bundle));
+			return await extend(config, bundle);
 		}
 	}
 }
