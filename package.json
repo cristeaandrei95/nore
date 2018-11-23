@@ -1,7 +1,8 @@
 {
+	"private": true,
+
 	"name": "nore",
 	"description": "Web application development made easy",
-	"version": "1.0.0-alpha",
 
 	"author": "Eugen Tudorancea <eugen.tudorancea@gmail.com>",
 	"license": "SEE LICENSE IN license.md",
