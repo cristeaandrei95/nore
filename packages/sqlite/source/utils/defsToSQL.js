@@ -19,6 +19,10 @@ function toDefinition(def) {
 		column.push("NOT NULL");
 	}
 
+	if (def.isUnique) {
+		column.push(`UNIQUE`);
+	}
+
 	if (def.default) {
 		column.push(`DEFAULT ${fmtDefault(def.default)}`);
 	}
@@ -38,25 +42,14 @@ function toForeignKeys(definitions) {
 	return foreignKeys && `, ${foreignKeys}`;
 }
 
-function toUniques(definitions) {
-	const uniques = definitions
-		.filter(e => e.isUnique)
-		.map(e => `"${e.name}"`)
-		.join(", ");
-
-	return uniques && `, UNIQUE (${uniques})`;
-}
-
 function defsToSQL(definitions) {
 	const columns = definitions.map(toDefinition).join(", ");
 	const foreignKeys = toForeignKeys(definitions);
-	const uniques = toUniques(definitions);
 
-	return columns + foreignKeys + uniques;
+	return columns + foreignKeys;
 }
 
 defsToSQL.toDefinition = toDefinition;
 defsToSQL.toForeignKeys = toForeignKeys;
-defsToSQL.toUniques = toUniques;
 
 export default defsToSQL;

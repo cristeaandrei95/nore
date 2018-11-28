@@ -55,10 +55,18 @@ test("table", async ({ end, equal, same, ok, throws }) => {
 	same(result, []);
 
 	// update
-	var sample = samples[util.getRandomInt(0, 50 - 1)];
-	await table.update({ lorem: "updated" }, { id: sample.id });
+	var sample = samples[util.getRandomInt(10, 50 - 1)];
+	await table.update({ id: sample.id }, { lorem: "updated" });
 	var result = await table.findById(sample.id);
 	equal(result.lorem, "updated");
+
+	// throws when updating a unique column with an existing value
+	try {
+		await table.update({ id: samples[1].id }, { lorem: "updated" });
+		throw Error("show throw");
+	} catch (error) {
+		ok(error.message.includes("UNIQUE"));
+	}
 
 	// delete
 	var result = await table.delete({ lorem: "updated" });

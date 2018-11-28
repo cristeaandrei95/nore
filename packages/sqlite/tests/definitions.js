@@ -5,12 +5,11 @@ import parseCreateTableSQL from "../source/utils/parseCreateTableSQL.js";
 
 test("parseCreateTableSQL", ({ end, same }) => {
 	var result = parseCreateTableSQL(
-		`CREATE TABLE "test" ("id" TEXT PRIMARY KEY NOT NULL, UNIQUE ("id"))`
+		`CREATE TABLE "test" ("id" TEXT PRIMARY KEY NOT NULL UNIQUE)`
 	);
 	var expected = {
-		columns: [`"id" TEXT PRIMARY KEY NOT NULL`],
+		columns: [`"id" TEXT PRIMARY KEY NOT NULL UNIQUE`],
 		foreignKeys: [],
-		uniques: [`"id"`],
 	};
 	same(result, expected);
 
@@ -20,19 +19,18 @@ test("parseCreateTableSQL", ({ end, same }) => {
 	var expected = {
 		columns: [`"id" TEXT PRIMARY KEY NOT NULL`],
 		foreignKeys: [`FOREIGN KEY ("baz") REFERENCES "foo" ("bar")`],
-		uniques: [],
 	};
 	same(result, expected);
 
 	var result = parseCreateTableSQL(
-		`CREATE TABLE "test" ("id" TEXT PRIMARY KEY NOT NULL, "lorem" TEXT, "ipsum" REAL DEFAULT 'foo, bar', "sit" INTEGER, "baz" TEXT, FOREIGN KEY ("baz") REFERENCES "foo" ("bar"), FOREIGN KEY ("hop") REFERENCES "foo" ("asd"), FOREIGN KEY ("gre") REFERENCES "foo" ("bvc"), UNIQUE ("lorem", "sit"))`
+		`CREATE TABLE "test" ("id" TEXT PRIMARY KEY NOT NULL, "lorem" TEXT UNIQUE, "ipsum" REAL DEFAULT 'foo, bar', "sit" INTEGER UNIQUE, "baz" TEXT, FOREIGN KEY ("baz") REFERENCES "foo" ("bar"), FOREIGN KEY ("hop") REFERENCES "foo" ("asd"), FOREIGN KEY ("gre") REFERENCES "foo" ("bvc"))`
 	);
 	var expected = {
 		columns: [
 			`"id" TEXT PRIMARY KEY NOT NULL`,
-			`"lorem" TEXT`,
+			`"lorem" TEXT UNIQUE`,
 			`"ipsum" REAL DEFAULT 'foo, bar'`,
-			`"sit" INTEGER`,
+			`"sit" INTEGER UNIQUE`,
 			`"baz" TEXT`,
 		],
 		foreignKeys: [
@@ -40,7 +38,6 @@ test("parseCreateTableSQL", ({ end, same }) => {
 			`FOREIGN KEY ("hop") REFERENCES "foo" ("asd")`,
 			`FOREIGN KEY ("gre") REFERENCES "foo" ("bvc")`,
 		],
-		uniques: [`"lorem"`, `"sit"`],
 	};
 	same(result, expected);
 
@@ -76,7 +73,7 @@ test("defsToSQL", async ({ end, equal }) => {
 
 	equal(
 		defsToSQL([{ name: "foo", type: "text", isUnique: true }]),
-		`"foo" TEXT, UNIQUE ("foo")`
+		`"foo" TEXT UNIQUE`
 	);
 
 	equal(
@@ -97,10 +94,9 @@ test("defsToSQL", async ({ end, equal }) => {
 			{ name: "lorem", type: "integer", foreignKey: ["baz", "sit"] },
 			{ name: "ipsum", type: "integer", foreignKey: ["baz", "dolor"] },
 		]),
-		`"foo" TEXT PRIMARY KEY NOT NULL, "bar" REAL, "baz" TEXT DEFAULT 'foobar', "lorem" INTEGER, "ipsum" INTEGER, FOREIGN KEY ("lorem") REFERENCES "baz" ("sit"), FOREIGN KEY ("ipsum") REFERENCES "baz" ("dolor"), UNIQUE ("bar")`
+		`"foo" TEXT PRIMARY KEY NOT NULL, "bar" REAL UNIQUE, "baz" TEXT DEFAULT 'foobar', "lorem" INTEGER, "ipsum" INTEGER, FOREIGN KEY ("lorem") REFERENCES "baz" ("sit"), FOREIGN KEY ("ipsum") REFERENCES "baz" ("dolor")`
 	);
 
-	// equal(result, `${expected.join(", ")}, UNIQUE (four, six)`);
 	end();
 });
 

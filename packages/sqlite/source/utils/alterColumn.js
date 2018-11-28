@@ -1,15 +1,11 @@
 import parseCreateTableSQL from "./parseCreateTableSQL.js";
 import defsToSQL from "./defsToSQL.js";
 
-function toSQLDefinitions({ columns, foreignKeys, uniques }) {
+function toSQLDefinitions({ columns, foreignKeys }) {
 	let sql = columns.join(", ");
 
 	if (foreignKeys.length) {
 		sql += `, ${foreignKeys.join(", ")}`;
-	}
-
-	if (uniques.length) {
-		sql += `, UNIQUE (${uniques.join(", ")})`;
 	}
 
 	return sql;
@@ -20,20 +16,13 @@ function getColumnsName(columns) {
 }
 
 function updateTransform(column, createTableSQL) {
-	let { columns, foreignKeys, uniques } = parseCreateTableSQL(createTableSQL);
+	let { columns, foreignKeys } = parseCreateTableSQL(createTableSQL);
 	let quotedName = `"${column.name}"`;
 
 	// set the updated definition
 	columns = columns.map(def =>
 		def.indexOf(quotedName) === 0 ? defsToSQL.toDefinition(column) : def
 	);
-
-	// add or remove from UNIQUE constraint
-	if (column.isUnique && !uniques.includes(quotedName)) {
-		uniques.push(quotedName);
-	} else if (!column.isUnique && uniques.includes(quotedName)) {
-		uniques = uniques.filter(e => e !== quotedName);
-	}
 
 	// add or remove from FOREIGN KEY constraint
 	const isNameInForeignKey = e => e.indexOf(quotedName) === 13;
@@ -45,20 +34,19 @@ function updateTransform(column, createTableSQL) {
 		foreignKeys = foreignKeys.filter(e => !isNameInForeignKey(e));
 	}
 
-	return { columns, foreignKeys, uniques };
+	return { columns, foreignKeys };
 }
 
 function deleteTransform(column, createTableSQL) {
-	let { columns, foreignKeys, uniques } = parseCreateTableSQL(createTableSQL);
+	let { columns, foreignKeys } = parseCreateTableSQL(createTableSQL);
 
 	// match the index of the column name in: `FOREIGN KEY "column" ...`
 	foreignKeys = foreignKeys.filter(e => e.indexOf(column) !== 13);
 
 	// the column names are quoted so the index will be 1 to skip the quote
-	uniques = uniques.filter(e => e.indexOf(column) !== 1);
 	columns = columns.filter(e => e.indexOf(column) !== 1);
 
-	return { columns, foreignKeys, uniques };
+	return { columns, foreignKeys };
 }
 
 const transformers = {
