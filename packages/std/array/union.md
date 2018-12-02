@@ -1,14 +1,17 @@
 ---
-title: union
-collection: array
+name: union
+menu: array
+route: /array/union
 tags:
   - array
   - union
 ---
 
-Creates an array of unique values, in order, from all given arrays
+Creates an array of unique values, in order, from all given arrays.
 
 `union(...lists)`
+
+- arguments must be arrays
 
 ```js
 import { union } from "@nore/std/array";

@@ -1,6 +1,7 @@
 ---
-title: isNumber
-collection: assert
+name: isNumber
+menu: assert
+route: /assert/isNumber
 tags:
   - assert
   - validate

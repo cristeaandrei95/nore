@@ -1,6 +1,7 @@
 ---
-title: firstKey
-collection: object
+name: firstKey
+menu: object
+route: /object/firstKey
 tags:
   - firstKey
   - first

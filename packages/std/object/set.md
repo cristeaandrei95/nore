@@ -1,6 +1,7 @@
 ---
-title: set
-collection: object
+name: set
+menu: object
+route: /object/set
 tags:
   - set
 ---

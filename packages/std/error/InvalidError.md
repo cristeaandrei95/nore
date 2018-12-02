@@ -1,6 +1,7 @@
 ---
-title: InvalidError
-collection: error
+name: InvalidError
+menu: error
+route: /error/InvalidError
 tags:
   - error
   - object

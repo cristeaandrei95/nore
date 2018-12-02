@@ -1,6 +1,7 @@
 ---
-title: isDate
-collection: assert
+name: isDate
+menu: assert
+route: /assert/isDate
 tags:
   - assert
   - validate

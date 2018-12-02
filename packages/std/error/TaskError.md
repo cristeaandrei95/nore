@@ -1,6 +1,7 @@
 ---
-title: TaskError
-collection: error
+name: TaskError
+menu: error
+route: /error/TaskError
 tags:
   - error
   - task
@@ -18,19 +19,18 @@ In order to promote a multilingual system, we make it more obvious to use an _er
 - `message` — a message to be displayed to the user (optional)
 
 ```js
-import { TaskError } from "@nore/std/error"
-import { readFile } from "@nore/std/fs"
+import { TaskError } from "@nore/std/error";
+import { readFile } from "@nore/std/fs";
 
 try {
-  const file = await readFile("/path/to/file.js")
-}
-catch (error) {
+  const file = await readFile("/path/to/file.js");
+} catch (error) {
   if (error.code === "ENOENT") {
     throw new TaskError({
       code: "FILE_NOT_FOUND",
       cause: error,
       message: "The path does not exist on the file system.",
-    })
+    });
   }
 }
 ```

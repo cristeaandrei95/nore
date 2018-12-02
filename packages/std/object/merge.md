@@ -1,6 +1,7 @@
 ---
-title: merge
-collection: object
+name: merge
+menu: object
+route: /object/merge
 tags:
   - object
   - merge

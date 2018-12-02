@@ -1,6 +1,7 @@
 ---
-title: isArray
-collection: assert
+name: isArray
+menu: assert
+route: /assert/isArray
 tags:
   - assert
   - validate

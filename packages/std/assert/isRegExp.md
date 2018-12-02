@@ -1,6 +1,7 @@
 ---
-title: isRegExp
-collection: assert
+name: isRegExp
+menu: assert
+route: /assert/isRegExp
 tags:
   - assert
   - validate

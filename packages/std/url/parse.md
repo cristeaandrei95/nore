@@ -1,6 +1,7 @@
 ---
-title: parse
-collection: url
+name: parse
+menu: url
+route: /url/parse
 tags:
   - url
   - parse

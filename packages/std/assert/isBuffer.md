@@ -1,6 +1,7 @@
 ---
-title: isBuffer
-collection: assert
+name: isBuffer
+menu: assert
+route: /assert/isBuffer
 tags:
   - assert
   - validate

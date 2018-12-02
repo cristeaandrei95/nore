@@ -1,6 +1,7 @@
 ---
-title: deleteFile
-collection: fs
+name: deleteFile
+menu: fs
+route: /fs/deleteFile
 tags:
   - file system
   - file
@@ -14,7 +15,7 @@ Deletes a file or symbolic link.
 - `path` — a string containing an absolute file path
 
 ```js
-import { deleteFile } from "@nore/std/fs"
+import { deleteFile } from "@nore/std/fs";
 
-await deleteFile("/path/to/file.ext") // => true
+await deleteFile("/path/to/file.ext"); // => true
 ```

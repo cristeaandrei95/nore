@@ -1,6 +1,7 @@
 ---
-title: flatten
-collection: array
+name: flatten
+menu: array
+route: /array/flatten
 tags:
   - flatten
 ---

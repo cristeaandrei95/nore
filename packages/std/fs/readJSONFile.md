@@ -1,6 +1,7 @@
 ---
-title: readJSONFile
-collection: fs
+name: readJSONFile
+menu: fs
+route: /fs/readJSONFile
 tags:
   - file system
   - read
@@ -14,7 +15,7 @@ Asynchronous reads the contents of a JSON file.
 - `path` — a string containing an absolute file path
 
 ```js
-import { readJSONFile } from "@nore/std/fs"
+import { readJSONFile } from "@nore/std/fs";
 
-const json = await readJSONFile("/path/to/file.json")
+const json = await readJSONFile("/path/to/file.json");
 ```

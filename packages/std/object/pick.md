@@ -1,6 +1,7 @@
 ---
-title: pick
-collection: object
+name: pick
+menu: object
+route: /object/pick
 tags:
   - pick
 ---

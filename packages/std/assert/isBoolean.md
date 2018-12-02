@@ -1,6 +1,7 @@
 ---
-title: isBoolean
-collection: assert
+name: isBoolean
+menu: assert
+route: /assert/isBoolean
 tags:
   - assert
   - validate

@@ -1,8 +1,9 @@
 ---
-title: typeOf
-collection: utilities
+name: typeOf
+menu: utils
+route: /utils/typeOf
 tags:
-	- utilities
+  - utils
   - type
   - typeof
 ---

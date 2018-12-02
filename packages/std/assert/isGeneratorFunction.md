@@ -1,6 +1,7 @@
 ---
-title: isGeneratorFunction
-collection: assert
+name: isGeneratorFunction
+menu: assert
+route: /assert/isGeneratorFunction
 tags:
   - assert
   - validate

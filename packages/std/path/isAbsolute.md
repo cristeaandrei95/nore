@@ -1,6 +1,7 @@
 ---
-title: isAbsolute
-collection: path
+name: isAbsolute
+menu: path
+route: /path/isAbsolute
 tags:
   - path
   - absolute

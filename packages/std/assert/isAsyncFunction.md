@@ -1,6 +1,7 @@
 ---
-title: isAsyncFunction
-collection: assert
+name: isAsyncFunction
+menu: assert
+route: /assert/isAsyncFunction
 tags:
   - assert
   - validate

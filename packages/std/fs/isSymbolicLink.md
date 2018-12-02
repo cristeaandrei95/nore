@@ -1,6 +1,7 @@
 ---
-title: isSymbolicLink
-collection: fs
+name: isSymbolicLink
+menu: fs
+route: /fs/isSymbolicLink
 tags:
   - file system
   - symbolic link
@@ -14,7 +15,7 @@ Checks if the file is a symbolic link.
 - `path` — a string containing an absolute file path
 
 ```js
-import { isSymbolicLink } from "@nore/std/fs"
+import { isSymbolicLink } from "@nore/std/fs";
 
-await isSymbolicLink("/path/to/folder") // => true
+await isSymbolicLink("/path/to/folder"); // => true
 ```

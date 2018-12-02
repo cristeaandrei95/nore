@@ -1,6 +1,7 @@
 ---
-title: delay
-collection: time
+name: delay
+menu: time
+route: /time/delay
 tags:
   - time
   - delay
@@ -13,7 +14,7 @@ Delay for a specified amount of time.
 `await delay(milliseconds)`
 
 ```js
-import { delay } from "@nore/std/time"
+import { delay } from "@nore/std/time";
 
-await delay(1000)
+await delay(1000);
 ```

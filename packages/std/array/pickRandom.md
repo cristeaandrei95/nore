@@ -1,6 +1,7 @@
 ---
-title: pickRandom
-collection: array
+name: pickRandom
+menu: array
+route: /array/pickRandom
 tags:
   - array
   - pickRandom
@@ -8,9 +9,9 @@ tags:
 
 Pick a random item from an array.
 
-`pickRandom(list)`
+`pickRandom(source)`
 
-- `list` — the target array
+- `source` — the target array
 
 ```js
 import { pickRandom } from "@nore/std/array";

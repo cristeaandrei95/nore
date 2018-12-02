@@ -1,6 +1,7 @@
 ---
-title: isDirectory
-collection: fs
+name: isDirectory
+menu: fs
+route: /fs/isDirectory
 tags:
   - file system
   - directory
@@ -14,7 +15,7 @@ Checks if the path exists and is a directory.
 - `path` — a string containing an absolute file path
 
 ```js
-import { isDirectory } from "@nore/std/fs"
+import { isDirectory } from "@nore/std/fs";
 
-await isDirectory("/path/to/folder") // => true
+await isDirectory("/path/to/folder"); // => true
 ```

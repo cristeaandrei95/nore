@@ -1,6 +1,7 @@
 ---
-title: readFile
-collection: fs
+name: readFile
+menu: fs
+route: /fs/readFile
 tags:
   - file system
   - read
@@ -18,7 +19,7 @@ Options:
 - `encoding` – returning encoding format, default `utf8`
 
 ```js
-import { readFile } from "@nore/std/fs"
+import { readFile } from "@nore/std/fs";
 
-const data = await readFile("/path/to/file.ext")
+const data = await readFile("/path/to/file.ext");
 ```

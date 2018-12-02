@@ -1,6 +1,7 @@
 ---
-title: traverse
-collection: fs
+name: traverse
+menu: fs
+route: /fs/traverse
 tags:
   - file system
   - traverse
@@ -20,9 +21,9 @@ Options:
 - `depth` — the depth of directory traversal, starting from 0
 
 ```js
-import { traverse } from '@nore/std/fs'
+import { traverse } from "@nore/std/fs";
 
-const files = await traverse('/path/to/folder', { depth: 2 })
+const files = await traverse("/path/to/folder", { depth: 2 });
 
 // files => ['/path/to/file1', '/path/to/file2']
 ```

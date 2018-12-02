@@ -1,13 +1,14 @@
 ---
-title: isPrimitive
-collection: assert
+name: isPrimitive
+menu: assert
+route: /assert/isPrimitive
 tags:
   - assert
   - validate
   - primitive
 ---
 
-Returns `true` if the variable is [https://goo.gl/vVKjcW](truthy) in any way.
+Returns `true` if the variable is [truthy](https://goo.gl/vVKjcW) in any way.
 
 ```js
 import { isPrimitive } from "@nore/std/assert";

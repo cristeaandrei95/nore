@@ -1,6 +1,7 @@
 ---
-title: createDirectory
-collection: fs
+name: createDirectory
+menu: fs
+route: /fs/createDirectory
 tags:
   - file system
   - directory
@@ -14,9 +15,9 @@ Creates a directory.
 - `mode` — (optional) an integer describing the file system permissions (optional)
 
 ```js
-import { createDirectory } from "@nore/std/fs"
+import { createDirectory } from "@nore/std/fs";
 
-const path = '/path/to/create'
+const path = "/path/to/create";
 
-await createDirectory(path)
+await createDirectory(path);
 ```

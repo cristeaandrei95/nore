@@ -1,6 +1,7 @@
 ---
-title: isRelative
-collection: path
+name: isRelative
+menu: path
+route: /path/isRelative
 tags:
   - path
   - relative

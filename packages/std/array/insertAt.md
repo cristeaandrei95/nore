@@ -1,6 +1,7 @@
 ---
-title: insertAt
-collection: array
+name: insertAt
+menu: array
+route: /array/insertAt
 tags:
   - array
   - insertAt
@@ -8,9 +9,9 @@ tags:
 
 Inserts a number of items into an array starting from the supplied index.
 
-`insertAt(list, index, items)`
+`insertAt(target, index, items)`
 
-- `list` — the target array
+- `target` — the target array
 - `index` — the index where to start inserting the items
 - `items` — an array containing the items which will be inserted
 

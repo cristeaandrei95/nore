@@ -1,6 +1,7 @@
 ---
-title: endsWith
-collection: string
+name: endsWith
+menu: string
+route: /string/endsWith
 tags:
   - string
   - includes

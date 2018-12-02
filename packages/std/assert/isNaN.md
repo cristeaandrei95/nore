@@ -1,6 +1,7 @@
 ---
-title: isNaN
-collection: assert
+name: isNaN
+menu: assert
+route: /assert/isNaN
 tags:
   - assert
   - validate

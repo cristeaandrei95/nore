@@ -1,6 +1,7 @@
 ---
-title: shuffle
-collection: array
+name: shuffle
+menu: array
+route: /array/shuffle
 tags:
   - array
   - shuffle
@@ -8,9 +9,9 @@ tags:
 
 Returns a new array with the items shuffled.
 
-`shuffle(list)`
+`shuffle(target)`
 
-- `list` — the target array
+- `target` — the target array
 
 ```js
 import { shuffle } from "@nore/std/array";

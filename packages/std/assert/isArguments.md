@@ -1,6 +1,7 @@
 ---
-title: isArguments
-collection: assert
+name: isArguments
+menu: assert
+route: /assert/isArguments
 tags:
   - assert
   - validate

@@ -1,6 +1,7 @@
 ---
-title: get
-collection: object
+name: get
+menu: object
+route: /object/get
 tags:
   - get
 ---

@@ -1,6 +1,7 @@
 ---
-title: isGeneratorObject
-collection: assert
+name: isGeneratorObject
+menu: assert
+route: /assert/isGeneratorObject
 tags:
   - assert
   - validate
@@ -19,7 +20,7 @@ const generator = createGenerator();
 const customGenerator = {
 	throw() {},
 	return() {},
-	next() {}
+	next() {},
 };
 
 isGeneratorObject(generator);

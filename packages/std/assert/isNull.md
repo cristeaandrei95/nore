@@ -1,6 +1,7 @@
 ---
-title: isNull
-collection: assert
+name: isNull
+menu: assert
+route: /assert/isNull
 tags:
   - assert
   - validate

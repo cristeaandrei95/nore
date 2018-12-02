@@ -1,6 +1,7 @@
 ---
-title: isString
-collection: assert
+name: isString
+menu: assert
+route: /assert/isString
 tags:
   - assert
   - validate

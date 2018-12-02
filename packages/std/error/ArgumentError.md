@@ -1,6 +1,7 @@
 ---
-title: ArgumentError
-collection: error
+name: `ArgumentError`
+menu: error
+route: /error/ArgumentError
 tags:
   - error
   - argument

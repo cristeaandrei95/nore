@@ -1,6 +1,7 @@
 ---
-title: writeFile
-collection: fs
+name: writeFile
+menu: fs
+route: /fs/writeFile
 tags:
   - file system
   - write
@@ -20,10 +21,10 @@ Options:
 - `append` – append data insted of write, default `false`
 
 ```js
-import { writeFile } from "@nore/std/fs"
+import { writeFile } from "@nore/std/fs";
 
-const file = "/path/to/file"
-const data = "string to write"
+const file = "/path/to/file";
+const data = "string to write";
 
-await writeFile(file, data)
+await writeFile(file, data);
 ```

@@ -1,6 +1,7 @@
 ---
-title: isError
-collection: assert
+name: isError
+menu: assert
+route: /assert/isError
 tags:
   - assert
   - validate

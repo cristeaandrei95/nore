@@ -8,7 +8,13 @@
 	"repository": "https://github.com/nore/std",
 	"homepage": "https://github.com/nore/std#readme",
 
+	"scripts": {
+		"docz:dev": "docz dev",
+		"docz:build": "docz build"
+	},
+
 	"devDependencies": {
-		"tap": "^12.0.1"
+		"tap": "^12.0.1",
+		"docz": "^0.12.13"
 	}
 }

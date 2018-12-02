@@ -1,6 +1,7 @@
 ---
-title: readDirectory
-collection: fs
+name: readDirectory
+menu: fs
+route: /fs/readDirectory
 tags:
   - file system
   - directory
@@ -13,9 +14,9 @@ Asynchronous reads the contents of a directory, returns an `array` of absolute p
 - `path` — a string containing an absolute file path
 
 ```js
-import { readDirectory } from "@nore/std/fs"
+import { readDirectory } from "@nore/std/fs";
 
-const files = await readDirectory(path)
+const files = await readDirectory(path);
 
 // files => ["/path/to/file1", "/path/to/file2"]
 ```

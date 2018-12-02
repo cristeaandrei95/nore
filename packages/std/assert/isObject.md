@@ -1,6 +1,7 @@
 ---
-title: isObject
-collection: assert
+name: isObject
+menu: assert
+route: /assert/isObject
 tags:
   - assert
   - validate

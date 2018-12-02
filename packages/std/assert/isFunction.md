@@ -1,6 +1,7 @@
 ---
-title: isFunction
-collection: assert
+name: isFunction
+menu: assert
+route: /assert/isFunction
 tags:
   - assert
   - validate

@@ -1,6 +1,7 @@
 ---
-title: first
-collection: object
+name: first
+menu: object
+route: /object/first
 tags:
   - first
 ---

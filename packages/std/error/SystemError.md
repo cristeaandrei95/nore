@@ -1,6 +1,7 @@
 ---
-title: SystemError
-collection: error
+name: SystemError
+menu: error
+route: /error/SystemError
 tags:
   - error
   - system
