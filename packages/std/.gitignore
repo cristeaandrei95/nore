@@ -1,9 +1,0 @@
-node_modules
-npm-debug.*
-npm-error.*
-yarn-debug.*
-yarn-error.*
-.DS_Store
-.docz
-.git
-.env
