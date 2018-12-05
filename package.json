@@ -2,7 +2,7 @@
 	"private": true,
 
 	"name": "nore",
-	"description": "Web application development made easy",
+	"description": "A framework designed to easily build modern websites",
 
 	"author": "Eugen Tudorancea <eugen.tudorancea@gmail.com>",
 	"license": "SEE LICENSE IN license.md",

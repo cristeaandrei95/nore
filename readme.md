@@ -1,6 +1,8 @@
 # Nore
 
-Web application development made easy
+A framework designed to easily build modern websites.
+
+> Frameworks are not tools for organizing your code, are tools for organizing your mind.
 
 ---
 
