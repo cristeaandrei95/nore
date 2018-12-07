@@ -14,7 +14,7 @@
 		"file-loader": "^2.0.0",
 		"url-loader": "^1.1.2",
 		"imagemin": "^6.0.0",
-		"imagemin-webpack": "^3.0.0",
+		"imagemin-webpack": "^4.0.1",
 		"imagemin-gifsicle": "^6.0.1",
 		"imagemin-mozjpeg": "^8.0.0",
 		"imagemin-jpegtran": "^6.0.0",

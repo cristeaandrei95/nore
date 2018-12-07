@@ -10,5 +10,7 @@
 	"module": "source/index.js",
 	"main": "source/index.js",
 
-	"dependencies": {}
+	"dependencies": {
+		"@nore/std": "^1.0.0"
+	}
 }

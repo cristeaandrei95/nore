@@ -11,6 +11,7 @@
 	"main": "source/index.js",
 
 	"dependencies": {
+		"@nore/std": "^1.0.0",
 		"fastify": "^1.13.0",
 		"fastify-multipart": "^0.5.1",
 		"fastify-accepts": "^0.5.0",
