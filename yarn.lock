@@ -4808,9 +4808,9 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   integrity sha512-s5kLOcnH0XqDO+FvuaLX8DDjZ18CGFk7VygH40QoKPUQhW4e2rvM0rwUq0t8IQDOwYSeLK01U90OjzBTme2QqA==
 
 kleur@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.0.tgz#ae185c2e0641ffb2f8e3d182df13239df9d8d3b2"
-  integrity sha512-acHc4xKlqTNuAGmbvtd3KuNi1bnlHsdPg6Os1P5s/Ii/6g8MY3caVPDp4md04/twbh4wwPvdpnol1bc9zFsI3w==
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.1.tgz#4f5b313f5fa315432a400f19a24db78d451ede62"
+  integrity sha512-P3kRv+B+Ra070ng2VKQqW4qW7gd/v3iD8sy/zOdcYRsfiD+QBokQNOps/AfP6Hr48cBhIIBFWckB9aO+IZhrWg==
 
 kuler@1.0.x:
   version "1.0.1"
