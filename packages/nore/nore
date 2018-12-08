@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+
+// nore/esm flag to parse @nore modules
+process.env.ES_NODE_MODULES = "@nore";
+
+require("@nore/esm/register");
+require('./source/cli');

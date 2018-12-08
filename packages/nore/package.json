@@ -11,7 +11,7 @@
 	"main": "source/index.js",
 
 	"bin": {
-		"nore": "source/cli/index.js"
+		"nore": "nore"
 	},
 
 	"dependencies": {
