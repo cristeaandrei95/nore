@@ -1,0 +1,21 @@
+{
+	"name": "@nore/pm",
+	"description": "Process manager",
+	"version": "1.0.0",
+
+	"author": "Navaru",
+	"license": "MIT",
+	"repository": "https://github.com/nore/pm",
+
+	"module": "source/index.js",
+	"main": "source/index.js",
+
+	"scripts": {
+		"test": "ES_NODE_MODULES=@nore es tests"
+	},
+
+	"dependencies": {
+		"cross-spawn": "^6.0.5",
+		"ps-tree": "^1.2.0"
+	}
+}
