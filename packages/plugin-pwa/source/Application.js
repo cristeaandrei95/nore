@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import history from "./util/history";
+import history from "./utils/history";
 import store from "./store";
 import Scope from "./Scope";
 

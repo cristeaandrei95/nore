@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import window from "@nore/std/global";
 import { isFunction } from "@nore/std/assert";
 import { isAbsolute } from "@nore/std/path";
-import join from "./util/join";
+import join from "./utils/join";
 import Scope from "./Scope";
 import navigate from "./navigate";
 

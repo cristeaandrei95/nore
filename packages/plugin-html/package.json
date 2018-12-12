@@ -1,5 +1,5 @@
 {
-	"name": "@nore/nore-html",
+	"name": "@nore/plugin-html",
 	"description": "Handle .html files",
 	"version": "1.0.0",
 

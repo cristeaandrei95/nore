@@ -1,7 +1,7 @@
 import qs from "query-string";
 import { parse } from "@nore/std/url";
 import { isString } from "@nore/std/assert";
-import history from "./util/history";
+import history from "./utils/history";
 import store from "./store";
 
 history.listen(state => {

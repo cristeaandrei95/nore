@@ -1,4 +1,4 @@
-import Store from "./util/Store.js";
+import Store from "./utils/Store.js";
 
 const store = new Store();
 

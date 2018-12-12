@@ -1,5 +1,5 @@
 {
-	"name": "@nore/nore-images",
+	"name": "@nore/plugin-images",
 	"description": "Handle images",
 	"version": "1.0.0",
 

@@ -1,4 +1,4 @@
-import babel from "@nore/nore-js/source/babel";
+import babel from "@nore/plugin-js/source/babel";
 
 export default async bundle => {
 	const rule = {

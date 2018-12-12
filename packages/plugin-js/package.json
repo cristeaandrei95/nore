@@ -1,5 +1,5 @@
 {
-	"name": "@nore/nore-js",
+	"name": "@nore/plugin-js",
 	"description": "Handle .js files",
 	"version": "1.0.0",
 

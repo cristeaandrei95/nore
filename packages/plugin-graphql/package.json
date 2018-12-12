@@ -1,5 +1,5 @@
 {
-	"name": "@nore/nore-graphql",
+	"name": "@nore/plugin-graphql",
 	"description": "Handle .graphql and .gql files",
 	"version": "1.0.0",
 

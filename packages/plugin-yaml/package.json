@@ -1,5 +1,5 @@
 {
-	"name": "@nore/nore-yaml",
+	"name": "@nore/plugin-yaml",
 	"description": "Handle .yaml files",
 	"version": "1.0.0",
 

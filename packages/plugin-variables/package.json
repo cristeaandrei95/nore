@@ -1,5 +1,5 @@
 {
-	"name": "@nore/nore-variables",
+	"name": "@nore/plugin-variables",
 	"description": "Handle .variables files",
 	"version": "1.0.0",
 

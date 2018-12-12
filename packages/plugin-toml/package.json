@@ -1,5 +1,5 @@
 {
-	"name": "@nore/nore-toml",
+	"name": "@nore/plugin-toml",
 	"description": "Handle .toml files",
 	"version": "1.0.0",
 

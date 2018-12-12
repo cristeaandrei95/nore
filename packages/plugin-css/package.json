@@ -1,5 +1,5 @@
 {
-	"name": "@nore/nore-css",
+	"name": "@nore/plugin-css",
 	"description": "Handle .css files",
 	"version": "1.0.0",
 

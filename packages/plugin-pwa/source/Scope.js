@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { isAbsolute } from "@nore/std/path";
 import { isFunction } from "@nore/std/assert";
-import join from "./util/join";
+import join from "./utils/join";
 
 const { Provider, Consumer } = React.createContext("scope");
 

@@ -1,5 +1,5 @@
 {
-	"name": "@nore/nore-md",
+	"name": "@nore/plugin-md",
 	"description": "Handle .md files",
 	"version": "1.0.0",
 
@@ -11,7 +11,7 @@
 	"main": "source/index.js",
 
 	"dependencies": {
-		"@nore/nore-js": "^1.0.0",
+		"@nore/plugin-js": "^1.0.0",
 		"@mdx-js/loader": "^0.16.5"
 	}
 }
