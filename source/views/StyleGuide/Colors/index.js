@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import copyToClipboard from "~/util/toClipboard.js";
+import copyToClipboard from "~/utils/toClipboard.js";
 import Section from "../components/Section";
 import $variables from "@nore/variables.json";
 import $ from "./style.css";
