@@ -8,7 +8,7 @@ import yaml from "@nore/plugin-yaml";
 import images from "@nore/plugin-images";
 import fonts from "@nore/plugin-fonts";
 
-const plugins = {
+export default {
 	variables,
 	javascript,
 	css,
@@ -18,10 +18,4 @@ const plugins = {
 	yaml,
 	images,
 	fonts,
-};
-
-export default async (options = {}) => {
-	const config = {
-		plugins: [],
-	};
 };

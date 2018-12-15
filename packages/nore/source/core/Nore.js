@@ -1,25 +1,23 @@
-import pino from "pino";
 import { isObject } from "@nore/std/assert";
 import { isAbsolute } from "@nore/std/path";
-import Events from "./util/Events.js";
-import loadFile from "./util/loadFile.js";
-import loadBundles from "./loadBundles.js";
+import pino from "pino";
+import Emitter from "./Emitter.js";
+import loadFile from "../utils/loadFile.js";
 
-export default class Platform extends Events {
+export default class Nore extends Emitter {
 	constructor(options = {}) {
 		super();
 
 		// set default settings
 		this.path = options.path || process.cwd();
 		this.mode = options.mode || "development";
-		this.handles = options.handles || [];
 		this.isDebug = options.debug || false;
 
 		this.plugins = new Set(options.plugins);
-		this.bundles = new Set();
+		this.bundles = new Set(options.bundles);
 
 		this.log = pino({
-			base: { name: "nore" },
+			name: "nore",
 			level: this.isDebug ? "debug" : "info",
 		});
 	}
@@ -30,16 +28,8 @@ export default class Platform extends Events {
 			await plugin(this);
 		}
 
-		const bundles = await loadBundles({
-			handles: this.handles,
-			path: this.path,
-			mode: this.mode,
-		});
-
-		for (const bundle of bundles) {
-			await this.emit("nore:bundle", bundle);
-
-			this.bundles.add(bundle);
+		for (const bundle of this.bundles) {
+			await this.emit("bundle", bundle);
 		}
 	}
 

@@ -1,4 +1,4 @@
-import ProcessManager from "./util/ProcessManager.js";
+import ProcessManager from "@nore/pm";
 
 export default async ({ nore, bundle, port }) => {
 	const log = nore.log.child({ service: `node:server:${bundle.handle}` });
@@ -7,12 +7,8 @@ export default async ({ nore, bundle, port }) => {
 
 	log.info(`server:node started - http://localhost:${port}`);
 
-	const pm = new ProcessManager({
-		name: bundle.handle,
-		file: bundle.outputPath,
-		path: bundle.path,
-		env: { HTTP_PORT: port },
-	});
+	const cmd = [process.execPath, bundle.outputPath];
+	const pm = new ProcessManager(cmd, { cwd: bundle.path });
 
 	async function onCompile(error, stats) {
 		log.info("server:node compiled");

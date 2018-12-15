@@ -1,18 +1,24 @@
 import webpack from "webpack";
+import merge from "webpack-merge";
 import { join } from "@nore/std/path";
-import loadWebpackConfig from "./webpack/loadWebpackConfig";
+import getWebpackConfig from "../webpack/getConfig.js";
+import loadExternalWebpackConfig from "../webpack/loadExternalConfig.js";
 
 export default class Bundle {
 	constructor(options = {}) {
+		if (!options.handle) {
+			throw Error("Bundle is missing `.handle`");
+		}
+
 		this.handle = options.handle;
 		this.mode = options.mode || "development";
 		this.target = options.target || "web";
 		this.config = options.config || {};
 
-		this.isForNode = this.target === "node";
-		this.isForWeb = this.target === "web";
-		this.isDevelopment = this.mode === "development";
 		this.isDebug = options.isDebug || false;
+		this.isForWeb = this.target === "web";
+		this.isForNode = this.target === "node";
+		this.isDevelopment = this.mode === "development";
 
 		// set bundle paths
 		this.path = options.path || process.cwd();
@@ -31,16 +37,17 @@ export default class Bundle {
 		);
 
 		// webpack configs added by plugins
-		this.webpackConfig = new Set();
+		this.webpackConfig = getWebpackConfig(this);
 	}
 
 	setConfig(config) {
-		this.webpackConfig.add(config);
+		this.webpackConfig = merge(this.webpackConfig, config);
 	}
 
 	async compiler() {
-		const config = await loadWebpackConfig(this);
-		const compiler = webpack(config);
+		const config = this.webpackConfig;
+		const external = await loadExternalWebpackConfig(this, config);
+		const compiler = webpack(merge(config, external));
 
 		return compiler;
 	}

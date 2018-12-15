@@ -1,9 +1,5 @@
-import FriendlyErrors from "friendly-errors-webpack-plugin";
-import CaseSensitivePaths from "case-sensitive-paths-webpack-plugin";
-import { DefinePlugin } from "webpack";
-import { readFileSync } from "fs";
-import { assign } from "@nore/std/object";
 import os from "os";
+import getPlugins from "./getPlugins.js";
 import setWebConfig from "./setWebConfig.js";
 import setNodeConfig from "./setNodeConfig.js";
 
@@ -60,28 +56,12 @@ export default bundle => {
 		assetFilter: str => !/\.map|mp4|ogg|mov|webm$/.test(str),
 	};
 
-	config.plugins = [
-		new CaseSensitivePaths(),
-		// TODO: add config constants
-		new DefinePlugin({
-			"process.env.NODE_ENV": JSON.stringify(
-				bundle.isDevelopment ? "development" : "production"
-			),
-		}),
-	];
-
-	if (!isDebug) {
-		config.plugins.push(
-			new FriendlyErrors({
-				clearConsole: true,
-			})
-		);
-	}
-
 	config.module = {
 		// makes missing exports an error instead of warning
 		strictExportPresence: true,
 	};
+
+	config.plugins = getPlugins(bundle);
 
 	if (isForWeb) {
 		setWebConfig(bundle, config);

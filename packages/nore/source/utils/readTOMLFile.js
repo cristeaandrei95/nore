@@ -1,10 +1,16 @@
 import { readFile } from "@nore/std/fs";
 import toml from "toml";
 
-export default async function readTOMLFile(path) {
+const fmtError = (error, file) => `
+  Error parsing TOML file: ${file}.
+
+  ${error}
+`;
+
+export default async function readTOMLFile(file) {
 	try {
-		return toml.parse(await readFile(path));
+		return toml.parse(await readFile(file));
 	} catch (error) {
-		throw Error(`while parsing ${path}. \n${error}`);
+		throw Error(fmtError(error));
 	}
 }
