@@ -5,22 +5,21 @@ import getLocalIdent from "./getLocalIdent.js";
 import postcss from "./postcss";
 
 function getLoaders({ bundle, useModules }) {
-	const { isDevelopment, isForWeb } = bundle;
 	const loaders = [`${__dirname}/classesLoader.js`];
 
-	if (isForWeb) {
-		loaders.push(isDevelopment ? "style-loader" : CSSExtract.loader);
+	if (bundle.isForWeb) {
+		loaders.push(bundle.isDevelopment ? "style-loader" : CSSExtract.loader);
 	}
 
 	loaders.push({
-		loader: isForWeb ? "css-loader" : "css-loader/locals",
+		loader: "css-loader",
 		options: {
 			importLoaders: 1,
 			camelCase: "dashesOnly",
-			sourceMap: isDevelopment,
-			minimize: !isDevelopment,
+			sourceMap: bundle.isDevelopment,
 			modules: useModules,
 			getLocalIdent: useModules && getLocalIdent,
+			exportOnlyLocals: bundle.isForNode,
 		},
 	});
 
