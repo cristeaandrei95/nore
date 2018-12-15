@@ -2,7 +2,7 @@ import webpackConfig from "./webpackConfig.js";
 import { variables } from "./postcss";
 
 export default options => nore => {
-	nore.on("nore:bundle", async bundle => {
+	nore.on("bundle", async bundle => {
 		bundle.setConfig(await webpackConfig(bundle));
 	});
 
