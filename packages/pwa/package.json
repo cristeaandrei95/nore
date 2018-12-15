@@ -14,8 +14,8 @@
 		"@nore/std": "^1.0.0",
 		"react": "16.7.0-alpha.2",
 		"react-dom": "16.7.0-alpha.2",
-		"@loadable/component": "^5.2.1",
-		"@loadable/server": "^5.2.0",
+		"@loadable/component": "^5.2.2",
+		"@loadable/server": "^5.2.2",
 		"query-string": "^6.2.0"
 	}
 }
