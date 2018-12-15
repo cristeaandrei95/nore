@@ -1,18 +1,18 @@
 import { deleteDirectory } from "@nore/std/fs";
-import devServerWeb from "../devServerWeb";
-import devServerNode from "../devServerNode";
-import Nore from "../Nore";
-import plugins from "../plugins";
+import devServerWeb from "../core/devServerWeb";
+import devServerNode from "../core/devServerNode";
+import loadConfig from "../core/loadConfig";
+import loadBundles from "../core/loadBundles";
+import Nore from "../core/Nore";
 
-export default async cli => {
-	const nore = new Nore({
-		...cli,
-		plugins,
-		handles: cli._.slice(1),
-	});
+export default async options => {
+	const config = await loadConfig(options);
+	const bundles = await loadBundles(config);
+	const nore = new Nore({ ...config, bundles });
 
 	// setup plugins and load bundles
 	await nore.initialize();
+
 	// watch variables for changes
 	await nore.variables.watch();
 
@@ -28,8 +28,8 @@ export default async cli => {
 			await devServerWeb({ nore, bundle, port: webServerPort++ });
 		}
 
-		if (bundle.isForNode) {
-			await devServerNode({ nore, bundle, port: nodeServerPort++ });
-		}
+		// if (bundle.isForNode) {
+		// 	await devServerNode({ nore, bundle, port: nodeServerPort++ });
+		// }
 	}
 };

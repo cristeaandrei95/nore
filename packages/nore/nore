@@ -2,6 +2,7 @@
 
 // nore/esm flag to parse @nore modules
 process.env.ES_NODE_MODULES = "@nore";
+process.env.ES_SOURCE_PATH = `${__dirname}/source`;
 
 require("@nore/esm/register");
 require('./source/cli');

@@ -1,27 +1,38 @@
-import "../util/onUnhandledErrors";
-import { itExists } from "@nore/std/fs";
-import getopts from "getopts";
+import { readFile } from "@nore/std/fs";
+// import getopts from "getopts";
+import arg from "arg";
+import "../utils/onUnhandledErrors";
 
-const alias = {
-	help: ["h"],
-	mode: ["m"],
-	path: ["p"],
-	debug: ["d"],
-};
+const commands = ["start", "build"];
 
-const cli = getopts(process.argv.slice(2), { alias });
-const command = cli._[0] || "help";
-const file = `${__dirname}/${command}.js`;
+const cli = arg({
+	// types
+	"--help": Boolean,
+	"--path": String,
+	"--mode": String,
+	"--debug": Boolean,
 
-const commandNotFound = `
-    ERROR: "${command}" is not a valid command.
-`;
-
-itExists(file).then(isFile => {
-	if (isFile) {
-		require(file).default(cli);
-	} else {
-		console.error(commandNotFound);
-		require("./help").default();
-	}
+	// aliases
+	"-h": "--help",
+	"-p": "--path",
+	"-m": "--mode",
+	"-d": "--debug",
 });
+
+const command = cli._[0];
+const showHelp = () => readFile(`${__dirname}/help`).then(console.log);
+
+if (commands.includes(command)) {
+	const module = require(`${__dirname}/${command}.js`);
+
+	module.default({
+		path: cli["--path"],
+		mode: cli["--mode"],
+		isDebug: cli["--debug"],
+	});
+} else if (!command || cli["--help"] || command == "help") {
+	showHelp();
+} else {
+	console.error(`\n  ERROR: "${command}" is not a valid command.\n`);
+	showHelp();
+}
