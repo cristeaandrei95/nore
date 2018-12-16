@@ -1,6 +1,6 @@
 # Nore
 
-A framework designed to easily build modern websites.
+A development framework for building modern websites.
 
 > Frameworks are not tools for organizing your code, are tools for organizing your mind.
 
