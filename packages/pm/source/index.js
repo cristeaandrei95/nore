@@ -41,20 +41,17 @@ export default class ProcessManager extends Emitter {
 	}
 
 	async stop() {
-		// ignore command during the following statuses
-		if (["stopped", "stopping", "crashed"].includes(this.status)) return;
+		// ignore calls if process is not running
+		if (this.status !== "running") return;
 
 		this.status = "stopping";
 
-		if (!this.process) {
-			return this._stopped();
-		}
-
 		const { killTimeout } = this.options;
+		const { pid } = this.process;
 
 		if (killTimeout !== null) {
-			const delayedKill = () => {
-				kill(this.process.pid, "SIGKILL");
+			const delayedKill = async () => {
+				await kill(pid, "SIGKILL");
 				this.emit("sigkill");
 			};
 
@@ -65,7 +62,9 @@ export default class ProcessManager extends Emitter {
 			});
 		}
 
-		kill(this.process.pid);
+		await kill(pid);
+
+		this._stopped();
 	}
 
 	async restart() {
@@ -80,6 +79,9 @@ export default class ProcessManager extends Emitter {
 		process.setMaxListeners(0);
 
 		process.on("exit", (code, signal) => {
+			// callback called after new process spawned
+			if (this.process !== process) return;
+
 			this.emit("exit", code, signal);
 
 			if (this.status === "stopping") {
@@ -110,16 +112,17 @@ export default class ProcessManager extends Emitter {
 		});
 
 		process.on("error", error => {
+			// callback called after new process spawned
+			if (this.process !== process) return;
+
 			this.emit("error", error);
-
-			if (this.status === "stopping") {
-				return this._stopped("crashed");
-			}
-
-			this._stopped("crashed");
+			this._stopped();
 		});
 
 		process.on("message", message => {
+			// callback called after new process spawned
+			if (this.process !== process) return;
+
 			this.emit("message", message);
 		});
 
@@ -134,7 +137,7 @@ export default class ProcessManager extends Emitter {
 		this.emit("spawn", process);
 	}
 
-	_stopped(status) {
+	_stopped() {
 		this.status = this.status === "stopping" ? "stopped" : "crashed";
 		this.emit("stop", this.process);
 
@@ -146,7 +149,6 @@ export default class ProcessManager extends Emitter {
 			clearTimeout(this._spawnTimeoutId);
 		}
 
-		this.process = null;
 		this._spawnTimeoutId = null;
 		this._spawnedAt = null;
 		this._restarts = 0;
