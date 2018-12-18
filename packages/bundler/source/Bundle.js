@@ -5,7 +5,7 @@ import webpack from "webpack";
 import pino from "pino";
 import Emitter from "./utils/Emitter.js";
 import loadFile from "./utils/loadFile.js";
-import devServerWeb from "./core/devServerWeb.js";
+import devServerWeb from "./devServerWeb.js";
 import getWebpackConfig from "./webpack/getConfig.js";
 import loadExternalWebpackConfig from "./webpack/loadExternalConfig.js";
 import plugins from "./plugins.js";
