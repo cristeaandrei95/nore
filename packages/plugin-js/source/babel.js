@@ -3,7 +3,6 @@ import { assign } from "@nore/std/object";
 import setExternalBabelConfig from "./setExternalBabelConfig.js";
 
 export default async bundle => {
-	const { isForWeb, isForNode, isDebug, isDevelopment } = bundle;
 	/*
 		TODO: add transform async/await to Promise
 		"transform-async-to-promises" it after the v7 update
@@ -32,9 +31,9 @@ export default async bundle => {
 			"transform-define",
 			// TODO: add way to extend this:
 			{
-				IN_NODE: isForNode,
-				IN_BROWSER: isForWeb,
-				IS_DEVELOPMENT: isDevelopment,
+				IN_NODE: bundle.isForNode,
+				IN_BROWSER: bundle.isForWeb,
+				IS_DEVELOPMENT: bundle.isDevelopment,
 			},
 		],
 
@@ -76,18 +75,18 @@ export default async bundle => {
 	const babelPresetEnv = [
 		"@babel/preset-env",
 		{
-			debug: isDebug,
+			debug: bundle.isDebug,
 			loose: true,
 			shippedProposals: true,
 			modules: "commonjs",
-			useBuiltIns: isForWeb ? "usage" : false,
-			targets: isForWeb
+			useBuiltIns: bundle.isForWeb ? "usage" : false,
+			targets: bundle.isForWeb
 				? { browsers: bundle.config.browserslist }
-				: { node: isDevelopment ? "current" : 8.0 },
+				: { node: bundle.isDevelopment ? "current" : 8.0 },
 		},
 	];
 
-	if (isForWeb && isDevelopment) {
+	if (bundle.isForWeb && bundle.isDevelopment) {
 		insertAt(react, 1, [
 			// Adds source file and line number to JSX elements
 			"@babel/plugin-transform-react-jsx-source",
@@ -103,7 +102,7 @@ export default async bundle => {
 		);
 	}
 
-	if (isForNode) {
+	if (bundle.isForNode) {
 		// transpile `import("./module")` to a deferred `require("./module")`
 		features.push("dynamic-import-node");
 	}
@@ -116,7 +115,7 @@ export default async bundle => {
 		presets,
 		babelrc: false,
 		configFile: false,
-		cacheDirectory: bundle.isDevelopment,
+		cacheDirectory: bundle.bundle.isDevelopment,
 	};
 
 	// try to load external babel file and extend config
