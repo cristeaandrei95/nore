@@ -1,4 +1,4 @@
-import Server from "@nore/server";
+import { Server } from "http";
 import { readFile } from "@nore/std/fs";
 import { render } from "@nore/pwa";
 import views from "~/views";
@@ -7,13 +7,12 @@ import $ from "~/styles";
 const cwd = process.cwd();
 const server = new Server();
 
-server.get("/", async (request, reply) => {
+server.on("request", async (request, response) => {
 	const template = await readFile(`${cwd}/.builds/client/index.html`);
-	const url = request.parseURL();
 
 	const page = {
 		title: "Navaru",
-		path: url.pathname,
+		path: "/design",
 		query: {},
 	};
 
@@ -28,12 +27,10 @@ server.get("/", async (request, reply) => {
 		.replace("<!-- content -->", application.html)
 		.replace(`"is_loading"`, `"is_loaded"`);
 
-	reply.type("text/html");
-	reply.send(html);
+	response.setHeader("content-type", "text/html");
+	response.end(html);
 });
 
-server.serve(`${cwd}/.builds/client`);
+server.listen(5000);
 
-server.start().then(url => {
-	console.log(`Listening on ${url}`);
-});
+console.log("started server code");
