@@ -1,4 +1,6 @@
 import { itExists } from "@nore/std/fs";
+import { isFunction } from "@nore/std/assert";
+import merge from "webpack-merge";
 
 export default async function loadExternalConfig(bundle, config) {
 	const files = [
@@ -8,9 +10,9 @@ export default async function loadExternalConfig(bundle, config) {
 
 	for (const file of files) {
 		if (await itExists(file)) {
-			const extend = require(file);
+			const extend = require(file).default;
 
-			return await extend(config, bundle);
+			return isFunction(extend) ? await extend(config, bundle) : extend;
 		}
 	}
 }

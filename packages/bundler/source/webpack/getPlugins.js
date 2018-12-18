@@ -13,13 +13,13 @@ export default bundle => {
 		}),
 	];
 
-	if (!bundle.isDebug) {
-		plugins.push(
-			new FriendlyErrors({
-				clearConsole: true,
-			})
-		);
-	}
+	// if (!bundle.isDebug) {
+	// 	plugins.push(
+	// 		new FriendlyErrors({
+	// 			clearConsole: true,
+	// 		})
+	// 	);
+	// }
 
 	return plugins;
 };

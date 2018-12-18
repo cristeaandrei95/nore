@@ -5,4 +5,6 @@ process.env.ES_NODE_MODULES = "@nore";
 process.env.ES_SOURCE_PATH = `${__dirname}/source`;
 
 require("@nore/esm/register");
-require('./source/cli');
+require("./source/utils/onUnhandledErrors.js");
+require("./source/utils/checkNodeVersion.js");
+require('./source');

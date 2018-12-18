@@ -1,12 +1,10 @@
 import { readDirectory, itExists } from "@nore/std/fs";
 import { getFileName } from "@nore/std/path";
-import loadFile from "../utils/loadFile.js";
-import Bundle from "./Bundle.js";
+import { loadFile } from "@nore/bundler";
 
 async function getConfigFiles(path, mode) {
 	const files = await readDirectory(`${path}/config`);
-	const extensions = ["js", "json", "toml", "yaml"];
-	const suffixes = extensions.map(ext => `.${mode}.${ext}`);
+	const suffixes = loadFile.extensions.map(ext => `.${mode}${ext}`);
 	const isConfig = file => suffixes.some(suffix => file.includes(suffix));
 
 	return files.filter(isConfig);
@@ -18,23 +16,27 @@ function getHandle(file) {
 		.shift();
 }
 
-export default async ({ path, mode }) => {
-	const configs = await getConfigFiles(path, mode);
-	const bundles = [];
+export default async ({ path, mode, isDebug }) => {
+	const files = await getConfigFiles(path, mode);
+	const configs = [];
 
-	for (const file of configs) {
+	for (const file of files) {
 		const module = await loadFile(file);
 		const config = module.default;
 
+		// ignore bundle from loading
+		if (config.ignore) continue;
+
 		config.path = path;
 		config.mode = mode;
+		config.isDebug = isDebug;
 
 		if (!config.handle) {
 			config.handle = getHandle(file);
 		}
 
-		bundles.push(new Bundle(config));
+		configs.push(config);
 	}
 
-	return bundles;
+	return configs;
 };

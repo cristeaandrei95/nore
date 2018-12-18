@@ -6,8 +6,9 @@ import { isFile } from "@nore/std/fs";
 import { parse } from "@nore/std/url";
 import { join } from "@nore/std/path";
 
-export default async ({ nore, bundle, port }) => {
-	const log = nore.log.child({ service: `node:server:${bundle.handle}` });
+let port = 7000;
+
+export default async bundle => {
 	const compiler = await bundle.compiler();
 	const webpackConfig = compiler.options;
 	const server = new Server();
@@ -23,19 +24,19 @@ export default async ({ nore, bundle, port }) => {
 		}
 	});
 
-	server.listen(port);
+	server.listen(port++);
 
-	log.info(`server:web [started] http://localhost:${port}`);
+	bundle.log.info(`server:web [started] http://localhost:${port}`);
 
 	const hmr = WebpackHMR(compiler, {
 		server,
-		reload: nore.isDebug ? false : true,
 		stats: { context: webpackConfig.context },
-		logLevel: bundle.isDebug ? "warn" : "silent",
+		reload: bundle.isDebug ? false : true,
+		logLevel: bundle.isDebug ? "warn" : "info",
 	});
 
 	hmr.server.on("listening", () => {
-		log.info(`server:web [HMR] listening...`);
+		bundle.log.info(`server:web [HMR] listening...`);
 	});
 
 	const devMiddleware = WebpackDevMiddleware(compiler, {
@@ -57,8 +58,8 @@ export default async ({ nore, bundle, port }) => {
 	}
 
 	// watch variables for changes
-	nore.on("variables:change", async (variables, event) => {
-		log.info(`watch:variables [change] "${event.path}"`);
+	bundle.on("variables", async variables => {
+		bundle.log.info(`watch:variables [change] "${event.path}"`);
 
 		// rebundle the code
 		devMiddleware.invalidate();

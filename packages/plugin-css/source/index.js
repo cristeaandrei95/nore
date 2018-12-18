@@ -1,16 +1,10 @@
 import webpackConfig from "./webpackConfig.js";
 import { variables } from "./postcss";
 
-export default options => nore => {
-	nore.on("bundle", async bundle => {
-		bundle.setConfig(await webpackConfig(bundle));
-	});
+export default options => async bundle => {
+	bundle.setConfig(await webpackConfig(bundle));
 
-	nore.on("variables:load", data => {
-		variables.set(data);
-	});
-
-	nore.on("variables:change", data => {
+	bundle.on("variables", data => {
 		variables.set(data);
 	});
 };

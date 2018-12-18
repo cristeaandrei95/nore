@@ -1,14 +1,17 @@
 import TerserWebpack from "terser-webpack-plugin";
 
-export default (bundle, config) => {
-	config.optimization.runtimeChunk = {
-		name: "webpack_runtime",
-	};
+export default bundle => {
+	const config = {};
 
-	// TODO: https://webpack.js.org/plugins/split-chunks-plugin/#optimization-splitchunks
-	config.optimization.splitChunks = {
-		chunks: "all",
-		name: false,
+	config.optimization = {
+		runtimeChunk: {
+			name: "webpack_runtime",
+		},
+		// TODO: https://webpack.js.org/plugins/split-chunks-plugin/#optimization-splitchunks
+		splitChunks: {
+			chunks: "all",
+			name: false,
+		},
 	};
 
 	// prevent webpack from injecting mocks to Node native modules
@@ -24,7 +27,7 @@ export default (bundle, config) => {
 	};
 
 	// resolve imports using the `browser` field from package.json
-	config.resolve.mainFields.unshift("browser");
+	config.resolve = { mainFields: ["browser"] };
 
 	if (!bundle.isDevelopment) {
 		config.optimization.splitChunks = {
@@ -68,4 +71,6 @@ export default (bundle, config) => {
 			}),
 		];
 	}
+
+	return config;
 };

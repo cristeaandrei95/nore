@@ -115,7 +115,7 @@ export default async bundle => {
 		presets,
 		babelrc: false,
 		configFile: false,
-		cacheDirectory: bundle.bundle.isDevelopment,
+		cacheDirectory: bundle.isDevelopment,
 	};
 
 	// try to load external babel file and extend config

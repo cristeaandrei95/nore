@@ -2,16 +2,16 @@ import { VirtualModule } from "@nore/webpack";
 
 const toSource = data => JSON.stringify(data);
 
-export default async (bundle, nore) => {
+export default async bundle => {
 	const name = "@nore/variables.json";
-	const variables = await nore.variables.load();
+	const variables = await bundle.variables.load();
 
 	const virtualModule = new VirtualModule({
 		name: name,
 		source: toSource(variables),
 	});
 
-	nore.on("variables:change", async variables => {
+	bundle.on("variables", async variables => {
 		// trigger webpack compilation restart
 		virtualModule.write(name, toSource(variables));
 	});

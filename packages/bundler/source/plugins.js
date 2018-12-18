@@ -1,5 +1,5 @@
 import variables from "@nore/plugin-variables";
-import javascript from "@nore/plugin-js";
+import js from "@nore/plugin-js";
 import css from "@nore/plugin-css";
 import html from "@nore/plugin-html";
 import md from "@nore/plugin-md";
@@ -10,7 +10,7 @@ import fonts from "@nore/plugin-fonts";
 
 export default {
 	variables,
-	javascript,
+	js,
 	css,
 	html,
 	md,

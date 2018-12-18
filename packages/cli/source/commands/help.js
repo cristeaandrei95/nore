@@ -1,3 +1,4 @@
+const help = `
   Usage: nore [command] [options]
 
   Commands:
@@ -12,6 +13,8 @@
   Options:
     -h --help         displays help information
 
+    -v --version      displays current version
+
     -d --debug        run in debug mode
                       (default: false)
 
@@ -20,3 +23,6 @@
 
     -p --path         absolute path to project folder
                       (default: process.cwd())
+`;
+
+export default () => console.log(help);

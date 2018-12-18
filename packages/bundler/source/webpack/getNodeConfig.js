@@ -2,11 +2,11 @@ import { VirtualModule } from "@nore/webpack";
 import getNodeExternals from "webpack-node-externals";
 import nodeGlobalHelpers from "./nodeGlobalHelpers.js";
 
-export default (bundle, config) => {
-	config.output.filename = "index.js";
+export default bundle => ({
+	output: { filename: "index.js" },
 
 	// ignore modules from node_modules folder
-	config.externals = [
+	externals: [
 		getNodeExternals({
 			whitelist: [
 				// @nore modules
@@ -17,15 +17,15 @@ export default (bundle, config) => {
 				/\.(bmp|gif|jpe?g|png|svg)$/,
 			],
 		}),
-	];
+	],
 
-	config.plugins.push(
+	plugins: [
 		new VirtualModule({
 			name: "@nore/node.js",
 			source: nodeGlobalHelpers,
-		})
-	);
+		}),
+	],
 
 	// turn off performance hints on node builds
-	config.performance = false;
-};
+	performance: false,
+});

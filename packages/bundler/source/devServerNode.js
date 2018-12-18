@@ -1,14 +1,16 @@
 import ProcessManager from "@nore/pm";
 
-export default async ({ nore, bundle, port }) => {
+export default async ({ nore, bundle }) => {
 	const log = nore.log.child({ service: `node:server:${bundle.handle}` });
 	const compiler = await bundle.compiler();
 	const webpackConfig = compiler.options;
 
-	log.info(`server:node started - http://localhost:${port}`);
-
 	const cmd = [process.execPath, bundle.outputPath];
-	const pm = new ProcessManager(cmd, { cwd: bundle.path });
+	const pm = new ProcessManager(cmd, {
+		restartDelay: 300,
+		stdio: "inherit",
+		cwd: bundle.path,
+	});
 
 	async function onCompile(error, stats) {
 		log.info("server:node compiled");
@@ -17,15 +19,7 @@ export default async ({ nore, bundle, port }) => {
 			return log.error({ error });
 		}
 
-		switch (pm.status) {
-			case "stopped":
-			case "sleeping":
-			case "crashed":
-				await pm.start();
-				break;
-			default:
-				await pm.restart();
-		}
+		await pm.restart();
 	}
 
 	const watchOptions = {
@@ -36,7 +30,7 @@ export default async ({ nore, bundle, port }) => {
 	const watcher = compiler.watch(watchOptions, onCompile);
 
 	// watch variables for changes
-	nore.on("variables:change", async (variables, event) => {
+	nore.on("variables", async (variables, event) => {
 		log.info(`watch:variables [change] "${event.path}"`);
 
 		// rebundle the code

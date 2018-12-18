@@ -3,31 +3,33 @@ import { join } from "@nore/std/path";
 import readTOMLFile from "./readTOMLFile.js";
 import readYAMLFile from "./readYAMLFile.js";
 
-const extensions = [".yaml", ".toml", ".json", ".js"];
-
-async function loadFile(file) {
-	if (file.includes(".toml")) {
-		return readTOMLFile(file);
-	}
-
-	if (file.includes(".yaml")) {
-		return readYAMLFile(file);
-	}
-
-	return require(file);
-}
+const extensions = [".js", ".json", ".yaml", ".toml"];
+const TOML = /\.toml$/;
+const YAML = /\.yaml$/;
 
 async function tryFiles(...files) {
 	for (const file of files) {
 		if (await itExists(file)) {
-			return await loadFile(file);
+			if (TOML.test(file)) {
+				return readTOMLFile(file);
+			}
+
+			if (YAML.test(file)) {
+				return readYAMLFile(file);
+			}
+
+			return require(file);
 		}
 	}
 }
 
-export default async (...paths) => {
+async function loadFile(...paths) {
 	const file = join.apply(null, paths);
 	const files = extensions.map(ext => file + ext);
 
 	return tryFiles(file, ...files);
-};
+}
+
+loadFile.extensions = extensions;
+
+export default loadFile;
