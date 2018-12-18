@@ -31,7 +31,7 @@ export default class ProcessManager extends Emitter {
 		if (this.status === "running") return;
 
 		// clear any pending restarts
-		clearTimeout(this._spawnTimeoutId);
+		clearTimeout(this._restartTimeoutId);
 
 		// spawn child process
 		this._spawn();
@@ -88,14 +88,6 @@ export default class ProcessManager extends Emitter {
 				return this._stopped();
 			}
 
-			this._clock -=
-				Date.now() - (this._spawnedAt ? this._spawnedAt.getTime() : 0);
-
-			if (this._clock <= 0) {
-				this._clock = 60000;
-				this._restarts = 0;
-			}
-
 			if (options.restartLimit !== null) {
 				if (++this._restarts > options.restartLimit) {
 					return this._stopped();
@@ -105,7 +97,7 @@ export default class ProcessManager extends Emitter {
 			this.status = "sleeping";
 			this.emit("sleep");
 
-			this._spawnTimeoutId = setTimeout(
+			this._restartTimeoutId = setTimeout(
 				this._spawn.bind(this),
 				this.options.restartDelay
 			);
@@ -145,13 +137,12 @@ export default class ProcessManager extends Emitter {
 	}
 
 	_reset() {
-		if (this._spawnTimeoutId) {
-			clearTimeout(this._spawnTimeoutId);
+		if (this._restartTimeoutId) {
+			clearTimeout(this._restartTimeoutId);
 		}
 
-		this._spawnTimeoutId = null;
+		this._restartTimeoutId = null;
 		this._spawnedAt = null;
 		this._restarts = 0;
-		this._clock = 60000;
 	}
 }
