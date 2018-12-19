@@ -1,5 +1,6 @@
 import cli from "arg";
 import run from "./run.js";
+import loadDotEnv from "./utils/loadDotEnv.js";
 
 const defaults = {
 	"--path": process.cwd(),
@@ -36,4 +37,6 @@ if (args["--help"] || !command) {
 	return run("help", args);
 }
 
-run(command, args);
+loadDotEnv(args["--path"]).then(() => {
+	run(command, args);
+});
