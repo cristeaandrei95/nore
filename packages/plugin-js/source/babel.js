@@ -3,12 +3,6 @@ import { assign } from "@nore/std/object";
 import setExternalBabelConfig from "./setExternalBabelConfig.js";
 
 export default async bundle => {
-	/*
-		TODO: add transform async/await to Promise
-		"transform-async-to-promises" it after the v7 update
-		or use https://github.com/MatAtBread/nodent-compiler?
-	*/
-
 	const javascript = [
 		// transforms JS class properties
 		// enable loose mode to use assignment instead of defineProperty
@@ -86,20 +80,25 @@ export default async bundle => {
 		},
 	];
 
-	if (bundle.isForWeb && bundle.isDevelopment) {
-		insertAt(react, 1, [
-			// Adds source file and line number to JSX elements
-			"@babel/plugin-transform-react-jsx-source",
+	if (bundle.isForWeb) {
+		// adds transform async/await to promise chains
+		javascript.push("transform-async-to-promises");
 
-			// adds __self prop to JSX elements, which
-			// React will use to generate runtime warnings
-			"@babel/plugin-transform-react-jsx-self",
-		]);
+		if (bundle.isDevelopment) {
+			insertAt(react, 1, [
+				// adds source file and line number to JSX elements
+				"@babel/plugin-transform-react-jsx-source",
 
-		features.push(
-			// adds `console.scope()` to log a function's entire scope
-			"babel-plugin-console"
-		);
+				// adds __self prop to JSX elements, which
+				// React will use to generate runtime warnings
+				"@babel/plugin-transform-react-jsx-self",
+			]);
+
+			features.push(
+				// adds `console.scope()` to log a function's entire scope
+				"babel-plugin-console"
+			);
+		}
 	}
 
 	if (bundle.isForNode) {
