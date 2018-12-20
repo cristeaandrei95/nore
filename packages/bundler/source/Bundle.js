@@ -5,7 +5,8 @@ import webpack from "webpack";
 import pino from "pino";
 import Emitter from "./utils/Emitter.js";
 import loadFile from "./utils/loadFile.js";
-import devServerWeb from "./devServerWeb.js";
+import webServer from "./server/web.js";
+import nodeServer from "./server/node.js";
 import getWebpackConfig from "./webpack/getConfig.js";
 import loadExternalWebpackConfig from "./webpack/loadExternalConfig.js";
 import plugins from "./plugins.js";
@@ -85,7 +86,11 @@ export default class Bundle extends Emitter {
 
 	async serve() {
 		if (this.isForWeb) {
-			await devServerWeb(this);
+			await webServer(this);
+		}
+
+		if (this.isForNode) {
+			await nodeServer(this);
 		}
 	}
 

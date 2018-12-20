@@ -10,7 +10,7 @@ let port = 7000;
 
 export default async bundle => {
 	const compiler = await bundle.compiler();
-	const webpackConfig = compiler.options;
+	const options = compiler.options;
 	const server = new Server();
 
 	server.on("request", async (request, response) => {
@@ -30,7 +30,7 @@ export default async bundle => {
 
 	const hmr = WebpackHMR(compiler, {
 		server,
-		stats: { context: webpackConfig.context },
+		stats: { context: options.context },
 		reload: bundle.isDebug ? false : true,
 		logLevel: bundle.isDebug ? "warn" : "info",
 	});
@@ -40,8 +40,8 @@ export default async bundle => {
 	});
 
 	const devMiddleware = WebpackDevMiddleware(compiler, {
-		publicPath: webpackConfig.output.publicPath,
-		stats: { context: webpackConfig.context },
+		publicPath: options.output.publicPath,
+		stats: { context: options.context },
 		logLevel: bundle.isDebug ? "warn" : "silent",
 		writeToDisk: true,
 	});
