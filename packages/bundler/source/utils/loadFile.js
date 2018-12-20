@@ -21,6 +21,8 @@ async function tryFiles(...files) {
 			return require(file);
 		}
 	}
+
+	return null;
 }
 
 async function loadFile(...paths) {
