@@ -8,14 +8,15 @@ import yaml from "@nore/plugin-yaml";
 import images from "@nore/plugin-images";
 import fonts from "@nore/plugin-fonts";
 
+// order is important, don't change
 export default {
 	variables,
-	js,
-	css,
 	html,
 	md,
 	toml,
 	yaml,
+	css,
+	js,
 	images,
 	fonts,
 };
