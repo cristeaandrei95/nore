@@ -25,9 +25,8 @@ export default bundle => {
 
 	config.output = {
 		path: bundle.outputPath,
-		filename: "[name].[hash].js",
-		// TODO: how to handle publicPath?
 		publicPath: bundle.publicPath,
+		filename: "[name].[hash].js",
 		chunkFilename: "[id].[hash].js",
 	};
 

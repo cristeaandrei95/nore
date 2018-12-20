@@ -64,22 +64,6 @@ export default async bundle => {
 		],
 	];
 
-	// compiles ES2015+ down to ES5 by automatically determining the
-	// Babel plugins and polyfills you need based on your targeted browser
-	const babelPresetEnv = [
-		"@babel/preset-env",
-		{
-			debug: bundle.isDebug,
-			loose: true,
-			shippedProposals: true,
-			modules: "commonjs",
-			useBuiltIns: bundle.isForWeb ? "usage" : false,
-			targets: bundle.isForWeb
-				? { browsers: bundle.config.browserslist }
-				: { node: bundle.isDevelopment ? "current" : 8.0 },
-		},
-	];
-
 	if (bundle.isForWeb) {
 		// adds transform async/await to promise chains
 		javascript.push("transform-async-to-promises");
@@ -105,6 +89,22 @@ export default async bundle => {
 		// transpile `import("./module")` to a deferred `require("./module")`
 		features.push("dynamic-import-node");
 	}
+
+	// compiles ES2015+ down to ES5 by automatically determining the
+	// Babel plugins and polyfills you need based on your targeted browser
+	const babelPresetEnv = [
+		"@babel/preset-env",
+		{
+			loose: true,
+			debug: bundle.isDebug,
+			shippedProposals: true,
+			modules: bundle.isForNode ? "commonjs" : false,
+			useBuiltIns: bundle.isForWeb ? "entry" : false,
+			targets: bundle.isForWeb
+				? { browsers: bundle.config.browserslist }
+				: { node: bundle.isDevelopment ? "current" : 8.0 },
+		},
+	];
 
 	const plugins = [...javascript, ...react, ...features];
 	const presets = [babelPresetEnv];

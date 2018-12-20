@@ -1,6 +1,6 @@
 export default bundle => {
 	const font = {
-		// Match woff2 in addition to patterns like .woff?v=1.1.1.
+		// match woff2 in addition to patterns like .woff?v=1.1.1.
 		test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
 		use: {
 			loader: "url-loader",
@@ -12,10 +12,7 @@ export default bundle => {
 				limit: 50000,
 
 				// output fonts path
-				name: "fonts/[name].[hash:8].[ext]",
-
-				// TODO: add URL public path
-				// publicPath: bundle.config.url.pathname,
+				name: "fonts/[name].[ext]",
 			},
 		},
 	};

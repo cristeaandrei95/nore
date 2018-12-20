@@ -5,7 +5,6 @@ import CaseSensitivePaths from "case-sensitive-paths-webpack-plugin";
 export default bundle => {
 	const plugins = [
 		new CaseSensitivePaths(),
-		// TODO: add config constants
 		new DefinePlugin({
 			"process.env.NODE_ENV": JSON.stringify(
 				bundle.isDevelopment ? "development" : "production"
