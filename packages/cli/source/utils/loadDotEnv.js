@@ -1,4 +1,4 @@
-import { readFile } from "@nore/std/fs";
+import { readFile, itExists } from "@nore/std/fs";
 
 export default async function loadEnv(path) {
   const file = `${path}/.env`;
