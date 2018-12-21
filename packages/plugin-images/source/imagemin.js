@@ -15,6 +15,7 @@ const config = {
 		removeTitle: true,
 		removeDimensions: true,
 		removeViewBox: false,
+		convertPathData: false,
 	},
 	// lossless
 	jpegtran: {
@@ -24,7 +25,10 @@ const config = {
 		optimizationLevel: 5,
 	},
 	// lossy
-	mozjpeg: {},
+	mozjpeg: {
+		progressive: true,
+		arithmetic: false,
+	},
 	pngquant: {},
 };
 
