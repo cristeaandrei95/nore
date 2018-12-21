@@ -2,7 +2,6 @@ import { join, isAbsolute } from "@nore/std/path";
 import { isObject } from "@nore/std/assert";
 import merge from "webpack-merge";
 import webpack from "webpack";
-import pino from "pino";
 import Emitter from "./utils/Emitter.js";
 import loadFile from "./utils/loadFile.js";
 import webServer from "./server/web.js";
@@ -37,16 +36,10 @@ export default class Bundle extends Emitter {
 		this.publicPath = publicPath || "/";
 		this.sourcePath = join(path, sourcePath || "source");
 		this.outputPath = join(path, outputPath || `.builds/${this.handle}`);
-		this.cachePath = join(path, cachePath || `${this.outputPath}/cache`);
+		this.cachePath = join(this.outputPath, cachePath || `cache`);
 
 		// webpack config
 		this.webpack = merge(getWebpackConfig(this), options.webpack);
-
-		// set up logger
-		this.log = pino({
-			name: "nore",
-			level: this.isDebug ? "debug" : "info",
-		});
 
 		// setup plugins
 		this.plugins = options.plugins || [];
