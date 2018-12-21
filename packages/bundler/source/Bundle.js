@@ -1,6 +1,6 @@
 import { join, isAbsolute } from "@nore/std/path";
 import { isObject } from "@nore/std/assert";
-import merge from "webpack-merge";
+import webpackMerge from "webpack-merge";
 import webpack from "webpack";
 import Emitter from "./utils/Emitter.js";
 import loadFile from "./utils/loadFile.js";
@@ -39,7 +39,7 @@ export default class Bundle extends Emitter {
 		this.cachePath = join(this.outputPath, cachePath || `cache`);
 
 		// webpack config
-		this.webpack = merge(getWebpackConfig(this), options.webpack);
+		this.webpackConfig = webpackMerge(getWebpackConfig(this), options.webpack);
 
 		// setup plugins
 		this.plugins = options.plugins || [];
@@ -70,8 +70,8 @@ export default class Bundle extends Emitter {
 
 	async compiler() {
 		// load external webpack config
-		const external = await loadExternalWebpackConfig(this, this.webpack);
-		const config = merge(this.webpack, external);
+		const external = await loadExternalWebpackConfig(this, this.webpackConfig);
+		const config = webpackMerge(this.webpackConfig, external);
 		const compiler = webpack(config);
 
 		return compiler;
@@ -87,8 +87,8 @@ export default class Bundle extends Emitter {
 		}
 	}
 
-	setConfig(config) {
-		this.webpack = merge(this.webpack, config);
+	setWebpackConfig(config) {
+		this.webpackConfig = webpackMerge(this.webpackConfig, config);
 	}
 
 	plug(namespace, api) {

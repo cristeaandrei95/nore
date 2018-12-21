@@ -34,5 +34,5 @@ export default options => async bundle => {
 		},
 	});
 
-	bundle.setConfig(await webpackConfig(bundle));
+	bundle.setWebpackConfig(await webpackConfig(bundle));
 };

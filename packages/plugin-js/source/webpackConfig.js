@@ -2,6 +2,7 @@ import LoadablePlugin from "@loadable/webpack-plugin";
 import babel from "./babel.js";
 
 export default async bundle => {
+	const extensions = [".js", ".jsx", ".json"];
 	const plugins = [];
 
 	const rule = {
@@ -13,7 +14,6 @@ export default async bundle => {
 			options: await babel(bundle),
 		},
 	};
-	const extensions = [".js", ".jsx", ".json"];
 
 	if (bundle.isNode) {
 		plugins.push(new LoadablePlugin());
