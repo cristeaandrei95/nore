@@ -13,6 +13,8 @@ export default async bundle => {
 	const options = compiler.options;
 	const server = new Server();
 
+	console.log(`server:web [started] http://localhost:${port}`);
+
 	server.on("request", async (request, response) => {
 		const url = parse(request.url);
 		const file = join(bundle.sourcePath, "static", url.pathname);
@@ -26,8 +28,6 @@ export default async bundle => {
 
 	server.listen(port++);
 
-	bundle.log.info(`server:web [started] http://localhost:${port}`);
-
 	const hmr = WebpackHMR(compiler, {
 		server,
 		stats: { context: options.context },
@@ -36,7 +36,7 @@ export default async bundle => {
 	});
 
 	hmr.server.on("listening", () => {
-		bundle.log.info(`server:web [HMR] listening...`);
+		console.log(`server:web [HMR] listening...`);
 	});
 
 	const devMiddleware = WebpackDevMiddleware(compiler, {
@@ -59,7 +59,7 @@ export default async bundle => {
 
 	// watch variables for changes
 	bundle.on("variables", async variables => {
-		bundle.log.info(`watch:variables [change] "${event.path}"`);
+		console.log(`watch:variables [change] "${event.path}"`);
 
 		// rebundle the code
 		devMiddleware.invalidate();
