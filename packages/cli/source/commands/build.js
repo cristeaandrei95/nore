@@ -1,40 +1,30 @@
 import { deleteDirectory } from "@nore/std/fs";
-import Nore from "../Nore";
-import plugins from "../plugins";
+import { Bundle } from "@nore/bundler";
+import loadConfigs from "~/utils/loadConfigs.js";
 
-export default async cli => {
-	const nore = new Nore({
-		...cli,
-		plugins,
-		mode: cli.mode || "production",
-		handles: cli._.slice(1),
-	});
+export default async ({ args }) => {
+	const options = {
+		path: args["--path"],
+		mode: args["--mode"],
+		isDebug: args["--debug"],
+		handles: args._.slice(1),
+	};
 
-	// setup plugins and load bundles
-	await nore.initialize();
+	const configs = await loadConfigs(options);
 
-	// compile bundles and watch for changes
-	for (const bundle of nore.bundles) {
-		// delete the brevious build
+	for (const config of configs) {
+		const bundle = new Bundle(config);
+
+		await bundle.initialize();
 		await deleteDirectory(bundle.outputPath);
 
-		if (bundle.isForWeb) {
-			nore.log.info("nore:build", `bundle: ${bundle.handle} – compile started`);
+		const compiler = await bundle.compiler();
 
-			const compiler = await bundle.compiler();
-
-			compiler.run((error, stats) => {
-				if (error) return console.error(error);
-
-				if (stats.errors) {
-					nore.log.info(stats.errors);
-				} else {
-					nore.log.info(
-						"nore:build",
-						`bundle: ${bundle.handle} – compile finished`
-					);
-				}
-			});
-		}
+		console.log(compiler.options);
+		// compiler.run((error, stats) => {
+		// 	if (!error || !stats.compilation.errors.length) {
+		// 		console.log(`Bundle "${bundle.handle}" was compiled.`);
+		// 	}
+		// });
 	}
 };

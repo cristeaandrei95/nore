@@ -6,6 +6,7 @@ export default async ({ args }) => {
 		path: args["--path"],
 		mode: args["--mode"],
 		isDebug: args["--debug"],
+		handles: args._.slice(1),
 	};
 
 	const configs = await loadConfigs(options);

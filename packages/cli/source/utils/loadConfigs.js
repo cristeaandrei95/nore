@@ -16,16 +16,13 @@ function getHandle(file) {
 		.shift();
 }
 
-export default async ({ path, mode, isDebug }) => {
+export default async ({ path, mode, isDebug, handles }) => {
 	const files = await getConfigFiles(path, mode);
 	const configs = [];
 
 	for (const file of files) {
 		const module = await loadFile(file);
 		const config = module.default;
-
-		// ignore bundle from loading
-		if (config.ignore) continue;
 
 		config.path = path;
 		config.mode = mode;
@@ -34,6 +31,10 @@ export default async ({ path, mode, isDebug }) => {
 		if (!config.handle) {
 			config.handle = getHandle(file);
 		}
+
+		// ignore bundle from loading
+		if (config.ignore) continue;
+		if (handles.length && !handles.includes(config.handle)) continue;
 
 		configs.push(config);
 	}
