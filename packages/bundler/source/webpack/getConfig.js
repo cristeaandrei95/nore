@@ -33,7 +33,6 @@ export default bundle => {
 	config.resolve = {
 		mainFields: ["source", "module", "main"],
 		mainFiles: ["index", "main"],
-		extensions: [".js"],
 		modules: [bundle.sourcePath, `${bundle.path}/node_modules`],
 		alias: {
 			"~": bundle.sourcePath,

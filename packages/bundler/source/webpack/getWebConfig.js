@@ -13,8 +13,8 @@ export default bundle => {
 		setImmediate: false,
 	};
 
-	// resolve imports using the `browser` field from package.json
-	config.resolve = { mainFields: ["browser"] };
+	// resolve imports using the "browser" and "style" fields from package.json
+	config.resolve = { mainFields: ["browser", "style"] };
 
 	config.optimization = {
 		runtimeChunk: {

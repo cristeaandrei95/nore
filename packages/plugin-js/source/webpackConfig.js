@@ -3,9 +3,12 @@ import LoadableWebpack from "@loadable/webpack-plugin";
 import babel from "./babel.js";
 
 export default async bundle => {
-	const extensions = [".js", ".jsx", ".json"];
 	const optimization = {};
 	const plugins = [];
+
+	const resolve = {
+		extensions: [".js", ".jsx", ".json"],
+	};
 
 	const rule = {
 		test: /\.jsx?$/,
@@ -52,8 +55,8 @@ export default async bundle => {
 
 	return {
 		plugins,
+		resolve,
 		optimization,
 		module: { rules: [rule] },
-		resolve: { extensions },
 	};
 };

@@ -1,6 +1,9 @@
 import { VirtualModule } from "@nore/webpack";
 import getNodeExternals from "webpack-node-externals";
+import webpack from "webpack";
 import nodeGlobalHelpers from "./nodeGlobalHelpers.js";
+
+const { LimitChunkCountPlugin } = webpack.optimize;
 
 export default bundle => ({
 	output: { filename: "index.js" },
@@ -24,6 +27,7 @@ export default bundle => ({
 			name: "@nore/node.js",
 			source: nodeGlobalHelpers,
 		}),
+		new LimitChunkCountPlugin({ maxChunks: 1 }),
 	],
 
 	// turn off performance hints on node builds
