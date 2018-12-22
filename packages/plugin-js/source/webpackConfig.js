@@ -4,7 +4,7 @@ import babel from "./babel.js";
 
 export default async bundle => {
 	const extensions = [".js", ".jsx", ".json"];
-	cont optimization = {};
+	const optimization = {};
 	const plugins = [];
 
 	const rule = {
