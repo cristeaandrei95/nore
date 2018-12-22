@@ -1,10 +1,12 @@
 import { merge } from "@nore/std";
 import CSSExtract from "extract-css-chunks-webpack-plugin";
-import OptimizeCSS from "optimize-css-assets-webpack-plugin";
+import OptimizeCSSAssets from "optimize-css-assets-webpack-plugin";
 import getLocalIdent from "./getLocalIdent.js";
 import getPostCSSOptions from "./postcss";
 
 async function getLoaders({ bundle, useModules }) {
+	const classesHelperLoader = `${__dirname}/classesLoader.js`;
+
 	const cssLoader = {
 		loader: "css-loader",
 		options: {
@@ -22,36 +24,42 @@ async function getLoaders({ bundle, useModules }) {
 		options: await getPostCSSOptions(bundle),
 	};
 
-	return [
-		`${__dirname}/classesLoader.js`,
-		CSSExtract.loader,
-		cssLoader,
-		postcssLoader,
-	];
+	if (useModules) {
+		if (bundle.isForNode) {
+			return [classesHelperLoader, cssLoader, postcssLoader];
+		}
+
+		return [classesHelperLoader, CSSExtract.loader, cssLoader, postcssLoader];
+	}
+
+	return [cssLoader, postcssLoader];
 }
 
 export default async bundle => {
-	const { isDevelopment, isForWeb } = bundle;
+	const plugins = [];
 
-	const plugins = [
-		new CSSExtract({
-			cssModules: true,
-			orderWarning: bundle.isDevelopment,
-			hot: bundle.isDevelopment,
-			reloadAll: bundle.isDevelopment,
-			filename: "[name].[contenthash].css",
-			chunkFilename: "[name].[contenthash].css",
-		}),
-	];
-
-	if (isForWeb && !isDevelopment) {
+	if (bundle.isForWeb) {
 		plugins.push(
-			new OptimizeCSS({
-				cssProcessorOptions: {
-					discardComments: { removeAll: true },
-				},
+			new CSSExtract({
+				cssModules: true,
+				hot: bundle.isDevelopment,
+				reloadAll: bundle.isDevelopment,
+				orderWarning: bundle.isDevelopment,
+				filename: "[name].css",
+				chunkFilename: "[id].css",
 			})
 		);
+		if (bundle.isDevelopment) {
+			plugins.push(
+				new OptimizeCSSAssets({
+					cssProcessorOptions: {
+						map: { inline: false, annotation: true },
+						safe: true,
+						discardComments: true,
+					},
+				})
+			);
+		}
 	}
 
 	// allow to load CSS Modules: `import style from "./style.css"`
@@ -72,6 +80,8 @@ export default async bundle => {
 		plugins,
 		module: { rules: [cssRule] },
 		resolve: {
+			mainFields: ["style"],
+			mainFiles: ["style"],
 			extensions: [".css"],
 		},
 	};

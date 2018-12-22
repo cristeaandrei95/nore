@@ -1,21 +1,14 @@
-import util from "loader-utils";
+export default (content, map, meta) => `
+	${content.replace("module.exports", "var css")}
+	var classes = require("${__dirname}/classes.js");
 
-// automatically bind CSS modules to classes utility
-export function pitch(request) {
-	const cssImport = util.stringifyRequest(this, "!!" + request);
+	function filter (a, b, c, d, e, f, g, h, i, j) {
+		return classes(css, a, b, c, d, e, f, g, h, i, j);
+	}
 
-	return `
-		import classes from "${__dirname}/classes.js"
-		import css from ${cssImport}
+	for (var key in css) {
+		filter[key] = " " + css[key];
+	}
 
-		function filter (a, b, c, d, e, f, g, h, i, j) {
-			return classes(css, a, b, c, d, e, f, g, h, i, j)
-		}
-
-		for (var key in css) {
-			filter[key] = " " + css[key]
-		}
-
-		export default filter
-	`;
-}
+	module.exports = filter;
+`;
