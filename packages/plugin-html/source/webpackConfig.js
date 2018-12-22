@@ -1,7 +1,7 @@
 import HTMLPlugin from "html-webpack-plugin";
 import InlineWebpackRuntime from "./InlineWebpackRuntime.js";
 
-export default bundle => {
+export default async bundle => {
 	const plugins = [
 		new HTMLPlugin({
 			config: bundle.config,

@@ -1,7 +1,7 @@
 import webpackConfig from "./webpackConfig.js";
 import { variables } from "./postcss";
 
-export default options => async bundle => {
+export default async bundle => {
 	bundle.setWebpackConfig(await webpackConfig(bundle));
 
 	bundle.on("variables", data => {

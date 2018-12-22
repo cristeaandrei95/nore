@@ -1,7 +1,7 @@
 import svgLoaders from "./svgLoaders.js";
 import pngJpgGifLoaders from "./pngJpgGifLoaders.js";
 
-export default bundle => {
+export default async bundle => {
 	const loosyOrLossless = type => {
 		const loaders = type == "svg" ? svgLoaders : pngJpgGifLoaders;
 

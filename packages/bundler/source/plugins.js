@@ -9,14 +9,4 @@ import images from "@nore/plugin-images";
 import fonts from "@nore/plugin-fonts";
 
 // order is important, don't change
-export default {
-	variables,
-	html,
-	md,
-	toml,
-	yaml,
-	css,
-	js,
-	images,
-	fonts,
-};
+export default [js, css, md, toml, yaml, html, images, fonts, variables];

@@ -3,7 +3,7 @@ import webpackConfig from "./webpackConfig.js";
 import watcher from "./watcher.js";
 import format from "./format.js";
 
-export default options => async bundle => {
+export default async bundle => {
 	bundle.plug("variables", {
 		path: `${bundle.path}/variables`,
 

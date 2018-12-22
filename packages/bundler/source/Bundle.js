@@ -41,15 +41,8 @@ export default class Bundle extends Emitter {
 		// webpack config
 		this.webpackConfig = webpackMerge(getWebpackConfig(this), options.webpack);
 
-		// setup plugins
-		this.plugins = options.plugins || [];
-
-		for (const name in plugins) {
-			const plugin = plugins[name];
-			const settings = options[name] || {};
-
-			this.plugins.unshift(plugin(settings));
-		}
+		// set up plugins
+		this.plugins = plugins.concat(options.plugins || []);
 	}
 
 	async initialize() {

@@ -1,4 +1,4 @@
-export default bundle => {
+export default async bundle => {
 	const rule = {
 		test: /\.(graphql|gql)$/,
 		exclude: /node_modules/,

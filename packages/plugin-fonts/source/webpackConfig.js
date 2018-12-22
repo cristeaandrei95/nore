@@ -1,4 +1,4 @@
-export default bundle => {
+export default async bundle => {
 	const font = {
 		// match woff2 in addition to patterns like .woff?v=1.1.1.
 		test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,

@@ -1,5 +1,5 @@
 import webpackConfig from "./webpackConfig.js";
 
-export default options => async bundle => {
-	bundle.setWebpackConfig(webpackConfig(bundle));
+export default async bundle => {
+	bundle.setWebpackConfig(await webpackConfig(bundle));
 };
