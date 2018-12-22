@@ -12,7 +12,8 @@
 
 	"dependencies": {
 		"@nore/std": "^1.0.0",
-		"thread-loader": "^1.2.0",
+		"thread-loader": "^2.1.1",
+		"terser-webpack-plugin": "^1.1.0",
 		"babel-loader": "^8.0.4",
 		"babel-plugin-macros": "^2.4.3",
 		"babel-plugin-console": "^0.2.1",
@@ -22,8 +23,8 @@
 		"babel-plugin-dynamic-import-node": "^2.2.0",
 		"babel-plugin-transform-async-to-promises": "^0.8.4",
 		"@babel/core": "^7.2.2",
-		"@babel/preset-env": "^7.2.0",
-		"@babel/plugin-proposal-class-properties": "^7.2.1",
+		"@babel/preset-env": "^7.2.3",
+		"@babel/plugin-proposal-class-properties": "^7.2.3",
 		"@babel/plugin-proposal-object-rest-spread": "^7.2.0",
 		"@babel/plugin-syntax-dynamic-import": "^7.2.0",
 		"@babel/plugin-syntax-jsx": "^7.2.0",
@@ -35,7 +36,6 @@
 		"@loadable/babel-plugin": "^5.2.2",
 		"@loadable/webpack-plugin": "^5.2.2",
 		"core-js": "^2.6.0",
-		"preval.macro": "^3.0.0",
-		"terser-webpack-plugin": "^1.1.0"
+		"preval.macro": "^3.0.0"
 	}
 }

@@ -1,18 +1,5 @@
-import TerserWebpack from "terser-webpack-plugin";
-
 export default bundle => {
 	const config = {};
-
-	config.optimization = {
-		runtimeChunk: {
-			name: "webpack_runtime",
-		},
-		// TODO: https://webpack.js.org/plugins/split-chunks-plugin/#optimization-splitchunks
-		splitChunks: {
-			chunks: "all",
-			name: false,
-		},
-	};
 
 	// prevent webpack from injecting mocks to Node native modules
 	// that does not make sense for the client
@@ -29,8 +16,25 @@ export default bundle => {
 	// resolve imports using the `browser` field from package.json
 	config.resolve = { mainFields: ["browser"] };
 
+	config.optimization = {
+		runtimeChunk: {
+			name: "webpack_runtime",
+		},
+		splitChunks: {
+			chunks: "all",
+			name: false,
+		},
+	};
+
 	if (!bundle.isDevelopment) {
 		config.optimization.splitChunks = {
+			chunks: "async",
+			minSize: 30000,
+			minChunks: 1,
+			maxAsyncRequests: 5,
+			maxInitialRequests: 3,
+			automaticNameDelimiter: "~",
+			name: true,
 			cacheGroups: {
 				vendors: {
 					name: `chunk-vendors`,
@@ -47,29 +51,6 @@ export default bundle => {
 				},
 			},
 		};
-
-		config.optimization.minimizer = [
-			new TerserWebpack({
-				cache: bundle.cachePath,
-				sourceMap: true,
-				parallel: true,
-				terserOptions: {
-					parse: { ecma: 8 },
-					compress: {
-						ecma: 5,
-						warnings: false,
-						comparisons: false,
-					},
-					mangle: { safari10: true },
-					output: {
-						ecma: 5,
-						comments: false,
-						// turned on because emoji and regex is not minified properly
-						ascii_only: true,
-					},
-				},
-			}),
-		];
 	}
 
 	return config;
