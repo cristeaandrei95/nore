@@ -20,13 +20,13 @@ export default class Bundle extends Emitter {
 
 		this.config = options;
 		this.handle = options.handle;
-		this.type = options.type || "web";
+		this.target = options.target || "web";
 		this.mode = options.mode || "development";
 
 		// set flags
 		this.isDebug = options.isDebug || false;
-		this.isForWeb = this.type === "web";
-		this.isForNode = this.type === "node";
+		this.isForWeb = this.target === "web";
+		this.isForNode = this.target === "node";
 		this.isDevelopment = this.mode === "development";
 
 		// set paths
