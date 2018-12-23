@@ -20,11 +20,12 @@ export default async ({ args }) => {
 
 		const compiler = await bundle.compiler();
 
-		console.log(compiler.options);
-		// compiler.run((error, stats) => {
-		// 	if (!error || !stats.compilation.errors.length) {
-		// 		console.log(`Bundle "${bundle.handle}" was compiled.`);
-		// 	}
-		// });
+		compiler.run((error, stats) => {
+			if (error || stats.compilation.errors.length) {
+				console.log(error || stats.compilation.errors.length);
+			} else {
+				console.log(`Bundle "${bundle.handle}" was compiled.`);
+			}
+		});
 	}
 };
