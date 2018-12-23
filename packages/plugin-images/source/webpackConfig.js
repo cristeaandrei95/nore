@@ -1,32 +1,29 @@
+import getImageminOptions from "./getImageminOptions.js";
 import svgLoaders from "./svgLoaders.js";
 import pngJpgGifLoaders from "./pngJpgGifLoaders.js";
 
 export default async bundle => {
-	const loosyOrLossless = type => {
-		const loaders = type == "svg" ? svgLoaders : pngJpgGifLoaders;
+	const imageminOptions = await getImageminOptions(bundle);
 
-		const tests = {
-			"jpg|png|gif": /\.(jpe?g|png|gif)$/,
-			svg: /\.svg$/,
-		};
+	const imagesRule = {
+		test: /\.(jpe?g|png|gif)$/,
+		oneOf: [
+			{
+				resourceQuery: /lossy/,
+				use: pngJpgGifLoaders({ bundle, imageminOptions, isLossy: true }),
+			},
+			{
+				use: pngJpgGifLoaders({ bundle, imageminOptions, isLossy: false }),
+			},
+		],
+	};
 
-		return {
-			test: tests[type],
-			oneOf: [
-				{
-					resourceQuery: /lossy/,
-					use: loaders({ bundle, isLossy: true }),
-				},
-				{
-					use: loaders({ bundle, isLossy: false }),
-				},
-			],
-		};
+	const svgRule = {
+		test: /\.svg$/,
+		use: svgLoaders({ bundle, imageminOptions }),
 	};
 
 	return {
-		module: {
-			rules: [loosyOrLossless("svg"), loosyOrLossless("jpg|png|gif")],
-		},
+		module: { rules: [svgRule, imagesRule] },
 	};
 };

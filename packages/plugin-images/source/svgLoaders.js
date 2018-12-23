@@ -1,6 +1,7 @@
-import imagemin from "./imagemin.js";
+import ImageminPlugin from "imagemin-webpack";
+import svgo from "imagemin-svgo";
 
-export default ({ bundle, isLossless }) => {
+export default ({ bundle, imageminOptions }) => {
 	const loaders = [
 		{
 			loader: "url-loader",
@@ -16,7 +17,16 @@ export default ({ bundle, isLossless }) => {
 	];
 
 	if (bundle.isForWeb && !bundle.isDevelopment) {
-		loaders.push(imagemin(bundle, isLossless));
+		loaders.push({
+			loader: ImageminPlugin.loader,
+			options: {
+				bail: false,
+				cache: bundle.cachePath,
+				imageminOptions: {
+					plugins: [svgo(imageminOptions.svgo)],
+				},
+			},
+		});
 	}
 
 	return loaders;

@@ -1,6 +1,11 @@
-import imagemin from "./imagemin.js";
+import ImageminPlugin from "imagemin-webpack";
+import gifsicle from "imagemin-gifsicle";
+import mozjpeg from "imagemin-mozjpeg";
+import jpegtran from "imagemin-jpegtran";
+import optipng from "imagemin-optipng";
+import pngquant from "imagemin-pngquant";
 
-export default ({ bundle, isLossless }) => {
+export default ({ bundle, imageminOptions, isLossy }) => {
 	const loaders = [
 		{
 			loader: "url-loader",
@@ -15,9 +20,29 @@ export default ({ bundle, isLossless }) => {
 	];
 
 	if (bundle.isForWeb && !bundle.isDevelopment) {
-		loaders.push(imagemin(bundle, isLossless));
+		const plugins = [gifsicle(imageminOptions.gifsicle)];
+
+		if (isLossy) {
+			plugins.push(
+				mozjpeg(imageminOptions.mozjpeg),
+				pngquant(imageminOptions.pngquant)
+			);
+		} else {
+			plugins.push(
+				jpegtran(imageminOptions.jpegtran),
+				optipng(imageminOptions.optipng)
+			);
+		}
+
+		loaders.push({
+			loader: ImageminPlugin.loader,
+			options: {
+				bail: false,
+				cache: bundle.cachePath,
+				imageminOptions: { plugins },
+			},
+		});
 	}
 
 	return loaders;
 };
-
