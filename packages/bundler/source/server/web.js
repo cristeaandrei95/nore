@@ -32,7 +32,7 @@ export default async bundle => {
 		server,
 		stats: { context: options.context },
 		reload: bundle.isDebug ? false : true,
-		logLevel: bundle.isDebug ? "warn" : "info",
+		logLevel: bundle.isDebug ? "info" : "warn",
 	});
 
 	hmr.server.on("listening", () => {
@@ -42,8 +42,8 @@ export default async bundle => {
 	const devMiddleware = WebpackDevMiddleware(compiler, {
 		publicPath: options.output.publicPath,
 		stats: { context: options.context },
-		logLevel: bundle.isDebug ? "warn" : "silent",
-		writeToDisk: true,
+		logLevel: bundle.isDebug ? "info" : "warn",
+		writeToDisk: false,
 	});
 
 	function handleDevMiddleware(request, response) {
