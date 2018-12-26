@@ -30,13 +30,14 @@ export default class Bundle extends Emitter {
 		this.isDevelopment = this.mode === "development";
 
 		// set paths
-		const { path, sourcePath, outputPath, cachePath, publicPath } = options;
+		const { path, sourcePath, outputPath, cachePath, publicPath, configPath } = options;
 
 		this.path = path || process.cwd();
 		this.publicPath = publicPath || "/";
 		this.sourcePath = join(path, sourcePath || "source");
 		this.outputPath = join(path, outputPath || `.builds/${this.handle}`);
 		this.cachePath = join(this.outputPath, cachePath || `cache`);
+		this.configPath = join(path, configPath || "config");
 
 		// webpack config
 		this.webpackConfig = webpackMerge(getWebpackConfig(this), options.webpack);
